@@ -1,0 +1,14 @@
+\begin{frame}
+\frametitle{Background...}
+
+\begin{itemize}
+    \item \textbf{Domain-Shift Localization (\textbf{DSL})} - A method to diagnose performance drops in \textbf{CNN}-based visual place classifiers when environmental conditions change (e.g., lighting, weather). Identifies which geographic regions are affected rather than retraining the entire model.
+
+    \item \textbf{Multi-Query Diagnostic Strategy} - Multiple image queries with different masked regions are submitted to the classifier to isolate which parts of the visual input cause degraded performance.
+
+    % \item \textbf{Image Masking} - Specific regions of a query image are occluded to test whether removing that region affects retrieval rank, helping pinpoint problematic visual areas.
+
+    % \item \textbf{RRF} - A rank aggregation method that combines result lists from multiple queries. Each document is scored as $\sum 1/(k + \text{rank})$ across lists, where $k$ is a constant. Results consistently ranked highly across queries receive higher final scores.
+\end{itemize}
+
+\end{frame}

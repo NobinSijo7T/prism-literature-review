@@ -1,0 +1,49 @@
+\section{Evaluation Metrics}
+
+\begin{frame}
+\frametitle{Evaluation Metrics}
+
+\small
+
+\textbf{1. Token-Level Metrics (SQuAD-style)}
+\begin{itemize}
+    \item Measures word overlap between generated and reference answers
+    \item \textbf{Precision:} $\frac{\text{Common Tokens}}{\text{Generated Tokens}}$
+    \item \textbf{Recall:} $\frac{\text{Common Tokens}}{\text{Reference Tokens}}$
+    \item \textbf{F1 Score:} $2 \times \frac{P \cdot R}{P + R}$
+\end{itemize}
+
+\vspace{0.3cm}
+
+\textbf{2. Semantic Similarity}
+\begin{itemize}
+    \item Uses sentence embeddings (MiniLM) + cosine similarity
+    \item Captures meaning even if wording differs
+    \item \textbf{Formula:}
+    \[
+    \text{CosSim} = \frac{A \cdot B}{\|A\|\|B\|}
+    \]
+\end{itemize}
+
+\vspace{0.3cm}
+
+\textbf{3. \textbf{LLM}-Based Multi-Dimensional Scoring}
+\begin{itemize}
+    \item Evaluates answer quality without ground truth
+    \item \textbf{Faithfulness} (no hallucination), \textbf{Relevance}, \textbf{Completeness}
+    \item Scores (0–10) normalized to [0,1]
+    \item \textbf{Composite:}
+    \[
+    \text{Score} = \frac{F + R + C}{3}
+    \]
+\end{itemize}
+
+\vspace{0.3cm}
+
+\textbf{Overall Score}
+\[
+\text{Overall} = \text{Average of all available metrics}
+\]
+
+\vspace{0.3cm}
+\end{frame}

@@ -1,0 +1,1132 @@
+% Fixed-coordinate diagrams use separate lanes so arrows do not collide.
+\hbadness=10000
+\vbadness=10000
+\hfuzz=2pt
+\vfuzz=2pt
+\begin{frame}[plain]
+\begin{tikzpicture}[remember picture,overlay]
+  \node[rounded corners=4pt,fill=blue!65!black,drop shadow={shadow xshift=2pt,shadow yshift=-2pt,opacity=.45},minimum width=15.25cm,minimum height=1.05cm] at ([yshift=-.95cm]current page.north) {};
+  \node[text=white,font=\fontsize{25}{28}\selectfont] at ([yshift=-.95cm]current page.north) {PRISMSPACE};
+  \fill[prismNavy] (current page.south west) rectangle ([yshift=.45cm]current page.south east);
+  \fill[blue!65!black] ([xshift=5.33cm]current page.south west) rectangle ([xshift=10.66cm,yshift=.45cm]current page.south west);
+  \node[anchor=center,text=white,font=\scriptsize] at ([xshift=2.66cm,yshift=.22cm]current page.south west) {Group 01 (CEK)};
+  \node[anchor=center,text=white,font=\scriptsize] at ([xshift=8cm,yshift=.22cm]current page.south west) {BTech Project};
+  \node[anchor=center,text=white,font=\scriptsize] at ([xshift=13.2cm,yshift=.22cm]current page.south west) {September 3, 2026\hspace{1.3cm}1 / \inserttotalframenumber};
+  \node[font=\Large\bfseries] at ([yshift=7.20cm]current page.south) {Project Group 01};
+  \node[font=\normalsize] at ([yshift=5.90cm]current page.south) {\begin{tabular}{r@{\quad}l}\textbf{NOBIN SIJO} & \textbf{(KNP23CS082)} \\ \textbf{PRANAV P} & \textbf{(KNP23CS085)} \\ \textbf{PRASANTH P} & \textbf{(KNP23CS086)} \\ \textbf{SANKAR NARAYAN S} & \textbf{(KNP23CS094)}\end{tabular}};
+  \node[font=\normalsize,align=center] at ([yshift=4.00cm]current page.south) {Under the Guidance of\\[.08cm]Dr. Leena Silvoster M\\ Professor\\College of Engineering, Karunagappally};
+  \node at ([yshift=2.25cm]current page.south) {\includegraphics[height=0.95cm]{cek-logo.png}};
+  \node[font=\small,align=center] at ([yshift=1.05cm]current page.south) {Dept. of Computer Science \& Engineering\\College of Engineering, Karunagappally};
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Presentation roadmap}\tableofcontents\end{frame}
+
+\section{Introduction}
+
+\begin{frame}{Introduction}
+\vspace{0.25cm}
+\begin{block}{Overview}
+\normalsize
+While modern development tasks span code, browsers, databases, and \textbf{APIs} (Application Programming Interfaces), uncoordinated multi-agent workflows suffer from context fragmentation, runaway loops, and tool hallucinations. To address these challenges, PrismSpace introduces a unified developer workspace featuring \textbf{multi-agent orchestration}, sandboxed \textbf{MCP} (Model Context Protocol) tool execution with strict \textbf{ReAct} (Reasoning and Acting) loops, \textbf{HITL} (Human-in-the-Loop) safety, and \textbf{ORPO} (Odds Ratio Preference Optimization) preference alignment.
+\end{block}
+\end{frame}
+
+\section{Objectives}
+
+\begin{frame}{Objectives}
+\vspace{0.25cm}
+\begin{block}{Core Objectives}
+\normalsize
+The primary objective is to enable structured task execution through \textbf{DAG} (Directed Acyclic Graph)-based task decomposition, \textbf{MCP} (Model Context Protocol)-enabled multi-agent \textbf{ReAct} (Reasoning and Acting) orchestration, and \textbf{ORPO} (Odds Ratio Preference Optimization) preference optimization. Additionally, the system ensures reliable and cost-effective operation by incorporating supervised \textbf{LLM} (Large Language Model) routing alongside Isolation Forest anomaly detection and human-in-the-loop validation.
+\end{block}
+\end{frame}
+
+\section{Problem statement}
+
+\begin{frame}{Problem Statement}
+\vspace{0.25cm}
+\begin{block}{Problem Formulation}
+\normalsize
+Because ungrounded \textbf{LLM} (Large Language Model) agents risk hallucinating tool results and executing unsafe actions, the system takes developer task prompts, workspace states, and \textbf{MCP} (Model Context Protocol)/\textbf{HITL} (Human-in-the-Loop) configurations as its primary \textbf{inputs}. Through an orchestration \textbf{method} integrating sandboxed \textbf{MCP} \textbf{ReAct} (Reasoning and Acting) loops, \textbf{ORPO} (Odds Ratio Preference Optimization), supervised \textbf{LLM} routing, and Isolation Forest anomaly detection with \textbf{HITL} oversight, it converts these tasks into dependable \textbf{outputs} consisting of verified artifacts, \textbf{ReAct} execution traces, and cost telemetry.
+\end{block}
+\end{frame}
+
+\section{Literature review}
+
+\begin{frame}[t]{Multi-Objective Reward Generalization in Deep Reinforcement Learning}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{F. Cornalba, C. Disselkamp, D. Scassola, and C. Helf}\newline\vspace{0.2em}
+\textit{Neural Computing and Applications}\newline\vspace{0.2em}
+\textbf{Year:} 2024\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Investigates \textbf{Multi-Objective Deep Reinforcement Learning (\textbf{MODRL})} for optimizing competing operational objectives (e.g., return vs. risk). Introduces reward generalization techniques that train pareto-optimal policies capable of dynamically adapting to shifting stakeholder preferences without retraining from scratch.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em\topsep0.1em
+\item Provides structured Pareto-optimal policy exploration across conflicting objectives.
+\item Generalizes across parameterized reward weights without full policy retraining.
+\item Directly informs multi-objective routing (latency vs. cost vs. quality) in PrismSpace.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em\topsep0.1em
+\item High initial training sample complexity across multi-dimensional reward spaces.
+\item Evaluated primarily on continuous financial time-series data.
+\item Sensitive to hyperparameter tuning in policy entropy regularization.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Average Reward Adjusted Discounted Reinforcement Learning}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{M. Schneckenreither and G. Moser}\newline\vspace{0.2em}
+\textit{Neural Computing and Applications}\newline\vspace{0.2em}
+\textbf{Year:} 2025\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Proposes \textbf{Average-Reward Adjusted Discounted \textbf{RL} (Reinforcement Learning) (ARAD-\textbf{RL})}, bridging the gap between discounted and average reward criteria in infinite-horizon \textbf{MDPs} (Markov Decision Processes). Addresses systematic value estimation bias in standard discounted Q-learning by dynamically subtracting the estimated gain rate during Bellman updates.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Eliminates infinite-horizon return explosion while preserving policy convergence.
+\item Improves long-term steady-state throughput in continuous scheduling tasks.
+\item Theoretically sound formulation for continuous agent lifecycle optimization.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Requires accurate empirical estimation of average reward baseline.
+\item Slow convergence in highly non-stationary transition environments.
+\item Adds variance to early-stage \textbf{TD} (Temporal Difference) error gradient estimates.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Deep Reinforcement Learning for Multi-Agent Coordination}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{K. Aina and S. Ha}\newline\vspace{0.2em}
+\textit{Artificial Life and Robotics}\newline\vspace{0.2em}
+\textbf{Year:} 2026\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Develops decentralized \textbf{MARL} (Multi-Agent Reinforcement Learning) algorithms for multi-agent coordination in constrained environments. Employs \textbf{spatial-temporal observation encoding} and localized interaction graphs to coordinate joint movements and resolve deadlocks without requiring centralized global state knowledge.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Resolves shared-resource contention and deadlocks via decentralized policies.
+\item Spatial-temporal graph attention scales linearly with agent density.
+\item Applicable to concurrent tool-use contention across worker agents.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Tested in physical robotics grids rather than software \textbf{API} (Application Programming Interface) environments.
+\item Vulnerable to communication packet dropouts and sensor latency.
+\item Does not account for semantic language-based coordination.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Open-Ended Coordination Using Modular Open Policies}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{D. Rother, J. Pajarinen, J. Peters, and T. H. Weisswange}\newline\vspace{0.2em}
+\textit{Autonomous Agents and Multi-Agent Systems}\newline\vspace{0.2em}
+\textbf{Year:} 2025\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Presents a framework for \textbf{open-ended ad hoc multi-agent coordination}. Utilizes \textbf{Modular Open Policies (\textbf{MOP})} where dynamic agent teams dynamically infer unseen teammate skill representations and synthesize blended coordination strategies without requiring pre-coordinated joint training.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Enables zero-shot ad hoc coordination with unfamiliar teammate agent policies.
+\item Modular policy decomposition allows plug-and-play agent role assignment.
+\item Directly adopted in PrismSpace for dynamic worker swarm scaling.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Requires comprehensive pre-trained skill policy libraries for base roles.
+\item Evaluated primarily on benchmark games (Overcooked, \textbf{LBF} (Level-Based Foraging)).
+\item Action blending may introduce transient sub-optimal execution steps.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Improving Scalability of \textbf{MADRL} (Multi-Agent Deep Reinforcement Learning) with Suboptimal Human Knowledge}
+\vspace{-0.08cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{D. Liu, F. Ren, J. Yan, G. Su, W. Gu, and S. Kato}\newline\vspace{0.2em}
+\textit{Autonomous Agents and Multi-Agent Systems}\newline\vspace{0.2em}
+\textbf{Year:} 2026\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Addresses sample inefficiency in large-scale \textbf{Multi-Agent DRL} (Deep Reinforcement Learning) by integrating heuristic human guidance into exploration. Proposes an adaptive filtering mechanism that extracts actionable macro-actions from noisy or suboptimal human demonstration traces, accelerating multi-agent policy learning.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Accelerates policy exploration by up to 4x using noisy demonstration priors.
+\item Robust to suboptimal or conflicting human heuristic rules.
+\item Informs PrismSpace's bootstrap initialization from logged developer sessions.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Quality of learned policies depends on initial heuristic coverage.
+\item Requires complex threshold tuning to transition away from demonstrations.
+\item High memory footprint for maintaining dual replay buffers.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{$\varepsilon$-Retraining Reinforcement Learning Algorithms}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{L. Marzari, C. Liu, P. L. Donti, and E. Marchesini}\newline\vspace{0.2em}
+\textit{Autonomous Agents and Multi-Agent Systems}\newline\vspace{0.2em}
+\textbf{Year:} 2026\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Investigates bounded policy fine-tuning through \textbf{$\varepsilon$-retraining}, preventing catastrophic forgetting when deep \textbf{RL} agents adapt to non-stationary environments. Establishes formal Lipschitz bounds on policy drift, ensuring safe continual learning in deployed agent pipelines.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Provides mathematical guarantees against catastrophic policy divergence.
+\item Enables continuous telemetry-driven model fine-tuning in production.
+\item Crucial for stability in PrismSpace's ongoing user interaction learning.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Constrained optimization increases computation per gradient step.
+\item Conservative update bounds may slow adaptation to drastic distribution shifts.
+\item Theoretical guarantees rely on local smoothness assumptions.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Deep Multiagent Reinforcement Learning: Challenges and Directions}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{A. Wong, T. B\"ack, A. V. Kononova, and A. Plaat}\newline\vspace{0.2em}
+\textit{Artificial Intelligence Review}\newline\vspace{0.2em}
+\textbf{Year:} 2023\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Surveys \textbf{Deep Multiagent Reinforcement Learning (\textbf{MARL})}, formalizing foundational challenges including non-stationarity, multi-agent credit assignment, and combinatorial action explosion. Evaluates \textbf{Centralized Training with Decentralized Execution (\textbf{CTDE})} and communication architectures for modular orchestration.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Comprehensive taxonomy of credit assignment and \textbf{CTDE} paradigms.
+\item Establishes formal theoretical criteria for communication protocols.
+\item Provides the theoretical foundation for PrismSpace's modular agent architecture.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Survey paper without empirical experimental evaluation.
+\item Focuses on discrete game simulations rather than \textbf{API}-driven software tasks.
+\item Does not cover \textbf{LLM} reasoning agents or human-in-the-loop approval gates.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{\textbf{HIAT} (Human-in-the-Loop with Auxiliary Tasks): Human-in-the-Loop \textbf{RL} with Auxiliary Tasks}
+\vspace{-0.08cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{B. Niu, B. Luo, Y. Cui, X. Xu, Y. Zhao, and Y. Feng}\newline\vspace{0.2em}
+\textit{Artificial Intelligence Review}\newline\vspace{0.2em}
+\textbf{Year:} 2025\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Introduces \textbf{HIAT (Human-in-the-Loop with Auxiliary Tasks)}, a framework leveraging human intervention signals as auxiliary self-supervised learning objectives. Models human corrections as feedback gradients that shape internal feature representations, minimizing human intervention frequency over time.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Maximizes learning efficiency from scarce human intervention signals.
+\item Significantly reduces human cognitive load through auxiliary reward shaping.
+\item Informs PrismSpace's approval gate telemetry and learning from user edits.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Requires consistent human feedback to avoid biased auxiliary representations.
+\item Intervention timing latency can cause temporal mis-alignment in \textbf{RL} updates.
+\item Higher computational overhead during auxiliary task representation training.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{\textbf{ORPO} (Odds Ratio Preference Optimization): Monolithic Preference Optimization without Reference Model}
+\vspace{-0.22cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{J. Hong, N. Lee, and J. Thorne}\newline\vspace{0.2em}
+\textit{\textbf{EMNLP} / arXiv:2403.07691}\newline\vspace{0.2em}
+\textbf{Year:} 2024\newline\vspace{0.2em}
+\textbf{Area:} \textbf{LLM} Preference Alignment}
+&
+\textbf{Core Idea (Single-Phase Alignment):}\newline
+Instead of multi-step \textbf{RLHF}, \textbf{ORPO} teaches desired answers while penalizing bad answers in one unified equation:
+\vspace{-0.15cm}
+\[ \mathcal{L}_{\text{ORPO}} = \mathcal{L}_{\text{SFT}} + \lambda \cdot \mathcal{L}_{\text{OR}} \]
+\vspace{-0.30cm}
+\[ \mathcal{L}_{\text{OR}} = -\log \sigma \left( \log \frac{\text{odds}(y_w|x)}{\text{odds}(y_l|x)} \right) \]
+\vspace{-0.20cm}
+\textbf{Key Terms:}
+\begin{itemize}\itemsep0.02em\topsep0.05em
+  \item $\mathcal{L}_{\text{SFT}}$: Base supervised fine-tuning loss (correct code/syntax).
+  \item $\mathcal{L}_{\text{OR}}, \lambda$: Odds ratio penalty term and penalty weight.
+  \item $x, y_w, y_l$: Prompt, winning action path, and losing action path.
+\end{itemize}
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Reference-model-free: eliminates maintaining frozen $\pi_{\text{ref}}$ in memory.
+\item Monolithic single-phase training avoids unstable \textbf{PPO} policy optimization.
+\item Directly aligns PrismSpace agent trajectories on paired feedback (\textit{chosen} vs. \textit{rejected}).
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Requires high-quality pairwise preference datasets ($y_w, y_l$).
+\item Sensitive to $\lambda$ hyperparameter balance.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Reinforcement Online Learning to Rank with Unbiased Reward Shaping}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{S. Zhuang, Z. Qiao, and G. Zuccon}\newline\vspace{0.2em}
+\textit{Information Retrieval Journal}\newline\vspace{0.2em}
+\textbf{Year:} 2023\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Develops an \textbf{Online Learning to Rank (\textbf{OLTR})} framework using counterfactual reinforcement learning. Employs \textbf{inverse propensity weighting (\textbf{IPW})} and unbiased reward shaping to correct for position, presentation, and click bias in user interaction logs during continuous ranker optimization.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Guarantees unbiased gradient estimation from observational implicit feedback.
+\item Operates entirely online without requiring manual document relevance labels.
+\item Directly informs PrismSpace's context retrieval ranking feedback loop.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item High propensity score variance can destabilize gradient updates.
+\item Requires large volumes of query-click logs to converge.
+\item Assumes position-based user click models that may not hold in code search.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Knowledge Learning for Securing Workflow Scheduling in \textbf{MEC} (Mobile Edge Computing)}
+\vspace{-0.08cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{T. M. Ghazal, A. E. Awouda, M. K. Hasan, A. H. A. Rahman, S. Islam, R. A. Saeed, H. Elshafie, A. Iqbal, and A. H. Hussein}\newline\vspace{0.2em}
+\textit{Mobile Networks and Applications}\newline\vspace{0.2em}
+\textbf{Year:} 2025\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Proposes a \textbf{Knowledge-Guided Reinforcement Learning (\textbf{KG}-\textbf{RL})} scheduler for complex workflow \textbf{DAGs} in distributed edge-cloud environments. Integrates security constraint validation directly into the state transition model, preventing insecure task placement while optimizing makespan.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Enforces strict security boundary constraints during automated task scheduling.
+\item Effectively handles multi-dependency Directed Acyclic Graph (\textbf{DAG}) workflows.
+\item Informs PrismSpace's sandboxed tool execution and dependency resolution.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Constraint checking introduces scheduling latency for massive \textbf{DAGs}.
+\item Assumes static security classification matrices across network nodes.
+\item Limited evaluation on non-deterministic tool failure scenarios.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Energy-Aware Cooperative Multi-Fitness Evolutionary Workflow Scheduling}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{P. Barredo and J. Puente}\newline\vspace{0.2em}
+\textit{Natural Computing}\newline\vspace{0.2em}
+\textbf{Year:} 2025\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Presents a \textbf{Cooperative Multi-Fitness Evolutionary Algorithm (\textbf{CMFEA})} for multi-objective workflow scheduling. Optimizes trade-offs between execution time, monetary compute cost, and energy consumption using island-model cooperative coevolution across heterogeneous worker pools.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Pareto-optimal trade-offs across makespan, financial cost, and energy.
+\item Cooperative sub-population decomposition prevents premature local convergence.
+\item Provides heuristics for PrismSpace's multi-agent model provider selection.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Evolutionary search has higher runtime latency than single-pass ML heuristics.
+\item Cannot adapt instantaneously to real-time \textbf{API} rate limit drops.
+\item Requires parameter tuning across mutation, crossover, and migration rates.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Optimized Task Scheduling Using Hybrid \textbf{DL} (Deep Learning) and Metaheuristics}
+\vspace{-0.08cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{A. Heirati, M. Fartash, and M. Khalily-Dermany}\newline\vspace{0.2em}
+\textit{Neural Processing Letters}\newline\vspace{0.2em}
+\textbf{Year:} 2026\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Combines \textbf{Deep Learning (\textbf{LSTM} (Long Short-Term Memory))} workload prediction with metaheuristic optimization (Harris Hawks Optimization) for proactive workflow dispatching. Predicts task execution durations and memory bottlenecks in advance to prevent node overloading and minimize queue waiting times.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Proactive workload forecasting prevents sudden compute node thrashing.
+\item Hybrid pipeline balances search exploration with predictive dispatching.
+\item Relevant for predicting token latency and cost before agent invocation.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Two-stage pipeline introduces inference overhead before scheduling decisions.
+\item \textbf{LSTM} prediction accuracy degrades under sudden irregular workload spikes.
+\item Complex offline model retraining requirements.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Cost-Aware Workflow Offloading in Edge-Cloud Computing via \textbf{GA} (Genetic Algorithm)}
+\vspace{-0.08cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{S. Abdi, M. Ashjaei, and S. Mubeen}\newline\vspace{0.2em}
+\textit{The Journal of Supercomputing}\newline\vspace{0.2em}
+\textbf{Year:} 2024\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Proposes a \textbf{Genetic Algorithm-based workflow offloading} framework considering heterogeneous network bandwidth, deadline constraints, and monetary costs. Implements chromosome repair operators to preserve \textbf{DAG} precedence validity throughout mutation and crossover.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Guarantees valid \textbf{DAG} dependency structures via specialized repair operators.
+\item Explicitly accounts for network transfer latency between pipeline stages.
+\item Informs subtask payload transfer between worker agents in PrismSpace.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Computationally heavy for interactive real-time user query response.
+\item Assumes deterministic network transfer bandwidth in cloud environments.
+\item Does not model dynamic agent failures or retries.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Dynamic Role Discovery and Assignment in Multi-Agent Task Decomposition}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{Y. Xia, J. Zhu, and L. Zhu}\newline\vspace{0.2em}
+\textit{Complex \& Intelligent Systems}\newline\vspace{0.2em}
+\textbf{Year:} 2023\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Proposes \textbf{dynamic role discovery and assignment} that decomposes complex high-level objectives into lower-level subtasks. Uses learned persona embeddings and mutual information to adaptively allocate subtasks according to situational agent capabilities, eliminating rigid static assignments.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Enables flexible subtask allocation without hardcoded role hierarchies.
+\item Hierarchical decomposition prevents single-agent cognitive context overload.
+\item Serves as core theoretical basis for PrismSpace's dynamic agent routing.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Role discovery clustering introduces upfront computational overhead.
+\item Performance depends on representation vector accuracy for subtasks.
+\item Evaluated primarily on synthetic collaborative coordination benchmarks.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Decision Variable Contribution Based Adaptive Multi-Objective Scheduling}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{J. Li, L. Xing, W. Zhong, Z. Cai, and F. Hou}\newline\vspace{0.2em}
+\textit{Complex \& Intelligent Systems}\newline\vspace{0.2em}
+\textbf{Year:} 2023\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Introduces a \textbf{Decision Variable Contribution (DVC)} adaptive mechanism for evolutionary multi-objective workflow scheduling. Evaluates the differential sensitivity of individual decision variables to focus evolutionary search operators on high-impact scheduling bottlenecks.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Accelerates Pareto-front convergence by prioritizing high-variance variables.
+\item Dynamically adapts search intensity across workflow bottleneck stages.
+\item Useful for pinpointing high-latency critical path tools in agent workflows.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Sensitivity calculation adds per-generation matrix computation cost.
+\item Can over-concentrate on dominant objectives at the expense of diversity.
+\item Requires calibrated normalization across widely different metric units.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{GHQ: Grouped Hybrid Q-Learning for Heterogeneous Multi-Agent RL}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{X. Yu, Y. Lin, X. Wang, S. Han, and K. Lv}\newline\vspace{0.2em}
+\textit{Complex \& Intelligent Systems}\newline\vspace{0.2em}
+\textbf{Year:} 2024\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Develops \textbf{Grouped Hybrid Q-learning (GHQ)} for cooperative heterogeneous multi-agent systems. Clusters agents with similar capabilities into functional cohorts that share value approximations while maintaining decoupled action execution heads for role specialization.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Scales value estimation across large heterogeneous swarms via cohort grouping.
+\item Reduces joint action space dimensionality from exponential to block-linear.
+\item Directly applicable to categorizing \textbf{LLM} worker agent skill specializations.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Cohort clustering boundaries can be rigid if agent capabilities evolve.
+\item Intra-group credit assignment remains non-trivial in dense interactions.
+\item Requires domain knowledge to establish initial grouping heuristics.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Decentralized Multi-Agent Cooperation via Adaptive Partner Modeling}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{C. Xu, J. Wang, X. Zhu, Y. Yue, W. Zhou, Z. Liang, and D. Wojtczak}\newline\vspace{0.2em}
+\textit{Complex \& Intelligent Systems}\newline\vspace{0.2em}
+\textbf{Year:} 2024\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Tackles environmental non-stationarity in decentralized multi-agent cooperation using \textbf{Adaptive Partner Modeling (APM)}. Instead of relying on expensive continuous inter-agent broadcast communication, agents infer partner policies and intended actions from local observation histories.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Minimizes inter-agent communication bandwidth to near zero during execution.
+\item Stabilizes decentralized joint execution despite teammate policy shifts.
+\item Directly adopted in PrismSpace for zero-communication agent coordination.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Partner inference error propagates if historical observations are noisy.
+\item Inference networks introduce local computational and memory overhead.
+\item Assumes partners follow relatively stationary parameterized policy spaces.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{A Responsible AI Framework: Pipeline Contextualisation}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{E. Vyhmeister, G. G. Casta\~n\'e, P.-O. \"Ostberg, and S. Thevenin}\newline\vspace{0.2em}
+\textit{AI and Ethics}\newline\vspace{0.2em}
+\textbf{Year:} 2023\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Formulates an operational \textbf{Responsible AI Framework} providing pipeline contextualisation across the full model lifecycle. Specifies auditable checkpoints, data lineage tracking, and bias mitigation protocols for autonomous AI decision-making systems.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Holistic governance framework linking technical architecture to ethical safety.
+\item Defines concrete telemetry points for data provenance and action auditing.
+\item Guides PrismSpace's execution audit logging and human inspection UI.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Qualitative framework that requires custom translation into concrete code gates.
+\item Audit logging introduces storage overhead and slight execution latency.
+\item Does not provide automated formal verification of \textbf{LLM} reasoning traces.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Meaningful Human Control: Actionable Properties for AI Development}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{L. Cavalcante Siebert, M. L. Lupetti, E. Aizenberg, N. Beckers, A. Zgonnikov, H. Veluwenkamp, D. Abbink, E. Giaccardi, G.-J. Houben, C. M. Jonker, J. van den Hoven, D. Forster, and R. L. Lagendijk}\newline\vspace{0.2em}
+\textit{AI and Ethics}\newline\vspace{0.2em}
+\textbf{Year:} 2023\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Formalizes the philosophical concept of \textbf{Meaningful Human Control (\textbf{MHC})} into actionable software design properties: \textbf{Tracking} (system responsive to human moral reasons) and \textbf{Tracing} (system actions causally attributable to accountable human supervisors).
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Translates abstract governance principles into rigorous software specifications.
+\item Establishes tracking and tracing requirements for autonomous tool execution.
+\item Directly guides the design of PrismSpace's Human-in-the-Loop (\textbf{HITL}) approval gates.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item High human intervention frequency can degrade automated agent throughput.
+\item Defining actionable reason boundaries requires careful domain calibration.
+\item Assumes human supervisor maintains full comprehension of complex agent plans.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{\textbf{CPN-HRL} (Cloud-Private-Network Hierarchical Reinforcement Learning): Hierarchical \textbf{DRL} for Priority-Aware Task Scheduling}
+\vspace{-0.08cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{Q. Yue, L. Tian, X. Feng, Z. Yuan, S. Wei, J. Xia, B. Chen, X. Song, and Y. Yao}\newline\vspace{0.2em}
+\textit{Journal of King Saud University CIS}\newline\vspace{0.2em}
+\textbf{Year:} 2026\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Presents \textbf{CPN-HRL}, a Hierarchical Reinforcement Learning framework for priority-aware task scheduling in Cloud-Edge-End networks. Uses a macro-policy to partition task \textbf{DAGs} by priority and latency budgets, while micro-policies schedule subtasks onto optimal compute nodes.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Hierarchical policy decomposition effectively handles complex task \textbf{DAGs}.
+\item Guarantees priority-aware quality of service under tight latency deadlines.
+\item Serves as primary reference for PrismSpace's \textbf{DAG} workflow scheduling engine.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Multi-tier policy architecture requires synchronous training coordination.
+\item Edge node failure requires immediate micro-policy replanning.
+\item Evaluated in simulated telecom cloud-edge topologies.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Automatic Discovery and Description of Human Planning Strategies}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{J. Skirzy\'{n}ski, Y. Jain, and F. Lieder}\newline\vspace{0.2em}
+\textit{Behavior Research Methods}\newline\vspace{0.2em}
+\textbf{Year:} 2023\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Develops an algorithmic framework for \textbf{automatically discovering and formalizing planning strategies} from human behavior traces. Models task planning as resource-rational search over Directed Graphical Models, producing interpretable decision trees that characterize human heuristic planning.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Extracts interpretable, human-like heuristic planning strategies automatically.
+\item Quantifies trade-offs between cognitive search effort and decision quality.
+\item Informs PrismSpace's hierarchical prompt decomposition and agent planning.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Search space for strategy discovery grows exponentially with problem depth.
+\item Human behavioral experiments conducted in stylized cognitive testbeds.
+\item Static decision trees struggle to capture fluid \textbf{LLM} reasoning trajectories.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Data-Intensive Workflow Scheduling Based on \textbf{DRL} in Multi-Clouds}
+\vspace{-0.08cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{S. Zhang, Z. Zhao, C. Liu, and S. Qin}\newline\vspace{0.2em}
+\textit{Journal of Cloud Computing}\newline\vspace{0.2em}
+\textbf{Year:} 2023\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Proposes a \textbf{Deep Q-Network (\textbf{DQN})} scheduler optimized for data-intensive workflows across multi-cloud environments. Explicitly models dataset placement and cross-datacenter transfer latency to minimize both workflow completion time and data egress billing.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Optimizes data locality to prevent massive cross-cloud egress overhead.
+\item Adaptive reward function balances monetary cost and makespan constraints.
+\item Directly relevant to caching and embedding retrieval across distributed agents.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Assumes deterministic file sizes and network bandwidth availability.
+\item Q-network value overestimation requires double-\textbf{DQN} correction.
+\item State representation size scales with the total number of cloud datacenters.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{\textbf{RL}-Based Task Scheduling for Sustainable Federated Cloud Computing}
+\vspace{-0.08cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{Z. Wang, S. Chen, L. Bai, J. Gao, J. Tao, R. R. Bond, and M. D. Mulvenna}\newline\vspace{0.2em}
+\textit{Journal of Cloud Computing}\newline\vspace{0.2em}
+\textbf{Year:} 2023\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Develops an \textbf{Actor-Critic \textbf{RL} scheduling framework} for federated cloud datacenters that incorporates renewable energy availability into scheduling policies. Dynamically routes compute tasks to datacenters with green energy surpluses without violating user SLA deadlines.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Incorporates environmental sustainability and carbon metrics into scheduling.
+\item Actor-Critic policy gradient handles continuous action spaces effectively.
+\item Provides conceptual foundation for multi-attribute provider routing.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Requires real-time telemetry from green energy generation sources.
+\item Trade-off between carbon footprint and network transmission latency.
+\item Sensitive to reward scaling factors between SLA penalties and green rewards.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Hybrid Dolphin Swarm Sparrow Search Multi-Objective Workflow Scheduling}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{S. Subashree, M. Rajakumaran, G. Pushpa, and S. Senthilkumar}\newline\vspace{0.2em}
+\textit{Journal of Cloud Computing}\newline\vspace{0.2em}
+\textbf{Year:} 2025\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Proposes a hybrid bio-inspired metaheuristic combining \textbf{Dolphin Swarm Optimization (DSA)} and \textbf{Sparrow Search Algorithm (SSA)} for multi-objective cloud workflow scheduling. Optimizes execution makespan, virtual machine utilization, and monetary execution expenditure.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Combines global exploration of DSA with local exploitation of SSA.
+\item Demonstrates superior Pareto hypervolume compared to standard \textbf{GA} and \textbf{PSO} (Particle Swarm Optimization).
+\item Provides strong comparative baselines for workflow optimization algorithms.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Metaheuristic iteration runtime is too slow for sub-second reactive routing.
+\item Multiple tuning parameters (predation rate, vocalization index) required.
+\item Lacks theoretical convergence rate bounds for stochastic optimization.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+% Findings-transfer tables remain omitted from this presentation.
+
+\begin{frame}{Research Gap}
+\vspace{-0.05cm}
+\begin{block}{What the surveyed methods already do}
+\footnotesize
+\textbf{MARL} works address \textbf{CTDE}, role grouping, and ad-hoc coordination. \textbf{ORPO} aligns \textbf{LLM} preferences without reference models, while \textbf{HIAT} leverages human interventions as auxiliary \textbf{RL} signals. \textbf{CPN-HRL} and \textbf{DAG} schedulers optimize cloud task allocation, and \textbf{MHC} formalizes tracking and tracing properties.
+\end{block}
+\vspace{0.08cm}
+\begin{block}{Limitations observed in those papers}
+\footnotesize
+Coordination benchmarks focus on gaming (\textbf{SMAC}, Overcooked) rather than filesystem/\textbf{API} tooling. \textbf{ORPO} lacks grounding in \textbf{MCP} \textbf{ReAct} tool traces, while \textbf{HIAT} targets continuous robotic control instead of code execution. Cloud schedulers assume static \textbf{DAGs} or slow metaheuristics ill-suited for real-time \textbf{LLM} routing.
+\end{block}
+\vspace{0.08cm}
+\begin{block}{Why PrismSpace is required}
+\footnotesize
+No reviewed system jointly grounds tool observations, aligns policies on agent trajectories, dynamically routes heterogeneous \textbf{LLMs}, and enforces human-in-the-loop safety gates within a unified developer workspace.
+\end{block}
+\end{frame}
+
+\section{Project time line}
+
+\begin{frame}{Gantt Chart}
+\centering
+\resizebox{1.0\textwidth}{!}{%
+\begin{tikzpicture}[
+  x=1.00cm, y=0.52cm,
+  lab/.style={anchor=east, font=\scriptsize, inner sep=3pt, text=prismNavy}
+]
+\def\nm{9}
+\def\rowh{1.0}
+\def\bh{0.36}
+\def\topY{11.5}
+
+\foreach \i in {0,1,...,\nm} {
+  \draw[gray!22] (\i,0.5) -- (\i,\topY);
+}
+\foreach \i/\m in {0.5/Jul'26,1.5/Aug'26,2.5/Sep'26,3.5/Oct'26,4.5/Nov'26,5.5/Dec'26,6.5/Jan'27,7.5/Feb'27,8.5/Mar'27} {
+  \node[anchor=south, font=\scriptsize\bfseries, text=prismNavy] at (\i,\topY+0.08) {\m};
+}
+\draw[prismNavy, line width=0.7pt] (0,\topY) -- (\nm,\topY);
+\draw[prismNavy, line width=0.6pt] (0,0.5) -- (\nm,0.5);
+
+\foreach \k in {0,...,10} {
+  \pgfmathsetmacro{\yc}{11.0-\k}
+  \ifodd\k
+    \fill[prismMint, opacity=0.45] (0,\yc-0.5) rectangle (\nm,\yc+0.5);
+  \fi
+}
+
+\node[lab] at (0,11.0) {Project ideation \& problem identification};
+\node[lab] at (0,10.0) {Literature survey \& research};
+\node[lab] at (0,9.0) {Requirement analysis \& feasibility};
+\node[lab] at (0,8.0) {System design (agents, \textbf{MCP}, \textbf{HITL})};
+\node[lab] at (0,7.0) {Trajectory data collection \& pairing};
+\node[lab] at (0,6.0) {Implementation: \textbf{MCP} \textbf{ReAct} swarm};
+\node[lab] at (0,5.0) {Implementation: \textbf{ORPO} \& \textbf{ML} routing};
+\node[lab] at (0,4.0) {Workspace integration \& \textbf{HITL} gates};
+\node[lab] at (0,3.0) {Testing \& evaluation};
+\node[lab] at (0,2.0) {Project documentation};
+\node[lab] at (0,1.0) {Final review \& submission};
+
+% Bars: same timeline, snapped to 0.5-month grid, equal height 0.36
+\fill[prismBlue]     (0.0,11.0-0.18) rectangle (2.0,11.0+0.18);
+\fill[prismTeal]     (1.0,10.0-0.18) rectangle (2.5,10.0+0.18);
+\fill[prismGold]     (1.5,9.0-0.18)  rectangle (2.5,9.0+0.18);
+\fill[prismBlue]     (2.0,8.0-0.18)  rectangle (3.5,8.0+0.18);
+\fill[prismTeal]     (3.0,7.0-0.18)  rectangle (4.5,7.0+0.18);
+\fill[prismGold]     (4.0,6.0-0.18)  rectangle (5.5,6.0+0.18);
+\fill[prismBlue]     (5.0,5.0-0.18)  rectangle (6.5,5.0+0.18);
+\fill[prismTeal]     (6.0,4.0-0.18)  rectangle (7.5,4.0+0.18);
+\fill[prismGold]     (7.0,3.0-0.18)  rectangle (8.0,3.0+0.18);
+\fill[prismBlue]     (7.5,2.0-0.18)  rectangle (9.0,2.0+0.18);
+\fill[prismTeal]     (8.0,1.0-0.18)  rectangle (9.0,1.0+0.18);
+
+\node[font=\scriptsize\bfseries, text=prismNavy] at (4.5,-0.15) {Timeline (Jul 2026 -- Mar 2027)};
+\end{tikzpicture}%
+}
+\end{frame}
+
+\section{References}
+
+\begin{frame}{References}
+\scriptsize
+\setbeamertemplate{enumerate item}{\textbf{\color{prismBlue}[\insertenumlabel]}}
+\begin{enumerate}\itemsep0.28em\leftskip=-0.55em
+\item \textbf{Cornalba F, Disselkamp C, Scassola D, Helf C (2024)} Multi-objective reward generalization: improving performance of Deep Reinforcement Learning for applications in single-asset trading. \textit{Neural Computing and Applications}. DOI: 10.1007/s00521-023-09033-7
+\item \textbf{Schneckenreither M, Moser G (2025)} Average reward adjusted discounted reinforcement learning. \textit{Neural Computing and Applications}. DOI: 10.1007/s00521-024-10620-5
+\item \textbf{Aina K, Ha S (2026)} Deep reinforcement learning for multi-agent coordination. \textit{Artificial Life and Robotics}. DOI: 10.1007/s10015-025-01089-z
+\item \textbf{Rother D, Pajarinen J, Peters J, Weisswange TH (2025)} Open-ended coordination for multi-agent systems using modular open policies. \textit{Autonomous Agents and Multi-Agent Systems}. DOI: 10.1007/s10458-025-09723-7
+\item \textbf{Liu D, Ren F, Yan J, Su G, Gu W, Kato S (2026)} Improving scalability of multi-agent deep reinforcement learning with suboptimal human knowledge. \textit{Autonomous Agents and Multi-Agent Systems}. DOI: 10.1007/s10458-025-09729-1
+\item \textbf{Marzari L, Liu C, Donti PL, Marchesini E (2026)} $\varepsilon$-retraining reinforcement learning algorithms. \textit{Autonomous Agents and Multi-Agent Systems}. DOI: 10.1007/s10458-026-09748-6
+\item \textbf{Wong A, B\"ack T, Kononova AV, Plaat A (2023)} Deep multiagent reinforcement learning: challenges and directions. \textit{Artificial Intelligence Review}. DOI: 10.1007/s10462-022-10299-x
+\item \textbf{Niu B, Luo B, Cui Y, Xu X, Zhao Y, Feng Y (2025)} HIAT: human-in-the-loop reinforcement learning with auxiliary task. \textit{Artificial Intelligence Review}. DOI: 10.1007/s10462-025-11260-4
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{References}
+\scriptsize
+\setbeamertemplate{enumerate item}{\textbf{\color{prismBlue}[\insertenumlabel]}}
+\begin{enumerate}\setcounter{enumi}{8}\itemsep0.28em\leftskip=-0.55em
+\item \textbf{Lee J (2025)} InstructPatentGPT: training patent language models to follow instructions with human feedback. \textit{Artificial Intelligence and Law}. DOI: 10.1007/s10506-024-09401-1
+\item \textbf{Zhuang S, Qiao Z, Zuccon G (2023)} Reinforcement online learning to rank with unbiased reward shaping. \textit{Information Retrieval Journal}. DOI: 10.1007/s10791-022-09413-y
+\item \textbf{Ghazal TM, Awouda AE, Hasan MK, Rahman AHA, Islam S, Saeed RA, Elshafie H, Iqbal A, Hussein AH (2025)} Knowledge Learning for Securing Workflow Scheduling Algorithm in Mobile Edge Computing. \textit{Mobile Networks and Applications}. DOI: 10.1007/s11036-025-02465-6
+\item \textbf{Barredo P, Puente J (2025)} Energy-aware cooperative multi-fitness evolutionary algorithm for workflow scheduling in cloud computing. \textit{Natural Computing}. DOI: 10.1007/s11047-025-10023-y
+\item \textbf{Heirati A, Fartash M, Khalily-Dermany M (2025)} Optimized Task Scheduling in Fog-Cloud Computing Using Hybrid Deep Learning and Metaheuristic Algorithms. \textit{Neural Processing Letters}. DOI: 10.1007/s11063-025-11819-w
+\item \textbf{Abdi S, Ashjaei M, Mubeen S (2024)} Cost-aware workflow offloading in edge-cloud computing using a genetic algorithm. \textit{The Journal of Supercomputing}. DOI: 10.1007/s11227-024-06341-0
+\item \textbf{Xia Y, Zhu J, Zhu L (2023)} Dynamic role discovery and assignment in multi-agent task decomposition. \textit{Complex \& Intelligent Systems}. DOI: 10.1007/s40747-023-01071-x
+\item \textbf{Li J, Xing L, Zhong W, Cai Z, Hou F (2023)} Decision variable contribution based adaptive mechanism for evolutionary multi-objective cloud workflow scheduling. \textit{Complex \& Intelligent Systems}. DOI: 10.1007/s40747-023-01137-w
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{References}
+\scriptsize
+\setbeamertemplate{enumerate item}{\textbf{\color{prismBlue}[\insertenumlabel]}}
+\begin{enumerate}\setcounter{enumi}{16}\itemsep0.22em\leftskip=-0.55em
+\item \textbf{Yu X, Lin Y, Wang X, Han S, Lv K (2024)} GHQ: grouped hybrid Q-learning for cooperative heterogeneous multi-agent reinforcement learning. \textit{Complex \& Intelligent Systems}. DOI: 10.1007/s40747-024-01415-1
+\item \textbf{Xu C, Wang J, Zhu X, Yue Y, Zhou W, Liang Z, Wojtczak D (2024)} Decentralized multi-agent cooperation via adaptive partner modeling. \textit{Complex \& Intelligent Systems}. DOI: 10.1007/s40747-024-01421-3
+\item \textbf{Vyhmeister E, Casta\~n\'e GG, \"Ostberg PO, Thevenin S (2023)} A responsible AI framework: pipeline contextualisation. \textit{AI and Ethics}. DOI: 10.1007/s43681-022-00154-8
+\item \textbf{Cavalcante Siebert L, Lupetti ML, Aizenberg E, Beckers N, Zgonnikov A, Veluwenkamp H, Abbink D, Giaccardi E, Houben GJ, Jonker CM, van den Hoven J, Forster D, Lagendijk RL (2023)} Meaningful human control: actionable properties for AI system development. \textit{AI and Ethics}. DOI: 10.1007/s43681-022-00167-3
+\item \textbf{Yue Q, Tian L, Feng X, Yuan Z, Wei S, Xia J, Chen B, Song X, Yao Y (2026)} CPN-HRL: a hierarchical deep reinforcement learning approach for priority-aware task scheduling in CPN enabled by cloud-edge-end environments. \textit{Journal of King Saud University Computer and Information Sciences}. DOI: 10.1007/s44443-026-00690-x
+\item \textbf{Skirzy\'{n}ski J, Jain Y, Lieder F (2023)} Automatic discovery and description of human planning strategies. \textit{Behavior Research Methods}. DOI: 10.3758/s13428-023-02062-z
+\item \textbf{Zhang S, Zhao Z, Liu C, Qin S (2023)} Data-intensive workflow scheduling strategy based on deep reinforcement learning in multi-clouds. \textit{Journal of Cloud Computing}. DOI: 10.1186/s13677-023-00504-9
+\item \textbf{Wang Z, Chen S, Bai L, Gao J, Tao J, Bond RR, Mulvenna MD (2023)} Reinforcement learning based task scheduling for environmentally sustainable federated cloud computing. \textit{Journal of Cloud Computing}. DOI: 10.1186/s13677-023-00553-0
+\item \textbf{Subashree S, Rajakumaran M, Pushpa G, Senthilkumar S (2025)} Hybrid dolphin swarm sparrow search optimization based multi-objective cloud workflow scheduling. \textit{Journal of Cloud Computing}. DOI: 10.1186/s13677-025-00828-8
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \centering
+    \vfill
+    {\usebeamerfont{title}\color{prismNavy}\Huge \textbf{Thank You}}
+    
+    \vspace{0.8cm}
+    {\large \textbf{Questions \& Discussion}}
+    
+    \vspace{0.8cm}
+    {\small \color{prismBlue} PrismSpace: An Intelligent Developer Workspace for Multi-Agent Orchestration}
+    \vfill
+\end{frame}

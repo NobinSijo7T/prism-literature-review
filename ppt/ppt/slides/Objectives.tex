@@ -1,0 +1,12 @@
+\section{Objectives}
+
+\begin{frame}{Objectives}
+    \small
+    \textbf{Build an intelligent multi-agent orchestration platform} that coordinates specialized agents, enforces strict tool governance, and optimizes execution policies using \textbf{reinforcement learning} [3, 7].
+    \begin{itemize}\itemsep0.45em
+        \item \textbf{Autonomous Agent Orchestration \& Tool Gating:} Design dynamic \textbf{DAG task planning} [21, 23] and a strict \textbf{ReAct loop} via \textbf{Model Context Protocol (\textbf{MCP})} to coordinate specialized agents [15] without tool-output hallucinations.
+        \item \textbf{Policy Alignment via \textbf{ORPO} Reward Modeling:} Utilize \textbf{Odds Ratio Preference Optimization (\textbf{ORPO})} [9] and reward shaping [1, 10] on trajectory datasets (\textit{e.g.}, \textbf{EnvFactory-RL} [6]) to train policies favoring direct, successful paths over redundant loops.
+        \item \textbf{Cost-Aware Multi-Model Routing:} Deploy learned \textbf{ML classifiers} [12, 16] to dynamically route subtasks across heterogeneous \textbf{LLM providers} [17] (OpenAI, Anthropic, Google, local models) for minimal latency and cost.
+        \item \textbf{Human-in-the-Loop (\textbf{HITL}) Safety \& Anomaly Detection:} Integrate learned \textbf{approval predictors} [8, 20] and \textbf{Isolation Forest} anomaly detection to intercept destructive operations and terminate runaway loops.
+    \end{itemize}
+\end{frame}

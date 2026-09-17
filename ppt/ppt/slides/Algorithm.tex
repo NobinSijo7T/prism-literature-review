@@ -1,0 +1,101 @@
+\section{Algorithm}
+
+% Algorithm Slide 1
+\begin{frame}{Algorithm}
+\textbf{Step 1: System Receives User Inputs}
+\begin{itemize}
+  \item[1.1] User submits a natural language query $Q$.
+  \item[1.2] User selects search mode: Normal (Keyword) or Advanced (Keyword + Semantic).
+\end{itemize}
+
+\textbf{Step 2: Agent Layer Receives Query}
+\begin{itemize}
+  \item[2.1] Detects intent (fact, summary, comparison, etc.).
+  \item[2.2] Decides search policy (mode, number of results to fetch, retry limits, etc.).
+\end{itemize}
+
+\textbf{Step 3: Preprocess Query}
+\begin{itemize}
+  \item[3.1] For keyword search: tokenize, remove stopwords, lowercase, etc.
+  \item[3.2] For semantic search: canonicalize the text.
+\end{itemize}
+
+\textbf{Step 4: Advanced Search (if selected)}
+\begin{itemize}
+  \item[4.1] Compute query embedding $e(Q)$ using the embedding model.
+\end{itemize}
+\end{frame}
+
+% Algorithm Slide 2
+\begin{frame}{Algorithm (contd.)}
+% Step 5: Document Retrieval
+\textbf{Step 5: Document Retrieval}
+\begin{itemize}
+  \item[5.1] Normal Mode (Keyword Search Only):
+    \begin{itemize}
+      \item[5.1.1] Run BM25 on inverted index.
+      \item[5.1.2] Retrieve top $k_{keyword}$ documents.
+    \end{itemize}
+  \item[5.2] Advanced Mode (Keyword + Semantic Search):
+    \begin{itemize}
+      \item[5.2.1] Run BM25 keyword search to get top $k_{keyword}$ documents.
+      \item[5.2.2] Compute query embedding $e(Q)$.
+      \item[5.2.3] Perform semantic search in vector store to retrieve top $k_{vector}$ chunks.
+    \end{itemize}
+\end{itemize}
+
+\textbf{Step 6: Candidate Preparation}
+\begin{itemize}
+  \item[6.1] Collect all retrieved results.
+  \item[6.2] For keyword results, optionally attach pre-computed embeddings and metadata.
+\end{itemize}
+\end{frame}
+
+% Algorithm Slide 3
+\begin{frame}{Algorithm (contd.)}
+\textbf{Step 7: Fusion and Filtering}
+\begin{itemize}
+  \item[7.1] If Advanced mode: combine keyword + semantic results with Reciprocal Rank Fusion (\textbf{RRF}).
+  \item[7.2] Deduplicate near-duplicate documents (high semantic similarity).
+  \item[7.3] Filter low-quality or irrelevant documents.
+  \item[7.4] Produce final ranked list $D$.
+\end{itemize}
+
+\textbf{Step 8: \textbf{LLM} Reasoning and Synthesis}
+\begin{itemize}
+  \item[8.1] Select the top $m$ documents from $D$.
+  \item[8.2] Construct prompt with query $Q$, selected documents, and citation metadata.
+  \item[8.3] \textbf{LLM} generates a draft answer ($A_{draft}$), citing sources.
+\end{itemize}
+\end{frame}
+
+% Algorithm Slide 4
+\begin{frame}{Algorithm (contd.)}
+\textbf{Step 9: Verification of Draft Answer}
+\begin{itemize}
+  \item[9.1] Are all parts of $Q$ answered?
+  \item[9.2] Are all claims supported by evidence?
+  \item[9.3] Any contradictions or hallucinations?
+  \item[9.4] Is confidence above threshold?
+\end{itemize}
+
+\textbf{Step 10: Refinement if Verification Fails}
+\begin{itemize}
+  \item[10.1] Refine or rewrite the query, increase $k$, loosen filters, call external tools if needed.
+  \item[10.2] Return to Step 4.
+\end{itemize}
+\end{frame}
+
+% Algorithm Slide 5
+\begin{frame}{Algorithm (contd.)}
+\textbf{Step 11: Prepare Final Answer}
+\begin{itemize}
+  \item[11.1] Return $A_{Final}$ to the user.
+\end{itemize}
+
+\textbf{Step 12: Logging and Feedback Recording}
+\begin{itemize}
+  \item[12.1] Go to Step 2 for next query processing.
+  \item[12.2] Store successful Q-A pairs for retraining and model improvement.
+\end{itemize}
+\end{frame}

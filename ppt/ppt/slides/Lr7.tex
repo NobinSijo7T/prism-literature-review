@@ -1,0 +1,36 @@
+\begin{frame}{Multi-Encoder Fusion for Retrieval-Augmented Generation}
+\scriptsize
+\vspace{-0.8em}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.5} % increases row height slightly more
+\setlength{\tabcolsep}{2.5pt}     % reduces horizontal padding a bit more
+
+\begin{tabular}{|p{2.6cm}|p{4.3cm}|p{4.3cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\tiny\textit{[9] J. Shen, H. He, W. Shen and T. Shen, "Enhancing the RAG Retrieval Engine Through Multi-Encoder Fusion," 2024 5th International Conference on Electronic Communication and Artificial Intelligence (ICECAI), Shenzhen, China, 2024, pp. 227–230, DOI: 10.1109/ICECAI62591.2024.10674962.}
+&
+Proposes a \textbf{multi-encoder fusion} approach to improve RAG systems. Combines multiple text encoders (BCE, BGE, M3E) with learnable weights via neural network training. Queries are encoded with all encoders, retrieved from separate vector databases, and fused using optimized weights, enhancing semantic coverage for better retrieval.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.25em
+\item 6\% \textbf{MRR} improvement with automated weight optimization.
+\item Leverages complementary encoders capturing diverse semantic features.
+\item Custom loss function ensures stable training and convergence.
+\item Comprehensive evaluation across multiple encoder combinations.
+\end{itemize}
+
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.25em
+\item High computational overhead from multiple encoders and databases.
+\item Dataset-dependent training.
+\item Scalability issues with more encoders.
+%\item Lacks comparison with other fusion or SOTA methods
+\end{itemize} \\
+\hline
+\end{tabular}
+\end{table}
+\end{frame}

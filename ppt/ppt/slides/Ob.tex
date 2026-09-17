@@ -1,0 +1,28 @@
+\section{Model Output Analysis} 
+
+\begin{frame}{Model Output Analysis \& Limitations 📊}
+
+    % - Screenshot at the Top -
+    \begin{center}
+        \includegraphics[width=0.85\linewidth]{out.png}
+    \end{center}
+
+    % - Content Section -
+    \begin{itemize}
+        \item \textbf{Observed Output}\\
+        \hspace{2em}• Detected only partial elements\\
+        \hspace{2em}• Incorrect bounding box coordinates.\\
+        \hspace{2em}• OCR tokens and descriptions incomplete or mismatched.
+
+        \vspace{0.3cm}
+        \item \textbf{Expected Output}\\
+        \hspace{2em}• Accurate detection of all UI elements with proper boxes, text, and labels.
+
+        \vspace{0.3cm}
+        \item \textbf{Reason \& Limitation}\\
+        \hspace{2em}• Fine-tuning used a limited dataset (\textasciitilde2500 samples).\\
+        \hspace{2em}• Insufficient preprocessing (duplicate removal, image hashing).\\
+        \hspace{2em}• Larger dataset and higher RAM/GPU needed for stronger generalization.
+    \end{itemize}
+
+\end{frame}

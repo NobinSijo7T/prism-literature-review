@@ -1,0 +1,57 @@
+
+\section{Problem statement}
+
+\begin{frame}{Problem Statement: Limitations, Solution, and I/O Scope}
+\vspace{-0.35cm}
+\begin{columns}[T]
+    % Left Column: Existing Flaws
+    \column{0.485\textwidth}
+    \begin{alertblock}{\small\faExclamationTriangle\ \textbf{Flaws of Existing Agent Systems}}
+        \scriptsize
+        \begin{itemize}\setlength{\itemsep}{0.12em}\leftskip=-1em
+            \item \textbf{Tool Hallucinations:} \textbf{LLMs} invent \textbf{API} parameters and fake execution outputs without environment verification.
+            \item \textbf{Runaway Loops \& Cost:} Monolithic prompting leads to cyclic retries, context blowup, and high token spend on single frontier models.
+            \item \textbf{Safety Blindspots:} Lack of human-in-the-loop control allows risky autonomous commands without oversight.
+        \end{itemize}
+    \end{alertblock}
+
+    % Right Column: PrismSpace Solution
+    \column{0.485\textwidth}
+    \begin{exampleblock}{\small\faCheckCircle\ \textbf{How PrismSpace Solves It}}
+        \scriptsize
+        \begin{itemize}\setlength{\itemsep}{0.12em}\leftskip=-1em
+            \item \textbf{Strict \textbf{MCP} \textbf{ReAct} Sandboxing:} Sandboxes tools via Model Context Protocol; grounds actions on actual tool observations.
+            \item \textbf{ORPO Alignment \& Policy Routing:} Uses preference rewards ($\mathcal{L}_{\text{ORPO}}$) to prune loop paths and dynamically routes to cost-optimal \textbf{LLMs}.
+            \item \textbf{HITL Safety \& Anomaly Isolation:} Isolation Forest flags anomalous behaviors and gates destructive actions on user approval.
+        \end{itemize}
+    \end{exampleblock}
+\end{columns}
+
+\vspace{0.12cm}
+
+% Bottom Row: Inputs and Outputs
+\begin{columns}[T]
+    % Inputs
+    \column{0.485\textwidth}
+    \begin{block}{\small\faTerminal\ \textbf{Project Inputs ($\mathbf{X}$)}}
+        \scriptsize
+        \begin{itemize}\setlength{\itemsep}{0.12em}\leftskip=-1em
+            \item \textbf{Developer Task Query:} High-level natural language prompt, bug fix request, or workflow objective.
+            \item \textbf{Developer Workspace State:} Target project directory, dependency manifests, configuration files, and Git history.
+            \item \textbf{Tool \& Safety Configs:} \textbf{MCP} tool definitions, runtime sandbox parameters, and \textbf{HITL} approval thresholds.
+        \end{itemize}
+    \end{block}
+
+    % Outputs
+    \column{0.485\textwidth}
+    \begin{block}{\small\faFileCode\ \textbf{Project Outputs ($\mathbf{Y}$)}}
+        \scriptsize
+        \begin{itemize}\setlength{\itemsep}{0.12em}\leftskip=-1em
+            \item \textbf{Verified Code Artifacts:} Tested, syntactically validated code changes, patches, and automated PRs.
+            \item \textbf{Deterministic Trajectory Logs:} Auditable \textbf{ReAct} decision traces (\textit{Thought $\rightarrow$ Action $\rightarrow$ Observation}).
+            \item \textbf{Telemetry \& Cost Report:} Model provider routing log, latency metrics, and token cost breakdown.
+        \end{itemize}
+    \end{block}
+\end{columns}
+\end{frame}
+%----------------

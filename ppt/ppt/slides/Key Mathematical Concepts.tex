@@ -1,0 +1,132 @@
+\section{Key Mathematical Concepts}
+
+% \begin{frame}{Key Mathematical Concepts}
+%     \begin{itemize}
+%         \item \textbf{Cosine Similarity Formula} \\
+%         Measures the similarity between two vectors (e.g., query and document embeddings).
+        
+%         \begin{center}
+%         \Large
+%         $$
+%         \text{CosSim}(A, B) = \frac{A \cdot B}{\|A\| \, \|B\|}
+%         $$
+%         \end{center}
+        
+%         \begin{itemize}
+%             \item[$A, B$:] Vector representations (e.g., query and document embeddings)  
+%             \item[$A \cdot B$:] Dot product of the vectors  
+%             \item[$\|A\|, \|B\|$:] Magnitude (Euclidean norm) of vectors  
+%             \item[Range:] Output ranges from $-1$ (opposite) to $+1$ (identical), with $0$ = orthogonal  
+%         \end{itemize}
+%     \end{itemize}
+%     \vspace{0.3cm}
+% \end{frame}
+
+\begin{frame}{Key Mathematical Concepts}
+    \begin{itemize}
+        \item \textbf{BM25 Formula} \\
+        Computes the relevance score of a document $D$ for a query $Q$.
+        
+        \begin{center}
+        \small
+        $$
+        \text{score}(D, Q) = \sum_{q_i \in Q} 
+        IDF(q_i) \cdot 
+        \frac{f(q_i, D) \cdot (k_1 + 1)}{f(q_i, D) + k_1 \cdot \left(1 - b + b \cdot \frac{|D|}{\text{avgdl}}\right)}
+        $$
+        \end{center}
+        
+        \begin{itemize}
+            \item[$f(q_i, D)$:] Frequency of term $q_i$ in document $D$  
+            \item[$|D|$:] Length of document $D$  
+            \item[$\text{avgdl}$:] Average document length in the corpus  
+            \item[$IDF(q_i)$:] Inverse document frequency of term $q_i$  
+            \item[$k_1, b$:] Hyperparameters controlling term frequency saturation and length normalization
+        \end{itemize}
+    \end{itemize}
+    \vspace{0.3cm}
+\end{frame}
+
+\begin{frame}{Key Mathematical Concepts...}
+    \begin{itemize}
+        \item \textbf{IDF Formula} \\
+        Measures how important a term is in the whole corpus.
+        
+        \begin{center}
+        \Large
+        $$
+        IDF(q_i) = \log \left( \frac{N - n(q_i) + 0.5}{n(q_i) + 0.5} + 1 \right)
+        $$
+        \end{center}
+        
+        \begin{itemize}
+            \item[$N$:] Total number of documents in the corpus  
+            \item[$n(q_i)$:] Number of documents containing term $q_i$  
+            \item[+1:] Added for smoothing to avoid zero or negative values
+        \end{itemize}
+    \end{itemize}
+    \vspace{0.3cm}
+\end{frame}
+
+\begin{frame}{Key Mathematical Concepts...}
+    \begin{itemize}
+        \item \textbf{RRF Formula} \\
+        Combines rankings from multiple retrieval methods to produce a final fused score.
+        
+        \begin{center}
+        \Large
+        $$
+        \textbf{RRF}(d) = \sum_{i=1}^{n} \frac{1}{k + rank_i(d)}
+        $$
+        \end{center}
+        
+        \begin{center}
+        \begin{tabular}{rl}
+             \textcolor{blue}{$d$ :} & Candidate document \\
+             \textcolor{blue}{$rank_i(d)$ :} & Rank of document $d$ in retrieval list $i$ \\
+             \textcolor{blue}{$n$ :} & Total number of retrieval lists being fused \\
+            \textcolor{blue}{$k$ :} & Constant to dampen the effect of top ranks \\
+             \textcolor{blue}{Interpretation :} & Higher $\textbf{RRF}(d)$ = higher relevance after fusion
+        \end{tabular}
+        \end{center}
+    \end{itemize}
+    \vspace{0.3cm}
+\end{frame}
+
+% \begin{frame}{Key Mathematical Concepts}
+%     \begin{itemize}
+%         \item \textbf{Deduplication Process} \\
+%         Ensures that multiple highly similar documents are not returned redundantly.
+        
+%         \begin{center}
+%         \begin{tabular}{p{2.5cm} p{8cm}} % left column fixed, right column wraps
+%             \textcolor{blue}{$d$} : & Candidate document being considered for inclusion \\
+%             \textcolor{blue}{$R'$} : & Set of already selected documents \\
+%             \textcolor{blue}{$\text{Sim}(d, d_j)$} : & Similarity between $d$ and each $d_j$ in $R'$ (e.g., cosine similarity) \\
+%             \textcolor{blue}{$\tau$} : & Similarity threshold (e.g., 0.8) above which document is considered duplicate \\
+%             \textcolor{blue}{Interpretation} : & Only unique or sufficiently distinct documents are kept in the final results
+%         \end{tabular}
+%         \end{center}
+%     \end{itemize}
+%     \vspace{0.3cm}
+% \end{frame}
+
+\begin{frame}{Key Mathematical Concepts...}
+    \begin{itemize}
+        \item \textbf{Model Overview} \\
+        BGE-M3 [11] is a versatile text embedding model developed by BAAI, distinguished by its capabilities in Multi-Functionality, Multi-Linguality, and Multi-Granularity. It supports over 100 languages and can process inputs ranging from short sentences to long documents of up to 8192 tokens.
+
+        \begin{center}
+        \begin{tabular}{p{3cm} p{7.5cm}} % left column fixed, right column wraps
+            \(\color{blue}{e_q}\) : & Dense embedding vector of the query \(q\) \\
+            \(\color{blue}{e_p}\) : & Dense embedding vector of the passage \(p\) \\
+            \(\color{blue}{s_{\text{dense}}}\) : & Similarity score between \(e_q\) and \(e_p\) \\
+            \(\color{blue}{\tau}\) : & Similarity threshold for relevance determination \\
+            \(\color{blue}{\text{Sim}(e_q, e_p)}\) : & Similarity function (e.g., cosine similarity) \\
+            \(\color{blue}{\text{Interpretation}}\) : & Higher \(s_{\text{dense}}\) indicates greater relevance between \(q\) and \(p\)
+        \end{tabular}
+        \end{center}
+    \end{itemize}
+    \vspace{0.3cm}
+\end{frame}
+

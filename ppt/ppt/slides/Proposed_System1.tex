@@ -1,0 +1,49 @@
+\section{Proposed System}
+
+% - Stage 1 & 2: Query Processing and Retrieval -
+\begin{frame}{Proposed System}
+\textbf{1. Query Processing}
+\begin{itemize}
+    \item Receive user query.
+    \item Preprocess query: tokenization, normalization, stopword removal.
+    \item Generate dense query embedding using BGE-M3 for semantic search.
+\end{itemize}
+
+\vspace{0.3cm}
+
+\textbf{2. Retrieval: Lexical and Semantic}
+\begin{itemize}
+    \item Fetch documents using BM25 based on exact keyword matches.
+    \item Retrieve semantically similar documents using BGE-M3 embeddings.
+    \item Rank documents in each retrieval method separately.
+\end{itemize}
+\end{frame}
+
+% - Stage 3 & 4: Ranking Fusion and Deduplication -
+\begin{frame}{Proposed System}
+\textbf{3. Ranking Fusion (\textbf{RRF})}
+\begin{itemize}
+    \item Combine BM25 and BGE-M3 results using Reciprocal Rank Fusion.
+    \item Prioritize documents that rank highly in either lexical or semantic retrieval.
+    \item Produce a unified, fused ranking of documents.
+\end{itemize}
+
+\vspace{0.3cm}
+
+\textbf{4. Deduplication}
+\begin{itemize}
+    \item Compare documents in fused set to remove highly similar or duplicate entries.
+    \item Ensure diversity in the candidate document set.
+    \item Filter out documents exceeding similarity threshold.
+\end{itemize}
+\end{frame}
+
+% - Stage 5: Answer Generation -
+\begin{frame}{Proposed System}
+\textbf{5. Answer Generation}
+\begin{itemize}
+    \item Pass top-ranked, deduplicated documents to the Reasoning Agent (\textbf{LLM}).
+    \item Generate coherent, context-aware answer.
+    \item Optionally log query-answer pairs for feedback and improvement.
+\end{itemize}
+\end{frame}

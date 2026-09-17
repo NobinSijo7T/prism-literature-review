@@ -1,0 +1,25 @@
+
+
+\begin{frame}
+\frametitle{ Detailed Explanation on Proposed System}
+
+\begin{itemize}
+    \item \textbf{Vision Language Model (VLM): Florence-2 - Capabilities \& Fine-Tuning Strategy}
+    
+    \vspace{0.3cm}
+    
+    \begin{itemize}
+        \item We will use the Wave-UI dataset to fine-tune the Florence-2 model using \textbf{Low-Rank Adaptation} (LoRA).
+        
+        \vspace{0.25cm}
+        
+        \item \textbf{Goal:} To adapt its powerful phrase grounding ability to our specific action-taking format. The model will learn to take a screenshot and an instruction, and instead of just describing the element, it will output a machine-readable command like click(box='[x1, y1, x2, y2]').
+        
+        \vspace{0.25cm}
+        
+        \item This approach is highly feasible on an 8GB VRAM GPU due to the model's efficiency and the LoRA technique.
+    \end{itemize}
+
+\end{itemize}
+
+\end{frame}

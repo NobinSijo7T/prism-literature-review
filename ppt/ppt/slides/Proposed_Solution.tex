@@ -1,0 +1,19 @@
+\section{Proposed Solution}
+
+\begin{frame}
+\frametitle{Proposed Solution}
+
+\textbf{Hybrid Search Engine:} \small The proposed solution is a modern search system that combines the strengths of both traditional keyword-based and semantic search. It leverages a Reciprocal Rank Fusion (\textbf{RRF}) algorithm to intelligently merge and re-rank search results from multiple retrieval methods.
+
+
+\begin{itemize}
+    \item \textbf{Keyword-Based (Lexical) Search:} \small Uses an inverted index to quickly retrieve documents containing exact terms from the user's query. Effective for specific product names, part numbers, or precise phrases.
+    
+    \item \textbf{Semantic-Based Search:} \small Converts user queries and documents into numerical embeddings and uses a vector database for similarity search. Excels at capturing conceptual meaning and retrieving contextually relevant documents.
+\end{itemize}
+
+\vspace{0.2cm}
+
+\textbf{Reciprocal Rank Fusion (\textbf{RRF}):} \small The \textbf{RRF} algorithm takes the top-k results from both keyword and semantic searches and fuses them into a single, final ranked list, balancing exact matches with semantic relevance.  
+
+\end{frame}

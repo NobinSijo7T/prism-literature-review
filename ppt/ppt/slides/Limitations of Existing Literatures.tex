@@ -1,0 +1,39 @@
+\section{Limitations}
+\begin{frame}{Limitations}
+    \begin{itemize}
+        \item \textbf{No unified evaluation framework}
+
+        
+        Existing studies depend on precision and recall alone, failing to capture ranking stability, reasoning consistency, or agent autonomy. Incompatible protocols across papers make meaningful cross-study comparison impossible.
+
+        \item \textbf{Fragmented, siloed optimization}
+
+
+        Retrieval, fusion, and generation modules are tuned independently with no unified pipeline view. Improvements in one stage rarely produce proportional gains in overall system output.
+
+        \item \textbf{Retrieval instability is largely ignored}
+
+
+        Static and single-pass systems produce inconsistent rankings across repeated or slightly varied queries. This ranking noise propagates directly into generation, producing contradictory or hallucinated responses.
+
+
+        \end{itemize}
+\end{frame}
+
+\begin{frame}{Limitations...}
+    \begin{itemize}
+        \item \textbf{High overhead with no middle-ground solution}
+
+
+        Multi-Encoder and Knowledge Graph methods incur excessive storage and compute costs, while \textbf{RRF} alone offers insufficient semantic depth. No existing system bridges this gap for scalable, high-quality retrieval.
+
+        \item \textbf{Narrow validation, domain-locked, and not generalisable}
+
+
+        Most architectures are tested on small, curated datasets with weak baselines and optimised for a single domain such as healthcare or finance. They lack the flexibility to transfer across domains or scale beyond controlled lab conditions - revealing a critical gap in real-world applicability.
+    \end{itemize}
+\end{frame}
+        
+
+        
+    

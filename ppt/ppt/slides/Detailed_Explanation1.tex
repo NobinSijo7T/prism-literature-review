@@ -1,0 +1,78 @@
+\section{Detailed Explanation}
+
+% - Dataset -
+\begin{frame}{Detailed Explanation of Proposed System}
+\textbf{Dataset: Combined Text Corpus for RAG}
+
+\begin{itemize}
+    \item \small \textbf{Massive Scale:} Contains over 100,000 documents from multiple sources including articles, manuals, FAQs, and reports, ensuring broad coverage for semantic and lexical retrieval.
+    \item \small \textbf{Structured Annotations:} Each document includes:
+        \begin{itemize}
+            \item Raw text for BM25 indexing.
+            \item Precomputed embeddings for BGE-M3 semantic search.
+            \item Metadata such as title, source, and timestamps for verification and ranking.
+        \end{itemize}
+    \item \small \textbf{Action-Focused Retrieval:} The dataset is curated for question-answering tasks, ensuring that relevant passages contain actionable information for the system to generate coherent answers.
+    \item \small \textbf{Controlled Complexity:} Cleaned and preprocessed to remove noise, duplicates, and irrelevant content, facilitating efficient retrieval and reducing ambiguity for the \textbf{LLM}.
+\end{itemize}
+\end{frame}
+
+% - BM25 Model -
+\begin{frame}{Proposed System}
+\textbf{BM25 Lexical Retrieval: Capabilities & Configuration}
+
+\begin{itemize}
+    \item \textbf{Function:} Scores documents based on term frequency, inverse document frequency, and document length normalization.
+    \item \textbf{Strengths:} Fast, robust for keyword-based retrieval, handles exact matches effectively.
+    \item \textbf{Hyperparameters:}
+        \begin{itemize}
+            \item $k_1 = 1.5$ — controls term frequency saturation.
+            \item $b = 0.75$ — controls document length normalization.
+            \item $\epsilon = 1.0$ — prevents negative or extreme IDF values for common words.
+        \end{itemize}
+    \item \textbf{Output:} Ranked list of documents based purely on lexical match scores.
+\end{itemize}
+\end{frame}
+
+% - BGE-M3 Semantic Model -
+\begin{frame}{Proposed System}
+\textbf{BGE-M3 Semantic Retrieval: Capabilities & Fine-Tuning}
+
+\begin{itemize}
+    \item \textbf{Function:} Converts documents and queries into dense embeddings and computes cosine similarity for semantic relevance.
+    \item \textbf{Strengths:} Captures contextual meaning beyond keywords, effective for paraphrased or implicit queries.
+    \item \textbf{Fine-Tuning Strategy:}
+        \begin{itemize}
+            \item Optionally fine-tuned on domain-specific data for improved semantic alignment.
+            \item Handles large-scale embeddings efficiently for real-time retrieval.
+        \end{itemize}
+    \item \textbf{Output:} Ranked list of semantically relevant documents.
+\end{itemize}
+\end{frame}
+
+% - Ranking & Deduplication -
+\begin{frame}{Proposed System}
+\textbf{Ranking Fusion and Deduplication: Capabilities}
+
+\begin{itemize}
+    \item \textbf{RRF (Reciprocal Rank Fusion):} Combines BM25 and BGE-M3 scores into a unified ranking, prioritizing documents highly ranked in either method.
+    \item \textbf{Deduplication:} Removes highly similar or duplicate documents using cosine similarity thresholds to ensure diversity in candidate passages.
+    \item \textbf{Purpose:} Ensures that the system works with the most relevant and diverse document set before answer generation.
+\end{itemize}
+\end{frame}
+
+% - Answer Generation -
+\begin{frame}{Proposed System}
+\textbf{Reasoning Agent (\textbf{LLM}): Capabilities}
+
+\begin{itemize}
+    \item \textbf{Function:} Synthesizes coherent answers from top-ranked, deduplicated documents.
+    \item \textbf{Strengths:} Generates context-aware, fluent responses in natural language.
+    \item \textbf{Optional Enhancements:}
+        \begin{itemize}
+            \item Logging of Q-A pairs for feedback and iterative improvement.
+            \item Context window management for multi-document summarization.
+        \end{itemize}
+    \item \textbf{Output:} Final, user-ready answer.
+\end{itemize}
+\end{frame}

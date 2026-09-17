@@ -1,0 +1,57 @@
+% PrismSpace project presentation (editable Beamer source)
+\documentclass[aspectratio=169,10pt]{beamer}
+\usetheme{Madrid}
+\usecolortheme{default}
+\usefonttheme{professionalfonts}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{adjustbox}
+\usepackage{fontawesome5}
+\usetikzlibrary{arrows.meta,positioning,fit,backgrounds,calc,shadows,shapes.geometric}
+
+\definecolor{prismNavy}{RGB}{13,29,54}
+\definecolor{prismBlue}{RGB}{38,126,190}
+\definecolor{prismTeal}{RGB}{28,161,157}
+\definecolor{prismMint}{RGB}{224,247,242}
+\definecolor{prismGold}{RGB}{229,166,50}
+\setbeamercolor{structure}{fg=prismBlue}
+\setbeamercolor{frametitle}{bg=prismNavy,fg=white}
+\setbeamercolor{title}{fg=prismNavy}
+\setbeamercolor{author}{fg=prismBlue}
+\setbeamercolor{block title}{bg=prismBlue,fg=white}
+\setbeamercolor{block body}{bg=prismMint,fg=black}
+\setbeamercolor{footline}{bg=prismNavy,fg=white}
+\setbeamertemplate{navigation symbols}{}
+\setbeamercolor{author in head/foot}{bg=prismNavy, fg=white}
+\setbeamercolor{title in head/foot}{bg=prismBlue, fg=white}
+\setbeamercolor{date in head/foot}{bg=prismNavy, fg=white}
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}Group 01 (CEK)
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}BTech Project
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertdate\hspace*{2em}
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\setbeamertemplate{itemize item}{\color{prismTeal}$\blacktriangleright$}
+\setbeamertemplate{itemize subitem}{\color{prismGold}$\bullet$}
+
+\title[PrismSpace]{PrismSpace}
+\subtitle{An Intelligent Developer Workspace for Multi-Agent Orchestration}
+\author{Nobin Sijo \and Pranav P \and Prasanth P \and Sankar Narayan S}
+\institute{Department of Computer Science \& Engineering\\College of Engineering, Karunagappally}
+\date{September 3, 2026}
+
+\begin{document}
+\input{slides/prismspace_deck}
+\end{document}

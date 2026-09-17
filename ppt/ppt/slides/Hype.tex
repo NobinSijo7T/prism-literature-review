@@ -1,0 +1,18 @@
+\section{Hyperparameters}
+
+
+\begin{frame}{Hyperparameters: BM25}
+    \centering
+    \renewcommand{\arraystretch}{1.5} % Increase row height for readability
+    \begin{tabular}{l l p{6.5cm}} % Use p{6cm} for wrapping in Description column
+        \toprule
+        \textbf{Parameter} & \textbf{Value} & \textbf{Description} \\
+        \midrule
+        $k_1$ & \texttt{1.5} & Controls term frequency saturation \\
+        $b$ & \texttt{0.75} & Controls document length normalization \\
+        IDF smoothing / $\epsilon$ & \texttt{1.0} & Prevents negative or extreme IDF  values \newline for common words \\
+        \bottomrule
+    \end{tabular}
+\end{frame}
+
+

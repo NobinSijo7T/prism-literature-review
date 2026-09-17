@@ -1,0 +1,35 @@
+\begin{frame}{Integration of Short Term Learning Methods for Image Retrieval by Reciprocal Rank Fusion}
+\scriptsize
+\vspace{-0.8em}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.5} % increases row height slightly more
+\setlength{\tabcolsep}{2.5pt}     % reduces horizontal padding a bit more
+
+\begin{tabular}{|p{2.6cm}|p{4.3cm}|p{4.3cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\tiny\textit{[8] B. Bagheri, M. Pourmahyabadi, and H. Nezamabadi-pour, 2013 8th Iranian Conf. Mach. Vis. Image Process. (MVIP), pp. 366–369, 2013.  \newline
+DOI: 10.1109/IranianMVIP.2013.6780012.}
+&
+Proposes a \textbf{CBIR system} combining two \textbf{STL} methods - \textbf{J\_R-N} and \textbf{SVM Active Learning} - using \textbf{RRF}. Extracts color, texture, and shape features, applies both \textbf{STL} methods independently, and fuses ranked lists using \textbf{RRF}. Tested on the Corel dataset with 10,000 images across 82 semantic groups, achieving 73\% precision after 4 feedback iterations.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.25em
+\item 10\% improvement over J\_R-N and 6\% over \textbf{SVM} individually.
+\item Combines complementary strengths of classification and similarity-based approaches.
+\item Simple, unsupervised fusion method with straightforward scoring.
+\end{itemize}
+
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.25em
+\item Limited to basic feature extraction.
+\item Computational cost from multiple method executions and \textbf{RRF}.
+\item Tested only on Corel dataset; generalizability uncertain.
+\end{itemize} \\
+\hline
+\end{tabular}
+\end{table}
+\end{frame}

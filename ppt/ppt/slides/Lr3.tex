@@ -1,0 +1,35 @@
+\begin{frame}{QuIM-RAG: Advancing Retrieval-Augmented Generation With Inverted Question Matching}
+\scriptsize
+\vspace{-0.8em}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.5} % increases row height slightly more
+\setlength{\tabcolsep}{2.5pt}     % reduces horizontal padding a bit more
+
+\begin{tabular}{|p{2.6cm}|p{4.3cm}|p{4.3cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\tiny\textit{[5] B. Saha, U. Saha, and M. Z. Malik, IEEE Access, vol. 12, pp. 185401–185410, 2024.  
+DOI: 10.1109/ACCESS.2024.3513155.}
+&
+Introduces \textbf{QuIM-RAG}, a Retrieval-Augmented Generation model using \textbf{question-to-question inverted index matching} with quantized embeddings to improve QA relevance. Tested on NDSU data using Meta-LLaMA3-8B-instruct.It generates candidate questions from document chunks to retrieve more semantically relevant answers and outperform traditional RAG approaches.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.25em
+\item More semantically relevant retrieval.
+\item High faithfulness score (1.00).
+\item Strong BERT/RAGAS performance.
+\end{itemize}
+
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.25em
+\item Evaluation limited to a single domain.
+\item High preprocessing and storage cost.
+\item Dependent on quality of generated questions.
+\end{itemize} \\
+\hline
+\end{tabular}
+\end{table}
+\end{frame}
