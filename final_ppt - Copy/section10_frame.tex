@@ -1,0 +1,67 @@
+% Section 10: Unified Dataset Preparation & Training Pipeline
+\begin{frame}[t]{07. Unified Dataset Preparation \& Multi-Model Training Pipeline}
+\vspace{-0.18em}
+\centering
+\begin{columns}[T]
+\begin{column}{0.31\textwidth}
+  \begin{tcolorbox}[enhanced, arc=3pt, colframe=lavenderDark, colback=white,
+    title={\scriptsize\bfseries\faDatabase\ 1. Data Sources}, boxrule=0.55pt,
+    left=3pt, right=3pt, top=2pt, bottom=2pt]
+  \scriptsize
+  \textbf{24 training sets} covering:
+  \begin{itemize}\setlength{\itemsep}{1.4pt}
+    \item Agent traces: timings, tool calls, and task trajectories.
+    \item Tool calling: API, parallel-call, and coding benchmarks.
+    \item Retrieval data: search corpora, schemas, and dialogues.
+    \item Safety and preference data: harm labels and ranked responses.
+  \end{itemize}
+  \end{tcolorbox}
+\end{column}
+\begin{column}{0.34\textwidth}
+  \begin{tcolorbox}[enhanced, arc=3pt, colframe=prismTeal!90!black, colback=white,
+    title={\scriptsize\bfseries\faCogs\ 2. Curate \& Train}, boxrule=0.55pt,
+    left=3pt, right=3pt, top=2pt, bottom=2pt]
+  \scriptsize
+  \begin{itemize}\setlength{\itemsep}{1.4pt}
+    \item \texttt{dataset\_loader.py}: combines JSON, CSV, Parquet, PKL, and Markdown.
+    \item Normalizes prompts, actions, timestamps, and labels into one schema.
+    \item Supervised preparation creates approval, success, provider, and reward splits.
+    \item \texttt{train.py}: uses TF-IDF/FAISS retrieval, K-Means workflow clustering, and scikit-learn predictors.
+    \item ORPO fine-tunes the reward model on Qwen2.5 for preference alignment.
+  \end{itemize}
+  \end{tcolorbox}
+\end{column}
+\begin{column}{0.31\textwidth}
+  \begin{tcolorbox}[enhanced, arc=3pt, colframe=lavenderMedium, colback=white,
+    title={\scriptsize\bfseries\faCheckCircle\ 3. Artifacts \& Evaluate}, boxrule=0.55pt,
+    left=3pt, right=3pt, top=2pt, bottom=2pt]
+  \scriptsize
+  \begin{itemize}\setlength{\itemsep}{1.4pt}
+    \item \textbf{11 production artifacts}.
+    \item Intent classifier and multi-label router classify tasks and select specialists.
+    \item K-Means clusters workflows; predictors estimate success, latency, and cost.
+    \item Approval classifier and Isolation Forest screen risky or unusual actions.
+    \item TF-IDF/FAISS retrieve context; ORPO aligns responses.
+    \item Holdout tests check F1, precision, recall, calibration, GAIA, and SWE-bench.
+  \end{itemize}
+  \end{tcolorbox}
+\end{column}
+\end{columns}
+\vspace{0.10em}
+\begin{tikzpicture}[
+  >=Latex,
+  pipeline/.style={draw=lavenderDark!70, rounded corners=2pt, minimum height=0.66cm,
+                   text width=2.22cm, align=center, inner sep=2pt,
+                   font=\fontsize{5.4}{6.2}\selectfont\bfseries},
+  pipearrow/.style={->, draw=lavenderDark!85, line width=0.65pt}]
+  \node[pipeline, fill=lavenderLight!70] (raw) {Raw datasets\\\normalfont\fontsize{4.8}{5.4}\selectfont 24 training sets};
+  \node[pipeline, fill=prismTeal!18, right=0.22cm of raw] (schema) {Normalize\\\normalfont\fontsize{4.8}{5.4}\selectfont unified schema};
+  \node[pipeline, fill=prismGold!35, right=0.22cm of schema] (curate) {Curate\\\normalfont\fontsize{4.8}{5.4}\selectfont supervised splits};
+  \node[pipeline, fill=prismBlue!28, right=0.22cm of curate] (train) {Train\\\normalfont\fontsize{4.8}{5.4}\selectfont TF-IDF, FAISS, K-Means, ORPO};
+  \node[pipeline, fill=lavenderMedium!25, right=0.22cm of train] (eval) {Evaluate\\\normalfont\fontsize{4.8}{5.4}\selectfont holdout + benchmarks};
+  \draw[pipearrow] (raw.east) -- (schema.west);
+  \draw[pipearrow] (schema.east) -- (curate.west);
+  \draw[pipearrow] (curate.east) -- (train.west);
+  \draw[pipearrow] (train.east) -- (eval.west);
+\end{tikzpicture}
+\end{frame}

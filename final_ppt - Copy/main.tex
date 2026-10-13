@@ -1,0 +1,1746 @@
+% PrismSpace: System Flow, Architecture, DB Schema & Algorithm Presentation
+\documentclass[aspectratio=169,10pt]{beamer}
+\usetheme{Madrid}
+\usecolortheme{default}
+\usefonttheme{professionalfonts}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{adjustbox}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\usepackage{fontawesome5}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{colortbl}
+\usetikzlibrary{arrows.meta,positioning,fit,backgrounds,calc,shadows,shapes.geometric,tikzmark}
+
+\providecommand{\pk}[1]{\textbf{#1}}
+\providecommand{\idx}[1]{\textit{#1}}
+\providecommand{\comp}[1]{\texttt{#1}}
+
+% Lavender Color Palette for Professional Headers & Visual Flow
+\definecolor{lavenderDark}{RGB}{76, 51, 122}      % #4C337A - Deep Royal Lavender for Frametitles, Banners, Headers
+\definecolor{lavenderDeep}{RGB}{58, 36, 96}       % #3A2460 - High-contrast lavender for text on light backgrounds
+\definecolor{lavenderMedium}{RGB}{124, 98, 173}   % #7C62AD - Medium Lavender for Subheaders, Footers, Accents
+\definecolor{lavenderLight}{RGB}{243, 239, 252}   % #F3EFFC - Soft Lavender Mist for fills and backgrounds
+\definecolor{lavenderBorder}{RGB}{186, 168, 224}  % #BAA8E0 - Soft Lavender border
+\definecolor{lavenderAccent}{RGB}{150, 120, 205}  % #9678CD - Accent lilac for highlights & bullets
+
+% PrismSpace Supporting Palette
+\definecolor{bannerGreen}{RGB}{76, 51, 122}
+\definecolor{prismNavy}{RGB}{76, 51, 122}
+\definecolor{prismBlue}{RGB}{124, 98, 173}
+\definecolor{prismTeal}{RGB}{22,138,114}
+\definecolor{prismMint}{RGB}{243, 239, 252}
+\definecolor{prismGold}{RGB}{217,154,34}
+\definecolor{prismDark}{RGB}{23,32,42}
+\definecolor{prismLight}{RGB}{248,247,252}
+\definecolor{prismIndigo}{RGB}{76, 51, 122}
+\definecolor{prismSlate}{RGB}{102,112,133}
+\definecolor{cardBg}{RGB}{255,255,255}
+
+% Harmonious pastel node fills
+\definecolor{cInput}{RGB}{231,233,236}
+\definecolor{cStem}{RGB}{220,214,247}
+\definecolor{cStage1}{RGB}{191,232,213}
+\definecolor{cStage2}{RGB}{246,213,138}
+\definecolor{cStage3}{RGB}{242,184,181}
+\definecolor{cStage4}{RGB}{191,227,242}
+\definecolor{cHead}{RGB}{216,197,232}
+\definecolor{cOutput}{RGB}{234,207,213}
+
+% Execution-core fills
+\definecolor{cTask}{RGB}{231,233,236}
+\definecolor{cPlanner}{RGB}{207,199,242}
+\definecolor{cDispatch}{RGB}{169,220,235}
+\definecolor{cReact}{RGB}{169,222,200}
+\definecolor{cTool}{RGB}{244,213,141}
+\definecolor{cSafety}{RGB}{240,170,167}
+\definecolor{cMemory}{RGB}{214,185,230}
+\definecolor{cDeliverable}{RGB}{185,222,210}
+
+% Beamer Palette Settings - Lavender Theme
+\setbeamercolor{structure}{fg=lavenderDark}
+\setbeamercolor{background canvas}{bg=prismLight}
+\setbeamercolor{normal text}{fg=prismDark,bg=prismLight}
+\setbeamercolor{frametitle}{bg=lavenderDark,fg=white}
+\setbeamercolor{title}{fg=lavenderDark}
+\setbeamercolor{author}{fg=lavenderMedium}
+\setbeamercolor{institute}{fg=gray}
+\setbeamercolor{date}{fg=gray}
+
+\setbeamercolor{block title}{bg=lavenderDark,fg=white}
+\setbeamercolor{block body}{bg=cardBg,fg=prismDark}
+\setbeamercolor{block title alerted}{bg=prismGold!90!black,fg=white}
+\setbeamercolor{block body alerted}{bg=prismGold!10,fg=prismDark}
+\setbeamercolor{block title example}{bg=lavenderMedium,fg=white}
+\setbeamercolor{block body example}{bg=lavenderLight,fg=prismDark}
+
+\setbeamertemplate{navigation symbols}{}
+
+% Professional Header and Footer
+\setbeamercolor{author in head/foot}{bg=lavenderDark, fg=white}
+\setbeamercolor{title in head/foot}{bg=lavenderMedium, fg=white}
+\setbeamercolor{date in head/foot}{bg=lavenderDark, fg=white}
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.28\paperwidth,ht=2.5ex,dp=1.1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\textbf{Group 01} $\cdot$ CSE, CEK
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.48\paperwidth,ht=2.5ex,dp=1.1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\textbf{PrismSpace}: Architecture, Flow, DB \& Swarm Algorithm
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.24\paperwidth,ht=2.5ex,dp=1.1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\setbeamertemplate{itemize item}{\color{lavenderAccent}$\blacktriangleright$}
+\setbeamertemplate{itemize subitem}{\color{lavenderMedium}$\bullet$}
+\setbeamertemplate{itemize subsubitem}{\color{prismGold}$-$}
+
+% Title Metadata
+\title[PrismSpace]{\textbf{\LARGE PrismSpace}}
+\subtitle{\large System Flow, Multi-Layer Architecture, Browser DB Schema \& Swarm Algorithms}
+\author[Group 01]{
+  \textbf{Nobin Sijo} \and \textbf{Pranav P} \and \textbf{Prasanth P} \and \textbf{Sankar Narayan S}
+}
+\institute[CEK]{
+  \textbf{Department of Computer Science \& Engineering}\\
+  College of Engineering, Karunagappally
+}
+\date{\today}
+
+\begin{document}
+
+% =============================================================================
+% SLIDE 1: TITLE SLIDE
+% =============================================================================
+\begin{frame}[plain]
+\begin{tikzpicture}[remember picture,overlay]
+  % 1. Top Lavender Banner
+  \node[
+    rounded corners=5pt,
+    fill=lavenderDark,
+    drop shadow={shadow xshift=1.5pt, shadow yshift=-2.0pt, opacity=0.35},
+    minimum width=15.2cm,
+    minimum height=0.98cm,
+    inner sep=0pt
+  ] at ([yshift=-0.78cm]current page.north) {};
+
+  \node[text=white, font=\bfseries\fontsize{13.5}{16}\selectfont] at ([yshift=-0.78cm]current page.north) {
+    PRISMSPACE - INTELLIGENT MULTI-AGENT PLATFORM
+  };
+
+  % 2. College Emblem
+  \node at ([yshift=-1.95cm]current page.north) {
+    \includegraphics[height=0.95cm]{cek-logo.png}
+  };
+
+  % 3. Department & College Text
+  \node[font=\footnotesize, align=center] at ([yshift=-2.82cm]current page.north) {
+    \textbf{Dept. of Computer Science \& Engineering}\\[0.12em]
+    College of Engineering, Karunagappally
+  };
+
+  % 4. Project Group Header
+  \node[font=\large\bfseries, text=lavenderDark] at ([yshift=-3.55cm]current page.north) {
+    Project Group 01
+  };
+
+  % 5. Students & Register Numbers Table
+  \node[font=\small] at ([yshift=-4.60cm]current page.north) {
+    \begin{tabular}{l@{\hspace{3.4cm}}l}
+      \textbf{NOBIN SIJO}        & KNP23CS082 \\
+      \textbf{PRANAV P}          & KNP23CS085 \\
+      \textbf{PRASANTH P}        & KNP23CS086 \\
+      \textbf{SANKAR NARAYAN S}  & KNP23CS094
+    \end{tabular}
+  };
+
+  % 6. Horizontal Lavender Accent Line
+  \draw[lavenderDark, line width=0.9pt] ([xshift=1.6cm, yshift=-5.58cm]current page.north west) -- ([xshift=-1.6cm, yshift=-5.58cm]current page.north east);
+
+  % 7. Project Coordinator & Guide Details
+  \node[align=center, font=\footnotesize] at ([yshift=-6.70cm]current page.north) {
+    {\color{lavenderDark}\textit{Project Coordinator \& Guide}}\\[0.25em]
+    \textbf{\small Dr. Leena Silvoster}\\[0.12em]
+    Associate Professor\\[0.08em]
+    College of Engineering, Karunagappally
+  };
+\end{tikzpicture}
+\end{frame}
+
+% =============================================================================
+% SLIDE 2: INTRODUCTION
+% =============================================================================
+\section{Introduction}
+
+\begin{frame}[c]{01. Introduction: PrismSpace Platform}
+\centering
+\begin{minipage}{0.92\linewidth}
+\begin{tcolorbox}[
+  enhanced, arc=5pt, colframe=lavenderDark!80, colback=lavenderLight!25,
+  boxrule=1.0pt,
+  left=18pt, right=18pt, top=18pt, bottom=18pt
+]
+\fontsize{10.0}{15.2}\selectfont\sffamily\color{lavenderDeep}
+    \textbf{\large\color{lavenderDark}PrismSpace} is a local-first, multi-agent intelligence platform that converts natural-language user goals into dependency-aware \textbf{Directed Acyclic Graphs (DAGs)} for parallel sub-task execution. By pairing dynamic multi-model routing (Groq, OpenAI, NVIDIA NIM) with standardized tool access via the \textbf{Model Context Protocol (MCP)}, it coordinates specialized AI swarms to solve everyday and developer workflows-delivering safety-aligned verification and zero-latency local persistence (\texttt{PrismDB}) within a unified, reactive workspace.
+\end{tcolorbox}
+\end{minipage}
+\end{frame}
+
+% =============================================================================
+% SLIDE 3: OBJECTIVES
+% =============================================================================
+\section{Objectives}
+
+\begin{frame}[t]{02. Project Objectives}
+\vspace{0.55em}
+  \begin{minipage}{0.94\linewidth}
+  \fontsize{8.6}{11.2}\selectfont
+  \begin{enumerate}\setlength{\itemsep}{12pt}\setlength{\leftmargin}{0.34in}
+    \item \textbf{Context-Aware Task Planning:} Convert everyday user goals (communication, file management, daily schedules) and technical requests into structured Directed Acyclic Graphs (DAGs) for organized, dependency-safe execution.
+    \item \textbf{Intelligent Model \& Agent Routing:} Dynamically route each sub-task to the most suitable Large Language Model (LLM) backend and dispatch specialized, context-aware agents in parallel.
+    \item \textbf{Practical Tool Execution via MCP:} Connect agents to everyday productivity tools and development utilities (Gmail, Google Drive, Filesystem, Terminal CLI, GitHub) through the Model Context Protocol (MCP), accompanied by live Server-Sent Events (SSE) updates.
+    \item \textbf{Safety Verification \& Local Persistence:} Validate outputs with human approval checkpoints and Odds Ratio Preference Optimization (ORPO), storing results reactively in local IndexedDB (Indexed Database: \texttt{PrismDB}).
+  \end{enumerate}
+  \end{minipage}
+\end{frame}
+
+% =============================================================================
+% SLIDE 4: AT A GLANCE (FIGURE 1.0) - UNDERSTAND IN 3 SLIDES CENTERPIECE
+% =============================================================================
+\section{System Overview}
+
+\begin{frame}[t]{03. PrismSpace Workflow (Figure 1.0)}
+\vspace{-0.15em}
+\centering
+\adjustbox{max width=0.98\linewidth, max height=0.74\textheight}{%
+\begin{tikzpicture}[
+    x=1cm, y=1cm,
+    font=\sffamily,
+    stepbox/.style={
+        rectangle, draw=lavenderDark!80, line width=0.85pt, fill=white,
+        rounded corners=4pt, inner sep=4pt, align=center,
+        drop shadow={shadow xshift=1pt, shadow yshift=-1pt, opacity=0.2}
+    },
+    flowarr/.style={
+        -{Stealth[scale=0.85]}, line width=1.1pt, draw=lavenderDark!90
+    },
+    dashloop/.style={
+        -{Stealth[scale=0.75]}, line width=0.85pt, dashed, draw=prismGold!90!black
+    }
+]
+
+    % Step 1: User Request
+    \node [stepbox, fill=cInput, text width=2.5cm] (b1) at (-6.2, 0) {
+        \textbf{\fontsize{8.2}{9.8}\selectfont\color{lavenderDark}1. User Request}\\[0.22em]
+        \fontsize{6.2}{7.4}\selectfont
+        $\bullet$ Daily or tech goal\\
+        $\bullet$ Email, docs, or code\\
+        $\bullet$ Context and history
+    };
+
+    % Step 2: Supervisor & Router
+    \node [stepbox, fill=cPlanner, text width=2.6cm] (b2) at (-2.8, 0) {
+        \textbf{\fontsize{8.2}{9.8}\selectfont\color{lavenderDark}2. Task Router}\\[0.22em]
+        \fontsize{6.2}{7.4}\selectfont
+        $\bullet$ Request type\\
+        $\bullet$ Best model selection\\
+        $\bullet$ Task planning
+    };
+
+    % Step 3: Swarm Agents and responsibilities
+    \node [stepbox, fill=cReact, text width=3.05cm] (b3) at (0.8, 1.25) {
+        \textbf{\fontsize{8.2}{9.8}\selectfont\color{lavenderDark}3. Swarm Agents}\\[0.18em]
+        \fontsize{5.7}{6.8}\selectfont
+        {\color{prismIndigo}\faProjectDiagram}\; \textbf{Planner:} makes task plan\\
+        {\color{prismBlue}\faSearch}\; \textbf{Assistant:} \mbox{handles daily tasks}\\
+        {\color{prismTeal}\faCode}\; \textbf{Coder:} edits code\\
+        {\color{purple!75!black}\faClipboardCheck}\; \textbf{Validator:} checks results
+    };
+
+    % Step 4: MCP servers with project connections
+    \node [stepbox, fill=cTool, text width=3.05cm] (b4) at (0.8, -1.25) {
+        \textbf{\fontsize{8.2}{9.8}\selectfont\color{lavenderDark}4. MCP Servers}\\[0.15em]
+        \fontsize{5.7}{6.8}\selectfont
+        {\color{red!70!black}\faGoogle}\; \textbf{Gmail:} email management\\
+        {\color{prismBlue}\faGoogleDrive}\; \textbf{Google Drive:} documents\\
+        {\color{prismGold!90!black}\faFolderOpen}\; \textbf{Filesystem:} local files\\
+        {\color{prismTeal}\faTerminal}\; \textbf{Tools:} terminal, web
+    };
+
+    % Step 5: Validator & Safety Gate
+    \node [stepbox, fill=cSafety, text width=2.6cm] (b5) at (4.4, 0) {
+        \textbf{\fontsize{8.2}{9.8}\selectfont\color{lavenderDark}5. Validation}\\[0.22em]
+        \fontsize{6.2}{7.4}\selectfont
+        $\bullet$ Policy check\\
+        $\bullet$ Human approval\\
+        $\bullet$ ORPO score
+    };
+
+    % Step 6: Verified Output & DB
+    \node [stepbox, fill=cDeliverable, text width=2.5cm] (b6) at (7.8, 0) {
+        \textbf{\fontsize{8.2}{9.8}\selectfont\color{lavenderDark}6. Delivery \& DB}\\[0.22em]
+        \fontsize{6.2}{7.4}\selectfont
+        $\bullet$ Live SSE updates\\
+        $\bullet$ Verified output\\
+        $\bullet$ PrismDB storage
+    };
+
+    % Connect main flow
+    \draw [flowarr] (b1) -- (b2);
+    \draw [flowarr] (b2.east) -- ++(0.3, 0) |- (b3.west);
+    \draw [flowarr] (b2.east) -- ++(0.3, 0) |- (b4.west);
+    \draw [{Stealth[scale=0.8]}-{Stealth[scale=0.8]}, line width=1.0pt, draw=prismTeal] (b3) -- (b4);
+    \draw [flowarr] (b3.east) -| ++(0.3, -1.25) -- (b5.west);
+    \draw [flowarr] (b4.east) -| ++(0.3, 1.25) -- (b5.west);
+    \draw [flowarr] (b5) -- (b6);
+
+    % Feedback Loop - lifted clear of the Swarm Agents box
+    \draw [dashloop] (b5.north) -- ++(0, 1.75) -| node[pos=0.5, above=2pt, font=\fontsize{6.2}{7.5}\selectfont\bfseries\color{prismGold!90!black}]{Validation Feedback \& Retry Loop} (b2.north);
+
+\end{tikzpicture}%
+}
+\vspace{0.2em}
+\begin{tcolorbox}[
+  enhanced, arc=3pt, colframe=lavenderDark!65, colback=lavenderLight!35,
+  boxrule=0.6pt, left=4pt, right=4pt, top=1.5pt, bottom=1.5pt
+]
+\centering\fontsize{4.8}{5.8}\selectfont\color{lavenderDark}
+\textbf{Figure 1.0: PrismSpace Workflow} $\;\vert\;$ 
+\textbf{DAG} = Directed Acyclic Graph $\;\vert\;$ 
+\textbf{MCP} = Model Context Protocol $\;\vert\;$ 
+\textbf{ORPO} = Odds Ratio Preference Optimization $\;\vert\;$ 
+\textbf{SSE} = Server-Sent Events
+\end{tcolorbox}
+\end{frame}
+
+% =============================================================================
+% SLIDE 5: SYSTEM DESIGN
+% =============================================================================
+\section{System Design}
+
+\begin{frame}[t]{04. System Design Principles}
+\vspace{-0.15em}
+\begin{itemize}\footnotesize\setlength{\itemsep}{4pt}
+  \item \textbf{Layered Decoupling:} Separates the React client UI, FastAPI bridge, and foundation LLMs (each layer has one clear role).
+  \item \textbf{Dynamic DAG Scheduling:} Runs dependent sub-tasks in parallel ($K \le 5$; additional tasks are queued) for daily and technical workflows.
+  \item \textbf{Standardized Protocol (MCP):} Uses open JSON-RPC tool contracts (a common way for agents and tools to communicate).
+  \item \textbf{Human-in-the-Loop:} Sensitive operations require explicit user approval (a safety checkpoint before execution).
+  \item \textbf{Local IndexedDB (\texttt{PrismDB}):} ACID browser storage (reliable local data) for sessions, tasks, tool history, and files.
+  \item \textbf{Reactive Subscriptions:} Dexie \texttt{useLiveQuery()} updates the UI automatically when data changes.
+  \item \textbf{Server-Sent Events (SSE):} Streams tokens and agent telemetry over persistent HTTP (live one-way updates).
+  \item \textbf{Calibrated Preference Gating:} ORPO ranks and filters outputs to improve quality and safety.
+  \item \textbf{Design Philosophy:} Context-aware, sandboxed, and observable multi-agent workspace (safe and traceable by design).
+\end{itemize}
+\end{frame}
+
+% =============================================================================
+% SLIDE 7: PROPOSED METHODS (moved before Model Responsibilities)
+% =============================================================================
+\input{proposed_methods_frame.tex}
+
+% =============================================================================
+% SLIDE 6: MODEL RESPONSIBILITIES & INFERENCE FLOW
+% =============================================================================
+\section{Model Responsibilities}
+
+\begin{frame}[t]{06. Model Responsibilities \& Inference Flow}
+\vspace{-0.15em}
+\begin{center}
+\begin{tikzpicture}[
+    x=1cm, y=1cm, font=\sffamily,
+    modelrow/.style={rectangle, rounded corners=3pt, draw=lavenderDark!40,
+      line width=0.55pt, minimum height=0.74cm, inner sep=2.5pt},
+    arrow/.style={-{Stealth[scale=0.65]}, line width=0.7pt, draw=lavenderDark!80}
+]
+  % Stage 1: intent
+  \node[modelrow, fill=lavenderLight!85!white, text width=2.00cm, align=center] (m1l) at (-5.70,2.65)
+    {{\fontsize{7.2}{8.2}\selectfont\faBrain\ \textbf{1. Intent}}\\[1pt]
+     {\fontsize{7.2}{8.2}\selectfont\bfseries Classifier}};
+  \node[modelrow, fill=lavenderLight!85!white, text width=7.40cm, align=left] (m1p) at (-0.60,2.65)
+    {\fontsize{6.5}{8.0}\selectfont \textbf{Prompt} $\rightarrow$ \textbf{TF--IDF features} $\rightarrow$ \textbf{classify intent}\\[1pt](research, tool use, coding, everyday synthesis)};
+  \node[modelrow, fill=lavenderLight!85!white, text width=3.35cm, align=left] (m1r) at (5.18,2.65)
+    {\fontsize{6.2}{7.2}\selectfont \textbf{Task type}\\[1pt]{\fontsize{5.2}{6.2}\selectfont\texttt{intent\_classifier.joblib}}};
+
+  % Stage 2: agent routing
+  \node[modelrow, fill=lavenderLight!65!prismTeal, text width=2.00cm, align=center] (m2l) at (-5.70,1.50)
+    {{\fontsize{7.2}{8.2}\selectfont\faUsers\ \textbf{2. Agent}}\\[1pt]
+     {\fontsize{7.2}{8.2}\selectfont\bfseries Router}};
+  \node[modelrow, fill=lavenderLight!65!prismTeal, text width=7.40cm, align=left] (m2p) at (-0.60,1.50)
+    {\fontsize{6.5}{8.0}\selectfont \textbf{Intent + task features} $\rightarrow$ predict \textbf{multiple agent labels}\\[1pt]$\rightarrow$ form the \textbf{specialist team}};
+  \node[modelrow, fill=lavenderLight!65!prismTeal, text width=3.35cm, align=left] (m2r) at (5.18,1.50)
+    {\fontsize{6.2}{7.2}\selectfont \textbf{Agent selection}\\[1pt]{\fontsize{5.2}{6.2}\selectfont\texttt{agent\_router.joblib}}};
+
+  % Stage 3: workflow planning
+  \node[modelrow, fill=lavenderLight!65!prismGold, text width=2.00cm, align=center] (m3l) at (-5.70,0.35)
+    {{\fontsize{7.2}{8.2}\selectfont\faProjectDiagram\ \textbf{3. Workflow}}\\[1pt]
+     {\fontsize{7.2}{8.2}\selectfont\bfseries Planner}};
+  \node[modelrow, fill=lavenderLight!65!prismGold, text width=7.40cm, align=left] (m3p) at (-0.60,0.35)
+    {\fontsize{6.5}{8.0}\selectfont \textbf{Workflow templates} $\rightarrow$ estimate \textbf{completion probability}\\[1pt]$\rightarrow$ choose a \textbf{dependency-safe DAG plan}};
+  \node[modelrow, fill=lavenderLight!65!prismGold, text width=3.35cm, align=left] (m3r) at (5.18,0.35)
+    {\fontsize{6.0}{7.0}\selectfont \textbf{Plan reuse + success}\\[1pt]{\fontsize{5.0}{5.9}\selectfont\texttt{workflow\_templates.pkl}\\\texttt{workflow\_success\_predictor.joblib}}};
+
+  % Stage 4: provider and performance routing
+  \node[modelrow, fill=lavenderLight!65!prismBlue, text width=2.00cm, align=center] (m4l) at (-5.70,-0.80)
+    {{\fontsize{7.2}{8.2}\selectfont\faRandom\ \textbf{4. Provider}}\\[1pt]
+     {\fontsize{7.2}{8.2}\selectfont\bfseries Routing}};
+  \node[modelrow, fill=lavenderLight!65!prismBlue, text width=7.40cm, align=left] (m4p) at (-0.60,-0.80)
+    {\fontsize{6.5}{8.0}\selectfont \textbf{Candidate task} $\rightarrow$ choose \textbf{provider/model}\\[1pt]$\rightarrow$ compare \textbf{predicted latency} and \textbf{token cost}};
+  \node[modelrow, fill=lavenderLight!65!prismBlue, text width=3.35cm, align=left] (m4r) at (5.18,-0.80)
+    {\fontsize{6.0}{7.0}\selectfont \textbf{Provider + cost balance}\\[1pt]{\fontsize{4.8}{5.7}\selectfont\texttt{model\_router.joblib}\\\texttt{latency\_predictor.joblib}\\\texttt{cost\_predictor.joblib}}};
+
+  % Stage 5: safety and reliability
+  \node[modelrow, fill=lavenderLight!70!cSafety, text width=2.00cm, align=center] (m5l) at (-5.70,-1.95)
+    {{\fontsize{7.2}{8.2}\selectfont\faLock\ \textbf{5. Safety}}\\[1pt]
+     {\fontsize{7.2}{8.2}\selectfont\bfseries Gate}};
+  \node[modelrow, fill=lavenderLight!70!cSafety, text width=7.40cm, align=left] (m5p) at (-0.60,-1.95)
+    {\fontsize{6.5}{8.0}\selectfont \textbf{Planned action} $\rightarrow$ score \textbf{approval risk} + \textbf{detect anomalies}\\[1pt]$\rightarrow$ \textbf{approve, pause, or block} execution};
+  \node[modelrow, fill=lavenderLight!70!cSafety, text width=3.35cm, align=left] (m5r) at (5.18,-1.95)
+    {\fontsize{6.0}{7.0}\selectfont \textbf{Risk approval \& safety}\\[1pt]{\fontsize{5.0}{5.9}\selectfont\texttt{approval\_predictor.joblib}\\\texttt{anomaly\_detector.joblib}}};
+
+  % Stage 6: retrieval and output quality
+  \node[modelrow, fill=lavenderLight!75!cHead, text width=2.00cm, align=center] (m6l) at (-5.70,-3.10)
+    {{\fontsize{7.2}{8.2}\selectfont\faSearch\ \textbf{6. Context}}\\[1pt]
+     {\fontsize{7.2}{8.2}\selectfont\bfseries \& Quality}};
+  \node[modelrow, fill=lavenderLight!75!cHead, text width=7.40cm, align=left] (m6p) at (-0.60,-3.10)
+    {\fontsize{6.5}{8.0}\selectfont \textbf{Query} $\rightarrow$ \textbf{FAISS + TF--IDF retrieval} $\rightarrow$ add \textbf{context}\\[1pt]$\rightarrow$ generate \& \textbf{ORPO-align response}};
+  \node[modelrow, fill=lavenderLight!75!cHead, text width=3.35cm, align=left] (m6r) at (5.18,-3.10)
+    {\fontsize{5.8}{6.8}\selectfont \textbf{Evidence + output quality}\\[1pt]{\fontsize{4.5}{5.4}\selectfont\texttt{faiss.index} $\cdot$ \texttt{faiss.vectorizer.joblib}\\\texttt{reward\_orpo\_v2/adapter\_model.safetensors}}};
+
+  % Flow arrows between the model stages
+  \foreach \a/\b in {m1l/m2l,m2l/m3l,m3l/m4l,m4l/m5l,m5l/m6l}
+    {\draw[arrow] (\a.south) -- (\b.north);}
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+% Section 10 is rendered immediately after Section 05.
+\input{section10_frame.tex}
+
+% The proposed methods frame is rendered above, before Model Responsibilities.
+\iffalse
+\begin{frame}[t]{06. Proposed Methods}
+\vspace{0.02em}
+\begin{center}
+\parbox{0.95\linewidth}{%
+\centering\fontsize{6.8}{8.6}\selectfont\color{lavenderDeep}%
+\textbf{The proposed PrismSpace framework} transforms complex natural-language requests into reliable, verified outcomes through a four-stage orchestration pipeline. It routes user intent via contextual embeddings to select optimal model providers and specialist agents, plans execution using a dependency-aware Directed Acyclic Graph (DAG), executes sub-tasks through iterative ReAct loops with standardized MCP tools, and validates results using ORPO preference alignment and approval gates.%
+}
+\end{center}
+\vspace{0.10em}
+\begin{center}
+\begin{tikzpicture}[
+  >=Latex,
+  method/.style={draw=lavenderDark!75, rounded corners=4pt, minimum height=1.48cm,
+    text width=2.42cm, align=center, inner sep=4pt, line width=0.7pt,
+    font=\fontsize{6.5}{7.7}\selectfont},
+  methodarrow/.style={->, draw=lavenderDark!80, line width=0.9pt},
+  loop/.style={draw=prismTeal!80!black, rounded corners=3pt, fill=white,
+    minimum height=0.36cm, text width=0.74cm, align=center, inner sep=1pt,
+    font=\fontsize{3.85}{4.35}\selectfont\bfseries}
+]
+  \node[method, fill=cInput!65] (route) {\textbf{1. Route}\\[0.18em]
+    \normalfont\fontsize{5.7}{6.6}\selectfont Fuse TF--IDF + context\\ choose provider + agents};
+  \node[method, fill=cPlanner!55, right=0.30cm of route] (dag) {\textbf{2. Plan}\\[0.18em]
+    \normalfont\fontsize{5.7}{6.6}\selectfont Build a task DAG\\ run dependencies in order};
+  \node[method, fill=cReact!60, draw=prismTeal!90!black, line width=1.05pt,
+    text width=2.80cm, right=0.22cm of dag] (react) {\textbf{3. Execute}\\[0.08em]
+    \normalfont\fontsize{5.6}{6.4}\selectfont
+    \begin{tikzpicture}[baseline=-0.3ex, node distance=0.05cm]
+      \node[loop, text width=0.74cm, fill=cReact!35] (obs) {Observe};
+      \node[loop, text width=0.74cm, fill=cStage2!32, right=0.05cm of obs] (think) {Think};
+      \node[loop, text width=0.74cm, fill=cTool!38, right=0.05cm of think] (act) {Act+MCP};
+      \draw[methodarrow, draw=prismTeal!80!black, line width=0.55pt] (obs) -- (think);
+      \draw[methodarrow, draw=prismTeal!80!black, line width=0.55pt] (think) -- (act);
+      \draw[->, draw=prismTeal!80!black, line width=0.55pt] (act.south) .. controls +(0,-0.25) and +(0,-0.25) .. (obs.south);
+    \end{tikzpicture}\\[-0.05em]
+    \fontsize{5.1}{5.9}\selectfont Repeat until the sub-task is complete};
+  \node[method, fill=cSafety!45, right=0.22cm of react] (verify) {\textbf{4. Verify}\\[0.18em]
+    \normalfont\fontsize{5.7}{6.6}\selectfont ORPO + approval gate\\ save result in PrismDB};
+  \draw[methodarrow] (route.east) -- (dag.west);
+  \draw[methodarrow] (dag.east) -- (react.west);
+  \draw[methodarrow] (react.east) -- (verify.west);
+\end{tikzpicture}
+\end{center}
+\end{frame}
+\fi
+
+% =============================================================================
+% SLIDE 7: END-TO-END SYSTEM FLOW (FIGURE 1.1) — removed from presentation
+% =============================================================================
+\iffalse
+\section{System Flow}
+
+\begin{frame}[t]{07. Overall End-to-End System Flow (Figure 1.1)}
+\vspace{0.12cm}
+\centering
+\adjustbox{max height=0.86\textheight, max width=0.98\linewidth}{%
+\begin{tikzpicture}[
+    x=1cm, y=1cm,
+    font=\sffamily,
+    inout/.style={
+        rectangle, rounded corners=3.5pt, line width=0.8pt,
+        inner sep=4.5pt, align=center,
+        font=\fontsize{7.2}{8.8}\selectfont
+    },
+    hdrbox/.style={
+        rectangle, draw=lavenderDark!80, line width=0.75pt, fill=lavenderDark!12,
+        rounded corners=2.5pt, inner sep=3.2pt, align=center,
+        text width=3.75cm,
+        font=\fontsize{6.8}{8.0}\selectfont\bfseries\color{lavenderDark}
+    },
+    stepbox/.style={
+        rectangle, draw=black!70, line width=0.65pt, fill=white,
+        rounded corners=2.5pt, inner sep=3.0pt, align=center,
+        text width=3.75cm,
+        font=\fontsize{6.2}{7.4}\selectfont
+    },
+    enginebox/.style={
+        rectangle, draw=lavenderDark!85, line width=0.75pt, fill=lavenderLight,
+        rounded corners=3pt, inner sep=3.5pt, align=left,
+        text width=3.75cm,
+        font=\fontsize{5.8}{7.0}\selectfont
+    },
+    stagebox/.style={
+        rectangle, draw=lavenderDark!35, dashed, rounded corners=5pt, line width=0.7pt,
+        fill=lavenderLight!25, inner xsep=4pt, inner ysep=5pt
+    },
+    flowarr/.style={
+        -{Stealth[scale=0.75]}, line width=0.75pt, draw=black!75
+    },
+    transarr/.style={
+        -{Stealth[scale=0.95]}, line width=1.3pt, draw=lavenderMedium
+    }
+]
+
+    % 1. TOP: INPUT BAR
+    \node [inout, fill=lavenderLight, draw=lavenderDark!70, text width=14.4cm] (input_node) at (0, 3.0) {
+        \textbf{\fontsize{7.8}{9.2}\selectfont\color{lavenderDark}[INPUT]} $\;\longrightarrow\;$
+        \textbf{User Objective, Query Prompt \& Task Context}
+        {\fontsize{6.5}{7.8}\selectfont $\;\vert\;$ Everyday Productivity / Technical Goals $\;\vert\;$ Session History}
+    };
+
+    % 2. MIDDLE: 3-STAGE HORIZONTAL PIPELINE
+
+    % --- STAGE 1: PREPROCESSING & FEATURES ---
+    \node [hdrbox] (h1) at (-5.1, 2.1) {1. Preprocessing \& Features};
+    \node [stepbox, below=0.25cm of h1] (s1_1) {\textbf{Data Preprocessing \& Normalization}};
+    \node [stepbox, below=0.25cm of s1_1] (s1_2) {
+        \textbf{Feature Extraction}\\[0.1em]
+        {\fontsize{5.4}{6.4}\selectfont TF-IDF (10k N-Grams) \& Metrics}
+    };
+    \node [stepbox, below=0.25cm of s1_2] (s1_3) {
+        \textbf{Missing Value Imputation}\\[0.1em]
+        {\fontsize{5.4}{6.4}\selectfont Standardization \& Cleaning}
+    };
+    \node [stepbox, below=0.25cm of s1_3] (s1_4) {
+        \textbf{Anomaly Detection}\\[0.1em]
+        {\fontsize{5.4}{6.4}\selectfont Outlier Filtering (IsolationForest)}
+    };
+
+    \draw [flowarr] (s1_1) -- (s1_2);
+    \draw [flowarr] (s1_2) -- (s1_3);
+    \draw [flowarr] (s1_3) -- (s1_4);
+
+    \begin{scope}[on background layer]
+    \node [stagebox, fit=(h1) (s1_4)] (stage1) {};
+    \end{scope}
+
+    % --- STAGE 2: MULTI-MODEL INTELLIGENCE & DAG PLANNING ---
+    \node [hdrbox] (h2) at (0, 2.1) {2. Intelligence \& Planning};
+    \node [enginebox, below=0.25cm of h2] (s2_1) {
+        \centering\textbf{\fontsize{6.8}{8.0}\selectfont\color{lavenderDark}Multi-Model Intelligence $\mathcal{M}_{\text{prism}}$}\\[0.15em]
+        {\color{lavenderMedium!60}\rule{\linewidth}{0.4pt}}\\[0.2em]
+        {\fontsize{5.6}{6.8}\selectfont
+        $\bullet$ \textbf{12-Class Intent Classifier} (TF-IDF Head)\\[0.15em]
+        $\bullet$ \textbf{Multi-Provider Router} (Groq, OpenAI, NIM)\\[0.15em]
+        $\bullet$ \textbf{Swarm Dispatcher} (Multi-Label Classifier)\\[0.15em]
+        $\bullet$ \textbf{Safety \& Approval Gate} (Threshold-Tuned)}
+    };
+
+    \node [stepbox, below=0.30cm of s2_1] (s2_2) {
+        \textbf{DAG (Directed Acyclic Graph) Plan}\\[0.12em]
+        {\fontsize{5.4}{6.4}\selectfont Compute Sub-Task DAG $\mathcal{G}(V, E)$}
+    };
+
+    \draw [flowarr] (s2_1) -- (s2_2);
+
+    \begin{scope}[on background layer]
+    \node [stagebox, fit=(h2) (s2_2)] (stage2) {};
+    \end{scope}
+
+    % --- STAGE 3: EXECUTION, STREAMING & PERSISTENCE ---
+    \node [hdrbox] (h3) at (5.1, 2.1) {3. Execution \& Storage};
+    \node [stepbox, below=0.25cm of h3] (s3_1) {
+        \textbf{\fontsize{6.2}{7.3}\selectfont ReAct Loop \& MCP Tools}\\[0.1em]
+        {\fontsize{5.4}{6.4}\selectfont Observation $\to$ Thought $\to$ Action $\mathbf{A}_{i,j}$}
+    };
+    \node [stepbox, below=0.25cm of s3_1] (s3_2) {
+        \textbf{Real-Time SSE Streaming}\\[0.1em]
+        {\fontsize{5.4}{6.4}\selectfont Token Delivery \& Telemetry}
+    };
+    \node [stepbox, below=0.25cm of s3_2] (s3_3) {
+        \textbf{ORPO Safety \& Verification}\\[0.1em]
+        {\fontsize{5.4}{6.4}\selectfont Preference Reward Scoring}
+    };
+    \node [stepbox, below=0.25cm of s3_3, fill=lavenderLight] (s3_4) {
+        \textbf{Local IndexedDB (\texttt{PrismDB})}\\[0.1em]
+        {\fontsize{5.4}{6.4}\selectfont Reactive via \texttt{useLiveQuery()}}
+    };
+
+    \draw [flowarr] (s3_1) -- (s3_2);
+    \draw [flowarr] (s3_2) -- (s3_3);
+    \draw [flowarr] (s3_3) -- (s3_4);
+
+    \begin{scope}[on background layer]
+    \node [stagebox, fit=(h3) (s3_4)] (stage3) {};
+    \end{scope}
+
+    % Transition arrows between stages
+    \draw [transarr] ($(stage1.east |- 0, 0.4)$) -- 
+        node[above=1pt, font=\fontsize{6.0}{7.0}\selectfont\bfseries\color{lavenderDark}]{Features} ($(stage2.west |- 0, 0.4)$);
+
+    \draw [transarr] ($(stage2.east |- 0, 0.4)$) -- 
+        node[above=1pt, font=\fontsize{6.0}{7.0}\selectfont\bfseries\color{lavenderDark}]{DAG Plan} ($(stage3.west |- 0, 0.4)$);
+
+    \draw [flowarr, line width=1.1pt, draw=lavenderDark!85] (input_node.south -| h1.north) -- (h1.north);
+
+    % 3. BOTTOM: OUTPUT BAR
+    \node [inout, fill=prismGold!15, draw=prismGold!90!black, text width=14.4cm, below=0.45cm of $(stage1.south)!0.5!(stage3.south)$] (output_node) {
+        \textbf{\fontsize{7.8}{9.2}\selectfont\color{lavenderDark}[OUTPUT]} $\;\longrightarrow\;$
+        \textbf{Live SSE Tokens} $\;\vert\;$
+        \textbf{Verified Everyday Deliverables, Emails, Reports \& Code} $\;\vert\;$
+        \textbf{Persistent PrismDB State}
+    };
+
+    \draw [flowarr, line width=1.1pt, draw=prismGold!90!black] (stage3.south -| h3.south) -- (output_node.north -| h3.south);
+
+    % Caption
+    \node [font=\fontsize{7.2}{8.5}\selectfont\bfseries\color{black!80}, below=0.10cm of output_node] {
+        \textit{Figure 1.1: End-to-End System Flow Architecture (\texttt{PrismSpace})}
+    };
+
+\end{tikzpicture}%
+}
+\end{frame}
+\fi
+
+% =============================================================================
+% SLIDE 8: SIMPLIFIED FLOW STAGES 1, 2, & 3
+% =============================================================================
+\begin{frame}[t]{08. How the System Works: From Request to Result}
+\vspace{-0.05em}
+\begin{columns}[T]
+\begin{column}{0.32\textwidth}
+  \begin{tcolorbox}[
+    enhanced, arc=3pt, colframe=lavenderDark, colback=white,
+    title={\scriptsize\bfseries Stage 1: Ingestion \& Features},
+    boxrule=0.55pt, left=3.5pt, right=3.5pt, top=2.5pt, bottom=2.5pt
+  ]
+  \fontsize{6.2}{7.4}\selectfont
+  \begin{itemize}\setlength{\itemsep}{2.2pt}
+    \item \textbf{Capture request:} Read the user's goal.
+    \item \textbf{Clean text:} Remove noise and missing values.
+    \item \textbf{Extract features:} Convert the request into useful signals.
+  \end{itemize}
+  \end{tcolorbox}
+\end{column}
+
+\begin{column}{0.34\textwidth}
+  \begin{tcolorbox}[
+    enhanced, arc=3pt, colframe=prismTeal, colback=white,
+    title={\scriptsize\bfseries Stage 2: Intelligence \& DAG},
+    boxrule=0.55pt, left=3.5pt, right=3.5pt, top=2.5pt, bottom=2.5pt
+  ]
+  \fontsize{6.2}{7.4}\selectfont
+  \begin{itemize}\setlength{\itemsep}{2.2pt}
+    \item \textbf{Classify intent:} Decide what kind of task it is.
+    \item \textbf{Choose agents and models:} Match each sub-task to the right worker.
+    \item \textbf{Build the DAG:} Arrange tasks in dependency order and check safety.
+  \end{itemize}
+  \end{tcolorbox}
+\end{column}
+
+\begin{column}{0.32\textwidth}
+  \begin{tcolorbox}[
+    enhanced, arc=3pt, colframe=lavenderMedium, colback=white,
+    title={\scriptsize\bfseries Stage 3: Execution \& Storage},
+    boxrule=0.55pt, left=3.5pt, right=3.5pt, top=2.5pt, bottom=2.5pt
+  ]
+  \fontsize{6.2}{7.4}\selectfont
+  \begin{itemize}\setlength{\itemsep}{2.2pt}
+    \item \textbf{Execute:} Run ready tasks with MCP tools.
+    \item \textbf{Stream updates:} Show progress and logs live.
+    \item \textbf{Check and save:} Verify the result and store the run.
+  \end{itemize}
+  \end{tcolorbox}
+\end{column}
+\end{columns}
+
+\vspace{0.32em}
+\begin{tcolorbox}[
+  enhanced, arc=3pt, colframe=prismTeal!85!black, colback=white, boxrule=0.65pt,
+  left=5pt, right=5pt, top=3pt, bottom=3pt,
+  title={\scriptsize\bfseries How a DAG is created}
+]
+\centering
+\begin{tikzpicture}[
+  dagstep/.style={rectangle, rounded corners=2pt, minimum height=0.62cm,
+    text width=2.05cm, align=center, draw=lavenderDark!55, fill=lavenderLight!55,
+    font=\fontsize{5.4}{6.2}\selectfont\bfseries},
+  dagarrow/.style={-{Stealth[scale=0.55]}, line width=0.7pt, draw=prismTeal!85!black},
+  dagnode/.style={circle, minimum size=0.48cm, inner sep=0pt, draw=prismTeal!85!black,
+    fill=prismMint, font=\fontsize{5.6}{6.4}\selectfont\bfseries, line width=0.65pt}
+]
+  \node[dagstep] (request) at (-5.6,0) {1. User request\\\normalfont\fontsize{4.8}{5.5}\selectfont ``Plan a report''};
+  \node[dagstep] (split) at (-2.8,0) {2. Split into\\sub-tasks};
+  \node[dagstep] (deps) at (0.0,0) {3. Add\\dependencies};
+  \node[dagstep] (graph) at (2.8,0) {4. Create\\DAG $\mathcal{G}(V,E)$};
+  \node[dagstep] (run) at (5.6,0) {5. Run ready\\tasks in parallel};
+  \draw[dagarrow] (request) -- (split);
+  \draw[dagarrow] (split) -- (deps);
+  \draw[dagarrow] (deps) -- (graph);
+  \draw[dagarrow] (graph) -- (run);
+
+  % Row 2: Parallel execution explanation & Example DAG with zero overlaps
+  \node[rectangle, rounded corners=2.5pt, draw=lavenderMedium!55, fill=lavenderLight!35,
+        line width=0.55pt, text width=6.2cm, inner sep=3.5pt, align=left] at (-2.7, -1.22) {%
+    \fontsize{5.0}{6.0}\selectfont\textbf{\color{lavenderDark}\faCogs\ Dependency-Aware Topological Execution:}\\[1.5pt]
+    Independent sub-tasks execute concurrently ($A \parallel B$). Downstream tasks wait until prerequisite dependencies resolve before starting.%
+  };
+
+  \node[font=\fontsize{5.2}{6.2}\selectfont\bfseries\color{lavenderDark}, anchor=east] at (1.8, -1.22) {\faProjectDiagram\ Example:};
+  \node[dagnode] (a) at (2.65,-0.88) {A};
+  \node[dagnode] (b) at (2.65,-1.56) {B};
+  \node[dagnode] (c) at (3.80,-1.22) {C};
+  \node[dagnode] (d) at (4.95,-1.22) {D};
+  \draw[dagarrow] (a) -- (c);
+  \draw[dagarrow] (b) -- (c);
+  \draw[dagarrow] (c) -- (d);
+  \node[font=\fontsize{4.6}{5.4}\selectfont\color{prismSlate}, anchor=north] at (3.80,-1.82) {A/B run together $\;\to\;$ C waits for both $\;\to\;$ D finishes};
+\end{tikzpicture}
+\end{tcolorbox}
+\end{frame}
+
+% =============================================================================
+% SLIDE 9: SYSTEM ARCHITECTURE (FIGURE 1.2)
+% =============================================================================
+\section{System Architecture}
+
+\begin{frame}[t]{09. PrismSpace System Architecture \& Multi-Model Swarm Workflow (Figure 1.2)}
+\vspace{-0.35em}
+\centering
+\adjustbox{max width=0.96\linewidth, max height=0.58\textheight, keepaspectratio}{%
+\begin{tikzpicture}[
+  x=1cm, y=1cm,
+  every node/.style={align=center},
+  group/.style={draw=lavenderMedium!60, dashed, line width=0.75pt,
+    fill=lavenderLight!20, rounded corners=6pt},
+  grouptitle/.style={fill=lavenderDark, text=white, font=\fontsize{5.2}{6.2}\selectfont\bfseries,
+    rounded corners=3pt, inner xsep=5pt, inner ysep=1.8pt},
+  flowbox/.style={rectangle, rounded corners=3pt, line width=0.65pt,
+    text width=4.8cm, minimum height=0.40cm, inner ysep=1.8pt, inner xsep=3pt,
+    font=\fontsize{5.2}{6.2}\selectfont\bfseries},
+  modelbox/.style={rectangle, rounded corners=2.5pt, line width=0.70pt,
+    draw=lavenderDark!85, fill=white,
+    text width=2.25cm, minimum height=0.38cm, inner ysep=1.5pt, inner xsep=2pt,
+    font=\fontsize{4.8}{5.8}\selectfont},
+  decision/.style={diamond, aspect=2.3, draw=prismGold!90!black,
+    fill=cTool, line width=0.70pt, inner xsep=3pt, inner ysep=1.6pt,
+    font=\fontsize{4.9}{5.9}\selectfont\bfseries},
+  arrow/.style={
+    -{Stealth[scale=0.70]}, line width=0.70pt, draw=lavenderDark!85
+  },
+  modelarrow/.style={
+    -{Stealth[scale=0.60]}, line width=0.60pt, draw=lavenderDark!75
+  }
+]
+
+  % =========================================================================
+  % 1. INPUT & MODEL ROUTING (STAGE 1)
+  % =========================================================================
+  \node[group, minimum width=5.4cm, minimum height=4.35cm] (g1) at (2.70, 2.65) {};
+  \node[grouptitle, anchor=west] at (0.20, 4.70) {1. Request Ingestion \& Model Routing};
+
+  \node[flowbox, fill=cInput, draw=prismSlate!70] (start) at (2.70, 4.30) {%
+    User Query Ingestion%
+  };
+
+  \node[flowbox, fill=cStem, draw=prismIndigo!70] (intent) at (2.70, 3.75) {%
+    PrismSpace Client UI\\[-0.10em]
+    {\fontsize{4.4}{5.4}\selectfont (Next.js 15 Reactive Dashboard)}%
+  };
+
+  \node[flowbox, fill=cPlanner, draw=prismBlue!80] (plan) at (2.70, 3.20) {%
+    API Bridge Backend\\[-0.10em]
+    {\fontsize{4.4}{5.4}\selectfont (FastAPI Hive Gateway)}%
+  };
+
+  \node[flowbox, fill=cDispatch, draw=prismBlue!85] (dispatch) at (2.70, 2.65) {%
+    Feature Extraction\\[-0.10em]
+    {\fontsize{4.4}{5.4}\selectfont (10k TF-IDF N-Grams \& Metadata)}%
+  };
+
+  % Models connected to Feature Extraction (2x2 grid, clean & compact)
+  \node[modelbox, fill=cHead!40] (m_intent) at (1.50, 2.05) {% 
+    \faBrain\ \textbf{Intent Classifier}\\[-0.10em]
+    {\fontsize{4.2}{5.2}\selectfont (12-Class Routing)}%
+  };
+  \node[modelbox, fill=cStage1!40] (m_agent) at (3.90, 2.05) {% 
+    \faUsers\ \textbf{Agent Router}\\[-0.10em]
+    {\fontsize{4.2}{5.2}\selectfont (Specialist Selection)}%
+  };
+
+  % Route Context & Optimization Models
+  \node[modelbox, fill=cStage4!40] (m_model) at (1.50, 1.48) {% 
+    \faRandom\ \textbf{Model Router}\\[-0.10em]
+    {\fontsize{4.2}{5.2}\selectfont (Groq, OpenAI, NIM)}%
+  };
+  \node[modelbox, fill=cTool!40] (m_cost) at (3.90, 1.48) {% 
+    \faChartLine\ \textbf{Cost \& Latency}\\[-0.10em]
+    {\fontsize{4.2}{5.2}\selectfont (Predictive Bounds)}%
+  };
+
+  \node[flowbox, fill=cMemory, draw=purple!60!black] (state) at (2.70, 0.82) {%
+    \faSearch\ Context \& Vector Retrieval\\[-0.10em]
+    {\fontsize{4.4}{5.4}\selectfont (FAISS Semantic Search + BM25)}%
+  };
+
+  % Connectors in Stage 1
+  \draw[arrow] (start) -- (intent);
+  \draw[arrow] (intent) -- (plan);
+  \draw[arrow] (plan) -- (dispatch);
+  \draw[modelarrow] (dispatch.south) -- (1.50, 2.36) -- (m_intent.north);
+  \draw[modelarrow] (dispatch.south) -- (3.90, 2.36) -- (m_agent.north);
+  \draw[modelarrow] (m_intent.south) -- (m_model.north);
+  \draw[modelarrow] (m_agent.south) -- (m_cost.north);
+  \draw[modelarrow] (m_model.south) -- (1.50, 1.15) -- (state.north -| m_model.south);
+  \draw[modelarrow] (m_cost.south) -- (3.90, 1.15) -- (state.north -| m_cost.south);
+
+  % =========================================================================
+  % 2. SWARM EXECUTION \& PLANNING (STAGE 2)
+  % =========================================================================
+  \node[group, minimum width=7.10cm, minimum height=2.50cm] (g2) at (10.05, 3.55) {};
+  \node[grouptitle, anchor=west] at (6.70, 4.70) {2. Swarm Execution \& DAG Planning};
+
+  % DAG Planning Models above DAG Planner
+  \node[modelbox, fill=cStage2!40, text width=2.50cm] (m_cluster) at (8.70, 4.30) {% 
+    \faProjectDiagram\ \textbf{Workflow Clusterer}\\[-0.10em]
+    {\fontsize{4.2}{5.2}\selectfont (K-Means DAG Templates)}%
+  };
+  \node[modelbox, fill=cStage1!40, text width=2.50cm] (m_success) at (11.40, 4.30) {% 
+    \faCheckCircle\ \textbf{Success Predictor}\\[-0.10em]
+    {\fontsize{4.2}{5.2}\selectfont (DAG Completion Score)}%
+  };
+
+  \node[flowbox, text width=5.8cm, fill=cReact, draw=prismTeal!90] (react) at (10.05, 3.72) {%
+    DAG Task Planner $\mathcal{G}(V, E)$\\[-0.10em]
+    {\fontsize{4.4}{5.4}\selectfont (Dependency-Aware Task Scheduler)}%
+  };
+
+  \node[flowbox, text width=5.8cm, fill=cTool, draw=prismGold!95!black] (mcp) at (10.05, 3.15) {%
+    Swarm Worker Agents\\[-0.10em]
+    {\fontsize{4.4}{5.4}\selectfont (Context-Aware Specialist Team, $K \le 5$)}%
+  };
+
+  \node[flowbox, text width=5.8cm, fill=cDeliverable, draw=prismTeal!80!black] (result) at (10.05, 2.58) {%
+    ReAct + MCP Tool Execution\\[-0.10em]
+    {\fontsize{4.4}{5.4}\selectfont (Standardized Tools: FS, Web, CLI, DB)}%
+  };
+
+  \draw[modelarrow] (m_cluster.south) -- (m_cluster.south |- react.north);
+  \draw[modelarrow] (m_success.south) -- (m_success.south |- react.north);
+  \draw[arrow] (react) -- (mcp);
+  \draw[arrow] (mcp) -- (result);
+
+  % Tool feedback loop on right
+  \draw[arrow] (result.east) -- (13.25, 2.58) -- (13.25, 3.72) -- (react.east);
+  \node[font=\fontsize{4.4}{5.4}\selectfont\bfseries, text=lavenderDark, anchor=west] at (13.30, 3.15) {Tool feedback};
+
+  % =========================================================================
+  % 3. EVALUATION \& SAFETY DELIVERY (STAGE 3)
+  % =========================================================================
+  \node[group, minimum width=7.10cm, minimum height=2.45cm] (g3) at (10.05, 0.82) {};
+  \node[grouptitle, anchor=west] at (6.70, 1.95) {3. Evaluation \& Safety Delivery};
+
+  % Verification Models
+  \node[modelbox, fill=cSafety!40, text width=1.95cm] (m_approval) at (7.80, 1.60) {%
+    \faLock\ \textbf{Approval Gate}\\[-0.10em]
+    {\fontsize{4.2}{5.2}\selectfont (Action Risk)}%
+  };
+  \node[modelbox, fill=cStage3!40, text width=1.95cm] (m_anomaly) at (10.05, 1.60) {%
+    \faExclamationTriangle\ \textbf{Anomaly Detector}\\[-0.10em]
+    {\fontsize{4.2}{5.2}\selectfont (Outliers)}%
+  };
+  \node[modelbox, fill=cOutput!40, text width=1.95cm] (m_reward) at (12.30, 1.60) {%
+    \faStar\ \textbf{Reward Model}\\[-0.10em]
+    {\fontsize{4.2}{5.2}\selectfont (ORPO Alignment)}%
+  };
+
+  \node[decision] (pass) at (10.05, 0.95) {Approved?};
+
+  \node[flowbox, text width=5.8cm, fill=cMemory, draw=purple!60!black] (synth) at (10.05, 0.35) {%
+    \faDatabase\ PrismDB State Sync\\[-0.10em]
+    {\fontsize{4.4}{5.4}\selectfont (Dexie.js IndexedDB Context)}%
+  };
+
+  \node[flowbox, text width=6.0cm, fill=cOutput, draw=prismTeal!80!black] (out) at (10.05, -0.18) {%
+    \faCheckDouble\ PrismSpace Output\\[-0.10em]
+    {\fontsize{4.4}{5.4}\selectfont (Verified Deliverables \& Live SSE Stream)}%
+  };
+
+  % Connectors in Stage 3:
+  \draw[modelarrow] (result.south) -- (10.05, 1.90) -| (m_approval.north);
+  \draw[modelarrow] (result.south) -- (m_anomaly.north);
+  \draw[modelarrow] (result.south) -- (10.05, 1.90) -| (m_reward.north);
+
+  % Evaluation models combine into pass.north
+  \draw[modelarrow] (m_approval.south) -- (7.80, 1.30) -- (10.05, 1.30);
+  \draw[modelarrow] (m_reward.south) -- (12.30, 1.30) -- (10.05, 1.30);
+  \draw[modelarrow] (m_anomaly.south) -- (10.05, 1.30);
+  \draw[arrow] (10.05, 1.30) -- (pass.north);
+
+  % Decision outcomes: Yes to State Sync, No to Re-plan
+  \draw[arrow] (pass.south) -- node[midway, right=4pt, font=\fontsize{4.6}{5.6}\selectfont\bfseries, text=green!55!black] {Yes} (synth.north);
+  \draw[arrow] (synth) -- (out);
+
+  % =========================================================================
+  % INTER-GROUP ROUTING (RAILS)
+  % =========================================================================
+  % Rail 1 (Route Context -> DAG Task Planner) at x=6.25 (Inner Rail)
+  \draw[arrow, draw=lavenderDark!90, line width=0.8pt] (state.east) -- (6.25, 0.82) -- (6.25, 3.62) -- ([yshift=-2.5pt]react.west);
+
+  % Rail 2 (Re-plan feedback from Approved?) at x=5.75 (Outer Rail)
+  \draw[arrow, draw=red!75!black, line width=0.8pt] (pass.west) -- node[pos=0.18, above=1.5pt, font=\fontsize{4.6}{5.6}\selectfont\bfseries, text=red!75!black] {No} (5.75, 0.95) -- (5.75, 3.82) -- ([yshift=2.5pt]react.west);
+  \node[font=\fontsize{4.8}{5.8}\selectfont\bfseries, text=red!70!black, rotate=90] at (5.55, 2.39) {Re-plan};
+
+\end{tikzpicture}%
+}
+\end{frame}
+
+% =========================================================================
+% =========================================================================
+\begin{frame}[t]{10. End-to-End System Flowchart (Figure 1.3)}
+\vspace{-0.35em}
+\centering
+\adjustbox{max width=0.98\linewidth, max height=0.88\textheight, keepaspectratio}{%
+\begin{tikzpicture}[
+  x=1cm, y=1cm,
+  font=\sffamily,
+  % Node styles
+  terminal/.style={
+    ellipse, draw=green!55!black, fill=green!45!black, text=white,
+    line width=0.8pt, inner sep=2.5pt, font=\fontsize{6.5}{7.5}\selectfont\bfseries,
+    minimum width=1.4cm, minimum height=0.50cm
+  },
+  io/.style={
+    trapezium, trapezium left angle=80, trapezium right angle=100,
+    draw=cyan!55!black, fill=cyan!55, text=white,
+    line width=0.8pt, inner sep=2.5pt, font=\fontsize{6.0}{7.0}\selectfont\bfseries,
+    minimum width=2.1cm, minimum height=0.52cm, align=center
+  },
+  proc/.style={
+    rectangle, rounded corners=2.5pt,
+    draw=orange!70!black, fill=orange!80, text=white,
+    line width=0.7pt, inner sep=2.5pt, font=\fontsize{5.8}{6.8}\selectfont\bfseries,
+    minimum height=0.60cm, align=center
+  },
+  branchbox/.style={
+    rectangle, rounded corners=2.5pt,
+    draw=yellow!60!black, fill=yellow!75, text=black,
+    line width=0.7pt, inner sep=2.5pt, font=\fontsize{5.6}{6.6}\selectfont\bfseries,
+    minimum height=0.58cm, align=center
+  },
+  storebox/.style={
+    rectangle, rounded corners=2.5pt,
+    draw=gray!70, fill=gray!65, text=white,
+    line width=0.7pt, inner sep=2pt, font=\fontsize{5.2}{6.2}\selectfont\bfseries,
+    minimum height=0.56cm, align=center
+  },
+  docbox/.style={
+    rectangle, rounded corners=2.5pt,
+    draw=cyan!60!black, fill=cyan!55, text=white,
+    line width=0.7pt, inner sep=2pt, font=\fontsize{5.6}{6.6}\selectfont\bfseries,
+    minimum height=0.56cm, align=center
+  },
+  decision/.style={
+    diamond, aspect=1.40,
+    draw=purple!80!black, fill=purple!60, text=white,
+    line width=0.75pt, inner sep=1.2pt, font=\fontsize{5.2}{6.2}\selectfont\bfseries,
+    minimum width=1.55cm, minimum height=0.74cm, align=center
+  },
+  llmbox/.style={
+    rectangle, rounded corners=2.5pt,
+    draw=orange!75!black, fill=orange!70, text=white,
+    line width=0.7pt, inner sep=2.5pt, font=\fontsize{5.8}{6.8}\selectfont\bfseries,
+    minimum height=0.60cm, align=center
+  },
+  correctbox/.style={
+    rectangle, rounded corners=2.5pt,
+    draw=orange!85!red, fill=orange!65!red, text=white,
+    line width=0.7pt, inner sep=2.5pt, font=\fontsize{5.4}{6.4}\selectfont\bfseries,
+    minimum height=0.54cm, align=center
+  },
+  outbox/.style={
+    trapezium, trapezium left angle=80, trapezium right angle=100,
+    draw=cyan!60!black, fill=cyan!55, text=white,
+    line width=0.8pt, inner sep=2.5pt, font=\fontsize{5.6}{6.6}\selectfont\bfseries,
+    minimum width=1.85cm, minimum height=0.52cm, align=center
+  },
+  stagehdr/.style={
+    font=\fontsize{5.8}{6.8}\selectfont\bfseries, text=lavenderDark
+  },
+  % Arrows
+  arr/.style={-{Stealth[scale=0.72]}, line width=0.70pt, draw=black!75},
+  redarr/.style={-{Stealth[scale=0.72]}, line width=0.72pt, draw=red!70!black},
+]
+
+% =========================================================================
+% STAGE 1: INGESTION & PREPROCESSING (Left Column, x = 1.05)
+% =========================================================================
+\node[terminal] (start) at (1.05, 4.85) {Start};
+\node[io, text width=2.10cm]   (uq)    at (1.05, 3.85) {\textbf{User Objective} $\mathcal{T}_{\text{user}}$\\[-0.10em]{\fontsize{4.4}{5.2}\selectfont(Prompt, Code, Goals)}};
+\node[proc, text width=2.15cm] (agent) at (1.05, 2.65) {Next.js Client \& Bridge\\[-0.10em]{\fontsize{4.4}{5.2}\selectfont(DevSpace / FastAPI Hive)}};
+\node[proc, text width=2.15cm] (qpre)  at (1.05, 1.45) {Feature Extraction\\[-0.10em]{\fontsize{4.4}{5.2}\selectfont(10k TF-IDF, Anomaly Filter)}};
+
+\draw[arr] (start) -- (uq);
+\draw[arr] (uq)    -- (agent);
+\draw[arr] (agent) -- (qpre);
+
+% =========================================================================
+% STAGE 2: MULTI-MODEL INTELLIGENCE & SWARM ROUTING (Center)
+% =========================================================================
+% Decision Node: Intent & Routing Hub
+\node[decision] (sdn) at (3.65, 2.85) {Intent \&\\[-0.10em]Routing Hub};
+
+% Arrow from Preprocessing to Routing Hub
+\draw[arr] (qpre.east) -- (2.42, 1.45) -- (2.42, 2.85) -- (sdn.west);
+
+% --- Branch 1: Model Provider Routing (Top row, y = 4.45) ---
+\node[branchbox, text width=1.70cm] (kw)    at (5.65, 4.45) {Provider Router\\[-0.10em]{\fontsize{4.3}{5.1}\selectfont(\texttt{model\_router.py})}};
+\node[storebox,  text width=2.10cm] (kwst)  at (7.75, 4.45) {Latency/Cost Estimator\\[-0.10em]{\fontsize{4.2}{5.0}\selectfont(\texttt{cost\_latency\_predictor})}};
+\node[docbox,    text width=1.65cm] (kwret) at (9.80, 4.45) {Selected LLM Tier\\[-0.10em]{\fontsize{4.2}{5.0}\selectfont(Groq, \mbox{GPT-4o}, Claude)}};
+
+\draw[arr] (sdn.north) -- (3.65, 4.45) -- (kw.west);
+\draw[arr] (kw)   -- (kwst);
+\draw[arr] (kwst) -- (kwret);
+
+% --- Branch 2: Context & Memory Retrieval (Middle row, y = 2.85) ---
+\node[branchbox, text width=1.70cm] (sem)   at (5.65, 2.85) {Context Ranker\\[-0.10em]{\fontsize{4.3}{5.1}\selectfont(\texttt{retrieval\_ranker})}};
+\node[storebox,  text width=2.10cm] (semst) at (7.75, 2.85) {FAISS + BM25 Hybrid\\[-0.10em]{\fontsize{4.2}{5.0}\selectfont(Dense Memory + Lexical)}};
+\node[docbox,    text width=1.65cm] (semret)at (9.80, 2.85) {Retrieved Context\\[-0.10em]{\fontsize{4.2}{5.0}\selectfont(\& Tool Schemas)}};
+
+\draw[arr] (sdn.east) -- (sem.west);
+\draw[arr] (sem)   -- (semst);
+\draw[arr] (semst) -- (semret);
+
+% --- Branch 3: Swarm Specialist Dispatch (Bottom row, y = 1.25) ---
+\node[storebox,  text width=1.35cm] (embm)  at (4.70, 1.25) {12-Class Intent\\[-0.10em]{\fontsize{4.1}{4.9}\selectfont\texttt{intent\_classifier}}};
+\node[branchbox, text width=1.80cm] (hyb)   at (6.45, 1.25) {Swarm Agent Router\\[-0.10em]{\fontsize{4.3}{5.1}\selectfont(\texttt{agent\_router.py})}};
+\node[storebox,  text width=1.35cm] (hybkw) at (8.25, 1.60) {MCP Tools\\[-0.10em]{\fontsize{4.0}{4.8}\selectfont(Terminal/FS)}};
+\node[storebox,  text width=1.35cm] (hybsem)at (8.25, 0.90) {Specialists\\[-0.10em]{\fontsize{4.0}{4.8}\selectfont(Code/SQL)}};
+\node[docbox,    text width=1.65cm] (hybret)at (9.80, 1.25) {Dispatched Swarm\\[-0.10em]{\fontsize{4.2}{5.0}\selectfont(Agent Team)}};
+
+\draw[arr] (sdn.south) -- (3.65, 1.25) -- (embm.west);
+\draw[arr] (embm) -- (hyb);
+\draw[arr] (hyb.east) -- (7.40, 1.25) |- (hybkw.west);
+\draw[arr] (hyb.east) -- (7.40, 1.25) |- (hybsem.west);
+\draw[-]   (hybkw.east) -| (8.88, 1.25);
+\draw[-]   (hybsem.east)-| (8.88, 1.25);
+\draw[arr] (8.88, 1.25) -- (hybret.west);
+
+% =========================================================================
+% STAGE 3: EXECUTION, SAFETY & LOCAL PERSISTENCE (Right Column)
+% =========================================================================
+\node[proc,   text width=2.15cm] (irf)   at (12.4, 4.45) {DAG Task Planner\\[-0.10em]{\fontsize{4.4}{5.2}\selectfont(Topo-Sort $\pi$, $\hat{\ell}, \hat{c}$)}};
+\node[proc,   text width=2.15cm] (dedup) at (12.4, 3.25) {ReAct Swarm Loop\\[-0.10em]{\fontsize{4.2}{5.0}\selectfont(Thought $\to$ Act $\to$ Observe)}};
+\node[llmbox, text width=2.15cm] (llm)   at (12.4, 2.05) {MCP Tool Execution\\[-0.10em]{\fontsize{4.4}{5.2}\selectfont(Sandbox, Web, FS, DB)}};
+\node[decision]                  (verify)at (12.4, 0.85) {Safety \& Policy\\[-0.10em]Approved?};
+
+% Intelligence outputs to DAG Planner bus connection (gap between Stage 2 and 3)
+\draw[arr] (kwret.east) -- (11.05, 4.45) -- (irf.west);
+\draw[-]   (semret.east) -- (11.05, 2.85) -- (11.05, 4.45);
+\draw[-]   (hybret.east) -- (11.05, 1.25) -- (11.05, 2.85);
+
+% Downward flow in Stage 3
+\draw[arr] (irf)   -- (dedup);
+\draw[arr] (dedup) -- (llm);
+\draw[arr] (llm)   -- (verify);
+
+% Verification: YES -> Real-Time Delivery & End
+\node[outbox,   text width=1.70cm] (fout) at (14.65, 0.85) {Real-Time Stream\\[-0.10em]{\fontsize{4.3}{5.1}\selectfont(SSE Tokens + \texttt{PrismDB})}};
+\node[terminal]                    (endn) at (14.65, 0.05) {End};
+
+\draw[arr] (verify.east) -- node[above=2pt, font=\fontsize{5.2}{6.2}\selectfont\bfseries, text=green!60!black, midway]{Yes} (fout.west);
+\draw[arr] (fout) -- (endn);
+
+% Verification: NO -> Corrective Actions & Re-Plan Loop
+\node[correctbox, text width=3.7cm] (correct) at (7.8, -0.10) {Corrective Actions \& Safety Intercept\\[-0.10em]{\fontsize{4.4}{5.2}\selectfont(HITL Approval Gate, Anomaly Intercept, Dynamic Re-Plan)}};
+
+\draw[redarr] (verify.south) -- (12.4, -0.10) -- node[above=2pt, font=\fontsize{5.2}{6.2}\selectfont\bfseries, text=red!70!black, midway]{NO} (correct.east);
+\draw[redarr] (correct.west) -- (3.65, -0.10) -- (3.65, 1.25);
+\node[font=\fontsize{5.2}{6.2}\selectfont\bfseries, text=red!70!black] at (3.20, 0.5) {Re-Plan};
+
+% Stage Boundary Boxes on Background Layer (explicit non-overlapping boundaries)
+\begin{scope}[on background layer]
+  % Stage 1 Background
+  \node[rectangle, rounded corners=4pt, fill=lavenderLight!75, draw=lavenderBorder!60, line width=0.5pt,
+        fit=(start)(qpre), inner xsep=4pt, inner ysep=7pt] (bg1) {};
+  \node[stagehdr, anchor=south, yshift=2pt] at (bg1.north) {1. INGESTION \& PREPROCESSING};
+
+  % Stage 2 Background: guaranteed padding and non-overlapping boundary
+  \node[rectangle, rounded corners=4pt, fill=cyan!4!white, draw=cyan!30!gray, line width=0.5pt,
+        fit=(sdn)(kw)(hybsem)(kwret)(hybret), inner xsep=5pt, inner ysep=7pt] (bg2) {};
+  \node[stagehdr, anchor=south, yshift=2pt, text=cyan!65!black] at (bg2.north) {2. MULTI-MODEL INTELLIGENCE \& SWARM ROUTING};
+
+  % Stage 3 Background: guaranteed gap from bg2
+  \node[rectangle, rounded corners=4pt, fill=lavenderLight!60, draw=lavenderBorder!60, line width=0.5pt,
+        fit=(irf)(verify)(fout)(endn), inner xsep=5pt, inner ysep=7pt] (bg3) {};
+  \node[stagehdr, anchor=south, yshift=2pt] at (bg3.north) {3. RUNTIME EXECUTION, SAFETY \& PERSISTENCE};
+\end{scope}
+
+% Figure Caption
+\node[font=\fontsize{6.5}{7.8}\selectfont\itshape, text=black!75, anchor=north] at (7.8, -0.60) {%
+  Figure 1.3: End-to-End System Flowchart of the \texttt{PrismSpace} Multi-Agent Platform.%
+};
+
+\end{tikzpicture}%
+}
+\end{frame}
+
+% Section 10 is rendered above, immediately after Section 05.
+\iffalse
+\begin{frame}[t]{10. Unified Dataset Preparation \& Multi-Model Training Pipeline}
+\vspace{-0.18em}
+\centering
+\begin{columns}[T]
+
+% Column 1: Data sources
+\begin{column}{0.31\textwidth}
+  \begin{tcolorbox}[
+    enhanced, arc=3pt, colframe=lavenderDark, colback=white,
+    title={\scriptsize\bfseries\faDatabase\ 1. Data Sources},
+    boxrule=0.55pt, left=3pt, right=3pt, top=2pt, bottom=2pt
+  ]
+  \scriptsize
+  \textbf{24 training sets} covering:
+  \begin{itemize}\setlength{\itemsep}{1.4pt}
+    \item Agent traces: timings, tool calls, and task trajectories.
+    \item Tool calling: API, parallel-call, and coding benchmarks.
+    \item Retrieval data: search corpora, schemas, and dialogues.
+    \item Safety and preference data: harm labels and ranked responses.
+  \end{itemize}
+  \end{tcolorbox}
+\end{column}
+
+% Column 2: Curation and training
+\begin{column}{0.34\textwidth}
+  \begin{tcolorbox}[
+    enhanced, arc=3pt, colframe=prismTeal!90!black, colback=white,
+    title={\scriptsize\bfseries\faCogs\ 2. Curate \& Train},
+    boxrule=0.55pt, left=3pt, right=3pt, top=2pt, bottom=2pt
+  ]
+  \scriptsize
+  \begin{itemize}\setlength{\itemsep}{1.4pt}
+    \item \texttt{dataset\_loader.py}: combines JSON, CSV, Parquet, PKL, and Markdown.
+    \item Normalizes prompts, actions, timestamps, and labels into one schema.
+    \item Supervised preparation creates approval, success, provider, and reward splits.
+    \item \texttt{train.py}: uses TF-IDF/FAISS retrieval, K-Means workflow clustering, and scikit-learn predictors.
+    \item ORPO fine-tunes the reward model on Qwen2.5 for preference alignment.
+  \end{itemize}
+  \end{tcolorbox}
+\end{column}
+
+% Column 3: Artifacts and evaluation
+\begin{column}{0.31\textwidth}
+  \begin{tcolorbox}[
+    enhanced, arc=3pt, colframe=lavenderMedium, colback=white,
+    title={\scriptsize\bfseries\faCheckCircle\ 3. Artifacts \& Evaluate},
+    boxrule=0.55pt, left=3pt, right=3pt, top=2pt, bottom=2pt
+  ]
+  \scriptsize
+  \begin{itemize}\setlength{\itemsep}{1.4pt}
+    \item \textbf{11 production artifacts}.
+    \item Intent classifier and multi-label router classify tasks and select specialists.
+    \item K-Means clusters workflows; predictors estimate success, latency, and cost.
+    \item Approval classifier and Isolation Forest screen risky or unusual actions.
+    \item TF-IDF/FAISS retrieve context; ORPO aligns responses.
+    \item Holdout tests check F1, precision, recall, calibration, GAIA, and SWE-bench.
+  \end{itemize}
+  \end{tcolorbox}
+\end{column}
+
+\end{columns}
+
+\vspace{0.10em}
+\begin{tikzpicture}[
+  >=Latex,
+  pipeline/.style={draw=lavenderDark!70, rounded corners=2pt, minimum height=0.66cm,
+                   text width=2.22cm, align=center, inner sep=2pt,
+                   font=\fontsize{5.4}{6.2}\selectfont\bfseries},
+  pipearrow/.style={->, draw=lavenderDark!85, line width=0.65pt}
+]
+  \node[pipeline, fill=lavenderLight!70] (raw) {Raw datasets\\\normalfont\fontsize{4.8}{5.4}\selectfont 24 training sets};
+  \node[pipeline, fill=prismTeal!18, right=0.22cm of raw] (schema) {Normalize\\\normalfont\fontsize{4.8}{5.4}\selectfont unified schema};
+  \node[pipeline, fill=prismGold!35, right=0.22cm of schema] (curate) {Curate\\\normalfont\fontsize{4.8}{5.4}\selectfont supervised splits};
+  \node[pipeline, fill=prismBlue!28, right=0.22cm of curate] (train) {Train\\\normalfont\fontsize{4.8}{5.4}\selectfont TF-IDF, FAISS, K-Means, ORPO};
+  \node[pipeline, fill=lavenderMedium!25, right=0.22cm of train] (eval) {Evaluate\\\normalfont\fontsize{4.8}{5.4}\selectfont holdout + benchmarks};
+  \draw[pipearrow] (raw.east) -- (schema.west);
+  \draw[pipearrow] (schema.east) -- (curate.west);
+  \draw[pipearrow] (curate.east) -- (train.west);
+  \draw[pipearrow] (train.east) -- (eval.west);
+\end{tikzpicture}
+\end{frame}
+\fi
+
+% =============================================================================
+% SLIDE 9 (renumbered 09): DATABASE SCHEMA — PrismDB AI-Agent stores
+% Approach: pure tcolorbox columns — no tabular-in-TikZ, no positioning bugs.
+% =============================================================================
+\section{Database Schema}
+
+% ---- Row helper macros (defined once here, used inside tcolorbox) ----
+% Use \providecommand so re-compilation never triggers "already defined" error.
+\providecommand{\dbrow}[3]{%
+  \begingroup\setlength{\fboxsep}{0pt}%
+  \noindent\colorbox{#3}{\makebox[\linewidth][l]{%
+    \hspace{4pt}\fontsize{6.5}{8.0}\selectfont\sffamily
+    #1\hfill\textcolor{prismSlate}{\texttt{#2}}\hspace{4pt}%
+  }}\par\nointerlineskip
+  \vspace{0.25pt}%
+  \noindent{\color{lavenderDark!20}\rule{\linewidth}{0.3pt}}\par\nointerlineskip
+  \endgroup
+}
+\providecommand{\dbrowtail}[3]{%
+  \begingroup\setlength{\fboxsep}{0pt}%
+  \noindent\colorbox{#3}{\makebox[\linewidth][l]{%
+    \hspace{4pt}\fontsize{6.5}{8.0}\selectfont\sffamily
+    #1\hfill\textcolor{prismSlate}{\texttt{#2}}\hspace{4pt}%
+  }}\par
+  \endgroup
+}
+
+\begin{frame}[t]{10. Browser Database Schema: \texttt{PrismDB} (Figure 1.3)}
+\vspace{-0.20cm}
+
+\begin{columns}[T, totalwidth=\linewidth]
+
+% ══════════════════════════════════════════
+% COL A — agent_chat_sessions  (24.5%)
+% ══════════════════════════════════════════
+\begin{column}{0.245\linewidth}
+% Anchor node placed just before the table — sits at its top-left in page coords
+\tikz[remember picture,overlay]{\node[inner sep=0pt,outer sep=0pt](SessAnchor){};}%
+\begin{tcolorbox}[
+  enhanced, arc=3pt, boxrule=0.7pt,
+  colframe=lavenderDark!70, colback=white,
+  left=0pt, right=0pt, top=0pt, bottom=0pt,
+  title={\hspace{4pt}\fontsize{7.6}{9.0}\selectfont\bfseries\sffamily\color{white}%
+         agent\_chat\_sessions},
+  attach boxed title to top left={yshift=-0.5mm, xshift=0mm},
+  boxed title style={colback=lavenderDark, arc=2pt, boxrule=0pt,
+                     left=0pt, right=0pt, top=1.5pt, bottom=1.5pt,
+                     width=\linewidth},
+]
+\dbrow{\textbf{\&id}}{\textnormal{string (UUID, PK)}}{lavenderLight!80}
+\dbrow{title}{\textnormal{string}}{white}
+\dbrow{\textit{updatedAt}}{\textnormal{number (Index)}}{lavenderLight!80}
+\dbrowtail{createdAt}{\textnormal{number (Index)}}{white}
+\end{tcolorbox}
+\end{column}
+
+\hspace{0.003\linewidth}
+
+% ══════════════════════════════════════════
+% COL B — agent_chat_messages  (38%)
+% ══════════════════════════════════════════
+\begin{column}{0.380\linewidth}
+\tikz[remember picture,overlay]{\node[inner sep=0pt,outer sep=0pt](MsgAnchor){};}%
+\begin{tcolorbox}[
+  enhanced, arc=3pt, boxrule=0.7pt,
+  colframe=lavenderDark!70, colback=white,
+  left=0pt, right=0pt, top=0pt, bottom=0pt,
+  title={\hspace{4pt}\fontsize{7.6}{9.0}\selectfont\bfseries\sffamily\color{white}%
+         agent\_chat\_messages},
+  attach boxed title to top left={yshift=-0.5mm, xshift=0mm},
+  boxed title style={colback=lavenderDark, arc=2pt, boxrule=0pt,
+                     left=0pt, right=0pt, top=1.5pt, bottom=1.5pt,
+                     width=\linewidth},
+]
+\dbrow{\textbf{++id}}{\textnormal{number (Auto-Inc PK)}}{lavenderLight!80}
+\dbrow{\textit{sessionId}}{\textnormal{string (FK $\!\to\!$ sessions.id)}}{lavenderLight!80}
+\dbrow{\texttt{[sessionId+createdAt]}}{\textnormal{Compound Index}}{lavenderLight!80}
+\dbrow{\textit{agentId}}{\textnormal{string (Index)}}{lavenderLight!80}
+\dbrow{role}{\textnormal{'user' | 'assistant' | 'tool'}}{white}
+\dbrow{status}{\textnormal{'pending'|'streaming'|'done'}}{white}
+\dbrow{content}{\textnormal{string (Text)}}{white}
+\dbrowtail{createdAt}{\textnormal{number (Index)}}{white}
+\end{tcolorbox}
+\end{column}
+
+\hspace{0.003\linewidth}
+
+% ══════════════════════════════════════════
+% COL C — ai_tool_history + KV stores  (36.9%)
+% ══════════════════════════════════════════
+\begin{column}{0.369\linewidth}
+\tikz[remember picture,overlay]{\node[inner sep=0pt,outer sep=0pt](ToolAnchor){};}%
+\begin{tcolorbox}[
+  enhanced, arc=3pt, boxrule=0.7pt,
+  colframe=lavenderDark!70, colback=white,
+  left=0pt, right=0pt, top=0pt, bottom=0pt,
+  title={\hspace{4pt}\fontsize{7.6}{9.0}\selectfont\bfseries\sffamily\color{white}%
+         ai\_tool\_history},
+  attach boxed title to top left={yshift=-0.5mm, xshift=0mm},
+  boxed title style={colback=lavenderDark, arc=2pt, boxrule=0pt,
+                     left=0pt, right=0pt, top=1.5pt, bottom=1.5pt,
+                     width=\linewidth},
+]
+\dbrow{\textbf{++id}}{\textnormal{number (Auto-Inc PK)}}{lavenderLight!80}
+\dbrow{\textit{sessionId}}{\textnormal{string (FK $\!\to\!$ sessions.id)}}{lavenderLight!80}
+\dbrow{\textit{toolType}}{\textnormal{string (bash|web|code)}}{lavenderLight!80}
+\dbrow{input}{\textnormal{text (Args / JSON Payload)}}{white}
+\dbrow{output}{\textnormal{text (Logs / Return Value)}}{white}
+\dbrowtail{createdAt}{\textnormal{number (Index)}}{white}
+\end{tcolorbox}
+
+\vspace{0.30cm}
+
+\tikz[remember picture,overlay]{\node[inner sep=0pt,outer sep=0pt](KVAnchor){};}%
+\begin{tcolorbox}[
+  enhanced, arc=3pt, boxrule=0.7pt,
+  colframe=lavenderMedium!85, colback=lavenderLight!20,
+  left=0pt, right=0pt, top=0pt, bottom=0pt,
+  title={\hspace{4pt}\fontsize{7.6}{9.0}\selectfont\bfseries\sffamily\color{white}%
+         Agent Key-Value Stores},
+  attach boxed title to top left={yshift=-0.5mm, xshift=0mm},
+  boxed title style={colback=lavenderMedium, arc=2pt, boxrule=0pt,
+                     left=0pt, right=0pt, top=1.5pt, bottom=1.5pt,
+                     width=\linewidth},
+]
+\dbrow{\textbf{\&key} \texttt{settings}}{\textnormal{JSON (API keys, model config)}}{lavenderLight!40}
+\dbrow{\textbf{\&key} \texttt{agent\_state}}{\textnormal{Active Swarm DAG}}{lavenderLight!40}
+\dbrow{\textbf{\&key} \texttt{user\_profile}}{\textnormal{JSON (System Instructions)}}{lavenderLight!40}
+\dbrowtail{\textbf{\&key} \texttt{files}}{\textnormal{Blob / MimeType (Deliverables)}}{lavenderLight!40}
+\end{tcolorbox}
+\end{column}
+
+\end{columns}
+
+% ------------------------------------------------------------------
+% OVERLAY ARROWS  (drawn after columns are fully placed)
+%
+%  The three anchor nodes (SessAnchor, MsgAnchor, ToolAnchor) sit at
+%  the top-left corner of each tcolorbox.  We use xshift/yshift to
+%  hit the desired entry/exit points on each table header bar.
+%
+%  All coordinates are relative offsets from the anchors:
+%    header bar height ≈ 0.52cm, col widths: A=0.245, B=0.38, C=0.369 × \linewidth
+%    \linewidth on 169 aspect, 10pt beamer ≈ 15.36cm  →  A≈3.76cm, B≈5.84cm, C≈5.67cm
+%
+%  Arrow 1 (solid lavenderDark):
+%    Exit  = right side of sessions header  = SessAnchor + (3.76cm, -0.26cm)
+%    Entry = left  side of messages header  = MsgAnchor  + (0cm,   -0.26cm)
+%    Route: straight horizontal (same vertical level)
+%    Label: "1 → N"
+%
+%  Arrow 2 (dashed lavenderMedium):
+%    Exit  = top-centre of sessions header  = SessAnchor + (1.88cm, +0.04cm)
+%    Rail                                              up  +0.40cm
+%    Entry = top-centre of ai_tool header   = ToolAnchor + (2.84cm, +0.04cm)
+%    Label: "sessionId FK"
+% ------------------------------------------------------------------
+% Relationship connectors: routed below the top tables so they do not cross
+% table text or headers.
+\begin{tikzpicture}[remember picture,overlay]
+  % sessions.id -> messages.sessionId
+  \draw[-{Latex[length=1.5mm]}, line width=0.55pt, lavenderDark!85!black]
+    ([xshift=3.90cm,yshift=6.55cm]current page.south west) --
+    node[above, pos=.52, yshift=2pt, fill=white, inner sep=1pt, font=\fontsize{4.2}{4.8}\selectfont\color{lavenderDark!85!black}]
+      {1:N}
+    ([xshift=4.35cm,yshift=6.30cm]current page.south west);
+
+  % sessions.id -> ai_tool_history.sessionId
+  \draw[-{Latex[length=1.5mm]}, line width=0.55pt, lavenderMedium!90!black]
+    ([xshift=3.90cm,yshift=6.05cm]current page.south west) --
+    ([xshift=3.90cm,yshift=4.00cm]current page.south west) --
+    node[above, fill=white, inner sep=1pt, font=\fontsize{4.2}{4.8}\selectfont\color{lavenderMedium!90!black}]
+      {sessionId FK, 1:N}
+    ([xshift=10.15cm,yshift=4.00cm]current page.south west) --
+    ([xshift=10.15cm,yshift=6.30cm]current page.south west) --
+    % Turn into the left edge of ai_tool_history so the arrowhead points at the table.
+    ([xshift=10.35cm,yshift=6.30cm]current page.south west);
+
+  % ai_tool_history -> Agent Key-Value Stores: shared runtime state/config.
+  \draw[-{Latex[length=1.5mm]}, dashed, line width=0.55pt, lavenderMedium!90!black]
+    ([xshift=12.00cm,yshift=5.05cm]current page.south west) --
+    node[right, xshift=2pt, fill=white, inner sep=1pt,
+      font=\fontsize{4.2}{4.8}\selectfont\color{lavenderMedium!90!black}]
+      {shared state / config}
+    ([xshift=12.00cm,yshift=3.95cm]current page.south west);
+\end{tikzpicture}
+
+\vspace{0.08cm}
+\begin{tcolorbox}[
+  enhanced, arc=3pt, colframe=lavenderDark!60, colback=lavenderLight!30,
+  boxrule=0.50pt, left=5pt, right=5pt, top=2pt, bottom=2pt
+]
+\centering\fontsize{4.6}{5.6}\selectfont\color{lavenderDark}
+\textbf{Figure 1.3: PrismDB - AI-Agent Browser IndexedDB Schema (Dexie.js v3)} $\;\vert\;$
+\textbf{PK} = Primary Key \enspace \textbf{FK} = Foreign Key \enspace \textbf{Index} = B-tree index $\;\vert\;$
+\colorbox{lavenderLight!80}{\phantom{x}}\,FK / Indexed row \enspace
+\colorbox{lavenderLight!40}{\phantom{x}}\,Key-Value store\\[1pt]
+\texttt{sessions.id} shared FK $\;\vert\;$
+\texttt{sessions.id} $\to$ \texttt{messages.sessionId} $\;\vert\;$
+\texttt{sessions.id} $\to$ \texttt{tool\_history.sessionId} $\;\vert\;$
+\texttt{useLiveQuery()} · ACID transactions · Dexie.js v3
+\end{tcolorbox}
+\end{frame}
+
+% =============================================================================
+% =============================================================================
+% SLIDE 10-14: SIMPLIFIED PROJECT WORKFLOW ALGORITHM
+% =============================================================================
+\section{Swarm Algorithm}
+\iffalse
+\begin{frame}[t]{Algorithm: Step 1 -- Understand the User Prompt}
+\vspace{0.15em}
+{\large\bfseries\color{lavenderDark}Step 1: Prompt Understanding}
+\vspace{0.25em}
+\begin{enumerate}\setlength{\itemsep}{7pt}\large
+  \item Read the user's request and identify the main goal.
+  \item Extract important details such as files, deadlines, preferences, and restrictions.
+  \item Review the conversation history and available project context.
+  \item Identify the expected output and any actions that may need user approval.
+  \item Create a clear task summary for the planning agent.
+\end{enumerate}
+\vfill
+\centering\color{prismTeal}\textbf{Output: A clear understanding of what the user wants}
+\end{frame}
+
+\begin{frame}[t]{Algorithm: Step 2 -- Plan the Task}
+\vspace{0.15em}
+{\large\bfseries\color{lavenderDark}Step 2: Task Planning and Routing}
+\vspace{0.25em}
+\begin{enumerate}\setlength{\itemsep}{7pt}\large
+  \item Break the request into smaller tasks.
+  \item Decide which tasks can run at the same time and which depend on earlier results.
+  \item Select the most suitable agent for each task.
+  \item Choose the model or service based on the task's speed, complexity, and cost.
+  \item Create an execution plan and send each task to the assigned agent.
+\end{enumerate}
+\vfill
+\centering\color{prismTeal}\textbf{Output: An ordered task plan for the agent team}
+\end{frame}
+
+\begin{frame}[t]{Algorithm: Step 3 -- Coordinate the Agents}
+\vspace{0.15em}
+{\large\bfseries\color{lavenderDark}Step 3: Swarm Agent Collaboration}
+\vspace{0.25em}
+\begin{enumerate}\setlength{\itemsep}{7pt}\large
+  \item The Planner Agent organizes the work and tracks progress.
+  \item The Assistant Agent handles everyday tasks such as email and documents.
+  \item The Code Agent creates, edits, and checks code when needed.
+  \item The Research Agent gathers relevant information from approved sources.
+  \item The Reviewer Agent checks intermediate results and shares feedback with the team.
+\end{enumerate}
+\vfill
+\centering\color{prismTeal}\textbf{Output: Completed sub tasks with shared context}
+\end{frame}
+
+\begin{frame}[t]{Algorithm: Step 4 -- Use MCP Tools}
+\vspace{0.15em}
+{\large\bfseries\color{lavenderDark}Step 4: Tool Execution through MCP Servers}
+\vspace{0.25em}
+\begin{enumerate}\setlength{\itemsep}{7pt}\large
+  \item The assigned agent requests the required tool through the MCP server.
+  \item Gmail is used for email tasks and Google Drive for document tasks.
+  \item Filesystem tools read, organize, and save local project files.
+  \item Terminal and web tools support approved commands, testing, and information lookup.
+  \item Sensitive actions such as sending email or changing files wait for approval when required.
+\end{enumerate}
+\vfill
+\centering\color{prismTeal}\textbf{Output: Tool results returned to the responsible agent}
+\end{frame}
+
+\begin{frame}[t]{Algorithm: Step 5 -- Verify and Deliver}
+\vspace{0.15em}
+{\large\bfseries\color{lavenderDark}Step 5: Validation, Retry, and Delivery}
+\vspace{0.25em}
+\begin{enumerate}\setlength{\itemsep}{7pt}\large
+  \item The Validator Agent checks accuracy, completeness, and policy safety.
+  \item If a result is incomplete or incorrect, the task is sent back for correction.
+  \item Approved results are combined into one final response or deliverable.
+  \item Progress and final output are streamed live to the user.
+  \item The completed task and useful context are saved in PrismDB for later use.
+\end{enumerate}
+\vfill
+\centering\color{prismTeal}\textbf{Output: Verified deliverable, live updates, and saved task state}
+\end{frame}
+
+\fi
+
+% =============================================================================
+% EXPANDED PROJECT WORKFLOW ALGORITHM
+% =============================================================================
+\begin{frame}[t]{Algorithm: Step 1 -- Understand the User Prompt}
+\vspace{0.20em}
+{\large\bfseries\color{lavenderDark}Step 1: Prompt Understanding}
+\vspace{0.35em}
+\begin{itemize}\setlength{\itemsep}{4pt}
+  \item \textbf{Goal \& Intent Identification:}
+    \begin{itemize}\setlength{\itemsep}{2pt}
+      \item Reads natural-language request and extracts the primary user objective.
+      \item Incorporates previous conversation turns and project context from PrismDB.
+    \end{itemize}
+  \item \textbf{Constraint \& Context Formalization:}
+    \begin{itemize}\setlength{\itemsep}{2pt}
+      \item Extracts operational constraints, local files, deadlines, and expected deliverables.
+      \item \textbf{Task Tuple Representation:} Formalized as:
+        $$T = (G, C, X, R, O)$$
+        \vspace{-0.3em}
+        {\footnotesize\color{prismDark}
+        This formalizes unstructured user requests into an operational execution tuple, where $T$ is the task representation, $G$ is the user goal, $C$ are operational constraints, $X$ is conversation context, $R$ are available tool resources, and $O$ is the expected deliverable output format.
+        }
+    \end{itemize}
+  \item \textbf{Safety Screening \& Router Hand-off:}
+    \begin{itemize}\setlength{\itemsep}{2pt}
+      \item Detects if request requires external MCP tools, human approval, or extra clarification.
+      \item \textbf{Methods Used:} NLU parsing for intent extraction, semantic vector retrieval for context matching, and lexical feature scoring.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Algorithm: Step 2 -- Classify the Request}
+\vspace{0.20em}
+{\large\bfseries\color{lavenderDark}Step 2: Intent and Requirement Analysis}
+\vspace{0.35em}
+\begin{itemize}\setlength{\itemsep}{4pt}
+  \item \textbf{Multi-Class Intent Categorization:}
+    \begin{itemize}\setlength{\itemsep}{2pt}
+      \item Maps request into 12 distinct task classes (everyday, document, research, code, mixed).
+      \item \textbf{Optimal Class Selection:} Formulated via maximum posterior probability:
+        $$c^* = \arg\max_{c \in \mathcal{C}} P(c \mid x)$$
+        \vspace{-0.3em}
+        {\footnotesize\color{prismDark}
+        This predicts the most probable intent class to determine specialized routing, where $c^*$ is the chosen category, $\mathcal{C}$ is the set of 12 candidate classes, $P(c \mid x)$ is the class posterior probability, and $x$ is the extracted 10k TF-IDF lexical and token prompt feature vector.
+        }
+    \end{itemize}
+  \item \textbf{Capability \& Action Boundary Profiling:}
+    \begin{itemize}\setlength{\itemsep}{2pt}
+      \item Identifies required capabilities: file I/O, search, synthesis, computation, or communication.
+      \item Classifies action types into safe read-only, state-modifying, or sensitive operations.
+    \end{itemize}
+  \item \textbf{Risk Assessment \& Safety Screening:}
+    \begin{itemize}\setlength{\itemsep}{2pt}
+      \item Evaluates complexity, execution urgency, and initial risk levels.
+      \item \textbf{Methods Used:} Supervised classification, keyword extraction, and rule-based gating.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Algorithm: Step 3 -- Plan and Route the Task}
+\vspace{0.20em}
+{\large\bfseries\color{lavenderDark}Step 3: Task Decomposition and Model Routing}
+\vspace{0.35em}
+\begin{itemize}\setlength{\itemsep}{4pt}
+  \item \textbf{DAG Workflow Construction:}
+    \begin{itemize}\setlength{\itemsep}{2pt}
+      \item Decomposes compound request into modular sub-tasks with dependency constraints.
+      \item Generates Directed Acyclic Graph $\mathcal{G}(V, E)$ via topological sorting for parallel execution.
+    \end{itemize}
+  \item \textbf{Multi-Provider Cost/Latency Optimization:}
+    \begin{itemize}\setlength{\itemsep}{2pt}
+      \item Routes sub-tasks to Groq (ultra-low latency), OpenAI (reasoning), or NVIDIA NIM.
+      \item \textbf{Objective Function:}
+        $$m^* = \arg\min_m \left(\lambda_c C_m + \lambda_l L_m\right) \quad \text{s.t.} \quad Q_m \ge \tau_Q$$
+        \vspace{-0.3em}
+        {\footnotesize\color{prismDark}
+        This selects the optimal provider $m^*$ minimizing weighted monetary cost $C_m$ and latency $L_m$ with trade-off weights $\lambda_c, \lambda_l$, subject to predicted quality score $Q_m$ meeting minimum acceptable threshold $\tau_Q$.
+        }
+    \end{itemize}
+  \item \textbf{Concurrency Dispatch:}
+    \begin{itemize}\setlength{\itemsep}{2pt}
+      \item Dispatches zero-in-degree dependency-safe tasks concurrently across allocated providers.
+      \item \textbf{Methods Used:} Topological sorting, multi-criteria provider routing, and Pareto optimization.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Algorithm: Step 4 -- Select the Agent Team}
+\vspace{0.20em}
+{\large\bfseries\color{lavenderDark}Step 4: Swarm Agent Selection}
+\vspace{0.35em}
+\begin{itemize}\setlength{\itemsep}{4pt}
+  \item \textbf{Specialist Agent Allocation:}
+    \begin{itemize}\setlength{\itemsep}{2pt}
+      \item Matches sub-tasks to designated worker roles: \textit{Planner, Assistant, Researcher, Coder, Reviewer}.
+      \item \textbf{Agent Assignment Function:} Evaluates capability alignment across candidate agent pool $\mathcal{A}$:
+        $$a^* = \arg\max_{a \in \mathcal{A}} \mathrm{Match}(a, \, \text{Requirements})$$
+        \vspace{-0.3em}
+        {\footnotesize\color{prismDark}
+        This selects and assigns the best-fitting specialist agent $a^*$ from candidate pool $\mathcal{A}$, where $\mathrm{Match}(\cdot)$ evaluates capability and skill alignment against extracted sub-task requirements.
+        }
+    \end{itemize}
+  \item \textbf{Specialist Role Responsibilities:}
+    \begin{itemize}\setlength{\itemsep}{2pt}
+      \item \textit{Assistant}: Communications \& docs; \textit{Researcher \& Coder}: Artifact synthesis; \textit{Reviewer}: Validation.
+    \end{itemize}
+  \item \textbf{Swarm Collaboration Mechanics:}
+    \begin{itemize}\setlength{\itemsep}{2pt}
+      \item Binds agents with shared memory context and synchronized DAG state.
+      \item \textbf{Methods Used:} Role-based routing, capability matching, and parallel swarm dispatch.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Algorithm: Step 5 -- Execute with MCP Tools}
+\vspace{0.20em}
+{\large\bfseries\color{lavenderDark}Step 5: ReAct Reasoning and MCP Tool Use}
+\vspace{0.35em}
+\begin{itemize}\setlength{\itemsep}{4pt}
+  \item \textbf{ReAct Decision Cycle:}
+    \begin{itemize}\setlength{\itemsep}{2pt}
+      \item Executes continuous reasoning cycle: $\text{Observation} \to \text{Thought} \to \text{Action} \to \text{Observation}$.
+      \item \textbf{Action Value Optimization:} Selects maximum expected-utility action for state $s_t$:
+        $$a_t = \arg\max_a Q(s_t, a)$$
+        \vspace{-0.3em}
+        {\footnotesize\color{prismDark}
+        This selects the optimal tool invocation or reasoning action $a_t$ maximizing expected progress toward goal completion, where $s_t$ is the current execution state and $Q(s_t, a)$ evaluates expected action utility.
+        }
+    \end{itemize}
+  \item \textbf{Standardized MCP Server Invocation:}
+    \begin{itemize}\setlength{\itemsep}{2pt}
+      \item Interacts with local tools via JSON-RPC: Gmail, Drive, Filesystem, Terminal CLI, GitHub.
+      \item Ingests tool outputs back into agent context for downstream reasoning iterations.
+    \end{itemize}
+  \item \textbf{Human-in-the-Loop Safeguards:}
+    \begin{itemize}\setlength{\itemsep}{2pt}
+      \item Pauses execution before state-mutating or high-risk actions pending explicit human approval.
+      \item \textbf{Methods Used:} ReAct prompting, MCP JSON-RPC schemas, and sandboxed action isolation.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Algorithm: Step 6 -- Share Context and Memory}
+\vspace{0.20em}
+{\large\bfseries\color{lavenderDark}Step 6: Context Synchronization}
+\vspace{0.35em}
+\begin{itemize}\setlength{\itemsep}{4pt}
+  \item \textbf{Inter-Agent State Propagation:}
+    \begin{itemize}\setlength{\itemsep}{2pt}
+      \item Transfers completed sub-task outputs to dependent downstream agents along DAG edges.
+      \item Preserves global user intent, constraints, and decision logs across all transitions.
+    \end{itemize}
+  \item \textbf{Dynamic Context Compaction:}
+    \begin{itemize}\setlength{\itemsep}{2pt}
+      \item Deduplicates intermediate chatter and prunes obsolete context to stay within token limits.
+      \item \textbf{Context Update Equation:} Formalized state update with compaction:
+        $$C_{t+1} = \mathrm{Compress}\big(C_t \cup \Delta C_t \setminus D_t\big)$$
+        \vspace{-0.3em}
+        {\footnotesize\color{prismDark}
+        This maintains shared memory across agents while compacting tokens to prevent context overflow, where $C_{t+1}$ is updated context for step $t+1$, $C_t$ is active context, $\Delta C_t$ are new tool outputs, $D_t$ are evicted obsolete tokens, and $\mathrm{Compress}(\cdot)$ performs pruning and deduplication.
+        }
+    \end{itemize}
+  \item \textbf{Reactive Local Storage:}
+    \begin{itemize}\setlength{\itemsep}{2pt}
+      \item Writes state changes atomically to browser IndexedDB via Dexie.js (\texttt{PrismDB}).
+      \item \textbf{Methods Used:} Shared-memory caching, token pruning, and atomic persistence.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Algorithm: Step 7 -- Validate and Retry}
+\vspace{0.20em}
+{\large\bfseries\color{lavenderDark}Step 7: Verification and Safety}
+\vspace{0.35em}
+\begin{itemize}\setlength{\itemsep}{4pt}
+  \item \textbf{Multi-Criteria Output Auditing:}
+    \begin{itemize}\setlength{\itemsep}{2pt}
+      \item Reviews deliverables against original goal, formatting constraints, and safety guidelines.
+      \item Evaluates action outputs with IsolationForest anomaly detection and WildGuardMix checks.
+    \end{itemize}
+  \item \textbf{Composite Safety \& Alignment Gating:}
+    \begin{itemize}\setlength{\itemsep}{2pt}
+      \item Scores outputs against human preference via Qwen ORPO alignment reward model.
+      \item \textbf{Approval Gating Condition:} Only permits completion if composite score passes threshold:
+        $$S = \sum_{i} w_i \, q_i \ge \tau_{\text{safety}}$$
+        \vspace{-0.3em}
+        {\footnotesize\color{prismDark}
+        This enforces a strict quality and safety barrier before release, where $S$ is the composite score, $q_i$ are individual criterion scores (correctness, completeness, WildGuardMix safety, ORPO preference), $w_i$ are relative importance weights ($\sum w_i = 1$), and $\tau_{\text{safety}}$ is the approval threshold.
+        }
+    \end{itemize}
+  \item \textbf{Corrective Re-plan Loop:}
+    \begin{itemize}\setlength{\itemsep}{2pt}
+      \item If verification fails, routes task back to the DAG Planner with feedback for targeted retry.
+      \item \textbf{Methods Used:} ORPO preference scoring, anomaly isolation, and automated re-planning loops.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Algorithm: Step 8 -- Deliver and Monitor}
+\vspace{0.20em}
+{\large\bfseries\color{lavenderDark}Step 8: Verified Delivery and Monitoring}
+\vspace{0.35em}
+\begin{itemize}\setlength{\itemsep}{4pt}
+  \item \textbf{Result Synthesis \& Live Streaming:}
+    \begin{itemize}\setlength{\itemsep}{2pt}
+      \item Assembles verified sub-task outputs into final deliverables (emails, code, reports).
+      \item Streams real-time progress, intermediate logs, and final answers to UI via Server-Sent Events (SSE).
+    \end{itemize}
+  \item \textbf{End-to-End Quality Assessment:}
+    \begin{itemize}\setlength{\itemsep}{2pt}
+      \item Evaluates holistic delivery performance across execution metrics.
+      \item \textbf{Delivery Score Formulation:} Multiplicative composite metric:
+        $$D = \mathrm{Correctness} \times \mathrm{Completeness} \times \mathrm{Timeliness}$$
+        \vspace{-0.3em}
+        {\footnotesize\color{prismDark}
+        This assesses holistic delivery quality such that failure in any single dimension penalizes overall score $D$, where $\mathrm{Correctness}$ measures accuracy, $\mathrm{Completeness}$ measures task fulfillment, and $\mathrm{Timeliness}$ measures turnaround speed relative to deadline.
+        }
+    \end{itemize}
+  \item \textbf{Persistence \& Continuous Learning:}
+    \begin{itemize}\setlength{\itemsep}{2pt}
+      \item Persists conversation, DAG nodes, and tool outputs into Dexie.js (\texttt{PrismDB}).
+      \item Records latency, costs, and approval patterns for offline model retraining.
+      \item \textbf{Methods Used:} SSE streaming, reactive Dexie persistence, and telemetry collection.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+% Restore Madrid Theme Palette
+\setbeamercolor{frametitle}{bg=lavenderDark,fg=white}
+\setbeamercolor{author in head/foot}{bg=lavenderDark, fg=white}
+\setbeamercolor{title in head/foot}{bg=lavenderMedium, fg=white}
+\setbeamercolor{date in head/foot}{bg=lavenderDark, fg=white}
+\setbeamertemplate{enumerate item}[default]
+\setbeamertemplate{itemize item}{\color{lavenderAccent}$\blacktriangleright$}
+\setbeamertemplate{itemize subitem}{\color{lavenderMedium}$\bullet$}
+
+% =============================================================================
+% SLIDE 20: THANK YOU SLIDE
+% =============================================================================
+\begin{frame}[plain]
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[prismLight] (current page.north west) rectangle (current page.south east);
+  \end{tikzpicture}
+  \centering
+  \vspace{1.5cm}
+  {\Huge \textbf{\color{lavenderDark}Thank You!}}\\[1.0em]
+  {\Large \textbf{\color{lavenderMedium}Questions \& Discussion}}\\[1.5em]
+  {\normalsize \color{prismDark}
+    Nobin Sijo \quad$\vert$\quad Pranav P \quad$\vert$\quad Prasanth P \quad$\vert$\quad Sankar Narayan S\\[0.5em]
+    \color{prismSlate}Department of Computer Science \& Engineering\\
+    College of Engineering, Karunagappally
+  }
+\end{frame}
+
+\end{document}

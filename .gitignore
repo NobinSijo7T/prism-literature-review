@@ -28,3 +28,15 @@ $RECYCLE.BIN/
 *.swp
 *.swo
 *~
+final_ppt - Copy.7z
+final_ppt - Copy/Models/workflow_templates.pkl
+final_ppt - Copy/Models/faiss.index
+
+# Ignore the complete Models folder
+/final_ppt - Copy/Models/
+
+# Ignore the complete codebase folder
+/final_ppt - Copy/codebase/
+
+# Ignore the compressed archive
+/final_ppt - Copy.7z
