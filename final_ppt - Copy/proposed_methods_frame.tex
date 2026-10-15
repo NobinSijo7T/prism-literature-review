@@ -1,5 +1,5 @@
 % =============================================================================
-% SLIDE 05: PROPOSED METHODS  —  Clean, non-overlapping layout
+% SLIDE 05: PROPOSED METHODS  -  Clean, non-overlapping layout
 % =============================================================================
 \section{Proposed Methods}
 
@@ -12,7 +12,7 @@
 \colorlet{verifCard}{cSafety!22}
 \colorlet{verifBorder}{cSafety!55!red!70}
 
-\begin{frame}[t]{05. Proposed Methods}
+\begin{frame}[t]{08. Proposed Methods}
 \vspace{-0.3em}
 
 % ── subtitle banner below title ──────────────────────────────────────────────
@@ -28,7 +28,7 @@
   halign=center
 ]
   \textcolor{white}{\fontsize{6.1}{7.9}\selectfont\sffamily
-    \textbf{PrismSpace Orchestration Pipeline:} An end-to-end multi-agent architecture designed to transform natural language requests into reliable execution traces. It combines contextual intent routing with DAG-based task scheduling, executes iterative ReAct loops via standardized MCP tools, and validates results through calibrated ORPO preference alignment and human verification gates.
+    \textbf{PrismSpace Orchestration Pipeline:} An end-to-end multi-agent architecture designed to transform natural language requests into reliable execution traces. It leverages contextual embeddings for intelligent routing, DAG-based task scheduling, iterative ReAct (Reasoning + Acting) loops via MCP tools, and validates outputs through ORPO (Odds Ratio Preference Optimization) alignment with human verification gates.
   }
 \end{tcolorbox}
 \vspace{0.10cm}
@@ -66,8 +66,9 @@
 
 \node[font=\fontsize{5.5}{6.6}\selectfont, text=lavenderDeep, align=center,
       text width=2.9cm] at (0, 0.15) {%
-  Fuse \textbf{TF-IDF} contextual\\[0.10em]
-  embeddings to select optimal\\[0.10em]
+  Use \textbf{contextual}\\[0.10em]
+  \textbf{embeddings} (semantic vectors)\\[0.10em]
+  to select optimal\\[0.10em]
   \textbf{LLM provider} and\\[0.10em]
   specialist agents};
 
@@ -114,21 +115,21 @@
 \node[font=\fontsize{7.5}{8.8}\selectfont\bfseries, text=prismTeal!75!black]
   at (7.30, 1.15) {{\large\faCogs}\; Execute};
 
-\node[font=\fontsize{5.5}{6.6}\selectfont, text=lavenderDeep, align=center,
-      text width=2.9cm] at (7.30, 0.40) {%
-  Iterative \textbf{ReAct} loops with\\[0.10em]
-  standardized \textbf{MCP tool}\\[0.10em]
-  endpoints until sub-task\\[0.10em]
-  criteria are satisfied};
+\node[font=\fontsize{5.3}{6.3}\selectfont, text=lavenderDeep, align=center,
+      text width=2.95cm] at (7.30, 0.32) {%
+  Iterative \textbf{ReAct loops}\\[0.08em]
+  (Reasoning + Acting): agents\\[0.08em]
+  observe, think, act with \textbf{MCP tools}\\[0.08em]
+  until sub-task completion};
 
 % ReAct loop pills cleanly underneath text
-\node[reactpill, text width=0.68cm] (obs) at (6.55, -0.55) {Observe};
-\node[reactpill, text width=0.55cm, fill=prismGold!14, draw=prismGold!65, text=prismGold!80!black, right=0.06cm of obs] (thk) {Think};
-\node[reactpill, text width=0.72cm, right=0.06cm of thk] (act) {Act+\\MCP};
+\node[reactpill, text width=0.72cm] (obs) at (6.42, -0.68) {Observe};
+\node[reactpill, text width=0.58cm, fill=prismGold!14, draw=prismGold!65, text=prismGold!80!black, right=0.07cm of obs] (thk) {Think};
+\node[reactpill, text width=0.76cm, right=0.07cm of thk] (act) {Act+MCP};
 \draw[->, draw=prismTeal!70, line width=0.45pt] (obs.east) -- (thk.west);
 \draw[->, draw=prismTeal!70, line width=0.45pt] (thk.east) -- (act.west);
 \draw[->, draw=prismTeal!70, line width=0.45pt]
-  (act.south) .. controls +(0,-0.20) and +(0,-0.20) .. (obs.south);
+  (act.south) .. controls +(0,-0.18) and +(0,-0.18) .. (obs.south);
 
 \node[pipelabel, fill=prismTeal!9, draw=prismTeal!38]
   at (7.30, -1.60) {ReAct + MCP\\tool execution};
@@ -150,10 +151,11 @@
 
 \node[font=\fontsize{5.5}{6.6}\selectfont, text=lavenderDeep, align=center,
       text width=2.9cm] at (10.95, 0.15) {%
-  \textbf{ORPO} preference alignment\\[0.10em]
-  + human approval gate;\\[0.10em]
-  stream via \textbf{SSE} \&\\[0.10em]
-  persist in \textbf{PrismDB}};
+  \textbf{ORPO} (Odds Ratio\\[0.10em]
+  Preference Optimization)\\[0.10em]
+  aligns outputs with human\\[0.10em]
+  preferences; persist verified\\[0.10em]
+  results in \textbf{PrismDB}};
 
 \node[pipelabel] at (10.95, -1.60) {Safety alignment\\+ persistence};
 

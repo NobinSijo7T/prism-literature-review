@@ -1,130 +1,62 @@
 \documentclass[aspectratio=169,10pt]{beamer}
 \usetheme{Madrid}
+\usecolortheme{default}
+\usefonttheme{professionalfonts}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
+\usepackage{amsmath,amssymb}
 \usepackage{tikz}
 \usepackage{adjustbox}
 \usepackage{tcolorbox}
 \tcbuselibrary{skins}
+\usepackage{fontawesome5}
 \usetikzlibrary{arrows.meta,positioning,fit,backgrounds,calc,shadows,shapes.geometric}
 
-\definecolor{prismNavy}{RGB}{11,31,58}
-\definecolor{prismBlue}{RGB}{0,168,198}
-\definecolor{prismTeal}{RGB}{22,138,114}
-\definecolor{prismMint}{RGB}{221,244,247}
-\definecolor{prismGold}{RGB}{217,154,34}
-\definecolor{prismDark}{RGB}{23,32,42}
-\definecolor{prismLight}{RGB}{244,248,251}
-\definecolor{prismIndigo}{RGB}{23,54,93}
-\definecolor{prismSlate}{RGB}{102,112,133}
-
-\definecolor{lavenderDark}{RGB}{75,45,115}
-\definecolor{lavenderMedium}{RGB}{140,110,180}
-\definecolor{lavenderLight}{RGB}{235,230,248}
-
-\definecolor{cInput}{RGB}{231,233,236}
-\definecolor{cStem}{RGB}{220,214,247}
-\definecolor{cPlanner}{RGB}{207,199,242}
-\definecolor{cDispatch}{RGB}{169,220,235}
-\definecolor{cMemory}{RGB}{214,185,230}
-\definecolor{cReact}{RGB}{169,222,200}
-\definecolor{cTool}{RGB}{244,213,141}
-\definecolor{cDeliverable}{RGB}{185,222,210}
-\definecolor{cSafety}{RGB}{240,170,167}
-\definecolor{cOutput}{RGB}{234,207,213}
+% Color Palette
+\definecolor{lavenderDark}{RGB}{76, 51, 122}
+\definecolor{lavenderDeep}{RGB}{58, 36, 96}
+\definecolor{lavenderMedium}{RGB}{124, 98, 173}
+\definecolor{lavenderLight}{RGB}{243, 239, 252}
+\definecolor{prismTeal}{RGB}{22, 138, 114}
+\definecolor{prismMint}{RGB}{235, 248, 245}
+\definecolor{prismGold}{RGB}{217, 154, 34}
+\definecolor{prismDark}{RGB}{23, 32, 42}
+\definecolor{prismLight}{RGB}{248, 247, 252}
+\definecolor{statusInit}{RGB}{70, 130, 218}
+\definecolor{statusPlan}{RGB}{22, 138, 114}
+\definecolor{statusRun}{RGB}{230, 126, 34}
+\definecolor{statusApprove}{RGB}{217, 154, 34}
+\definecolor{statusComplete}{RGB}{39, 174, 96}
+\definecolor{statusFail}{RGB}{217, 54, 54}
+\definecolor{statusCancel}{RGB}{120, 140, 155}
+\definecolor{mcpBlue}{RGB}{41, 128, 185}
+\definecolor{mcpGreen}{RGB}{39, 174, 96}
 
 \setbeamercolor{frametitle}{bg=lavenderDark,fg=white}
-\setbeamercolor{background canvas}{bg=white}
+\setbeamercolor{background canvas}{bg=prismLight}
 \setbeamertemplate{navigation symbols}{}
+
+\setbeamercolor{author in head/foot}{bg=lavenderDark, fg=white}
+\setbeamercolor{title in head/foot}{bg=lavenderMedium, fg=white}
+\setbeamercolor{date in head/foot}{bg=lavenderDark, fg=white}
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.28\paperwidth,ht=2.5ex,dp=1.1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\textbf{Group 01} $\cdot$ CSE, CEK
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.48\paperwidth,ht=2.5ex,dp=1.1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\textbf{PrismSpace}: Architecture, Flow, DB \& Swarm Algorithm
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.24\paperwidth,ht=2.5ex,dp=1.1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
 
 \begin{document}
 
-\begin{frame}[t]{08. PrismSpace System Architecture \& Swarm Workflow (Figure 1.2)}
-\vspace{-0.28em}
-\centering
-\adjustbox{max width=0.96\linewidth, max height=0.70\textheight}{%
-\begin{tikzpicture}[
-  x=1cm, y=1cm,
-  every node/.style={align=center},
-  group/.style={draw=lavenderMedium!55, dashed, line width=0.75pt,
-    fill=lavenderLight!22, rounded corners=6pt},
-  grouptitle/.style={fill=lavenderDark, text=white, font=\fontsize{5.2}{6.2}\selectfont\bfseries,
-    rounded corners=3pt, inner xsep=5pt, inner ysep=2.5pt},
-  flowbox/.style={rectangle, rounded corners=3pt, line width=0.65pt,
-    text width=4.15cm, minimum height=0.48cm, inner ysep=2.4pt, inner xsep=2pt,
-    font=\fontsize{5.5}{6.5}\selectfont},
-  smallbox/.style={rectangle, rounded corners=3pt, line width=0.6pt,
-    text width=3.85cm, minimum height=0.48cm, inner ysep=2.4pt, inner xsep=2pt,
-    font=\fontsize{5.2}{6.2}\selectfont},
-  decision/.style={diamond, aspect=2.2, draw=prismGold!90!black,
-    fill=cTool, line width=0.65pt, inner xsep=2pt, inner ysep=1.5pt,
-    font=\fontsize{5.2}{6.2}\selectfont},
-  arrow/.style={
-    -{Stealth[scale=0.75]}, line width=0.8pt, draw=lavenderDark!85
-  },
-  conn/.style={draw=lavenderDark!75, line width=0.7pt}
-]
-
-  % 1. INPUT & ORCHESTRATION
-  \node[group, minimum width=4.8cm, minimum height=5.5cm] (g1) at (2.55, 3.50) {};
-  \node[grouptitle, anchor=west] at (0.35, 5.95) {1. Request \& Routing};
-  \node[flowbox, fill=cInput, draw=prismSlate!70] (start) at (2.55, 5.25) {\textbf{User Query}\\[-0.15em] Daily goals, email, docs, or code};
-  \node[flowbox, fill=cStem, draw=prismIndigo!70] (intent) at (2.55, 4.30) {\textbf{PrismSpace Client UI}\\[-0.15em] Next.js dashboard + terminal feed};
-  \node[flowbox, fill=cPlanner, draw=prismBlue!80] (plan) at (2.55, 3.35) {\textbf{API Bridge}\\[-0.15em] FastAPI hive bridge + SSE stream};
-  \node[flowbox, fill=cDispatch, draw=prismBlue!85] (dispatch) at (2.55, 2.40) {\textbf{Feature Router}\\[-0.15em] 10k TF-IDF + 5D lexical routing};
-  \node[flowbox, fill=cMemory, draw=purple!60!black] (state) at (2.55, 1.45) {\textbf{Route Context}\\[-0.15em] LLM provider + workspace state};
-  \draw[arrow] (start)--(intent); \draw[arrow] (intent)--(plan); \draw[arrow] (plan)--(dispatch); \draw[arrow] (dispatch)--(state);
-
-  % 2. EXECUTION & TOOLS
-  \node[group, minimum width=6.0cm, minimum height=3.2cm] (g2) at (9.6, 4.65) {};
-  \node[grouptitle, anchor=west] at (6.80, 5.95) {2. Swarm Execution};
-  \node[flowbox, fill=cReact, draw=prismTeal!90] (react) at (9.6, 5.25) {\textbf{DAG Task Planner}\\[-0.15em] Dependency graph $\mathcal{G}(V,E)$};
-  \node[flowbox, fill=cTool, draw=prismGold!95!black] (mcp) at (9.6, 4.35) {\textbf{Swarm Worker Agents}\\[-0.15em] Context-aware parallel runs ($K \le 5$)};
-  \node[flowbox, fill=cDeliverable, draw=prismTeal!80!black] (result) at (9.6, 3.45) {\textbf{ReAct + MCP Core}\\[-0.15em] Daily tools (Gmail, Drive, Files) $\vert$ CLI $\vert$ GitHub};
-  \draw[arrow] (react)--(mcp); \draw[arrow] (mcp)--(result);
-  \draw[arrow] (result.east) -- (12.45, 3.45) -- (12.45, 5.25) -- (react.east);
-  \node[font=\fontsize{5}{6}\selectfont\bfseries, text=lavenderDark, anchor=west] at (12.50, 4.35) {Tool feedback};
-
-  % 3. VERIFICATION & OUTPUT
-  \node[group, minimum width=6.0cm, minimum height=3.85cm] (g3) at (9.6, 0.90) {};
-  \node[grouptitle, anchor=west] at (6.80, 2.55) {3. Evaluation \& Delivery};
-  \node[smallbox, fill=cSafety, draw=red!60!black] (verify) at (9.6, 1.95) {\textbf{ORPO Evaluator}\\[-0.15em] Preference score + approval gate};
-  \node[decision] (pass) at (9.6, 1.15) {Approved?};
-  \node[smallbox, fill=cMemory, draw=purple!60!black] (synth) at (9.6, 0.35) {\textbf{PrismDB State Sync}\\[-0.15em] DAG completion + context cache};
-  \node[flowbox, text width=5.4cm, fill=cOutput, draw=prismTeal!80!black] (out) at (9.6, -0.45) {\textbf{PrismSpace Output}\\[-0.15em] Verified emails, deliverables, code $\vert$ live SSE $\vert$ PrismDB};
-
-  % Connecting result to verify (stage 2 to stage 3)
-  \draw[arrow] (result.south) -- (verify.north);
-  \draw[arrow] (verify) -- (pass);
-  \draw[arrow] (pass) -- (synth);
-  \draw[arrow] (synth) -- (out);
-
-  % Inter-group routing lines in channel between g1 and g2/g3
-  % Rail 1 (Route Context -> DAG Task Planner) at x=6.25 (Inner Rail)
-  \draw[arrow, draw=lavenderDark!90, line width=0.8pt] (state.east) -- (6.25, 1.45) -- (6.25, 5.15) -- ([yshift=-3pt]react.west);
-
-  % Rail 2 (Re-plan feedback from Approved?) at x=5.50 (Outer Rail)
-  \draw[arrow, draw=red!75!black, line width=0.8pt] (pass.west) -- (5.50, 1.15) -- (5.50, 5.35) -- ([yshift=3pt]react.west);
-  \node[font=\fontsize{5}{6}\selectfont\bfseries, text=red!70!black, rotate=90] at (5.25, 3.25) {Re-plan};
-
-\end{tikzpicture}%
-}
-\vspace{-0.15cm}
-\begin{tcolorbox}[
-  width=0.99\linewidth, enhanced, arc=3pt,
-  colframe=lavenderDark!65, colback=lavenderLight!35, boxrule=0.6pt,
-  left=4pt, right=4pt, top=1.5pt, bottom=1.5pt
-]
-\centering
-{\fontsize{4.4}{5.3}\selectfont\color{lavenderDark}
-\textbf{Figure 1.2: Architecture \& Swarm Workflow} $\;\vert\;$
-\textbf{DAG} = Directed Acyclic Graph $\;\vert\;$
-\textbf{ReAct} = Reasoning \& Acting $\;\vert\;$
-\textbf{MCP} = Model Context Protocol $\;\vert\;$
-\textbf{ORPO} = Preference Optimization $\;\vert\;$
-\textbf{SSE} = Server-Sent Events
-}
-\end{tcolorbox}
-\end{frame}
+\input{../agent_lifecycle_frame.tex}
 
 \end{document}

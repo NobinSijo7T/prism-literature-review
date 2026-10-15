@@ -102,7 +102,7 @@
 \node[terminal] (start) at (1.05, 4.85) {Start};
 \node[io, text width=2.10cm]   (uq)    at (1.05, 3.85) {\textbf{User Objective} $\mathcal{T}_{\text{user}}$\\[-0.10em]{\fontsize{4.4}{5.2}\selectfont(Prompt, Code, Goals)}};
 \node[proc, text width=2.15cm] (agent) at (1.05, 2.65) {Next.js Client \& Bridge\\[-0.10em]{\fontsize{4.4}{5.2}\selectfont(DevSpace / FastAPI Hive)}};
-\node[proc, text width=2.15cm] (qpre)  at (1.05, 1.45) {Feature Extraction\\[-0.10em]{\fontsize{4.4}{5.2}\selectfont(10k TF-IDF, Anomaly Filter)}};
+\node[proc, text width=2.15cm] (qpre)  at (1.05, 1.45) {Feature Extraction\\[-0.10em]{\fontsize{4.4}{5.2}\selectfont(Token Signals, Anomaly Filter)}};
 
 \draw[arr] (start) -- (uq);
 \draw[arr] (uq)    -- (agent);

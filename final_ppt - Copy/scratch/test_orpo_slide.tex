@@ -1,0 +1,83 @@
+\documentclass[aspectratio=169,10pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{tikz}
+
+% Theme Colors
+\definecolor{lavenderDark}{RGB}{76, 51, 122}
+\definecolor{lavenderMedium}{RGB}{124, 98, 173}
+\definecolor{lavenderLight}{RGB}{243, 239, 252}
+\definecolor{lavenderAccent}{RGB}{150, 120, 205}
+\definecolor{prismTeal}{RGB}{22,138,114}
+\definecolor{prismDark}{RGB}{23,32,42}
+\definecolor{prismSlate}{RGB}{85, 90, 105}
+\definecolor{prismMint}{RGB}{235,248,245}
+
+\setbeamercolor{frametitle}{bg=lavenderDark,fg=white}
+\setbeamertemplate{navigation symbols}{}
+
+% Hierarchical Algorithm List Environments matching all other steps
+\newenvironment{algolist}{%
+  \begin{list}{}{%
+    \setlength{\labelwidth}{1.9em}%
+    \setlength{\leftmargin}{2.1em}%
+    \setlength{\itemindent}{0pt}%
+    \setlength{\labelsep}{0.45em}%
+    \setlength{\itemsep}{0.28em}%
+    \setlength{\parsep}{0pt}%
+    \setlength{\topsep}{0.1em}%
+    \renewcommand{\makelabel}[1]{\textbf{\color{lavenderDark}##1}}%
+  }\small%
+}{\end{list}}
+
+\newenvironment{algosublist}{%
+  \begin{list}{}{%
+    \setlength{\labelwidth}{2.4em}%
+    \setlength{\leftmargin}{2.8em}%
+    \setlength{\itemindent}{0pt}%
+    \setlength{\labelsep}{0.4em}%
+    \setlength{\itemsep}{0.14em}%
+    \setlength{\parsep}{0pt}%
+    \setlength{\topsep}{0.1em}%
+    \renewcommand{\makelabel}[1]{\textbf{\color{lavenderMedium}##1}}%
+  }\small%
+}{\end{list}}
+
+\begin{document}
+
+% -----------------------------------------------------------------------------
+% STEP 10: ORPO PREFERENCE MODEL & QUALITY ASSERTION
+% -----------------------------------------------------------------------------
+\begin{frame}[t]{Algorithm: Step 10 -- ORPO Preference Model \& Verification}
+\vspace{-0.15em}
+{\large\bfseries\color{lavenderDark}Step 10: Single-Stage Preference Alignment (ORPO) and Verification}
+\vspace{0.15em}
+
+\begin{algolist}
+  \item[10.1] Single-stage reference-free preference alignment formulation (ORPO):
+    \vspace{-0.25em}
+    $$\mathcal{L}_{\mathrm{ORPO}} = \mathcal{L}_{\mathrm{SFT}} + \lambda_{\mathrm{OR}} \cdot \mathcal{L}_{\mathrm{OR}} \quad \text{where} \quad \mathcal{L}_{\mathrm{OR}} = -\log \sigma \left( \log \left[ \frac{\mathrm{odds}_\theta(y_w \mid x)}{\mathrm{odds}_\theta(y_l \mid x)} \right] \right)$$
+    \vspace{-0.2em}
+    {\footnotesize\color{prismDark}%
+      \textbf{\color{lavenderDark}Where:}\enspace $\mathcal{L}_{\mathrm{ORPO}}$: Total loss $\;\vert\;$ $\mathcal{L}_{\mathrm{SFT}}$: SFT cross-entropy loss $\;\vert\;$ $\lambda_{\mathrm{OR}}$: Odds weight $\;\vert\;$ $\mathcal{L}_{\mathrm{OR}}$: Odds ratio penalty $\;\vert\;$ $\mathrm{odds}_\theta(y \mid x) = \frac{P_\theta(y \mid x)}{1 - P_\theta(y \mid x)}$: Output sequence odds $\;\vert\;$ $y_w, y_l$: Chosen / rejected responses for prompt $x$.}
+    \vspace{0.15em}
+    \begin{algosublist}
+      \item[10.1.1] Jointly maximize chosen likelihood while penalizing rejected tokens ($2\times$ memory savings).
+      \item[10.1.2] Supervise via UltraFeedback pairs $\mathcal{D} = \{(x, y_w, y_l)\}$, bypassing unstable RLHF loops.
+    \end{algosublist}
+  \item[10.2] Enforce runtime quality gating via preference score barrier $\mathcal{S}_{\mathrm{ORPO}}(x, y) \ge \tau_{\mathrm{approval}}$:
+    \begin{algosublist}
+      \item[10.2.1] Audit deliverables using fine-tuned model (\texttt{reward\_orpo\_v2}, Qwen2.5-1.5B LoRA).
+      \item[10.2.2] Score candidate outputs on instruction adherence, structural constraints, and safety guardrails.
+    \end{algosublist}
+  \item[10.3] Handle quality failures via targeted DAG re-planning:
+    \begin{algosublist}
+      \item[10.3.1] Capture diagnostic error traces and schema deviations when output falls below $\tau_{\mathrm{approval}}$.
+      \item[10.3.2] Dispatch error logs to DAG Planner for targeted branch re-planning without system abort.
+    \end{algosublist}
+\end{algolist}
+\end{frame}
+
+\end{document}

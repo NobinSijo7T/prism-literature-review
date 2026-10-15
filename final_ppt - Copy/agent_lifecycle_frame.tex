@@ -1,0 +1,292 @@
+% Copyright 2026 Nobin Sijo (NobinSijo7T).
+% SPDX-License-Identifier: Apache-2.0
+% Agent Lifecycle & MCP Integration Slide Frame
+
+\begin{frame}[t]{07. Agent Lifecycle, MCP Integration \& Runtime Flow in PrismSpace}
+\vspace{-0.45em}
+
+% Top Subtitle Banner (Compact, zero extra vertical margins)
+\centering
+\begin{tcolorbox}[
+  enhanced,
+  colback=lavenderDark!95,
+  colframe=lavenderDark,
+  arc=2.5pt,
+  boxrule=0.5pt,
+  width=0.99\linewidth,
+  top=1.6pt, bottom=1.6pt, left=6pt, right=6pt,
+  before=\vspace{0pt}, after=\vspace{1pt},
+  halign=center
+]
+  \textcolor{white}{\fontsize{5.8}{7.0}\selectfont\sffamily
+    \textbf{Runtime Orchestration \& Tool Architecture:} State-machine lifecycle with Human-in-the-Loop (HITL) safety gates, bi-directional MCP tool discovery, and real-time Server-Sent Events (SSE) telemetry.
+  }
+\end{tcolorbox}
+
+\vspace{0.02cm}
+
+\begin{columns}[t]
+
+% ==================== LEFT COLUMN: AGENT LIFECYCLE ====================
+\begin{column}{0.485\textwidth}
+\centering
+{\fontsize{7.2}{8.2}\selectfont\textbf{\color{lavenderDark}\faProjectDiagram\ Agent Lifecycle \& State Flow}}
+\vspace{0.04cm}
+
+\adjustbox{max width=\linewidth, max height=0.57\textheight, keepaspectratio}{%
+\begin{tikzpicture}[
+  x=1cm, y=1cm,
+  font=\sffamily,
+  statenode/.style={
+    rectangle, rounded corners=3.5pt,
+    line width=0.8pt, inner sep=3.0pt,
+    align=center, font=\fontsize{6.2}{7.2}\selectfont\bfseries,
+    drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}
+  },
+  decisionnode/.style={
+    diamond, aspect=1.8,
+    draw=statusApprove!90, fill=statusApprove!18, text=black,
+    line width=0.85pt, inner sep=1.5pt,
+    minimum width=2.5cm, align=center,
+    font=\fontsize{5.6}{6.6}\selectfont\bfseries,
+    drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}
+  },
+  terminode/.style={
+    rectangle, rounded corners=3pt,
+    line width=0.8pt, inner sep=2.5pt,
+    minimum width=1.95cm, minimum height=0.48cm,
+    align=center, font=\fontsize{5.4}{6.4}\selectfont\bfseries,
+    drop shadow={opacity=0.08, shadow xshift=0.5pt, shadow yshift=-0.5pt}
+  },
+  arr/.style={-{Stealth[scale=0.75]}, line width=0.85pt, draw=black!75},
+  greenarr/.style={-{Stealth[scale=0.75]}, line width=0.85pt, draw=statusComplete!90!black},
+  redarr/.style={-{Stealth[scale=0.75]}, line width=0.85pt, draw=statusFail!90!black}
+]
+
+% Colors
+\definecolor{statusInit}{RGB}{70, 130, 218}
+\definecolor{statusPlan}{RGB}{22, 138, 114}
+\definecolor{statusRun}{RGB}{230, 126, 34}
+\definecolor{statusApprove}{RGB}{217, 154, 34}
+\definecolor{statusComplete}{RGB}{39, 174, 96}
+\definecolor{statusFail}{RGB}{217, 54, 54}
+\definecolor{statusCancel}{RGB}{120, 140, 155}
+\definecolor{prismTeal}{RGB}{22, 138, 114}
+\definecolor{prismMint}{RGB}{235, 248, 245}
+
+% Agent Lifecycle Nodes
+\node[statenode, draw=statusInit!85, fill=statusInit!14, minimum width=4.9cm, minimum height=0.52cm] (init) at (0, 2.50) {
+  \faRocket\ \textbf{INITIALIZING}\\[-0.08em]
+  {\fontsize{4.9}{5.9}\selectfont\normalfont Run ID assigned $\cdot$ Session token $\cdot$ Background worker setup}
+};
+
+\node[statenode, draw=statusPlan!85, fill=statusPlan!14, minimum width=4.9cm, minimum height=0.52cm] (plan) at (0, 1.62) {
+  \faSitemap\ \textbf{PLANNING}\\[-0.08em]
+  {\fontsize{4.9}{5.9}\selectfont\normalfont Intent routing $\cdot$ Dependency DAG $\cdot$ Spawn workers $(K \le 3)$}
+};
+
+\node[decisionnode] (hitl) at (0, 0.76) {
+  \faUserShield\ HITL Gate\\
+  {\fontsize{4.5}{5.3}\selectfont Destructive op?}
+};
+
+\node[statenode, draw=statusApprove!85, fill=statusApprove!16, minimum width=2.90cm, minimum height=0.58cm] (approval) at (-1.75, -0.30) {
+  \faHandPaper\ \textbf{AWAITING\_APPROVAL}\\[-0.08em]
+  {\fontsize{4.7}{5.7}\selectfont\normalfont Operator prompt (300s timer)}
+};
+
+\node[statenode, draw=statusRun!85, fill=statusRun!16, minimum width=2.90cm, minimum height=0.58cm] (running) at (1.75, -0.30) {
+  \faCogs\ \textbf{RUNNING}\\[-0.08em]
+  {\fontsize{4.7}{5.7}\selectfont\normalfont ReAct loop via Provider API}
+};
+
+% Terminal States (Planar row - ZERO overlap)
+\node[terminode, draw=statusCancel!85, fill=statusCancel!15] (cancelled) at (-2.15, -1.34) {
+  \faBan\ \textbf{CANCELLED}\\[-0.08em]
+  {\fontsize{4.5}{5.3}\selectfont\normalfont Operator rejected}
+};
+
+\node[terminode, draw=statusFail!85, fill=statusFail!15] (failed) at (0, -1.34) {
+  \faTimesCircle\ \textbf{FAILED}\\[-0.08em]
+  {\fontsize{4.5}{5.3}\selectfont\normalfont Error / Timeout}
+};
+
+\node[terminode, draw=statusComplete!85, fill=statusComplete!15] (completed) at (2.15, -1.34) {
+  \faCheckDouble\ \textbf{COMPLETED}\\[-0.08em]
+  {\fontsize{4.5}{5.3}\selectfont\normalfont Result stored \& streamed}
+};
+
+% Non-intersecting Arrow Flows
+\draw[arr] (init) -- (plan);
+\draw[arr] (plan) -- (hitl);
+
+\draw[arr] (hitl.west) -| node[pos=0.35, above, font=\fontsize{4.9}{5.9}\selectfont\bfseries\color{statusApprove!90!black}]{YES} (approval.north);
+\draw[arr] (hitl.east) -| node[pos=0.35, above, font=\fontsize{4.9}{5.9}\selectfont\bfseries\color{statusComplete!90!black}]{NO} (running.north);
+
+% Approval to Running (Clear horizontal connector)
+\draw[greenarr] (approval.east) -- node[above, font=\fontsize{4.6}{5.6}\selectfont\bfseries\color{statusComplete!90!black}]{Approved} (running.west);
+
+% Downward paths from Approval
+\draw[arr] ([xshift=-0.45cm]approval.south) -- node[left=1pt, font=\fontsize{4.5}{5.3}\selectfont\color{statusCancel!90!black}]{Reject} (cancelled.north);
+\draw[redarr] ([xshift=0.35cm]approval.south) -- node[above right=-2pt, font=\fontsize{4.3}{5.1}\selectfont\color{statusFail!90!black}]{Timeout} ([xshift=-0.40cm]failed.north);
+
+% Downward paths from Running
+\draw[greenarr] ([xshift=0.45cm]running.south) -- node[right=1pt, font=\fontsize{4.5}{5.3}\selectfont\color{statusComplete!90!black}]{Success} (completed.north);
+\draw[redarr] ([xshift=-0.35cm]running.south) -- node[above left=-2pt, font=\fontsize{4.3}{5.1}\selectfont\color{statusFail!90!black}]{Error} ([xshift=0.40cm]failed.north);
+
+% Runtime Metrics & Telemetry Card (Single-line crisp bullets with explicit vertical spacing)
+\node[rectangle, rounded corners=3pt, fill=prismMint, draw=prismTeal!70, line width=0.60pt,
+      text width=6.05cm, align=left, inner sep=3.2pt] (metrics) at (0, -2.25) {%
+  {\fontsize{4.8}{6.0}\selectfont
+  \textbf{\color{prismTeal!90!black}\faChartLine\ Runtime Telemetry \& State Persistence:}\\[2pt]
+  $\bullet$\enspace \textbf{SSE Stream:} Live token streaming \& status events over HTTP\\[1.5pt]
+  $\bullet$\enspace \textbf{Telemetry (0.5s):} Step latency, token consumption \& model cost\\[1.5pt]
+  $\bullet$\enspace \textbf{ACID Persistence:} JSONL execution traces saved to \texttt{PrismDB}\par}%
+};
+
+\end{tikzpicture}%
+}
+\end{column}
+
+% ==================== RIGHT COLUMN: MCP INTEGRATION ====================
+\begin{column}{0.485\textwidth}
+\centering
+{\fontsize{7.2}{8.2}\selectfont\textbf{\color{lavenderDark}\faPlug\ MCP Tool Integration \& Runtime Flow}}
+\vspace{0.04cm}
+
+\adjustbox{max width=\linewidth, max height=0.57\textheight, keepaspectratio}{%
+\begin{tikzpicture}[
+  x=1cm, y=1cm,
+  font=\sffamily,
+  mcpbox/.style={
+    rectangle, rounded corners=3.5pt,
+    line width=0.8pt, inner sep=3.0pt,
+    align=center, font=\fontsize{6.2}{7.2}\selectfont\bfseries,
+    drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}
+  },
+  toolbox/.style={
+    rectangle, rounded corners=2.5pt,
+    draw=prismGold!80, fill=prismGold!12, text=black,
+    line width=0.65pt, inner sep=2.0pt,
+    minimum width=1.95cm, minimum height=0.42cm,
+    align=center, font=\fontsize{4.9}{5.9}\selectfont
+  },
+  arr/.style={-{Stealth[scale=0.75]}, line width=0.85pt, draw=black!75},
+  dasharr/.style={-{Stealth[scale=0.65]}, line width=0.75pt, draw=mcpBlue!90, dashed}
+]
+
+% Colors
+\definecolor{mcpBlue}{RGB}{41, 128, 185}
+\definecolor{mcpGreen}{RGB}{39, 174, 96}
+\definecolor{prismGold}{RGB}{217, 154, 34}
+\definecolor{statusApprove}{RGB}{217, 154, 34}
+
+% Stage 1: MCP Configuration & Loader
+\node[mcpbox, draw=mcpBlue!85, fill=mcpBlue!12, minimum width=6.2cm, minimum height=0.52cm] (config) at (0, 2.50) {
+  \faFileCode\ \textbf{MCP Configuration \& Transports}\\[-0.08em]
+  {\fontsize{4.9}{5.9}\selectfont\normalfont \texttt{mcp\_servers.json} $\cdot$ Stdio / SSE JSON-RPC $\cdot$ Masked env tokens}
+};
+
+% Stage 2: Orchestration Context
+\node[mcpbox, draw=mcpBlue!85, fill=mcpBlue!12, minimum width=6.2cm, minimum height=0.52cm] (context) at (0, 1.62) {
+  \faBrain\ \textbf{Orchestration Context \& Dynamic Discovery}\\[-0.08em]
+  {\fontsize{4.9}{5.9}\selectfont\normalfont Servers parsed $\rightarrow$ Tool schemas injected into LLM system prompt}
+};
+
+% Stage 3: MCP Tool Grid (2 rows x 3 columns)
+\node[toolbox] (browser) at (-2.10, 0.86) {
+  \faGlobe\ \textbf{Browser}\\[-0.05em]
+  {\fontsize{4.4}{5.2}\selectfont Web scraper}
+};
+
+\node[toolbox] (terminal) at (0, 0.86) {
+  \faTerminal\ \textbf{Terminal}\\[-0.05em]
+  {\fontsize{4.4}{5.2}\selectfont Shell \& CLI}
+};
+
+\node[toolbox] (filesystem) at (2.10, 0.86) {
+  \faFolderOpen\ \textbf{FileSystem}\\[-0.05em]
+  {\fontsize{4.4}{5.2}\selectfont Sandboxed I/O}
+};
+
+\node[toolbox] (database) at (-2.10, 0.30) {
+  \faDatabase\ \textbf{Database}\\[-0.05em]
+  {\fontsize{4.4}{5.2}\selectfont SQLite / PrismDB}
+};
+
+\node[toolbox] (github) at (0, 0.30) {
+  \faGithub\ \textbf{GitHub}\\[-0.05em]
+  {\fontsize{4.4}{5.2}\selectfont PRs \& Commits}
+};
+
+\node[toolbox] (figma) at (2.10, 0.30) {
+  \faPalette\ \textbf{Workspace}\\[-0.05em]
+  {\fontsize{4.4}{5.2}\selectfont APIs \& Design}
+};
+
+% Tool Registry Container Frame
+\begin{scope}[on background layer]
+  \node[rectangle, rounded corners=3pt, draw=prismGold!50, fill=prismGold!5, line width=0.5pt,
+        fit=(browser)(filesystem)(database)(figma), inner sep=2.5pt] (toolframe) {};
+\end{scope}
+
+% Stage 4: ReAct Execution Engine
+\node[mcpbox, draw=mcpGreen!85, fill=mcpGreen!14, minimum width=6.2cm, minimum height=0.52cm] (execution) at (0, -0.44) {
+  \faPlay\ \textbf{Tool Execution \& ReAct Engine}\\[-0.08em]
+  {\fontsize{4.9}{5.9}\selectfont\normalfont Observe (tool output) $\rightarrow$ Think (LLM reasoning) $\rightarrow$ Act (next call)}
+};
+
+% Stage 5: Validation & Response
+\node[mcpbox, draw=mcpGreen!85, fill=mcpGreen!14, minimum width=6.2cm, minimum height=0.52cm] (validation) at (0, -1.26) {
+  \faCheckSquare\ \textbf{Validation, Output Synthesis \& Gating}\\[-0.08em]
+  {\fontsize{4.9}{5.9}\selectfont\normalfont Schema verification $\cdot$ ORPO alignment score $\cdot$ Stream response}
+};
+
+% Flow Arrows
+\draw[arr] (config) -- (context);
+
+% Dynamic tool injection arrows from context into tool grid
+\draw[dasharr] (context.south) -- (terminal.north);
+\draw[dasharr] (context.south) -- ++(0, -0.12) -| (browser.north);
+\draw[dasharr] (context.south) -- ++(0, -0.12) -| (filesystem.north);
+
+% Tool invocation flows from tool registry directly into execution engine
+\draw[arr] (database.south) -- ([xshift=-2.10cm]execution.north);
+\draw[arr] (github.south) -- (execution.north);
+\draw[arr] (figma.south) -- ([xshift=2.10cm]execution.north);
+
+\draw[arr] (execution) -- (validation);
+
+% Security & Safety Box (Single-line crisp bullets with explicit vertical spacing)
+\node[rectangle, rounded corners=3pt, fill=statusApprove!12, draw=statusApprove!75, line width=0.60pt,
+      text width=6.05cm, align=left, inner sep=3.2pt] (security) at (0, -2.25) {%
+  {\fontsize{4.8}{6.0}\selectfont
+  \textbf{\color{statusApprove!90!black}\faUserShield\ Security, Privacy \& Safety Policies:}\\[2pt]
+  $\bullet$\enspace \textbf{Credential Isolation:} Secret tokens in \texttt{.env}; masked in client UI\\[1.5pt]
+  $\bullet$\enspace \textbf{Destructive Action Gating:} Shell write/deletes require operator HITL\\[1.5pt]
+  $\bullet$\enspace \textbf{Process Sandboxing:} Server-side schema validation against injection\par}%
+};
+
+\end{tikzpicture}%
+}
+\end{column}
+
+\end{columns}
+
+\vspace{0.02cm}
+
+% Bottom: Clean Key Components Summary Bar (Zero extra vertical margins)
+\begin{tcolorbox}[
+  enhanced, arc=2.5pt, colframe=lavenderDark!70, colback=lavenderLight!50,
+  boxrule=0.5pt, left=4pt, right=4pt, top=1.4pt, bottom=1.4pt,
+  before=\vspace{1pt}, after=\vspace{0pt}
+]
+\centering\fontsize{4.8}{5.8}\selectfont\color{lavenderDark}
+\textbf{\faServer\ Core Infrastructure:} 
+\textbf{FastAPI Async Engine} (\texttt{hive\_api.py}) $\;\vert\;$ 
+\textbf{Next.js 14 Frontend} (\texttt{AgentSwarm.tsx}) $\;\vert\;$ 
+\textbf{Dexie PrismDB} (ACID Storage) $\;\vert\;$ 
+\textbf{Multi-LLM Routing} (Groq, NVIDIA, OpenAI)
+\end{tcolorbox}
+
+\end{frame}

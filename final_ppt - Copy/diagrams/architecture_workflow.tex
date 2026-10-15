@@ -73,20 +73,20 @@
     % =========================================================================
     % INPUT: USER ENTRY POINT
     % =========================================================================
-    \node [shaded, text width=9.6cm, minimum height=0.75cm] (input_node) at (1.5, 1.85) {
-        \textbf{[INPUT: User Request]} $\;\longrightarrow\;$ Natural Language Query $\;\vert\;$ Multi-Turn Context $\;\vert\;$ Task Objective
+    \node [rectangle, draw=blue!70, line width=1.2pt, fill=blue!8, rounded corners=3pt, text width=9.6cm, minimum height=0.95cm] (input_node) at (1.5, 2.35) {
+        \textbf{\textcolor{blue!80}{INPUT:}} Natural Language Query $\;\vert\;$ Multi-Turn Context $\;\vert\;$ Task Objective
     };
-    \node [layer_label] at (-4.8, 1.85) {User\\Interface};
+    \node [layer_label] at (-4.8, 2.35) {\textcolor{blue!80}{\textbf{INPUT}}\\Box};
 
     % =========================================================================
     % LAYER 1: PRESENTATION LAYER
     % =========================================================================
-    \node [box, text width=9.6cm, minimum height=1.75cm] (box1) at (1.5, 0) {};
+    \node [box, text width=9.6cm, minimum height=1.75cm] (box1) at (1.5, 0.3) {};
     \node [anchor=north, font=\small\bfseries, inner sep=4pt] at (box1.north) {Next.js React Client Application (\texttt{'use client'})};
-    \node [subbox] (sub1a) at (-0.8, -0.32) {Agent Swarm Dashboard\\\& Terminal Feed};
-    \node [subbox] (sub1b) at (3.8, -0.32) {Reactive Hooks Layer\\(\texttt{useLiveQuery}, \texttt{useBookmarks})};
+    \node [subbox] (sub1a) at (-0.8, -0.02) {Agent Swarm Dashboard\\\& Terminal Feed};
+    \node [subbox] (sub1b) at (3.8, -0.02) {Reactive Hooks Layer\\(\texttt{useLiveQuery}, \texttt{useBookmarks})};
     
-    \node [layer_label] (lbl1) at (-4.8, 0) {Presentation\\Layer};
+    \node [layer_label] (lbl1) at (-4.8, 0.3) {Presentation\\Layer};
 
     % =========================================================================
     % LAYER 2: API BRIDGE & GATEWAY LAYER
@@ -128,7 +128,7 @@
     };
     \node [box, text width=3.8cm, fill=black!8, right=0.4cm of box4a] (box4b) {
         \textbf{Worker Execution}\\
-        \footnotesize Parallel Agents ($K \le 5$)
+        \footnotesize Parallel Agents ($K \le 3$)
     };
     
     \node [box, text width=9.6cm, below=0.45cm of box4a, xshift=2.2cm] (box4c) {
@@ -216,10 +216,10 @@
     % OUTPUT: SYSTEM RESPONSE
     % =========================================================================
     \coordinate (c_output) at ($(box6a.center)!0.5!(box6b.center)$);
-    \node [shaded, text width=9.6cm, minimum height=0.75cm, below=0.8cm of box6a, xshift=2.05cm] (output_node) {
-        \textbf{[OUTPUT: AI Response]} $\;\longrightarrow\;$ SSE Token Stream $\;\vert\;$ Verified Deliverables $\;\vert\;$ Persisted to \texttt{PrismDB}
+    \node [rectangle, draw=green!70!black, line width=1.2pt, fill=green!10, rounded corners=3pt, text width=9.6cm, minimum height=0.95cm, below=0.8cm of box6a, xshift=2.05cm] (output_node) {
+        \textbf{\textcolor{green!60!black}{OUTPUT:}} SSE Token Stream $\;\vert\;$ Verified Deliverables $\;\vert\;$ Persisted to \texttt{PrismDB}
     };
-    \node [layer_label] at (-4.8, 0 |- output_node) {System\\Output};
+    \node [layer_label] at (-4.8, 0 |- output_node) {\textcolor{green!60!black}{\textbf{OUTPUT}}\\Box};
     \draw [arrow] (box6a.south) -- (box6a.south |- output_node.north);
     \draw [arrow] (box6b.south) -- (box6b.south |- output_node.north);
 

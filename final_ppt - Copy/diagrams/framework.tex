@@ -528,7 +528,7 @@
     \node [dashed_container, line width=0.85pt, fit=(container_topleft) (badge_topleft) (container_botleft) (badge_botleft) (container_right) (badge_right) (detail_box) (c_callout_corner1), inner sep=0.28cm] (outer_all) {};
 
     % =========================================================================
-    % SYSTEM INPUT (TOP) — Overall entry point, positioned above the diagram
+    % SYSTEM INPUT (TOP) - Overall entry point, positioned above the diagram
     % =========================================================================
     \node [box, fill=black!22, text width=15.5cm, minimum height=0.85cm, above=0.45cm of outer_all] (sys_input) {
         {\normalsize\bfseries \ding{220}~INPUT: User Natural Language Query, Task Objective \& Session Context}\\[0.1em]
@@ -537,7 +537,7 @@
     \draw [arrow, line width=1.0pt] (sys_input.south) -- (outer_all.north);
 
     % =========================================================================
-    % SYSTEM OUTPUT (BOTTOM) — Overall exit point, positioned below the diagram
+    % SYSTEM OUTPUT (BOTTOM) - Overall exit point, positioned below the diagram
     % =========================================================================
     \node [box, fill=black!22, text width=15.5cm, minimum height=0.85cm, below=0.45cm of outer_all] (sys_output) {
         {\normalsize\bfseries OUTPUT: Streamed AI Response, Verified Deliverables \& Persisted State~\ding{220}}\\[0.1em]

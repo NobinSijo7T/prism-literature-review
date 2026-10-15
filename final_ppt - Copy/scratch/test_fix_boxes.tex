@@ -1,0 +1,244 @@
+\documentclass[aspectratio=169,10pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, fit, backgrounds}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\usepackage{fontawesome5}
+\usepackage{adjustbox}
+
+% Palette
+\definecolor{lavenderDark}{RGB}{75, 45, 115}
+\definecolor{lavenderLight}{RGB}{245, 240, 252}
+\definecolor{lavenderMedium}{RGB}{130, 95, 175}
+\definecolor{lavenderDeep}{RGB}{50, 25, 85}
+\definecolor{prismTeal}{RGB}{0, 150, 136}
+\definecolor{prismGold}{RGB}{212, 143, 24}
+\definecolor{prismMint}{RGB}{224, 242, 233}
+\definecolor{prismDark}{RGB}{20, 24, 33}
+\definecolor{prismBlue}{RGB}{41, 128, 185}
+
+\begin{document}
+\begin{frame}[t]{09. Unified Dataset Preparation \& Multi-Model Training Pipeline}
+\vspace{-0.35em}
+
+\centering
+\begin{tcolorbox}[
+  enhanced, colback=lavenderDark!95, colframe=lavenderDark, arc=3pt,
+  boxrule=0.5pt, width=0.99\linewidth, top=1.8pt, bottom=1.8pt, left=8pt, right=8pt,
+  halign=center
+]
+  \textcolor{white}{\fontsize{6.8}{8.2}\selectfont\sffamily
+  \textbf{Raw multi-source datasets} across multiple formats are normalized into a \textbf{unified schema}, curated into \textbf{4 supervised tables}, and trained into \textbf{11 production models}.}
+\end{tcolorbox}
+
+\vspace{-0.10em}
+
+\adjustbox{max width=0.99\linewidth, max height=0.82\textheight, keepaspectratio}{%
+\begin{tikzpicture}[
+  x=1cm, y=1cm, font=\sffamily,
+  arr/.style={-{Stealth[scale=0.75]}, line width=0.70pt, draw=lavenderDark!80},
+  hdr/.style={text=white, rounded corners=2pt, inner xsep=7pt, inner ysep=2.5pt,
+              font=\fontsize{5.8}{6.8}\selectfont\bfseries, anchor=center},
+]
+
+% ──────────────────────────────────────────────────────────────────────
+% COLUMN HEADERS (Y = 2.85)
+% ──────────────────────────────────────────────────────────────────────
+\node[hdr, fill=lavenderDark!85]        at (-5.80, 2.85) {\faDatabase\ 1. Raw Datasets (Sources)};
+\node[hdr, fill=lavenderDark]           at (-2.35, 2.85) {\faCodeBranch\ 2. Unified Schema};
+\node[hdr, fill=prismTeal!85!black]     at ( 0.95, 2.85) {\faTable\ 3. Supervised Tables (4)};
+\node[hdr, fill=lavenderMedium!85!black] at ( 5.75, 2.85) {\faCogs\ 4. Production Models (11)};
+
+% ──────────────────────────────────────────────────────────────────────
+% COLUMN 1: RAW DATASET SOURCES (WIDE & SPACIOUS, DELTA Y = 1.45cm)
+% Center X = -5.80, Width = 3.75cm
+% Centers: Y = 1.85, 0.30, -1.05, -2.40
+% ──────────────────────────────────────────────────────────────────────
+% A: Approval Table Source (Y = 1.85)
+\node[rectangle, rounded corners=2.5pt, draw=prismGold!85!black, fill=prismGold!14,
+  line width=0.55pt, inner sep=3.0pt, align=left, text width=3.75cm,
+  anchor=center] (d1) at (-5.80, 1.85) {
+  \textbf{\fontsize{5.2}{6.0}\selectfont\color{prismGold!90!black}\faCheckSquare\ WildGuardMix}\enspace{\scriptsize\color{prismGold!90!black}(Approval)}\\[1.5pt]
+  \fontsize{4.6}{5.3}\selectfont\color{black!80}
+  Harm labels \& adversarial safety guardrails\\[1.5pt]
+  \fontsize{4.3}{5.0}\selectfont\color{black!70}
+  Columns: \texttt{prompt, prompt\_harm\_label}\\[1.5pt]
+  \texttt{\fontsize{4.1}{4.7}\selectfont\color{prismGold!90!black}.parquet \quad .json \quad .jsonl}
+};
+
+% B: Success Table Source (Y = 0.30)
+\node[rectangle, rounded corners=2.5pt, draw=orange!80!black, fill=orange!12,
+  line width=0.55pt, inner sep=3.0pt, align=left, text width=3.75cm,
+  anchor=center] (d2) at (-5.80, 0.30) {
+  \textbf{\fontsize{5.2}{6.0}\selectfont\color{orange!85!black}\faTasks\ cx-cmu-trajectories}\enspace{\scriptsize\color{orange!85!black}(Success)}\\[1.5pt]
+  \fontsize{4.6}{5.3}\selectfont\color{black!80}
+  Multi-turn agent execution traces \& rewards\\[1.5pt]
+  \fontsize{4.3}{5.0}\selectfont\color{black!70}
+  Columns: \texttt{trajectory, reward\_binary}\\[1.5pt]
+  \texttt{\fontsize{4.1}{4.7}\selectfont\color{orange!85!black}.parquet \quad .jsonl}
+};
+
+% C: Provider Table Sources (Y = -1.05)
+\node[rectangle, rounded corners=2.5pt, draw=prismTeal!80!black, fill=prismTeal!12,
+  line width=0.55pt, inner sep=3.0pt, align=left, text width=3.75cm,
+  anchor=center] (d3) at (-5.80, -1.05) {
+  \textbf{\fontsize{5.2}{6.0}\selectfont\color{prismTeal!85!black}\faRandom\ Chatbot Arena + RouterBench}\\[1.5pt]
+  \fontsize{4.6}{5.3}\selectfont\color{black!80}
+  Provider win-rates \& prompt affinity pairs\\[1.5pt]
+  \fontsize{4.3}{5.0}\selectfont\color{black!70}
+  Columns: \texttt{prompt, winner\_model, vote}\\[1.5pt]
+  \texttt{\fontsize{4.1}{4.7}\selectfont\color{prismTeal!75!black}.parquet \quad .json \quad .jsonl}
+};
+
+% D: Reward Table Source (Y = -2.40)
+\node[rectangle, rounded corners=2.5pt, draw=lavenderDark!70, fill=lavenderLight!65,
+  line width=0.55pt, inner sep=3.0pt, align=left, text width=3.75cm,
+  anchor=center] (d4) at (-5.80, -2.40) {
+  \textbf{\fontsize{5.2}{6.0}\selectfont\color{lavenderDark}\faStar\ UltraFeedback}\enspace{\scriptsize\color{lavenderDark}(Reward)}\\[1.5pt]
+  \fontsize{4.6}{5.3}\selectfont\color{black!80}
+  Pairwise chosen vs.\ rejected preference pairs\\[1.5pt]
+  \fontsize{4.3}{5.0}\selectfont\color{black!70}
+  Columns: \texttt{prompt, chosen, rejected}\\[1.5pt]
+  \texttt{\fontsize{4.1}{4.7}\selectfont\color{lavenderDark!80}.parquet \quad .json \quad .jsonl}
+};
+
+% ──────────────────────────────────────────────────────────────────────
+% COLUMN 2: UNIFIED SCHEMA ENGINE
+% Center X = -2.35, Width = 2.30cm, Height = 5.20cm, Center Y = -0.40
+% ──────────────────────────────────────────────────────────────────────
+\node[rectangle, rounded corners=3.5pt, draw=lavenderDark, fill=lavenderLight!75,
+  line width=0.90pt, inner sep=4.0pt, align=center, text width=2.30cm, minimum height=5.20cm,
+  anchor=center] (unify) at (-2.35, -0.40) {
+  {\normalsize\color{lavenderDark}\faDatabase}\\[3pt]
+  \textbf{\fontsize{6.2}{7.2}\selectfont\color{lavenderDark}Unified Schema}\\[6pt]
+  \textbf{\fontsize{5.0}{5.8}\selectfont Ingestion Normalization:}\\
+  \fontsize{4.5}{5.2}\selectfont
+  Parquet $\to$ DataFrames\\
+  JSON / JSONL $\to$ Records\\
+  CSV / PKL $\to$ Tables\\
+  Markdown $\to$ Text Tokens\\[6pt]
+  \textbf{\fontsize{5.0}{5.8}\selectfont Canonical Schema:}\\
+  \texttt{\fontsize{4.4}{5.0}\selectfont\color{lavenderDark}
+  \{prompt, completion,\\
+  label, split, source\}}\\[7pt]
+  \fontsize{4.8}{5.6}\selectfont\color{prismTeal!90!black}\bfseries
+  Raw Datasets $\to$ 1 Schema
+};
+
+% Connecting arrows: Col 1 -> Col 2
+\draw[arr] (d1.east) -- (-3.70,  1.85) -- (-3.70,  0.70) -- (unify.west |- 0,  0.70);
+\draw[arr] (d2.east) -- (-3.70,  0.30) -- (unify.west |- 0,  0.15);
+\draw[arr] (d3.east) -- (-3.70, -1.05) -- (unify.west |- 0, -0.70);
+\draw[arr] (d4.east) -- (-3.70, -2.40) -- (-3.70, -1.50) -- (unify.west |- 0, -1.50);
+
+% ──────────────────────────────────────────────────────────────────────
+% COLUMN 3: SUPERVISED TABLES (4) (DELTA Y = 1.30cm)
+% Center X = 0.95, Width = 2.45cm
+% Centers: Y = 1.80, 0.50, -0.80, -2.10
+% ──────────────────────────────────────────────────────────────────────
+% Table 1: Approval (Y = 1.80)
+\node[rectangle, rounded corners=2.5pt, draw=prismGold!85!black, fill=prismGold!18,
+  line width=0.55pt, inner sep=3.0pt, align=left, text width=2.45cm,
+  anchor=center] (t1) at (0.95, 1.80) {
+  \textbf{\fontsize{5.2}{6.0}\selectfont\color{prismGold!90!black}\faCheckSquare\ Approval Table}\\[1.5pt]
+  \fontsize{4.6}{5.3}\selectfont
+  Risk scores $\to$ approve/block\\[1.5pt]
+  \fontsize{4.3}{5.0}\selectfont\color{black!70}
+  Columns: \texttt{prompt, label}\\[1.5pt]
+  \texttt{\fontsize{4.2}{4.8}\selectfont\color{prismGold!90!black}approval/train.jsonl}
+};
+
+% Table 2: Success (Y = 0.50)
+\node[rectangle, rounded corners=2.5pt, draw=orange!80!black, fill=orange!14,
+  line width=0.55pt, inner sep=3.0pt, align=left, text width=2.45cm,
+  anchor=center] (t2) at (0.95, 0.50) {
+  \textbf{\fontsize{5.2}{6.0}\selectfont\color{orange!85!black}\faTasks\ Success Table}\\[1.5pt]
+  \fontsize{4.6}{5.3}\selectfont
+  Binary task rewards $\{0, 1\}$\\[1.5pt]
+  \fontsize{4.3}{5.0}\selectfont\color{black!70}
+  Columns: \texttt{prompt, label}\\[1.5pt]
+  \texttt{\fontsize{4.2}{4.8}\selectfont\color{orange!85!black}success/train.jsonl}
+};
+
+% Table 3: Provider (Y = -0.80)
+\node[rectangle, rounded corners=2.5pt, draw=prismTeal!85!black, fill=prismTeal!14,
+  line width=0.55pt, inner sep=3.0pt, align=left, text width=2.45cm,
+  anchor=center] (t3) at (0.95, -0.80) {
+  \textbf{\fontsize{5.2}{6.0}\selectfont\color{prismTeal!90!black}\faRandom\ Provider Table}\\[1.5pt]
+  \fontsize{4.6}{5.3}\selectfont
+  Prompt $\to$ LLM affinity pairs\\[1.5pt]
+  \fontsize{4.3}{5.0}\selectfont\color{black!70}
+  Columns: \texttt{prompt, completion}\\[1.5pt]
+  \texttt{\fontsize{4.2}{4.8}\selectfont\color{prismTeal!90!black}provider/train.jsonl}
+};
+
+% Table 4: Reward (Y = -2.10)
+\node[rectangle, rounded corners=2.5pt, draw=lavenderDark!80, fill=lavenderLight!70,
+  line width=0.55pt, inner sep=3.0pt, align=left, text width=2.45cm,
+  anchor=center] (t4) at (0.95, -2.10) {
+  \textbf{\fontsize{5.2}{6.0}\selectfont\color{lavenderDark}\faStar\ Reward Table}\\[1.5pt]
+  \fontsize{4.6}{5.3}\selectfont
+  Chosen vs.\ rejected responses\\[1.5pt]
+  \fontsize{4.3}{5.0}\selectfont\color{black!70}
+  Columns: \texttt{prompt, completion}\\[1.5pt]
+  \texttt{\fontsize{4.2}{4.8}\selectfont\color{lavenderDark}reward/train.jsonl}
+};
+
+% Connecting arrows: Col 2 -> Col 3
+\draw[arr] (unify.east) -- (-0.85, -0.15) |- (t1.west);
+\draw[arr] (unify.east) -- (-0.85, -0.15) |- (t2.west);
+\draw[arr] (unify.east) -- (-0.85, -0.15) |- (t3.west);
+\draw[arr] (unify.east) -- (-0.85, -0.15) |- (t4.west);
+
+% ──────────────────────────────────────────────────────────────────────
+% COLUMN 4: 11 PRODUCTION MODELS (3 BEAUTIFULLY SPACED, NON-OVERLAPPING CARDS)
+% Center X = 5.75, Width = 5.10cm
+% ──────────────────────────────────────────────────────────────────────
+% Category Card A: Routing & Intent (3 models)
+\node[rectangle, rounded corners=2.5pt, draw=lavenderDark!75, fill=lavenderLight!50,
+  line width=0.55pt, inner sep=3.2pt, align=left, text width=5.10cm,
+  anchor=north] (mcat1) at (5.75, 2.48) {
+  \textbf{\fontsize{5.3}{6.2}\selectfont\color{lavenderDark}\faRoute\ Routing \& Intent Models (3)}\\[1.8pt]
+  \fontsize{4.5}{5.3}\selectfont
+  $\bullet$\enspace\textbf{IntentClassifier:} Categorizes user requests into 12 domains\\
+  $\bullet$\enspace\textbf{AgentRouter:} Selects up to 3 best specialist agents\\
+  $\bullet$\enspace\textbf{ModelRouter:} Picks optimal provider (Groq/OpenAI/NIM)
+};
+
+% Category Card B: Workflow Intelligence & Performance (3 models)
+\node[rectangle, rounded corners=2.5pt, draw=prismTeal!80!black, fill=prismMint!60,
+  line width=0.55pt, inner sep=3.2pt, align=left, text width=5.10cm,
+  anchor=north] (mcat2) at ([yshift=-11pt] mcat1.south) {
+  \textbf{\fontsize{5.3}{6.2}\selectfont\color{prismTeal!90!black}\faSitemap\ Workflow Intelligence \& Performance (3)}\\[1.8pt]
+  \fontsize{4.5}{5.3}\selectfont
+  $\bullet$\enspace\textbf{WorkflowClusterer:} Groups similar task patterns together\\
+  $\bullet$\enspace\textbf{SuccessPredictor:} Estimates task completion probability\\
+  $\bullet$\enspace\textbf{LatencyPredictor:} Predicts execution turnaround \& limits
+};
+
+% Category Card C: Safety, Context & Alignment (5 models)
+\node[rectangle, rounded corners=2.5pt, draw=red!65!black, fill=red!08,
+  line width=0.55pt, inner sep=3.2pt, align=left, text width=5.10cm,
+  anchor=north] (mcat3) at ([yshift=-11pt] mcat2.south) {
+  \textbf{\fontsize{5.3}{6.2}\selectfont\color{red!75!black}\faLock\ Safety, Alignment \& Context (5)}\\[1.8pt]
+  \fontsize{4.5}{5.3}\selectfont
+  $\bullet$\enspace\textbf{ApprovalPredictor:} Blocks harmful requests\\
+  $\bullet$\enspace\textbf{AnomalyDetector:} Catches unusual behavior patterns\\
+  $\bullet$\enspace\textbf{FAISS Vector Retriever:} Finds relevant documents quickly\\
+  $\bullet$\enspace\textbf{RewardModel:} Preference ranking $\;\cdot\;$ \textbf{Qwen2.5-1.5B:} ORPO
+};
+
+% Connecting arrows: Col 3 -> Col 4 (clean separate X-busses to avoid overlap)
+\draw[arr] (t3.east) -- (2.95, -0.80) |- (mcat1.west);
+\draw[arr] (t2.east) -- (2.80,  0.50) |- (mcat2.west);
+\draw[arr] (t1.east) -- (2.55,  1.80) |- ([yshift=7pt] mcat3.west);
+\draw[arr] (t4.east) -- (2.55, -2.10) |- ([yshift=-7pt] mcat3.west);
+
+\end{tikzpicture}%
+}
+
+\end{frame}
+\end{document}

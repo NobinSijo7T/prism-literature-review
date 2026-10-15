@@ -1,0 +1,267 @@
+% Copyright 2026 Nobin Sijo (NobinSijo7T).
+% SPDX-License-Identifier: Apache-2.0
+% Simplified Beginner-Friendly System Flowchart - Perfectly Tuned & Tested
+\documentclass[aspectratio=169,10pt]{beamer}
+\usetheme{Madrid}
+\usecolortheme{default}
+\usefonttheme{professionalfonts}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{adjustbox}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,arrows.meta,positioning,calc,fit,backgrounds,shadows}
+\usepackage{fontawesome5}
+
+% Lavender Color Palette
+\definecolor{lavenderDark}{RGB}{76, 51, 122}
+\definecolor{lavenderDeep}{RGB}{58, 36, 96}
+\definecolor{lavenderMedium}{RGB}{124, 98, 173}
+\definecolor{lavenderLight}{RGB}{245, 241, 253}
+\definecolor{lavenderBorder}{RGB}{186, 168, 224}
+\definecolor{prismTeal}{RGB}{22, 138, 114}
+\definecolor{prismMint}{RGB}{235, 248, 245}
+\definecolor{prismGold}{RGB}{217, 154, 34}
+\definecolor{prismDark}{RGB}{23, 32, 42}
+\definecolor{prismSlate}{RGB}{102, 112, 133}
+
+\setbeamercolor{frametitle}{bg=lavenderDark,fg=white}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{}
+
+\begin{document}
+
+\begin{frame}[t]{13. How PrismSpace Agents Work Together (Simplified)}
+\vspace{-0.30em}
+\centering
+\adjustbox{max width=0.99\linewidth, max height=0.88\textheight, keepaspectratio}{%
+\begin{tikzpicture}[
+  x=1cm, y=1cm,
+  font=\sffamily,
+  % Node Styles
+  startend/.style={
+    ellipse, draw=green!60!black, fill=green!45!black, text=white,
+    line width=0.85pt, inner sep=2.5pt, font=\fontsize{6.0}{7.0}\selectfont\bfseries,
+    minimum width=1.45cm, minimum height=0.50cm, drop shadow={opacity=0.12, shadow xshift=0.5pt, shadow yshift=-0.5pt}
+  },
+  userbox/.style={
+    rectangle, rounded corners=3.5pt,
+    draw=cyan!70!black, fill=cyan!14, text=black,
+    line width=0.85pt, inner sep=3.5pt, font=\fontsize{6.2}{7.2}\selectfont\bfseries,
+    minimum height=0.68cm, align=center, drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}
+  },
+  agentbox/.style={
+    rectangle, rounded corners=3.5pt,
+    draw=orange!80!black, fill=orange!16, text=black,
+    line width=0.85pt, inner sep=3.5pt, font=\fontsize{6.2}{7.2}\selectfont\bfseries,
+    minimum height=0.68cm, align=center, drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}
+  },
+  decision/.style={
+    diamond, aspect=1.55,
+    draw=lavenderDark!90, fill=lavenderLight, text=lavenderDark,
+    line width=0.85pt, inner sep=1.5pt, font=\fontsize{5.6}{6.6}\selectfont\bfseries,
+    minimum width=1.85cm, align=center, drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}
+  },
+  processbox/.style={
+    rectangle, rounded corners=3.5pt,
+    draw=prismTeal!85!black, fill=prismMint, text=black,
+    line width=0.85pt, inner sep=3.5pt, font=\fontsize{6.2}{7.2}\selectfont\bfseries,
+    minimum height=0.68cm, align=center, drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}
+  },
+  toolbox/.style={
+    rectangle, rounded corners=3pt,
+    draw=prismGold!85!black, fill=prismGold!14, text=black,
+    line width=0.75pt, inner sep=2.5pt, font=\fontsize{5.0}{6.0}\selectfont,
+    minimum height=0.56cm, align=center
+  },
+  deliverbox/.style={
+    rectangle, rounded corners=3.5pt,
+    draw=green!65!black, fill=green!12, text=black,
+    line width=0.85pt, inner sep=3.0pt, font=\fontsize{6.0}{7.0}\selectfont\bfseries,
+    minimum height=0.68cm, align=center, drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}
+  },
+  fixbox/.style={
+    rectangle, rounded corners=3.5pt,
+    draw=red!75!black, fill=red!10, text=black,
+    line width=0.85pt, inner sep=3.0pt, font=\fontsize{6.0}{7.0}\selectfont\bfseries,
+    minimum height=0.68cm, align=center, drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}
+  },
+  stagehdr/.style={
+    font=\fontsize{5.4}{6.4}\selectfont\bfseries, text=white,
+    rounded corners=2.5pt, inner xsep=4.5pt, inner ysep=2.0pt
+  },
+  arr/.style={-{Stealth[scale=0.75]}, line width=0.90pt, draw=black!75},
+  redarr/.style={-{Stealth[scale=0.75]}, line width=0.90pt, draw=red!75!black},
+  dasharr/.style={-{Stealth[scale=0.65]}, line width=0.75pt, draw=lavenderMedium, dashed},
+  stagebox/.style={
+    rectangle, rounded corners=5pt, line width=0.6pt
+  }
+]
+
+% =========================================================================
+% LEFT / CENTER WORKFLOW (Center X = 5.80)
+% =========================================================================
+
+% --- STAGE 1: USER OBJECTIVE & INTENT INGESTION (Y: 5.30 to 8.45) ---
+\node[startend] (start) at (5.80, 8.00) {\faPlay\ START};
+
+\node[userbox, text width=4.3cm] (user) at (5.80, 7.05) {
+  \faUser\ \textbf{1. User Objective}\\[-0.05em]
+  {\fontsize{5.2}{6.2}\selectfont\normalfont\color{black!80} ``Build auth module with SQL DB''}
+};
+
+\node[agentbox, text width=4.3cm] (classifier) at (5.80, 5.95) {
+  \faBrain\ \textbf{2. Intent Classifier \& Router}\\[-0.05em]
+  {\fontsize{5.0}{6.0}\selectfont\normalfont\color{black!80} Identifies domain (1 of 12 classes) \& provider}\\[-0.05em]
+  {\fontsize{4.6}{5.6}\selectfont\itshape\color{orange!90!black} (OpenAI, Claude, Gemini, Groq, NVIDIA)}
+};
+
+\draw[arr] (start) -- (user);
+\draw[arr] (user) -- (classifier);
+
+% --- STAGE 2: EXECUTION DAG PLANNER & DISPATCH (Y: 3.75 to 5.20) ---
+\node[processbox, text width=4.00cm] (planner) at (5.80, 4.45) {
+  \faProjectDiagram\ \textbf{DAG Task Planner}\\[-0.05em]
+  {\fontsize{4.8}{5.8}\selectfont\normalfont Compiles task DAG $\mathcal{G}(V, E)$ from objective}
+};
+
+% Annotation to the right of planner node (clear corridor, zero collision)
+\node[rectangle, rounded corners=3pt, fill=cyan!10, draw=cyan!60, line width=0.5pt,
+      text width=2.45cm, align=left, inner sep=2.8pt] at (9.48, 4.45) {
+  \fontsize{4.2}{5.2}\selectfont
+  \textbf{\color{prismTeal!90!black}\faSitemap\ Swarm Bounding:}\\
+  $\bullet$\enspace Dispatches $K \le 3$ workers\\
+  $\bullet$\enspace Dependency-aware scheduling
+};
+
+\draw[arr] (classifier) -- (planner);
+
+% --- STAGE 3: WORKER SWARM & MCP TOOL SERVERS (Y: 0.90 to 3.65) ---
+% Worker A: Research & Context (X = 2.05)
+\node[agentbox, text width=2.30cm] (workera) at (2.05, 2.50) {
+  \faSearch\ \textbf{Agent-A (Research)}\\[-0.05em]
+  {\fontsize{4.8}{5.8}\selectfont\normalfont Context \& spec analysis}
+};
+\node[toolbox, text width=2.30cm] (toola) at (2.05, 1.52) {
+  \textbf{\faGlobe\ Browser MCP / Docs:}\\[-0.05em]
+  {\fontsize{4.6}{5.5}\selectfont $\bullet$ Web scraper \quad $\bullet$ Specs}
+};
+\draw[dasharr] (workera) -- node[right, font=\fontsize{4.0}{4.8}\selectfont\color{lavenderDark}]{ReAct} (toola);
+
+% Worker B: Code & Terminal (X = 5.80)
+\node[agentbox, text width=2.30cm] (workerb) at (5.80, 2.50) {
+  \faCode\ \textbf{Agent-B (Coding)}\\[-0.05em]
+  {\fontsize{4.7}{5.7}\selectfont\normalfont Logic \& API implementation}
+};
+\node[toolbox, text width=2.30cm] (toolb) at (5.80, 1.52) {
+  \textbf{\faTerminal\ Terminal / FS MCP:}\\[-0.05em]
+  {\fontsize{4.6}{5.5}\selectfont $\bullet$ Shell CLI \quad $\bullet$ File edit}
+};
+\draw[dasharr] (workerb) -- node[right, font=\fontsize{4.0}{4.8}\selectfont\color{lavenderDark}]{ReAct} (toolb);
+
+% Worker C: Validation & Database (X = 9.55)
+\node[agentbox, text width=2.30cm] (workerc) at (9.55, 2.50) {
+  \faCheckCircle\ \textbf{Agent-C (Validation)}\\[-0.05em]
+  {\fontsize{4.8}{5.8}\selectfont\normalfont Tests syntax \& output}
+};
+\node[toolbox, text width=2.30cm] (toolc) at (9.55, 1.52) {
+  \textbf{\faDatabase\ Database MCP:}\\[-0.05em]
+  {\fontsize{4.6}{5.5}\selectfont $\bullet$ SQL query \quad $\bullet$ Dexie DB}
+};
+\draw[dasharr] (workerc) -- node[right, font=\fontsize{4.0}{4.8}\selectfont\color{lavenderDark}]{ReAct} (toolc);
+
+% Clean Symmetrical Dispatch Tree routing from DAG Planner INSIDE Stage 3 below header
+\draw[line width=0.85pt, draw=black!75] (planner.south) -- (5.80, 3.20);
+\draw[line width=0.85pt, draw=black!75] (2.05, 3.20) -- (9.55, 3.20);
+\draw[arr] (2.05, 3.20) -- (workera.north);
+\draw[arr] (5.80, 3.20) -- (workerb.north);
+\draw[arr] (9.55, 3.20) -- (workerc.north);
+
+% Inter-Agent DAG Collaboration with clean badges
+\draw[dasharr] (workera.east) -- node[above=0.8pt, fill=orange!06, inner sep=1.2pt, font=\fontsize{3.8}{4.8}\selectfont\color{lavenderDark}]{DAG tasks} (workerb.west);
+\draw[dasharr] (workerb.east) -- node[above=0.8pt, fill=orange!06, inner sep=1.2pt, font=\fontsize{3.8}{4.8}\selectfont\color{lavenderDark}]{code / tests} (workerc.west);
+
+% Multi-Agent Synthesis Bus (Stage 3 -> Stage 4)
+\draw[line width=0.85pt, draw=black!60] (2.05, 1.10) -- (9.55, 1.10);
+\draw[arr] (toola.south) -- (2.05, 1.10);
+\draw[arr] (toolb.south) -- (5.80, 1.10);
+\draw[arr] (toolc.south) -- (9.55, 1.10);
+
+% --- STAGE 4: SYNTHESIS, HITL APPROVAL & DELIVERY (Y: -2.45 to 0.75) ---
+\node[processbox, text width=6.9cm] (synthesizer) at (5.80, -0.05) {
+  \faCogs\ \textbf{Synthesizer Agent \& Output Validator}\\[-0.05em]
+  {\fontsize{4.8}{5.8}\selectfont\normalfont Integrates multi-agent worker traces, runs syntax checks, and builds unified response}
+};
+
+% Feed Synthesis Bus into Synthesizer with label placed safely to the right of the arrow
+\draw[arr] (5.80, 1.10) -- (synthesizer.north);
+\node[fill=lavenderLight, draw=prismTeal!40, line width=0.4pt, rounded corners=2pt, inner xsep=3.0pt, inner ysep=1.5pt,
+      font=\fontsize{4.4}{5.4}\selectfont\itshape, text=prismTeal!90!black, anchor=west] at (6.05, 0.70) {worker \& MCP outputs};
+
+% HITL Checkpoint Diamond
+\node[decision] (hitl) at (5.80, -1.15) {
+  \faUserShield\ HITL Check\\Approved?
+};
+\draw[arr] (synthesizer) -- (hitl);
+
+% Delivery Result (YES - Right)
+\node[deliverbox, text width=2.15cm] (success) at (9.55, -1.15) {
+  \faCheckDouble\ \textbf{Deliver Result}\\[-0.05em]
+  {\fontsize{4.8}{5.8}\selectfont\normalfont Save to PrismDB \& render output}
+};
+\draw[arr] (hitl.east) -- node[above, font=\fontsize{5.8}{6.8}\selectfont\bfseries, text=green!60!black]{YES} (success.west);
+
+% END Terminal (cleanly aligned below Deliver Result inside Stage 4)
+\node[startend] (end) at (9.55, -2.05) {\faFlagCheckered\ END};
+\draw[arr] (success.south) -- (end.north);
+
+% Fix Issues (NO - Left)
+\node[fixbox, text width=2.15cm] (replan) at (2.05, -1.15) {
+  \faUndo\ \textbf{Operator Feedback}\\[-0.05em]
+  {\fontsize{4.8}{5.8}\selectfont\normalfont Re-plan or request changes}
+};
+\draw[redarr] (hitl.west) -- node[above, font=\fontsize{5.8}{6.8}\selectfont\bfseries, text=red!75!black]{NO} (replan.east);
+
+% Re-plan Feedback Loop (Corridor at X = 0.35, cleanly positioned at X = 2.05 in Stage 2)
+\draw[redarr] (replan.west) -- (0.35, -1.15) -- (0.35, 4.45) -- (planner.west)
+  node[pos=0.48, fill=white, draw=red!70, text=red!80!black, font=\fontsize{4.6}{5.6}\selectfont\bfseries, rounded corners=2pt, inner xsep=3.5pt, inner ysep=1.5pt] {\faRedo\ Re-plan Feedback Loop};
+
+% =========================================================================
+% BACKGROUND STAGE CONTAINERS (Structured Cards with Headers)
+% =========================================================================
+\begin{scope}[on background layer]
+  % Stage 1 Container
+  \draw[stagebox, fill=lavenderLight!50, draw=lavenderBorder] (0.75, 5.30) rectangle (10.85, 8.45);
+  \node[stagehdr, fill=lavenderDark, anchor=north west] at (0.85, 8.40) {
+    \faPaperPlane\ Step 1: User Objective \& Intent
+  };
+
+  % Stage 2 Container
+  \draw[stagebox, fill=cyan!06, draw=cyan!45] (0.75, 3.75) rectangle (10.85, 5.20);
+  \node[stagehdr, fill=prismTeal!90!black, anchor=north west] at (0.85, 5.15) {
+    \faProjectDiagram\ Step 2: DAG Planner \& Dispatch
+  };
+
+  % Stage 3 Container
+  \draw[stagebox, fill=orange!06, draw=orange!45] (0.75, 0.90) rectangle (10.85, 3.65);
+  \node[stagehdr, fill=orange!85!black, anchor=north west] at (0.85, 3.60) {
+    \faUsers\ Step 3: Multi-Agent Worker Swarm \& MCP Tools
+  };
+
+  % Stage 4 Container
+  \draw[stagebox, fill=lavenderLight!50, draw=lavenderBorder] (0.75, -2.45) rectangle (10.85, 0.75);
+  \node[stagehdr, fill=lavenderDark, anchor=north west] at (0.85, 0.70) {
+    \faCheckDouble\ Step 4: Quality Check, HITL \& Delivery
+  };
+\end{scope}
+
+% Figure Caption
+\node[font=\fontsize{6.2}{7.2}\selectfont\itshape, text=black!70, anchor=north] at (5.80, -2.60) {
+  \textit{Figure 1.3: Simplified Multi-Agent Communication Flow in PrismSpace}
+};
+
+\end{tikzpicture}%
+}
+\end{frame}
+
+\end{document}

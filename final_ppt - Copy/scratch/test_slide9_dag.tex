@@ -1,0 +1,150 @@
+\documentclass[aspectratio=169,10pt]{beamer}
+\usetheme{Madrid}
+\usecolortheme{default}
+\usefonttheme{professionalfonts}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\usepackage{fontawesome5}
+\usetikzlibrary{arrows.meta,positioning,fit,backgrounds,calc,shadows,shapes.geometric}
+
+\definecolor{lavenderDark}{RGB}{76, 51, 122}
+\definecolor{lavenderDeep}{RGB}{58, 36, 96}
+\definecolor{lavenderMedium}{RGB}{124, 98, 173}
+\definecolor{lavenderLight}{RGB}{243, 239, 252}
+\definecolor{lavenderBorder}{RGB}{186, 168, 224}
+\definecolor{prismTeal}{RGB}{22,138,114}
+\definecolor{prismMint}{RGB}{221,244,247}
+\definecolor{prismGold}{RGB}{217,154,34}
+\definecolor{prismSlate}{RGB}{102,112,133}
+
+\setbeamercolor{frametitle}{bg=lavenderDark,fg=white}
+\setbeamertemplate{navigation symbols}{}
+
+\begin{document}
+
+\begin{frame}[t]{08. How the System Works: From Request to Result}
+\vspace{-0.30em}
+\begin{columns}[T]
+\begin{column}{0.32\textwidth}
+  \begin{tcolorbox}[
+    enhanced, arc=3pt, colframe=lavenderDark, colback=white,
+    title={\scriptsize\bfseries Stage 1: Ingestion \& Features},
+    boxrule=0.55pt, left=3.5pt, right=3.5pt, top=2.0pt, bottom=2.0pt
+  ]
+  \fontsize{6.0}{7.2}\selectfont
+  \begin{itemize}\setlength{\itemsep}{1.6pt}
+    \item \textbf{Capture request:} Read the user's goal.
+    \item \textbf{Clean text:} Remove noise and missing values.
+    \item \textbf{Extract features:} Convert request into 10k TF-IDF signals.
+  \end{itemize}
+  \end{tcolorbox}
+\end{column}
+
+\begin{column}{0.34\textwidth}
+  \begin{tcolorbox}[
+    enhanced, arc=3pt, colframe=prismTeal, colback=white,
+    title={\scriptsize\bfseries Stage 2: Intelligence \& DAG},
+    boxrule=0.55pt, left=3.5pt, right=3.5pt, top=2.0pt, bottom=2.0pt
+  ]
+  \fontsize{6.0}{7.2}\selectfont
+  \begin{itemize}\setlength{\itemsep}{1.6pt}
+    \item \textbf{Classify intent:} 12 task intents (99.6\% accuracy).
+    \item \textbf{Choose agents \& models:} Match sub-tasks to specialists.
+    \item \textbf{Build the DAG:} Structure tasks by dependencies \& safety.
+  \end{itemize}
+  \end{tcolorbox}
+\end{column}
+
+\begin{column}{0.32\textwidth}
+  \begin{tcolorbox}[
+    enhanced, arc=3pt, colframe=lavenderMedium, colback=white,
+    title={\scriptsize\bfseries Stage 3: Execution \& Storage},
+    boxrule=0.55pt, left=3.5pt, right=3.5pt, top=2.0pt, bottom=2.0pt
+  ]
+  \fontsize{6.0}{7.2}\selectfont
+  \begin{itemize}\setlength{\itemsep}{1.6pt}
+    \item \textbf{Execute:} Run parallel tasks ($K \le 5$) with MCP tools.
+    \item \textbf{Stream updates:} Live SSE feedback and console logs.
+    \item \textbf{Check \& save:} ORPO verification and PrismDB storage.
+  \end{itemize}
+  \end{tcolorbox}
+\end{column}
+\end{columns}
+
+\vspace{0.10em}
+\begin{tcolorbox}[
+  enhanced, arc=3pt, colframe=prismTeal!85!black, colback=white, boxrule=0.65pt,
+  left=4pt, right=4pt, top=2.0pt, bottom=2.0pt,
+  title={\scriptsize\bfseries How a DAG is Created: Nodes, Edges \& Dependencies}
+]
+\centering
+\begin{tikzpicture}[
+  dagstep/.style={rectangle, rounded corners=2pt, minimum height=0.48cm,
+    text width=2.12cm, align=center, draw=lavenderDark!55, fill=lavenderLight!55,
+    font=\fontsize{4.8}{5.6}\selectfont\bfseries},
+  dagarrow/.style={-{Stealth[scale=0.55]}, line width=0.7pt, draw=prismTeal!85!black},
+  dagnode/.style={circle, minimum size=0.44cm, inner sep=0pt, draw=prismTeal!85!black,
+    fill=prismMint, font=\fontsize{5.0}{5.8}\selectfont\bfseries, line width=0.65pt}
+]
+  % Row 1: Flow Steps
+  \node[dagstep] (request) at (-5.6,0) {1. User Request\\\normalfont\fontsize{4.2}{4.8}\selectfont ``Research \& send report''};
+  \node[dagstep] (split) at (-2.8,0) {2. Split into Tasks\\\normalfont\fontsize{4.2}{4.8}\selectfont Define Nodes $V = \{v_i\}$};
+  \node[dagstep] (deps) at (0.0,0) {3. Add Dependencies\\\normalfont\fontsize{4.2}{4.8}\selectfont Map input $\leftarrow$ output links};
+  \node[dagstep] (graph) at (2.8,0) {4. Create DAG $\mathcal{G}(V,E)$\\\normalfont\fontsize{4.2}{4.8}\selectfont Form directed edges $E$};
+  \node[dagstep] (run) at (5.6,0) {5. Run in Parallel\\\normalfont\fontsize{4.2}{4.8}\selectfont Execute in-degree $=0$};
+  \draw[dagarrow] (request) -- (split);
+  \draw[dagarrow] (split) -- (deps);
+  \draw[dagarrow] (deps) -- (graph);
+  \draw[dagarrow] (graph) -- (run);
+
+  % Row 2 Left: Precise Definitions for Project (anchored at north)
+  \node[rectangle, rounded corners=2.5pt, draw=lavenderMedium!60, fill=lavenderLight!35,
+        line width=0.55pt, text width=7.0cm, inner sep=3.0pt, align=left, anchor=north] at (-2.40, -0.38) {%
+    \fontsize{4.8}{5.8}\selectfont\textbf{\color{lavenderDark}\faProjectDiagram\ DAG Formulation in PrismSpace:}\quad $\mathcal{G}(V,\,E)$\\[1.2pt]
+    \fontsize{4.2}{5.0}\selectfont
+    $\bullet$\enspace\textbf{Nodes / Vertices ($v \in V$):} Atomic \textbf{agent sub-tasks} (e.g., Web Search, Data Fetch, Synthesize, Deliver), each assigned an agent, model, and toolset.\\[1.0pt]
+    $\bullet$\enspace\textbf{Directed Edges ($e = \langle v_i, v_j \rangle \in E$):} \textbf{Data flows \& dependencies}. Edge passes output artifacts/state from $v_i$ into $v_j$; task $v_j$ is blocked until $v_i$ completes.\\[1.0pt]
+    $\bullet$\enspace\textbf{``Add Dependencies'' (Step 3):} Connects sub-tasks based on prerequisite inputs (e.g., Synthesize needs Search + CSV). Tasks with $\text{in-degree} = 0$ run in parallel; others wait.\\[1.0pt]
+    $\bullet$\enspace\textbf{Acyclic ($\nexists$ cycle):} No circular deadlocks $\Rightarrow$ topological order $\pi$ guarantees safe scheduling.%
+  };
+
+  % Row 2 Right: Example Workflow Diagram (anchored at north)
+  \node[rectangle, rounded corners=2.5pt, draw=prismTeal!60, fill=white,
+        line width=0.55pt, text width=5.2cm, inner sep=3.0pt, align=center, anchor=north] at (3.85, -0.38) {%
+    \fontsize{4.7}{5.6}\selectfont\textbf{\color{prismTeal!90!black}\faSitemap\ Concrete Workflow Example}\\[2pt]
+    \begin{tikzpicture}[
+      exnode/.style={circle, minimum size=0.40cm, inner sep=0pt, draw=prismTeal!90!black,
+        fill=prismMint, font=\fontsize{4.8}{5.6}\selectfont\bfseries, line width=0.55pt},
+      exarr/.style={-{Stealth[scale=0.50]}, line width=0.60pt, draw=prismTeal!85!black}
+    ]
+      \node[exnode] (a) at (0.2, 0.28) {A};
+      \node[anchor=east, font=\fontsize{3.8}{4.5}\selectfont\color{prismTeal!90!black}] at (-0.05, 0.28) {Web Search};
+
+      \node[exnode] (b) at (0.2, -0.28) {B};
+      \node[anchor=east, font=\fontsize{3.8}{4.5}\selectfont\color{prismTeal!90!black}] at (-0.05, -0.28) {Fetch CSV};
+
+      \node[exnode] (c) at (1.9, 0) {C};
+      \node[anchor=south, font=\fontsize{3.8}{4.5}\selectfont\color{prismTeal!90!black}] at (1.9, 0.22) {Synthesize};
+
+      \node[exnode] (d) at (3.4, 0) {D};
+      \node[anchor=south, font=\fontsize{3.8}{4.5}\selectfont\color{prismTeal!90!black}] at (3.4, 0.22) {Deliver};
+
+      \draw[exarr] (a) -- node[above, font=\fontsize{3.2}{3.8}\selectfont\itshape, text=lavenderDark] {$\langle A,C\rangle$} (c);
+      \draw[exarr] (b) -- node[below, font=\fontsize{3.2}{3.8}\selectfont\itshape, text=lavenderDark] {$\langle B,C\rangle$} (c);
+      \draw[exarr] (c) -- node[above, font=\fontsize{3.2}{3.8}\selectfont\itshape, text=lavenderDark] {$\langle C,D\rangle$} (d);
+    \end{tikzpicture}\\[1.2pt]
+    \fontsize{4.0}{4.8}\selectfont
+    \textbf{Nodes ($V$):} Sub-tasks A (Search), B (Data), C (Draft), D (Send)\\
+    \textbf{Dependencies ($E$):} Task C waits for A's search + B's data\\
+    \textbf{Parallel start:} A \& B ($\text{in-deg}=0$) run together $\to$ C $\to$ D finishes
+  };
+
+\end{tikzpicture}
+\end{tcolorbox}
+\end{frame}
+
+\end{document}

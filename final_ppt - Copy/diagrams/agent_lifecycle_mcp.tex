@@ -1,0 +1,47 @@
+% Copyright 2026 Nobin Sijo (NobinSijo7T).
+% SPDX-License-Identifier: Apache-2.0
+% Agent Lifecycle & MCP Integration Diagram
+\documentclass[aspectratio=169,10pt]{beamer}
+\usetheme{Madrid}
+\usecolortheme{default}
+\usefonttheme{professionalfonts}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{adjustbox}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,arrows.meta,positioning,calc,fit,backgrounds,shadows}
+\usepackage{fontawesome5}
+
+% Color Palette
+\definecolor{lavenderDark}{RGB}{76, 51, 122}
+\definecolor{lavenderDeep}{RGB}{58, 36, 96}
+\definecolor{lavenderMedium}{RGB}{124, 98, 173}
+\definecolor{lavenderLight}{RGB}{243, 239, 252}
+\definecolor{prismTeal}{RGB}{22, 138, 114}
+\definecolor{prismMint}{RGB}{235, 248, 245}
+\definecolor{prismGold}{RGB}{217, 154, 34}
+\definecolor{prismDark}{RGB}{23, 32, 42}
+\definecolor{prismLight}{RGB}{248, 247, 252}
+\definecolor{statusInit}{RGB}{70, 130, 218}
+\definecolor{statusPlan}{RGB}{22, 138, 114}
+\definecolor{statusRun}{RGB}{230, 126, 34}
+\definecolor{statusApprove}{RGB}{217, 154, 34}
+\definecolor{statusComplete}{RGB}{39, 174, 96}
+\definecolor{statusFail}{RGB}{217, 54, 54}
+\definecolor{statusCancel}{RGB}{120, 140, 155}
+\definecolor{mcpBlue}{RGB}{41, 128, 185}
+\definecolor{mcpGreen}{RGB}{39, 174, 96}
+
+\setbeamercolor{frametitle}{bg=lavenderDark,fg=white}
+\setbeamercolor{background canvas}{bg=prismLight}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{}
+
+\begin{document}
+
+\input{../agent_lifecycle_frame.tex}
+
+\end{document}
