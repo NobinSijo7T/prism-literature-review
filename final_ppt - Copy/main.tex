@@ -40,6 +40,7 @@
 \definecolor{prismLight}{RGB}{248,247,252}
 \definecolor{prismIndigo}{RGB}{76, 51, 122}
 \definecolor{prismSlate}{RGB}{102,112,133}
+\definecolor{statusFail}{RGB}{217, 54, 54}
 \definecolor{cardBg}{RGB}{255,255,255}
 
 % Harmonious pastel node fills
@@ -197,9 +198,1180 @@
 \end{frame}
 
 % =============================================================================
+% COMPLETE LITERATURE REVIEW
+% Imported from the literature_review_ppt deck (all 25 papers + research gap)
+% =============================================================================
+\def\mainliteraturereview{}
+\begin{frame}[plain]
+\vfill
+\begin{center}
+  {\color{lavenderDark}\fontsize{25}{30}\selectfont\bfseries Literature Review\par}
+  \vspace{0.45em}
+  {\color{prismTeal!85!black}\large Research background, key findings, and identified gap}
+\end{center}
+\vfill
+\end{frame}
+
+% --- BEGIN literature_review_ppt/ppt/slides/prismspace_deck.tex ---
+% Fixed-coordinate diagrams use separate lanes so arrows do not collide.
+\hbadness=10000
+\vbadness=10000
+\hfuzz=2pt
+\vfuzz=2pt
+
+% When this deck is imported into the final presentation, expose only the
+% complete literature-review section (all 25 papers and the research gap).
+\ifdefined\mainliteraturereview
+\else
+\begin{frame}[plain]
+\begin{tikzpicture}[remember picture,overlay]
+  \node[rounded corners=4pt,fill=blue!65!black,drop shadow={shadow xshift=2pt,shadow yshift=-2pt,opacity=.45},minimum width=15.25cm,minimum height=1.05cm] at ([yshift=-.95cm]current page.north) {};
+  \node[text=white,font=\fontsize{25}{28}\selectfont] at ([yshift=-.95cm]current page.north) {PRISMSPACE};
+  \fill[prismNavy] (current page.south west) rectangle ([yshift=.45cm]current page.south east);
+  \fill[blue!65!black] ([xshift=5.33cm]current page.south west) rectangle ([xshift=10.66cm,yshift=.45cm]current page.south west);
+  \node[anchor=center,text=white,font=\scriptsize] at ([xshift=2.66cm,yshift=.22cm]current page.south west) {Group 01 (CEK)};
+  \node[anchor=center,text=white,font=\scriptsize] at ([xshift=8cm,yshift=.22cm]current page.south west) {BTech Project};
+  \node[anchor=center,text=white,font=\scriptsize] at ([xshift=13.2cm,yshift=.22cm]current page.south west) {September 3, 2026\hspace{1.3cm}1 / \inserttotalframenumber};
+  \node[font=\Large\bfseries] at ([yshift=7.20cm]current page.south) {Project Group 01};
+  \node[font=\normalsize] at ([yshift=5.90cm]current page.south) {\begin{tabular}{r@{\quad}l}\textbf{NOBIN SIJO} & \textbf{(KNP23CS082)} \\ \textbf{PRANAV P} & \textbf{(KNP23CS085)} \\ \textbf{PRASANTH P} & \textbf{(KNP23CS086)} \\ \textbf{SANKAR NARAYAN S} & \textbf{(KNP23CS094)}\end{tabular}};
+  \node[font=\normalsize,align=center] at ([yshift=4.00cm]current page.south) {Under the Guidance of\\[.08cm]Dr. Leena Silvoster M\\ Professor\\College of Engineering, Karunagappally};
+  \node at ([yshift=2.25cm]current page.south) {\includegraphics[height=0.95cm]{cek-logo.png}};
+  \node[font=\small,align=center] at ([yshift=1.05cm]current page.south) {Dept. of Computer Science \& Engineering\\College of Engineering, Karunagappally};
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Presentation roadmap}\tableofcontents\end{frame}
+
+\section{Introduction}
+
+\begin{frame}{Introduction}
+\vspace{0.25cm}
+\begin{block}{Overview}
+\normalsize
+While modern development tasks span code, browsers, databases, and \textbf{APIs} (Application Programming Interfaces), uncoordinated multi-agent workflows suffer from context fragmentation, runaway loops, and tool hallucinations. To address these challenges, PrismSpace introduces a unified developer workspace featuring \textbf{multi-agent orchestration}, sandboxed \textbf{MCP} (Model Context Protocol) tool execution with strict \textbf{ReAct} (Reasoning and Acting) loops, \textbf{HITL} (Human-in-the-Loop) safety, and \textbf{ORPO} (Odds Ratio Preference Optimization) preference alignment.
+\end{block}
+\end{frame}
+
+\section{Objectives}
+
+\begin{frame}{Objectives}
+\vspace{0.25cm}
+\begin{block}{Core Objectives}
+\normalsize
+The primary objective is to enable structured task execution through \textbf{DAG} (Directed Acyclic Graph)-based task decomposition, \textbf{MCP} (Model Context Protocol)-enabled multi-agent \textbf{ReAct} (Reasoning and Acting) orchestration, and \textbf{ORPO} (Odds Ratio Preference Optimization) preference optimization. Additionally, the system ensures reliable and cost-effective operation by incorporating supervised \textbf{LLM} (Large Language Model) routing alongside Isolation Forest anomaly detection and human-in-the-loop validation.
+\end{block}
+\end{frame}
+
+\section{Problem statement}
+
+\begin{frame}{Problem Statement}
+\vspace{0.25cm}
+\begin{block}{Problem Formulation}
+\normalsize
+Because ungrounded \textbf{LLM} (Large Language Model) agents risk hallucinating tool results and executing unsafe actions, the system takes developer task prompts, workspace states, and \textbf{MCP} (Model Context Protocol)/\textbf{HITL} (Human-in-the-Loop) configurations as its primary \textbf{inputs}. Through an orchestration \textbf{method} integrating sandboxed \textbf{MCP} \textbf{ReAct} (Reasoning and Acting) loops, \textbf{ORPO} (Odds Ratio Preference Optimization), supervised \textbf{LLM} routing, and Isolation Forest anomaly detection with \textbf{HITL} oversight, it converts these tasks into dependable \textbf{outputs} consisting of verified artifacts, \textbf{ReAct} execution traces, and cost telemetry.
+\end{block}
+\end{frame}
+
+\fi
+\section{Literature review}
+
+\begin{frame}[t]{Multi-Objective Reward Generalization in Deep Reinforcement Learning}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{F. Cornalba, C. Disselkamp, D. Scassola, and C. Helf}\newline\vspace{0.2em}
+\textit{Neural Computing and Applications}\newline\vspace{0.2em}
+\textbf{Year:} 2024\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Investigates \textbf{Multi-Objective Deep Reinforcement Learning (\textbf{MODRL})} for optimizing competing operational objectives (e.g., return vs. risk). Introduces reward generalization techniques that train pareto-optimal policies capable of dynamically adapting to shifting stakeholder preferences without retraining from scratch.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em\topsep0.1em
+\item Provides structured Pareto-optimal policy exploration across conflicting objectives.
+\item Generalizes across parameterized reward weights without full policy retraining.
+\item Directly informs multi-objective routing (latency vs. cost vs. quality) in PrismSpace.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em\topsep0.1em
+\item High initial training sample complexity across multi-dimensional reward spaces.
+\item Evaluated primarily on continuous financial time-series data.
+\item Sensitive to hyperparameter tuning in policy entropy regularization.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Average Reward Adjusted Discounted Reinforcement Learning}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{M. Schneckenreither and G. Moser}\newline\vspace{0.2em}
+\textit{Neural Computing and Applications}\newline\vspace{0.2em}
+\textbf{Year:} 2025\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Proposes \textbf{Average-Reward Adjusted Discounted \textbf{RL} (Reinforcement Learning) (ARAD-\textbf{RL})}, bridging the gap between discounted and average reward criteria in infinite-horizon \textbf{MDPs} (Markov Decision Processes). Addresses systematic value estimation bias in standard discounted Q-learning by dynamically subtracting the estimated gain rate during Bellman updates.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Eliminates infinite-horizon return explosion while preserving policy convergence.
+\item Improves long-term steady-state throughput in continuous scheduling tasks.
+\item Theoretically sound formulation for continuous agent lifecycle optimization.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Requires accurate empirical estimation of average reward baseline.
+\item Slow convergence in highly non-stationary transition environments.
+\item Adds variance to early-stage \textbf{TD} (Temporal Difference) error gradient estimates.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Deep Reinforcement Learning for Multi-Agent Coordination}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{K. Aina and S. Ha}\newline\vspace{0.2em}
+\textit{Artificial Life and Robotics}\newline\vspace{0.2em}
+\textbf{Year:} 2026\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Develops decentralized \textbf{MARL} (Multi-Agent Reinforcement Learning) algorithms for multi-agent coordination in constrained environments. Employs \textbf{spatial-temporal observation encoding} and localized interaction graphs to coordinate joint movements and resolve deadlocks without requiring centralized global state knowledge.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Resolves shared-resource contention and deadlocks via decentralized policies.
+\item Spatial-temporal graph attention scales linearly with agent density.
+\item Applicable to concurrent tool-use contention across worker agents.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Tested in physical robotics grids rather than software \textbf{API} (Application Programming Interface) environments.
+\item Vulnerable to communication packet dropouts and sensor latency.
+\item Does not account for semantic language-based coordination.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Open-Ended Coordination Using Modular Open Policies}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{D. Rother, J. Pajarinen, J. Peters, and T. H. Weisswange}\newline\vspace{0.2em}
+\textit{Autonomous Agents and Multi-Agent Systems}\newline\vspace{0.2em}
+\textbf{Year:} 2025\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Presents a framework for \textbf{open-ended ad hoc multi-agent coordination}. Utilizes \textbf{Modular Open Policies (\textbf{MOP})} where dynamic agent teams dynamically infer unseen teammate skill representations and synthesize blended coordination strategies without requiring pre-coordinated joint training.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Enables zero-shot ad hoc coordination with unfamiliar teammate agent policies.
+\item Modular policy decomposition allows plug-and-play agent role assignment.
+\item Directly adopted in PrismSpace for dynamic worker swarm scaling.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Requires comprehensive pre-trained skill policy libraries for base roles.
+\item Evaluated primarily on benchmark games (Overcooked, \textbf{LBF} (Level-Based Foraging)).
+\item Action blending may introduce transient sub-optimal execution steps.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Improving Scalability of \textbf{MADRL} (Multi-Agent Deep Reinforcement Learning) with Suboptimal Human Knowledge}
+\vspace{-0.08cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{D. Liu, F. Ren, J. Yan, G. Su, W. Gu, and S. Kato}\newline\vspace{0.2em}
+\textit{Autonomous Agents and Multi-Agent Systems}\newline\vspace{0.2em}
+\textbf{Year:} 2026\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Addresses sample inefficiency in large-scale \textbf{Multi-Agent DRL} (Deep Reinforcement Learning) by integrating heuristic human guidance into exploration. Proposes an adaptive filtering mechanism that extracts actionable macro-actions from noisy or suboptimal human demonstration traces, accelerating multi-agent policy learning.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Accelerates policy exploration by up to 4x using noisy demonstration priors.
+\item Robust to suboptimal or conflicting human heuristic rules.
+\item Informs PrismSpace's bootstrap initialization from logged developer sessions.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Quality of learned policies depends on initial heuristic coverage.
+\item Requires complex threshold tuning to transition away from demonstrations.
+\item High memory footprint for maintaining dual replay buffers.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{$\varepsilon$-Retraining Reinforcement Learning Algorithms}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{L. Marzari, C. Liu, P. L. Donti, and E. Marchesini}\newline\vspace{0.2em}
+\textit{Autonomous Agents and Multi-Agent Systems}\newline\vspace{0.2em}
+\textbf{Year:} 2026\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Investigates bounded policy fine-tuning through \textbf{$\varepsilon$-retraining}, preventing catastrophic forgetting when deep \textbf{RL} agents adapt to non-stationary environments. Establishes formal Lipschitz bounds on policy drift, ensuring safe continual learning in deployed agent pipelines.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Provides mathematical guarantees against catastrophic policy divergence.
+\item Enables continuous telemetry-driven model fine-tuning in production.
+\item Crucial for stability in PrismSpace's ongoing user interaction learning.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Constrained optimization increases computation per gradient step.
+\item Conservative update bounds may slow adaptation to drastic distribution shifts.
+\item Theoretical guarantees rely on local smoothness assumptions.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Deep Multiagent Reinforcement Learning: Challenges and Directions}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{A. Wong, T. B\"ack, A. V. Kononova, and A. Plaat}\newline\vspace{0.2em}
+\textit{Artificial Intelligence Review}\newline\vspace{0.2em}
+\textbf{Year:} 2023\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Surveys \textbf{Deep Multiagent Reinforcement Learning (\textbf{MARL})}, formalizing foundational challenges including non-stationarity, multi-agent credit assignment, and combinatorial action explosion. Evaluates \textbf{Centralized Training with Decentralized Execution (\textbf{CTDE})} and communication architectures for modular orchestration.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Comprehensive taxonomy of credit assignment and \textbf{CTDE} paradigms.
+\item Establishes formal theoretical criteria for communication protocols.
+\item Provides the theoretical foundation for PrismSpace's modular agent architecture.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Survey paper without empirical experimental evaluation.
+\item Focuses on discrete game simulations rather than \textbf{API}-driven software tasks.
+\item Does not cover \textbf{LLM} reasoning agents or human-in-the-loop approval gates.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{\textbf{HIAT} (Human-in-the-Loop with Auxiliary Tasks): Human-in-the-Loop \textbf{RL} with Auxiliary Tasks}
+\vspace{-0.08cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{B. Niu, B. Luo, Y. Cui, X. Xu, Y. Zhao, and Y. Feng}\newline\vspace{0.2em}
+\textit{Artificial Intelligence Review}\newline\vspace{0.2em}
+\textbf{Year:} 2025\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Introduces \textbf{HIAT (Human-in-the-Loop with Auxiliary Tasks)}, a framework leveraging human intervention signals as auxiliary self-supervised learning objectives. Models human corrections as feedback gradients that shape internal feature representations, minimizing human intervention frequency over time.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Maximizes learning efficiency from scarce human intervention signals.
+\item Significantly reduces human cognitive load through auxiliary reward shaping.
+\item Informs PrismSpace's approval gate telemetry and learning from user edits.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Requires consistent human feedback to avoid biased auxiliary representations.
+\item Intervention timing latency can cause temporal mis-alignment in \textbf{RL} updates.
+\item Higher computational overhead during auxiliary task representation training.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{\textbf{ORPO} (Odds Ratio Preference Optimization): Monolithic Preference Optimization without Reference Model}
+\vspace{-0.22cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{J. Hong, N. Lee, and J. Thorne}\newline\vspace{0.2em}
+\textit{\textbf{EMNLP} / arXiv:2403.07691}\newline\vspace{0.2em}
+\textbf{Year:} 2024\newline\vspace{0.2em}
+\textbf{Area:} \textbf{LLM} Preference Alignment}
+&
+\textbf{Core Idea (Single-Phase Alignment):}\newline
+Instead of multi-step \textbf{RLHF}, \textbf{ORPO} teaches desired answers while penalizing bad answers in one unified equation:
+\vspace{-0.15cm}
+\[ \mathcal{L}_{\text{ORPO}} = \mathcal{L}_{\text{SFT}} + \lambda \cdot \mathcal{L}_{\text{OR}} \]
+\vspace{-0.30cm}
+\[ \mathcal{L}_{\text{OR}} = -\log \sigma \left( \log \frac{\text{odds}(y_w|x)}{\text{odds}(y_l|x)} \right) \]
+\vspace{-0.20cm}
+\textbf{Key Terms:}
+\begin{itemize}\itemsep0.02em\topsep0.05em
+  \item $\mathcal{L}_{\text{SFT}}$: Base supervised fine-tuning loss (correct code/syntax).
+  \item $\mathcal{L}_{\text{OR}}, \lambda$: Odds ratio penalty term and penalty weight.
+  \item $x, y_w, y_l$: Prompt, winning action path, and losing action path.
+\end{itemize}
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Reference-model-free: eliminates maintaining frozen $\pi_{\text{ref}}$ in memory.
+\item Monolithic single-phase training avoids unstable \textbf{PPO} policy optimization.
+\item Directly aligns PrismSpace agent trajectories on paired feedback (\textit{chosen} vs. \textit{rejected}).
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Requires high-quality pairwise preference datasets ($y_w, y_l$).
+\item Sensitive to $\lambda$ hyperparameter balance.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Reinforcement Online Learning to Rank with Unbiased Reward Shaping}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{S. Zhuang, Z. Qiao, and G. Zuccon}\newline\vspace{0.2em}
+\textit{Information Retrieval Journal}\newline\vspace{0.2em}
+\textbf{Year:} 2023\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Develops an \textbf{Online Learning to Rank (\textbf{OLTR})} framework using counterfactual reinforcement learning. Employs \textbf{inverse propensity weighting (\textbf{IPW})} and unbiased reward shaping to correct for position, presentation, and click bias in user interaction logs during continuous ranker optimization.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Guarantees unbiased gradient estimation from observational implicit feedback.
+\item Operates entirely online without requiring manual document relevance labels.
+\item Directly informs PrismSpace's context retrieval ranking feedback loop.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item High propensity score variance can destabilize gradient updates.
+\item Requires large volumes of query-click logs to converge.
+\item Assumes position-based user click models that may not hold in code search.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Knowledge Learning for Securing Workflow Scheduling in \textbf{MEC} (Mobile Edge Computing)}
+\vspace{-0.08cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{T. M. Ghazal, A. E. Awouda, M. K. Hasan, A. H. A. Rahman, S. Islam, R. A. Saeed, H. Elshafie, A. Iqbal, and A. H. Hussein}\newline\vspace{0.2em}
+\textit{Mobile Networks and Applications}\newline\vspace{0.2em}
+\textbf{Year:} 2025\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Proposes a \textbf{Knowledge-Guided Reinforcement Learning (\textbf{KG}-\textbf{RL})} scheduler for complex workflow \textbf{DAGs} in distributed edge-cloud environments. Integrates security constraint validation directly into the state transition model, preventing insecure task placement while optimizing makespan.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Enforces strict security boundary constraints during automated task scheduling.
+\item Effectively handles multi-dependency Directed Acyclic Graph (\textbf{DAG}) workflows.
+\item Informs PrismSpace's sandboxed tool execution and dependency resolution.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Constraint checking introduces scheduling latency for massive \textbf{DAGs}.
+\item Assumes static security classification matrices across network nodes.
+\item Limited evaluation on non-deterministic tool failure scenarios.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Energy-Aware Cooperative Multi-Fitness Evolutionary Workflow Scheduling}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{P. Barredo and J. Puente}\newline\vspace{0.2em}
+\textit{Natural Computing}\newline\vspace{0.2em}
+\textbf{Year:} 2025\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Presents a \textbf{Cooperative Multi-Fitness Evolutionary Algorithm (\textbf{CMFEA})} for multi-objective workflow scheduling. Optimizes trade-offs between execution time, monetary compute cost, and energy consumption using island-model cooperative coevolution across heterogeneous worker pools.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Pareto-optimal trade-offs across makespan, financial cost, and energy.
+\item Cooperative sub-population decomposition prevents premature local convergence.
+\item Provides heuristics for PrismSpace's multi-agent model provider selection.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Evolutionary search has higher runtime latency than single-pass ML heuristics.
+\item Cannot adapt instantaneously to real-time \textbf{API} rate limit drops.
+\item Requires parameter tuning across mutation, crossover, and migration rates.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Optimized Task Scheduling Using Hybrid \textbf{DL} (Deep Learning) and Metaheuristics}
+\vspace{-0.08cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{A. Heirati, M. Fartash, and M. Khalily-Dermany}\newline\vspace{0.2em}
+\textit{Neural Processing Letters}\newline\vspace{0.2em}
+\textbf{Year:} 2026\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Combines \textbf{Deep Learning (\textbf{LSTM} (Long Short-Term Memory))} workload prediction with metaheuristic optimization (Harris Hawks Optimization) for proactive workflow dispatching. Predicts task execution durations and memory bottlenecks in advance to prevent node overloading and minimize queue waiting times.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Proactive workload forecasting prevents sudden compute node thrashing.
+\item Hybrid pipeline balances search exploration with predictive dispatching.
+\item Relevant for predicting token latency and cost before agent invocation.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Two-stage pipeline introduces inference overhead before scheduling decisions.
+\item \textbf{LSTM} prediction accuracy degrades under sudden irregular workload spikes.
+\item Complex offline model retraining requirements.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Cost-Aware Workflow Offloading in Edge-Cloud Computing via \textbf{GA} (Genetic Algorithm)}
+\vspace{-0.08cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{S. Abdi, M. Ashjaei, and S. Mubeen}\newline\vspace{0.2em}
+\textit{The Journal of Supercomputing}\newline\vspace{0.2em}
+\textbf{Year:} 2024\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Proposes a \textbf{Genetic Algorithm-based workflow offloading} framework considering heterogeneous network bandwidth, deadline constraints, and monetary costs. Implements chromosome repair operators to preserve \textbf{DAG} precedence validity throughout mutation and crossover.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Guarantees valid \textbf{DAG} dependency structures via specialized repair operators.
+\item Explicitly accounts for network transfer latency between pipeline stages.
+\item Informs subtask payload transfer between worker agents in PrismSpace.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Computationally heavy for interactive real-time user query response.
+\item Assumes deterministic network transfer bandwidth in cloud environments.
+\item Does not model dynamic agent failures or retries.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Dynamic Role Discovery and Assignment in Multi-Agent Task Decomposition}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{Y. Xia, J. Zhu, and L. Zhu}\newline\vspace{0.2em}
+\textit{Complex \& Intelligent Systems}\newline\vspace{0.2em}
+\textbf{Year:} 2023\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Proposes \textbf{dynamic role discovery and assignment} that decomposes complex high-level objectives into lower-level subtasks. Uses learned persona embeddings and mutual information to adaptively allocate subtasks according to situational agent capabilities, eliminating rigid static assignments.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Enables flexible subtask allocation without hardcoded role hierarchies.
+\item Hierarchical decomposition prevents single-agent cognitive context overload.
+\item Serves as core theoretical basis for PrismSpace's dynamic agent routing.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Role discovery clustering introduces upfront computational overhead.
+\item Performance depends on representation vector accuracy for subtasks.
+\item Evaluated primarily on synthetic collaborative coordination benchmarks.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Decision Variable Contribution Based Adaptive Multi-Objective Scheduling}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{J. Li, L. Xing, W. Zhong, Z. Cai, and F. Hou}\newline\vspace{0.2em}
+\textit{Complex \& Intelligent Systems}\newline\vspace{0.2em}
+\textbf{Year:} 2023\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Introduces a \textbf{Decision Variable Contribution (DVC)} adaptive mechanism for evolutionary multi-objective workflow scheduling. Evaluates the differential sensitivity of individual decision variables to focus evolutionary search operators on high-impact scheduling bottlenecks.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Accelerates Pareto-front convergence by prioritizing high-variance variables.
+\item Dynamically adapts search intensity across workflow bottleneck stages.
+\item Useful for pinpointing high-latency critical path tools in agent workflows.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Sensitivity calculation adds per-generation matrix computation cost.
+\item Can over-concentrate on dominant objectives at the expense of diversity.
+\item Requires calibrated normalization across widely different metric units.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{GHQ: Grouped Hybrid Q-Learning for Heterogeneous Multi-Agent RL}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{X. Yu, Y. Lin, X. Wang, S. Han, and K. Lv}\newline\vspace{0.2em}
+\textit{Complex \& Intelligent Systems}\newline\vspace{0.2em}
+\textbf{Year:} 2024\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Develops \textbf{Grouped Hybrid Q-learning (GHQ)} for cooperative heterogeneous multi-agent systems. Clusters agents with similar capabilities into functional cohorts that share value approximations while maintaining decoupled action execution heads for role specialization.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Scales value estimation across large heterogeneous swarms via cohort grouping.
+\item Reduces joint action space dimensionality from exponential to block-linear.
+\item Directly applicable to categorizing \textbf{LLM} worker agent skill specializations.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Cohort clustering boundaries can be rigid if agent capabilities evolve.
+\item Intra-group credit assignment remains non-trivial in dense interactions.
+\item Requires domain knowledge to establish initial grouping heuristics.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Decentralized Multi-Agent Cooperation via Adaptive Partner Modeling}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{C. Xu, J. Wang, X. Zhu, Y. Yue, W. Zhou, Z. Liang, and D. Wojtczak}\newline\vspace{0.2em}
+\textit{Complex \& Intelligent Systems}\newline\vspace{0.2em}
+\textbf{Year:} 2024\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Tackles environmental non-stationarity in decentralized multi-agent cooperation using \textbf{Adaptive Partner Modeling (APM)}. Instead of relying on expensive continuous inter-agent broadcast communication, agents infer partner policies and intended actions from local observation histories.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Minimizes inter-agent communication bandwidth to near zero during execution.
+\item Stabilizes decentralized joint execution despite teammate policy shifts.
+\item Directly adopted in PrismSpace for zero-communication agent coordination.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Partner inference error propagates if historical observations are noisy.
+\item Inference networks introduce local computational and memory overhead.
+\item Assumes partners follow relatively stationary parameterized policy spaces.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{A Responsible AI Framework: Pipeline Contextualisation}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{E. Vyhmeister, G. G. Casta\~n\'e, P.-O. \"Ostberg, and S. Thevenin}\newline\vspace{0.2em}
+\textit{AI and Ethics}\newline\vspace{0.2em}
+\textbf{Year:} 2023\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Formulates an operational \textbf{Responsible AI Framework} providing pipeline contextualisation across the full model lifecycle. Specifies auditable checkpoints, data lineage tracking, and bias mitigation protocols for autonomous AI decision-making systems.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Holistic governance framework linking technical architecture to ethical safety.
+\item Defines concrete telemetry points for data provenance and action auditing.
+\item Guides PrismSpace's execution audit logging and human inspection UI.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Qualitative framework that requires custom translation into concrete code gates.
+\item Audit logging introduces storage overhead and slight execution latency.
+\item Does not provide automated formal verification of \textbf{LLM} reasoning traces.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Meaningful Human Control: Actionable Properties for AI Development}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{L. Cavalcante Siebert, M. L. Lupetti, E. Aizenberg, N. Beckers, A. Zgonnikov, H. Veluwenkamp, D. Abbink, E. Giaccardi, G.-J. Houben, C. M. Jonker, J. van den Hoven, D. Forster, and R. L. Lagendijk}\newline\vspace{0.2em}
+\textit{AI and Ethics}\newline\vspace{0.2em}
+\textbf{Year:} 2023\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Formalizes the philosophical concept of \textbf{Meaningful Human Control (\textbf{MHC})} into actionable software design properties: \textbf{Tracking} (system responsive to human moral reasons) and \textbf{Tracing} (system actions causally attributable to accountable human supervisors).
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Translates abstract governance principles into rigorous software specifications.
+\item Establishes tracking and tracing requirements for autonomous tool execution.
+\item Directly guides the design of PrismSpace's Human-in-the-Loop (\textbf{HITL}) approval gates.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item High human intervention frequency can degrade automated agent throughput.
+\item Defining actionable reason boundaries requires careful domain calibration.
+\item Assumes human supervisor maintains full comprehension of complex agent plans.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{\textbf{CPN-HRL} (Cloud-Private-Network Hierarchical Reinforcement Learning): Hierarchical \textbf{DRL} for Priority-Aware Task Scheduling}
+\vspace{-0.08cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{Q. Yue, L. Tian, X. Feng, Z. Yuan, S. Wei, J. Xia, B. Chen, X. Song, and Y. Yao}\newline\vspace{0.2em}
+\textit{Journal of King Saud University CIS}\newline\vspace{0.2em}
+\textbf{Year:} 2026\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Presents \textbf{CPN-HRL}, a Hierarchical Reinforcement Learning framework for priority-aware task scheduling in Cloud-Edge-End networks. Uses a macro-policy to partition task \textbf{DAGs} by priority and latency budgets, while micro-policies schedule subtasks onto optimal compute nodes.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Hierarchical policy decomposition effectively handles complex task \textbf{DAGs}.
+\item Guarantees priority-aware quality of service under tight latency deadlines.
+\item Serves as primary reference for PrismSpace's \textbf{DAG} workflow scheduling engine.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Multi-tier policy architecture requires synchronous training coordination.
+\item Edge node failure requires immediate micro-policy replanning.
+\item Evaluated in simulated telecom cloud-edge topologies.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Automatic Discovery and Description of Human Planning Strategies}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{J. Skirzy\'{n}ski, Y. Jain, and F. Lieder}\newline\vspace{0.2em}
+\textit{Behavior Research Methods}\newline\vspace{0.2em}
+\textbf{Year:} 2023\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Develops an algorithmic framework for \textbf{automatically discovering and formalizing planning strategies} from human behavior traces. Models task planning as resource-rational search over Directed Graphical Models, producing interpretable decision trees that characterize human heuristic planning.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Extracts interpretable, human-like heuristic planning strategies automatically.
+\item Quantifies trade-offs between cognitive search effort and decision quality.
+\item Informs PrismSpace's hierarchical prompt decomposition and agent planning.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Search space for strategy discovery grows exponentially with problem depth.
+\item Human behavioral experiments conducted in stylized cognitive testbeds.
+\item Static decision trees struggle to capture fluid \textbf{LLM} reasoning trajectories.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Data-Intensive Workflow Scheduling Based on \textbf{DRL} in Multi-Clouds}
+\vspace{-0.08cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{S. Zhang, Z. Zhao, C. Liu, and S. Qin}\newline\vspace{0.2em}
+\textit{Journal of Cloud Computing}\newline\vspace{0.2em}
+\textbf{Year:} 2023\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Proposes a \textbf{Deep Q-Network (\textbf{DQN})} scheduler optimized for data-intensive workflows across multi-cloud environments. Explicitly models dataset placement and cross-datacenter transfer latency to minimize both workflow completion time and data egress billing.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Optimizes data locality to prevent massive cross-cloud egress overhead.
+\item Adaptive reward function balances monetary cost and makespan constraints.
+\item Directly relevant to caching and embedding retrieval across distributed agents.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Assumes deterministic file sizes and network bandwidth availability.
+\item Q-network value overestimation requires double-\textbf{DQN} correction.
+\item State representation size scales with the total number of cloud datacenters.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{\textbf{RL}-Based Task Scheduling for Sustainable Federated Cloud Computing}
+\vspace{-0.08cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{Z. Wang, S. Chen, L. Bai, J. Gao, J. Tao, R. R. Bond, and M. D. Mulvenna}\newline\vspace{0.2em}
+\textit{Journal of Cloud Computing}\newline\vspace{0.2em}
+\textbf{Year:} 2023\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Develops an \textbf{Actor-Critic \textbf{RL} scheduling framework} for federated cloud datacenters that incorporates renewable energy availability into scheduling policies. Dynamically routes compute tasks to datacenters with green energy surpluses without violating user SLA deadlines.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Incorporates environmental sustainability and carbon metrics into scheduling.
+\item Actor-Critic policy gradient handles continuous action spaces effectively.
+\item Provides conceptual foundation for multi-attribute provider routing.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Requires real-time telemetry from green energy generation sources.
+\item Trade-off between carbon footprint and network transmission latency.
+\item Sensitive to reward scaling factors between SLA penalties and green rewards.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}[t]{Hybrid Dolphin Swarm Sparrow Search Multi-Objective Workflow Scheduling}
+\vspace{-0.25cm}
+\centering
+\adjustbox{width=\textwidth, max totalheight=0.785\textheight, keepaspectratio}{%
+\small
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{3.1cm}|p{6.0cm}|p{6.0cm}|}
+\hline
+\textbf{Citation} & \textbf{Summary} & \textbf{Advantages \& Disadvantages} \\
+\hline
+\parbox[t]{\linewidth}{\raggedright\small
+\textbf{S. Subashree, M. Rajakumaran, G. Pushpa, and S. Senthilkumar}\newline\vspace{0.2em}
+\textit{Journal of Cloud Computing}\newline\vspace{0.2em}
+\textbf{Year:} 2025\newline\vspace{0.2em}
+\textbf{Publisher:} Springer Open Access}
+&
+Proposes a hybrid bio-inspired metaheuristic combining \textbf{Dolphin Swarm Optimization (DSA)} and \textbf{Sparrow Search Algorithm (SSA)} for multi-objective cloud workflow scheduling. Optimizes execution makespan, virtual machine utilization, and monetary execution expenditure.
+&
+\textbf{Advantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Combines global exploration of DSA with local exploitation of SSA.
+\item Demonstrates superior Pareto hypervolume compared to standard \textbf{GA} and \textbf{PSO} (Particle Swarm Optimization).
+\item Provides strong comparative baselines for workflow optimization algorithms.
+\end{itemize}
+\vspace{-0.2em}
+\textbf{Disadvantages:}
+\begin{itemize}\itemsep0.05em\topsep0.1em
+\item Metaheuristic iteration runtime is too slow for sub-second reactive routing.
+\item Multiple tuning parameters (predation rate, vocalization index) required.
+\item Lacks theoretical convergence rate bounds for stochastic optimization.
+\end{itemize} \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+% Findings-transfer tables remain omitted from this presentation.
+
+\begin{frame}{Research Gap}
+\vspace{-0.05cm}
+\begin{block}{What the surveyed methods already do}
+\footnotesize
+\textbf{MARL} works address \textbf{CTDE}, role grouping, and ad-hoc coordination. \textbf{ORPO} aligns \textbf{LLM} preferences without reference models, while \textbf{HIAT} leverages human interventions as auxiliary \textbf{RL} signals. \textbf{CPN-HRL} and \textbf{DAG} schedulers optimize cloud task allocation, and \textbf{MHC} formalizes tracking and tracing properties.
+\end{block}
+\vspace{0.08cm}
+\begin{block}{Limitations observed in those papers}
+\footnotesize
+Coordination benchmarks focus on gaming (\textbf{SMAC}, Overcooked) rather than filesystem/\textbf{API} tooling. \textbf{ORPO} lacks grounding in \textbf{MCP} \textbf{ReAct} tool traces, while \textbf{HIAT} targets continuous robotic control instead of code execution. Cloud schedulers assume static \textbf{DAGs} or slow metaheuristics ill-suited for real-time \textbf{LLM} routing.
+\end{block}
+\vspace{0.08cm}
+\begin{block}{Why PrismSpace is required}
+\footnotesize
+No reviewed system jointly grounds tool observations, aligns policies on agent trajectories, dynamically routes heterogeneous \textbf{LLMs}, and enforces human-in-the-loop safety gates within a unified developer workspace.
+\end{block}
+\end{frame}
+
+\ifdefined\mainliteraturereview
+\else
+\section{Project time line}
+
+\begin{frame}{Gantt Chart}
+\centering
+\resizebox{1.0\textwidth}{!}{%
+\begin{tikzpicture}[
+  x=1.00cm, y=0.52cm,
+  lab/.style={anchor=east, font=\scriptsize, inner sep=3pt, text=prismNavy}
+]
+\def\nm{9}
+\def\rowh{1.0}
+\def\bh{0.36}
+\def\topY{11.5}
+
+\foreach \i in {0,1,...,\nm} {
+  \draw[gray!22] (\i,0.5) -- (\i,\topY);
+}
+\foreach \i/\m in {0.5/Jul'26,1.5/Aug'26,2.5/Sep'26,3.5/Oct'26,4.5/Nov'26,5.5/Dec'26,6.5/Jan'27,7.5/Feb'27,8.5/Mar'27} {
+  \node[anchor=south, font=\scriptsize\bfseries, text=prismNavy] at (\i,\topY+0.08) {\m};
+}
+\draw[prismNavy, line width=0.7pt] (0,\topY) -- (\nm,\topY);
+\draw[prismNavy, line width=0.6pt] (0,0.5) -- (\nm,0.5);
+
+\foreach \k in {0,...,10} {
+  \pgfmathsetmacro{\yc}{11.0-\k}
+  \ifodd\k
+    \fill[prismMint, opacity=0.45] (0,\yc-0.5) rectangle (\nm,\yc+0.5);
+  \fi
+}
+
+\node[lab] at (0,11.0) {Project ideation \& problem identification};
+\node[lab] at (0,10.0) {Literature survey \& research};
+\node[lab] at (0,9.0) {Requirement analysis \& feasibility};
+\node[lab] at (0,8.0) {System design (agents, \textbf{MCP}, \textbf{HITL})};
+\node[lab] at (0,7.0) {Trajectory data collection \& pairing};
+\node[lab] at (0,6.0) {Implementation: \textbf{MCP} \textbf{ReAct} swarm};
+\node[lab] at (0,5.0) {Implementation: \textbf{ORPO} \& \textbf{ML} routing};
+\node[lab] at (0,4.0) {Workspace integration \& \textbf{HITL} gates};
+\node[lab] at (0,3.0) {Testing \& evaluation};
+\node[lab] at (0,2.0) {Project documentation};
+\node[lab] at (0,1.0) {Final review \& submission};
+
+% Bars: same timeline, snapped to 0.5-month grid, equal height 0.36
+\fill[prismBlue]     (0.0,11.0-0.18) rectangle (2.0,11.0+0.18);
+\fill[prismTeal]     (1.0,10.0-0.18) rectangle (2.5,10.0+0.18);
+\fill[prismGold]     (1.5,9.0-0.18)  rectangle (2.5,9.0+0.18);
+\fill[prismBlue]     (2.0,8.0-0.18)  rectangle (3.5,8.0+0.18);
+\fill[prismTeal]     (3.0,7.0-0.18)  rectangle (4.5,7.0+0.18);
+\fill[prismGold]     (4.0,6.0-0.18)  rectangle (5.5,6.0+0.18);
+\fill[prismBlue]     (5.0,5.0-0.18)  rectangle (6.5,5.0+0.18);
+\fill[prismTeal]     (6.0,4.0-0.18)  rectangle (7.5,4.0+0.18);
+\fill[prismGold]     (7.0,3.0-0.18)  rectangle (8.0,3.0+0.18);
+\fill[prismBlue]     (7.5,2.0-0.18)  rectangle (9.0,2.0+0.18);
+\fill[prismTeal]     (8.0,1.0-0.18)  rectangle (9.0,1.0+0.18);
+
+\node[font=\scriptsize\bfseries, text=prismNavy] at (4.5,-0.15) {Timeline (Jul 2026 -- Mar 2027)};
+\end{tikzpicture}%
+}
+\end{frame}
+
+\section{References}
+
+\begin{frame}{References}
+\scriptsize
+\setbeamertemplate{enumerate item}{\textbf{\color{prismBlue}[\insertenumlabel]}}
+\begin{enumerate}\itemsep0.28em\leftskip=-0.55em
+\item \textbf{Cornalba F, Disselkamp C, Scassola D, Helf C (2024)} Multi-objective reward generalization: improving performance of Deep Reinforcement Learning for applications in single-asset trading. \textit{Neural Computing and Applications}. DOI: 10.1007/s00521-023-09033-7
+\item \textbf{Schneckenreither M, Moser G (2025)} Average reward adjusted discounted reinforcement learning. \textit{Neural Computing and Applications}. DOI: 10.1007/s00521-024-10620-5
+\item \textbf{Aina K, Ha S (2026)} Deep reinforcement learning for multi-agent coordination. \textit{Artificial Life and Robotics}. DOI: 10.1007/s10015-025-01089-z
+\item \textbf{Rother D, Pajarinen J, Peters J, Weisswange TH (2025)} Open-ended coordination for multi-agent systems using modular open policies. \textit{Autonomous Agents and Multi-Agent Systems}. DOI: 10.1007/s10458-025-09723-7
+\item \textbf{Liu D, Ren F, Yan J, Su G, Gu W, Kato S (2026)} Improving scalability of multi-agent deep reinforcement learning with suboptimal human knowledge. \textit{Autonomous Agents and Multi-Agent Systems}. DOI: 10.1007/s10458-025-09729-1
+\item \textbf{Marzari L, Liu C, Donti PL, Marchesini E (2026)} $\varepsilon$-retraining reinforcement learning algorithms. \textit{Autonomous Agents and Multi-Agent Systems}. DOI: 10.1007/s10458-026-09748-6
+\item \textbf{Wong A, B\"ack T, Kononova AV, Plaat A (2023)} Deep multiagent reinforcement learning: challenges and directions. \textit{Artificial Intelligence Review}. DOI: 10.1007/s10462-022-10299-x
+\item \textbf{Niu B, Luo B, Cui Y, Xu X, Zhao Y, Feng Y (2025)} HIAT: human-in-the-loop reinforcement learning with auxiliary task. \textit{Artificial Intelligence Review}. DOI: 10.1007/s10462-025-11260-4
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{References}
+\scriptsize
+\setbeamertemplate{enumerate item}{\textbf{\color{prismBlue}[\insertenumlabel]}}
+\begin{enumerate}\setcounter{enumi}{8}\itemsep0.28em\leftskip=-0.55em
+\item \textbf{Lee J (2025)} InstructPatentGPT: training patent language models to follow instructions with human feedback. \textit{Artificial Intelligence and Law}. DOI: 10.1007/s10506-024-09401-1
+\item \textbf{Zhuang S, Qiao Z, Zuccon G (2023)} Reinforcement online learning to rank with unbiased reward shaping. \textit{Information Retrieval Journal}. DOI: 10.1007/s10791-022-09413-y
+\item \textbf{Ghazal TM, Awouda AE, Hasan MK, Rahman AHA, Islam S, Saeed RA, Elshafie H, Iqbal A, Hussein AH (2025)} Knowledge Learning for Securing Workflow Scheduling Algorithm in Mobile Edge Computing. \textit{Mobile Networks and Applications}. DOI: 10.1007/s11036-025-02465-6
+\item \textbf{Barredo P, Puente J (2025)} Energy-aware cooperative multi-fitness evolutionary algorithm for workflow scheduling in cloud computing. \textit{Natural Computing}. DOI: 10.1007/s11047-025-10023-y
+\item \textbf{Heirati A, Fartash M, Khalily-Dermany M (2025)} Optimized Task Scheduling in Fog-Cloud Computing Using Hybrid Deep Learning and Metaheuristic Algorithms. \textit{Neural Processing Letters}. DOI: 10.1007/s11063-025-11819-w
+\item \textbf{Abdi S, Ashjaei M, Mubeen S (2024)} Cost-aware workflow offloading in edge-cloud computing using a genetic algorithm. \textit{The Journal of Supercomputing}. DOI: 10.1007/s11227-024-06341-0
+\item \textbf{Xia Y, Zhu J, Zhu L (2023)} Dynamic role discovery and assignment in multi-agent task decomposition. \textit{Complex \& Intelligent Systems}. DOI: 10.1007/s40747-023-01071-x
+\item \textbf{Li J, Xing L, Zhong W, Cai Z, Hou F (2023)} Decision variable contribution based adaptive mechanism for evolutionary multi-objective cloud workflow scheduling. \textit{Complex \& Intelligent Systems}. DOI: 10.1007/s40747-023-01137-w
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{References}
+\scriptsize
+\setbeamertemplate{enumerate item}{\textbf{\color{prismBlue}[\insertenumlabel]}}
+\begin{enumerate}\setcounter{enumi}{16}\itemsep0.22em\leftskip=-0.55em
+\item \textbf{Yu X, Lin Y, Wang X, Han S, Lv K (2024)} GHQ: grouped hybrid Q-learning for cooperative heterogeneous multi-agent reinforcement learning. \textit{Complex \& Intelligent Systems}. DOI: 10.1007/s40747-024-01415-1
+\item \textbf{Xu C, Wang J, Zhu X, Yue Y, Zhou W, Liang Z, Wojtczak D (2024)} Decentralized multi-agent cooperation via adaptive partner modeling. \textit{Complex \& Intelligent Systems}. DOI: 10.1007/s40747-024-01421-3
+\item \textbf{Vyhmeister E, Casta\~n\'e GG, \"Ostberg PO, Thevenin S (2023)} A responsible AI framework: pipeline contextualisation. \textit{AI and Ethics}. DOI: 10.1007/s43681-022-00154-8
+\item \textbf{Cavalcante Siebert L, Lupetti ML, Aizenberg E, Beckers N, Zgonnikov A, Veluwenkamp H, Abbink D, Giaccardi E, Houben GJ, Jonker CM, van den Hoven J, Forster D, Lagendijk RL (2023)} Meaningful human control: actionable properties for AI system development. \textit{AI and Ethics}. DOI: 10.1007/s43681-022-00167-3
+\item \textbf{Yue Q, Tian L, Feng X, Yuan Z, Wei S, Xia J, Chen B, Song X, Yao Y (2026)} CPN-HRL: a hierarchical deep reinforcement learning approach for priority-aware task scheduling in CPN enabled by cloud-edge-end environments. \textit{Journal of King Saud University Computer and Information Sciences}. DOI: 10.1007/s44443-026-00690-x
+\item \textbf{Skirzy\'{n}ski J, Jain Y, Lieder F (2023)} Automatic discovery and description of human planning strategies. \textit{Behavior Research Methods}. DOI: 10.3758/s13428-023-02062-z
+\item \textbf{Zhang S, Zhao Z, Liu C, Qin S (2023)} Data-intensive workflow scheduling strategy based on deep reinforcement learning in multi-clouds. \textit{Journal of Cloud Computing}. DOI: 10.1186/s13677-023-00504-9
+\item \textbf{Wang Z, Chen S, Bai L, Gao J, Tao J, Bond RR, Mulvenna MD (2023)} Reinforcement learning based task scheduling for environmentally sustainable federated cloud computing. \textit{Journal of Cloud Computing}. DOI: 10.1186/s13677-023-00553-0
+\item \textbf{Subashree S, Rajakumaran M, Pushpa G, Senthilkumar S (2025)} Hybrid dolphin swarm sparrow search optimization based multi-objective cloud workflow scheduling. \textit{Journal of Cloud Computing}. DOI: 10.1186/s13677-025-00828-8
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \centering
+    \vfill
+    {\usebeamerfont{title}\color{prismNavy}\Huge \textbf{Thank You}}
+    
+    \vspace{0.8cm}
+    {\large \textbf{Questions \& Discussion}}
+    
+    \vspace{0.8cm}
+    {\small \color{prismBlue} PrismSpace: An Intelligent Developer Workspace for Multi-Agent Orchestration}
+    \vfill
+\end{frame}
+\fi
+
+% --- END literature_review_ppt/ppt/slides/prismspace_deck.tex ---
+
+
+% =============================================================================
 % SLIDE 3: PROBLEM STATEMENT
 % =============================================================================
 \section{Problem Statement}
+
+\begin{frame}[plain]
+\vfill
+\begin{center}
+  {\color{lavenderDark}\fontsize{25}{30}\selectfont\bfseries Problem Statement\par}
+  \vspace{0.45em}
+  {\color{prismTeal!85!black}\large Challenges in current AI-agent and workflow systems}
+\end{center}
+\vfill
+\end{frame}
 
 \begin{frame}[t]{02. Problem Statement: Core Challenges in AI Agent Systems}
 \vspace{0.25em}
@@ -241,7 +1413,7 @@
   halign=center
 ]
   \textcolor{white}{\fontsize{6.6}{8.0}\selectfont\sffamily
-  \textbf{Architectural Benchmark:} Evaluating PrismSpace against industry-standard conversational AI, autonomous agents, and swarm frameworks.}
+  \textbf{Simple comparison:} Comparing PrismSpace with conversational AI, autonomous-agent, and multi-agent platforms.}
 \end{tcolorbox}
 
 \vspace{-0.46em}
@@ -278,45 +1450,45 @@
 \hline
 
 \textbf{Execution Topology} &
-Linear single-thread prompt dialog &
-Unbounded recursive loop (risk of infinite loops) &
-Sequential or static hierarchical agent chains &
-\textbf{\color{prismTeal!90!black}Dynamic DAG Scheduling:} Parallel execution ($K \le 3$, join barriers) \\
+One conversation at a time &
+Repeats steps automatically; may not stop &
+Agents follow a fixed sequence &
+\textbf{\color{prismTeal!90!black}DAG (Directed Acyclic Graph) Scheduling:} Runs dependent tasks in parallel, with up to three workers \\
 \hline
 
 \textbf{Model Strategy \& Routing} &
-Vendor locked (single OpenAI model per session) &
-Single model API backend (typically GPT-4) &
-Statically configured per agent persona &
-\textbf{\color{prismTeal!90!black}Dynamic Multi-Model Router:} Routes Groq, OpenAI, NIM by latency/cost \\
+Mostly one provider and model &
+Usually one model with custom scripts &
+Model selected for each agent role &
+\textbf{\color{prismTeal!90!black}Multi-Model Router:} Selects a suitable provider using task needs, speed, and cost \\
 \hline
 
 \textbf{Tool Connectivity Protocol} &
-Proprietary OpenAI Plugins \& Function Calls &
-Custom Python scripts \& local shell commands &
-LangChain tool wrappers (rigid contracts) &
-\textbf{\color{prismTeal!90!black}Model Context Protocol (MCP):} Standardized servers (Gmail, Drive, FS, Web) \\
+Built-in plugins and function calls &
+Custom scripts and shell commands &
+Tool wrappers with fixed formats &
+\textbf{\color{prismTeal!90!black}MCP (Model Context Protocol):} A common interface for tools such as Gmail, Drive, files, and web services \\
 \hline
 
 \textbf{Observability \& Streaming} &
-Text token stream only (internal steps opaque) &
-Terminal CLI logs only; zero visual graph &
-Terminal text traces; server-side execution &
-\textbf{\color{prismTeal!90!black}Live SSE Stream + Visual DAG:} Real-time node state and telemetry \\
+Shows answer text; internal steps are hidden &
+Terminal logs only &
+Text traces from agent execution &
+\textbf{\color{prismTeal!90!black}Live Run Status + Workflow Graph:} Shows task progress and each node's state \\
 \hline
 
 \textbf{Safety \& Quality Control} &
-Closed cloud content filter; no user approval gate &
-Fixed step budgets; no output verification &
-Agent self-critique (incurs token overhead) &
-\textbf{\color{prismTeal!90!black}HITL Approval Gates + ORPO:} High-risk tasks paused; preference aligned \\
+Provider filters; no user approval step &
+Fixed limits; limited output checking &
+Agent reviews its own output &
+\textbf{\color{prismTeal!90!black}HITL (Human-in-the-Loop) + ORPO (Odds Ratio Preference Optimization):} Pauses risky tasks and ranks preferred outputs \\
 \hline
 
 \textbf{Persistence \& Privacy} &
-Remote cloud storage (privacy \& latency exposure) &
-Local filesystem artifacts; no structured database &
-Cloud DB or ephemeral in-memory state &
-\textbf{\color{prismTeal!90!black}Local-First PrismDB:} Zero-latency browser IndexedDB (\texttt{useLiveQuery()}) \\
+Data stored in the provider's cloud &
+Local files without a structured database &
+Cloud or temporary in-memory state &
+\textbf{\color{prismTeal!90!black}Local-First PrismDB:} Stores sessions and files in the browser's IndexedDB database \\
 \hline
 \end{tabularx}
 \end{tcolorbox}
@@ -327,7 +1499,7 @@ Cloud DB or ephemeral in-memory state &
   boxrule=0.5pt, left=4pt, right=4pt, top=1.0pt, bottom=1.0pt, width=0.98\linewidth
 ]
 \fontsize{4.8}{5.8}\selectfont\color{prismDark}
-While ChatGPT is optimized for single-model dialog and frameworks like CrewAI/AutoGPT for Python-scripted execution, \textbf{PrismSpace} uniquely unifies \textbf{dynamic DAG planning}, \textbf{open MCP tools}, \textbf{multi-model routing}, and \textbf{local-first privacy} in a reactive workspace.
+\textbf{PrismSpace summary:} It combines dependency-aware task planning, shared tool connections, provider selection, visible progress, and local browser storage in one workspace.
 \end{tcolorbox}
 
 \end{frame}
@@ -336,6 +1508,16 @@ While ChatGPT is optimized for single-model dialog and frameworks like CrewAI/Au
 % SLIDE 4: OBJECTIVES
 % =============================================================================
 \section{Objectives}
+
+\begin{frame}[plain]
+\vfill
+\begin{center}
+  {\color{lavenderDark}\fontsize{25}{30}\selectfont\bfseries Project Objectives\par}
+  \vspace{0.45em}
+  {\color{prismTeal!85!black}\large Goals and expected outcomes of the PrismSpace platform}
+\end{center}
+\vfill
+\end{frame}
 
 \begin{frame}[t]{04. Project Objectives}
 \vspace{0.55em}
@@ -351,11 +1533,509 @@ While ChatGPT is optimized for single-model dialog and frameworks like CrewAI/Au
 \end{frame}
 
 % =============================================================================
-% SLIDE 5: AT A GLANCE (FIGURE 1.0) - UNDERSTAND IN 3 SLIDES CENTERPIECE
+% SLIDE 5: METHODOLOGY
+% =============================================================================
+\section{Methodology}
+
+\begin{frame}[t]{05. Methodology: Development Approach}
+\vspace{-0.15em}
+\begin{itemize}\footnotesize\setlength{\itemsep}{4pt}
+  \item \textbf{Idea Formulation:} Identify the limitations of single-agent and sequential workflows, then define PrismSpace as a browser-based multi-agent workspace.
+  \item \textbf{Literature and Problem Analysis:} Review multi-agent coordination, RAG, workflow scheduling, preference alignment, and human-in-the-loop methods to establish the research gap.
+  \item \textbf{Requirements and Data Collection:} Gather representative developer tasks, tool-use traces, prompts, workspace states, and successful/failed execution outcomes for design and evaluation.
+  \item \textbf{Data Preparation:} Clean and structure task traces, create preferred/non-preferred action pairs, and extract latency, cost, quality, and safety features.
+  \item \textbf{Architecture Design:} Implement layered React, FastAPI, model, MCP-tool, and local IndexedDB components with observable state transitions.
+  \item \textbf{Task Decomposition Algorithm:} Convert user goals into dependency-aware Directed Acyclic Graphs (DAGs) and execute independent tasks in parallel ($K \le 3$).
+  \item \textbf{Agent and Model Routing:} Use intent classification, capability matching, and cost/latency-aware routing to assign tasks to specialist agents and suitable LLMs.
+  \item \textbf{Execution and Safety Algorithms:} Combine ReAct loops, MCP JSON-RPC tools, Server-Sent Events (SSE), Human-in-the-Loop approval, ORPO preference gating, and Isolation Forest anomaly detection.
+  \item \textbf{Implementation and Evaluation:} Integrate the modules, persist runs in \texttt{PrismDB}, and evaluate correctness, faithfulness, latency, token cost, recovery, and safety.
+\end{itemize}
+\end{frame}
+
+% =============================================================================
+% ALGORITHM SECTION (placed before the PrismSpace workflow diagram)
+% =============================================================================
+\def\algorithminmain{}
+\begin{frame}[plain]
+\vfill
+\begin{center}
+  {\color{lavenderDark}\fontsize{25}{30}\selectfont\bfseries Algorithm\par}
+  \vspace{0.45em}
+  {\color{prismTeal!85!black}\large Step-by-step execution of the PrismSpace multi-agent workflow}
+\end{center}
+\vfill
+\end{frame}
+
+% --- BEGIN scratch/test_algorithm_section.tex ---
+\ifdefined\algorithminmain\else
+\documentclass[aspectratio=169,10pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,backgrounds,calc,shadows,shapes.geometric}
+\usepackage{fontawesome5}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,raster}
+
+% Theme Colors
+\definecolor{lavenderDark}{RGB}{76, 51, 122}
+\definecolor{lavenderMedium}{RGB}{124, 98, 173}
+\definecolor{lavenderLight}{RGB}{243, 239, 252}
+\definecolor{lavenderAccent}{RGB}{150, 120, 205}
+\definecolor{prismDark}{RGB}{23, 32, 42}
+\definecolor{prismSlate}{RGB}{85, 90, 105}
+\definecolor{prismLight}{RGB}{248, 247, 252}
+\definecolor{prismTeal}{RGB}{22, 138, 114}
+\definecolor{prismBlue}{RGB}{124, 98, 173}
+
+\setbeamercolor{frametitle}{bg=lavenderDark,fg=white}
+\setbeamercolor{author in head/foot}{bg=lavenderDark, fg=white}
+\setbeamercolor{title in head/foot}{bg=lavenderMedium, fg=white}
+\setbeamercolor{date in head/foot}{bg=lavenderDark, fg=white}
+\setbeamertemplate{navigation symbols}{}
+
+\fi
+
+% Hierarchical Algorithm List Environments matching Screenshot 2 structure
+\newenvironment{algolist}{%
+  \begin{list}{}{%
+    \setlength{\labelwidth}{1.9em}%
+    \setlength{\leftmargin}{2.1em}%
+    \setlength{\itemindent}{0pt}%
+    \setlength{\labelsep}{0.45em}%
+    \setlength{\itemsep}{0.28em}%
+    \setlength{\parsep}{0pt}%
+    \setlength{\topsep}{0.1em}%
+    \renewcommand{\makelabel}[1]{\textbf{\color{lavenderDark}##1}}%
+  }\small%
+}{\end{list}}
+
+\newenvironment{algosublist}{%
+  \begin{list}{}{%
+    \setlength{\labelwidth}{2.4em}%
+    \setlength{\leftmargin}{2.8em}%
+    \setlength{\itemindent}{0pt}%
+    \setlength{\labelsep}{0.4em}%
+    \setlength{\itemsep}{0.14em}%
+    \setlength{\parsep}{0pt}%
+    \setlength{\topsep}{0.1em}%
+    \renewcommand{\makelabel}[1]{\textbf{\color{lavenderMedium}##1}}%
+  }\small%
+}{\end{list}}
+
+\ifdefined\algorithminmain\else
+\begin{document}
+\fi
+
+% -----------------------------------------------------------------------------
+% STEP 1: PROMPT PARSING & TASK REPRESENTATION
+% -----------------------------------------------------------------------------
+\begin{frame}[t]{Algorithm: Step 1 -- Understand the User Prompt}
+\vspace{-0.15em}
+{\large\bfseries\color{lavenderDark}Step 1: Prompt Parsing and Structured Representation}
+\vspace{0.15em}
+
+\begin{algolist}
+  \item[1.1] Ingest raw natural language prompt $\mathcal{T}_{\text{user}}$ via client interface and extract core objective.
+  \item[1.2] Retrieve persistent session context and workspace history from browser IndexedDB (\texttt{PrismDB}):
+    \begin{algosublist}
+      \item[1.2.1] Load prior interaction turns, agent memory checkpoints, and active user configurations.
+      \item[1.2.2] Resolve local file system references, target project repositories, and access tokens.
+    \end{algosublist}
+  \item[1.3] Construct strongly-typed operational execution tuple:
+    \vspace{-0.2em}
+    $$T = \langle \text{Goal}, \, \text{Constraints}, \, \text{Context}, \, \mathcal{M}_{\text{tools}}, \, \Phi_{\text{out}} \rangle$$
+    \vspace{-0.2em}
+    {\footnotesize\color{prismDark}%
+      \textbf{\color{lavenderDark}Where:}\enspace \text{Goal}: Target objective $\;\vert\;$ \text{Constraints}: Safety \& SLA bounds $\;\vert\;$ \text{Context}: Session state in \texttt{PrismDB} $\;\vert\;$ $\mathcal{M}_{\text{tools}}$: Authorized MCP tools $\;\vert\;$ $\Phi_{\text{out}}$: Deliverable schema contract.}
+    \vspace{0.15em}
+    \begin{algosublist}
+      \item[1.3.1] Parse explicit operational constraints (deadlines, schema specifications, output formats).
+      \item[1.3.2] Bind authorized Model Context Protocol (MCP) tool capabilities and environment permissions.
+    \end{algosublist}
+  \item[1.4] Perform input boundary and security screening:
+    \begin{algosublist}
+      \item[1.4.1] Evaluate prompt against token limits and scan for prompt injection patterns.
+      \item[1.4.2] Flag state-mutating actions requiring mandatory human-in-the-loop authorization.
+    \end{algosublist}
+\end{algolist}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% STEP 2: INTENT CLASSIFICATION & CAPABILITY PROFILING
+% -----------------------------------------------------------------------------
+\begin{frame}[t]{Algorithm: Step 2 -- Classify the Request}
+\vspace{-0.15em}
+{\large\bfseries\color{lavenderDark}Step 2: Intent Classification and Capability Check}
+\vspace{0.15em}
+
+\begin{algolist}
+  \item[2.1] Categorize user prompt into functional operational domains:
+    \vspace{-0.2em}
+    $$\text{Domain} \in \{\text{Productivity/Automation}, \, \text{Document Synthesis}, \, \text{Web Research}, \, \text{Code Engineering}\}$$
+    \vspace{-0.2em}
+    {\footnotesize\color{prismDark}%
+      \textbf{\color{lavenderDark}Where:}\enspace \text{Productivity}: Communication \& planning $\;\vert\;$ \text{Synthesis}: Summarization $\;\vert\;$ \text{Research}: Web search \& scraping $\;\vert\;$ \text{Coding}: CLI \& code synthesis.}
+    \vspace{0.15em}
+    \begin{algosublist}
+      \item[2.1.1] Compute dense semantic embeddings and syntactic keyword vectors for input prompt.
+      \item[2.1.2] Route through multi-class classifier head $\hat{\mathbf{y}}_{\text{intent}}$ to determine target capability domain.
+    \end{algosublist}
+  \item[2.2] Profile required system capabilities and operational risk levels:
+    \begin{algosublist}
+      \item[2.2.1] Determine required subsystem resources (live web search, local filesystem I/O, terminal execution).
+      \item[2.2.2] Enforce safety categorization: Read-Only (autonomous execution) vs. State-Mutating (approval-gated).
+    \end{algosublist}
+  \item[2.3] Select optimal execution pathway:
+    \begin{algosublist}
+      \item[2.3.1] Route single-step queries to direct, low-latency single-model inference pipeline.
+      \item[2.3.2] Dispatch multi-step complex requests to DAG Planner agent for task decomposition.
+    \end{algosublist}
+\end{algolist}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% STEP 3: DAG DECOMPOSITION & MODEL ROUTING
+% -----------------------------------------------------------------------------
+\begin{frame}[t]{Algorithm: Step 3 -- Plan and Route the Task}
+\vspace{-0.15em}
+{\large\bfseries\color{lavenderDark}Step 3: DAG Decomposition and Model Routing}
+\vspace{0.15em}
+
+\begin{algolist}
+  \item[3.1] Deconstruct objective into Directed Acyclic Graph $\mathcal{G} = (V, E)$:
+    \begin{algosublist}
+      \item[3.1.1] Instantiate discrete task vertices $v_i \in V$ with atomic execution contracts and output targets.
+      \item[3.1.2] \textbf{Data Dependencies as Directed Edges} ($e = \langle v_i, v_j \rangle \in E \iff \mathcal{O}_i \cap \mathcal{I}_j \neq \emptyset$): Task $v_j$ requires input artifacts produced by $v_i$ (e.g., synthesis requires scraped research).
+      \item[3.1.3] \textbf{Execution Barrier:} Consumer $v_j$ remains blocked until producer $v_i$ delivers $\mathcal{O}_i$, guaranteeing tasks never run on missing or partial data.
+    \end{algosublist}
+  \item[3.2] Compute topological task execution schedule $\pi = \mathrm{TopologicalSort}(\mathcal{G})$:
+    \begin{algosublist}
+      \item[3.2.1] Identify independent vertices ($\text{in-degree} = 0$) for concurrent parallel dispatch ($K \le 3$).
+      \item[3.2.2] Schedule downstream vertices dynamically upon upstream output event emission.
+    \end{algosublist}
+  \item[3.3] Solve multi-objective provider routing optimization for each sub-task $v_i$:
+    \vspace{-0.2em}
+    $$\text{Provider}^* = \arg\min_m \Big(\lambda_{\text{cost}} \, \text{Cost}_m + \lambda_{\text{latency}} \, \text{Latency}_m\Big) \quad \text{s.t. } \text{Quality}_m \ge \tau$$
+    \vspace{-0.2em}
+    {\footnotesize\color{prismDark}%
+      \textbf{\color{lavenderDark}Where:}\enspace $\text{Provider}^*$: Optimal LLM backend $\;\vert\;$ $m$: Candidate model $\;\vert\;$ $\text{Cost}_m, \text{Latency}_m$: Normalized price \& delay $\;\vert\;$ $\lambda_{\text{cost}}, \lambda_{\text{latency}}$: Balancing weights $\;\vert\;$ $\tau$: Quality barrier.}
+    \vspace{0.15em}
+    \begin{algosublist}
+      \item[3.3.1] Route high-throughput, latency-critical nodes to LPU backends (Groq / Llama-3).
+      \item[3.3.2] Route deep reasoning and code generation tasks to frontier backends (OpenAI GPT-4o, Claude 3.5).
+    \end{algosublist}
+\end{algolist}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% STEP 4: TASK ASSIGNMENT & AGENT SELECTION
+% -----------------------------------------------------------------------------
+\begin{frame}[t]{Algorithm: Step 4 -- Task Assignment and Agent Selection}
+\vspace{-0.15em}
+{\large\bfseries\color{lavenderDark}Step 4: Role-Based Task Assignment and Dispatching}
+\vspace{0.15em}
+
+\begin{algolist}
+  \item[4.1] Query specialist agent registry and capability profiles:
+    \vspace{-0.2em}
+    $$\mathcal{A} = \{\text{Planner}, \, \text{Assistant}, \, \text{Researcher}, \, \text{Coder}, \, \text{Validator}\}$$
+    \vspace{-0.2em}
+    \begin{algosublist}
+      \item[4.1.1] Evaluate persona system prompts, specialized instruction boundaries, and assigned MCP tools.
+      \item[4.1.2] Verify agent worker availability and monitor concurrent thread utilization.
+    \end{algosublist}
+  \item[4.2] Execute capability matching algorithm for each sub-task node $v_i$:
+    \vspace{-0.2em}
+    $$\text{Agent}^* = \arg\max_{a \in \mathcal{A}} \; \mathrm{CosineSimilarity}\big(\mathbf{Req}(v_i), \, \mathbf{Cap}(a)\big)$$
+    \vspace{-0.2em}
+    {\footnotesize\color{prismDark}%
+      \textbf{\color{lavenderDark}Where:}\enspace $\text{Agent}^*$: Assigned specialist persona $\;\vert\;$ $\mathcal{A}$: Swarm agent registry $\;\vert\;$ $\mathbf{Req}(v_i)$: Task requirement vector $\;\vert\;$ $\mathbf{Cap}(a)$: Agent capability embedding $\;\vert\;$ $\mathrm{CosineSimilarity}$: Semantic alignment.}
+    \vspace{0.15em}
+    \begin{algosublist}
+      \item[4.2.1] Match information gathering requirements ($\text{Tag} \ni \texttt{web\_search}$) to Researcher agent.
+      \item[4.2.2] Match software synthesis and execution ($\text{Tag} \ni \texttt{python, cli}$) to Coder agent.
+      \item[4.2.3] Match quality assurance and policy compliance ($\text{Tag} \ni \texttt{audit, verify}$) to Validator agent.
+    \end{algosublist}
+  \item[4.3] Manage task lifecycle states in dispatcher queue:
+    \begin{algosublist}
+      \item[4.3.1] Place sub-tasks in \texttt{PENDING} state until all parent dependency inputs resolve.
+      \item[4.3.2] Transition verified nodes to \texttt{READY} and dispatch execution payloads to assigned agents.
+    \end{algosublist}
+\end{algolist}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% STEP 5: AGENT COMMUNICATION & DECISION MAKING
+% -----------------------------------------------------------------------------
+\begin{frame}[t]{Algorithm: Step 5 -- Agent Communication and Decision Cycle}
+\vspace{-0.15em}
+{\large\bfseries\color{lavenderDark}Step 5: Agent Decision Cycle and Inter-Agent Communication}
+\vspace{0.15em}
+
+\begin{algolist}
+  \item[5.1] Execute autonomous Reasoning-Action (ReAct) cycle for each dispatched agent:
+    \vspace{-0.2em}
+    $$\text{State } s_t \;\longrightarrow\; \text{\textbf{Observe}} \;\longrightarrow\; \text{\textbf{Reason}} \;\longrightarrow\; \text{\textbf{Act}} \;\longrightarrow\; \text{\textbf{Reflect}}$$
+    \vspace{-0.2em}
+    {\footnotesize\color{prismDark}%
+      \textbf{\color{lavenderDark}Where:}\enspace $s_t$: Current execution state at turn $t$ $\;\vert\;$ \textbf{Observe}: Ingest context \& parent outputs $\mathcal{O}_i$ $\;\vert\;$ \textbf{Reason}: Plan via CoT $\;\vert\;$ \textbf{Act}: Invoke MCP tools $\;\vert\;$ \textbf{Reflect}: Self-correct on error.}
+    \vspace{0.15em}
+    \begin{algosublist}
+      \item[5.1.1] \textbf{Observe:} Ingest assigned sub-task description, operational constraints, and parent inputs.
+      \item[5.1.2] \textbf{Reason:} Formulate intermediate chain-of-thought rationale to plan next tool invocation.
+      \item[5.1.3] \textbf{Act:} Dispatch structured JSON-RPC tool calls to external MCP servers or formulate text.
+      \item[5.1.4] \textbf{Reflect:} Inspect execution exit codes and output schemas; initiate local correction on errors.
+    \end{algosublist}
+  \item[5.2] Transmit intermediate artifacts via DAG edge message passing:
+    \begin{algosublist}
+      \item[5.2.1] Route validated producer artifact $\mathcal{O}_i$ directly into consumer input buffer $\mathcal{I}_j$.
+      \item[5.2.2] Enforce strict artifact isolation to prevent cross-task context contamination and token inflation.
+    \end{algosublist}
+  \item[5.3] Synchronize shared state via local blackboard memory:
+    \begin{algosublist}
+      \item[5.3.1] Commit global project state, conversation turns, and file handles to IndexedDB (\texttt{PrismDB}).
+      \item[5.3.2] Dispatch event-driven signals upon node resolution to awaken dependent downstream workers.
+    \end{algosublist}
+\end{algolist}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% STEP 6: SPECIALIST WORKFLOWS: PLANNER & ASSISTANT
+% -----------------------------------------------------------------------------
+\begin{frame}[t]{Algorithm: Step 6 -- Specialist Workflows: Planner \& Assistant}
+\vspace{-0.15em}
+{\large\bfseries\color{lavenderDark}Step 6: Specialist Execution Workflows -- Planner \& Assistant}
+\vspace{0.15em}
+
+\begin{algolist}
+  \item[6.1] Execute Planner Agent workflow (System Architect \& Coordinator):
+    \begin{algosublist}
+      \item[6.1.1] Ingest user objective string and conversation context from \texttt{PrismDB}.
+      \item[6.1.2] Decompose objective into atomic independent and dependent sub-goals.
+      \item[6.1.3] Construct DAG graph vertices $V$, dependency edges $E$, and capability tags.
+      \item[6.1.4] Solve provider routing optimization and enqueue topological schedule into Dispatcher.
+    \end{algosublist}
+  \item[6.2] Execute Assistant Agent workflow (Productivity \& Communication):
+    \begin{algosublist}
+      \item[6.2.1] Retrieve user communication preferences, profiles, and reference documents from storage.
+      \item[6.2.2] Formulate structured response drafts, templates, or executive summaries.
+      \item[6.2.3] Interface with Google Workspace MCP tools (Gmail draft creation, Drive document retrieval).
+      \item[6.2.4] Emit verified communication draft; enforce approval gate prior to external message transmission.
+    \end{algosublist}
+\end{algolist}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% STEP 7: SPECIALIST WORKFLOWS: RESEARCHER, CODER & VALIDATOR
+% -----------------------------------------------------------------------------
+\begin{frame}[t]{Algorithm: Step 7 -- Specialist Workflows: Researcher, Coder \& Validator}
+\vspace{-0.15em}
+{\large\bfseries\color{lavenderDark}Step 7: Specialist Execution Workflows -- Researcher, Coder \& Validator}
+\vspace{0.15em}
+
+\begin{algolist}
+  \item[7.1] Execute Researcher Agent workflow (Information Retrieval \& Synthesis):
+    \begin{algosublist}
+      \item[7.1.1] Formulate optimized web search queries and invoke Browser MCP server endpoints.
+      \item[7.1.2] Scrape target web documents, parse DOM trees, and extract relevant contextual passages.
+      \item[7.1.3] Deduplicate findings and compile structured Markdown report with verified source citations.
+    \end{algosublist}
+  \item[7.2] Execute Coder Agent workflow (Software Synthesis \& Execution):
+    \begin{algosublist}
+      \item[7.2.1] Inspect local repository tree via Filesystem MCP and synthesize target source code files.
+      \item[7.2.2] Execute scripts inside Sandboxed Terminal CLI and inspect exit codes and error streams.
+      \item[7.2.3] Analyze stack traces and compiler lints to autonomously self-correct syntax and runtime bugs.
+    \end{algosublist}
+  \item[7.3] Execute Validator Agent workflow (Quality Auditing \& Safety Gate):
+    \begin{algosublist}
+      \item[7.3.1] Scan candidate outputs against safety policies, token invariants, and functional constraints.
+      \item[7.3.2] Emit binary verification signal: \textbf{PASS} to release artifact, or \textbf{FAIL} with error diagnostics.
+    \end{algosublist}
+\end{algolist}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% STEP 8: EXECUTE WITH MCP TOOLS
+% -----------------------------------------------------------------------------
+\begin{frame}[t]{Algorithm: Step 8 -- Standardized Tool Execution via MCP}
+\vspace{-0.15em}
+{\large\bfseries\color{lavenderDark}Step 8: Standardized Tool Execution via Model Context Protocol}
+\vspace{0.15em}
+
+\begin{algolist}
+  \item[8.1] Interface agents to external tools via Model Context Protocol (MCP):
+    \begin{algosublist}
+      \item[8.1.1] Standardize client-server communication using JSON-RPC protocol specifications.
+      \item[8.1.2] Enable dynamic tool discovery: inspect exposed tool schemas, input parameters, and return types.
+      \item[8.1.3] Decouple agent reasoning logic from external tool implementation details.
+    \end{algosublist}
+  \item[8.2] Orchestrate multi-domain tool execution ecosystem:
+    \begin{algosublist}
+      \item[8.2.1] \textbf{System \& Dev Tools:} Local Filesystem (file I/O), Sandboxed CLI (isolated shell), GitHub API.
+      \item[8.2.2] \textbf{Productivity Tools:} Google Workspace MCP (Gmail messaging, Google Drive document access).
+      \item[8.2.3] \textbf{Web Intelligence:} Browser MCP for real-time document search, retrieval, and scraping.
+    \end{algosublist}
+  \item[8.3] Enforce Human-in-the-Loop (HITL) authorization policy:
+    \begin{algosublist}
+      \item[8.3.1] Permit autonomous execution for non-destructive, read-only tool queries.
+      \item[8.3.2] Intercept state-mutating actions (file modification, email dispatch, CLI execution) for user approval.
+    \end{algosublist}
+\end{algolist}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% STEP 9: CONTEXT COMPACTION & SHARED MEMORY
+% -----------------------------------------------------------------------------
+\begin{frame}[t]{Algorithm: Step 9 -- Context Compaction and Shared Memory}
+\vspace{-0.15em}
+{\large\bfseries\color{lavenderDark}Step 9: Context Compaction and Shared Memory Management}
+\vspace{0.15em}
+
+\begin{algolist}
+  \item[9.1] Address context window constraints and token consumption limits:
+    \begin{algosublist}
+      \item[9.1.1] Mitigate fixed LLM context window boundaries to eliminate token overflow and latency degradation.
+      \item[9.1.2] Prevent quadratic attention computation overhead across long multi-agent interaction sessions.
+    \end{algosublist}
+  \item[9.2] Execute dynamic context compaction and artifact pruning:
+    \vspace{-0.2em}
+    $$C_{t+1} = \mathrm{Prune}\big(C_t \cup \Delta \text{Artifacts} \setminus \text{Stale Tokens}\big)$$
+    \vspace{-0.2em}
+    {\footnotesize\color{prismDark}%
+      \textbf{\color{lavenderDark}Where:}\enspace $C_{t+1}, C_t$: Next and current context buffers $\;\vert\;$ $\Delta\text{Artifacts}$: Verified upstream deliverables $\mathcal{O}_i$ $\;\vert\;$ $\text{Stale Tokens}$: Discarded scratchpad tokens \& raw tool logs $\;\vert\;$ $\mathrm{Prune}(\cdot)$: Heuristic eviction filter.}
+    \vspace{0.15em}
+    \begin{algosublist}
+      \item[9.2.1] Forward only verified parent output artifacts $\mathcal{O}_i$ to dependent downstream child nodes.
+      \item[9.2.2] Evict intermediate reasoning scratchpads, redundant tool telemetry, and discarded draft tokens.
+    \end{algosublist}
+  \item[9.3] Persist global execution state using client-side database (\texttt{PrismDB}):
+    \begin{algosublist}
+      \item[9.3.1] Commit session turns, task graphs, and tool execution logs to browser IndexedDB via Dexie.js.
+      \item[9.3.2] Ensure client data privacy, full offline execution persistence, and instant crash recovery.
+    \end{algosublist}
+\end{algolist}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% STEP 10: ORPO PREFERENCE MODEL & QUALITY ASSERTION
+% -----------------------------------------------------------------------------
+\begin{frame}[t]{Algorithm: Step 10 -- ORPO Preference Model \& Verification}
+\vspace{-0.15em}
+{\large\bfseries\color{lavenderDark}Step 10: Single-Stage Preference Alignment (ORPO) and Verification}
+\vspace{0.15em}
+
+\begin{algolist}
+  \item[10.1] Single-stage reference-free preference alignment formulation (ORPO):
+    \vspace{-0.25em}
+    $$\mathcal{L}_{\mathrm{ORPO}} = \mathcal{L}_{\mathrm{SFT}} + \lambda_{\mathrm{OR}} \cdot \mathcal{L}_{\mathrm{OR}} \quad \text{where} \quad \mathcal{L}_{\mathrm{OR}} = -\log \sigma \left( \log \left[ \frac{\mathrm{odds}_\theta(y_w \mid x)}{\mathrm{odds}_\theta(y_l \mid x)} \right] \right)$$
+    \vspace{-0.2em}
+    {\footnotesize\color{prismDark}%
+      \textbf{\color{lavenderDark}Where:}\enspace $\mathcal{L}_{\mathrm{ORPO}}$: Total loss $\;\vert\;$ $\mathcal{L}_{\mathrm{SFT}}$: SFT cross-entropy loss $\;\vert\;$ $\lambda_{\mathrm{OR}}$: Odds weight $\;\vert\;$ $\mathcal{L}_{\mathrm{OR}}$: Odds ratio penalty $\;\vert\;$ $\mathrm{odds}_\theta(y \mid x) = \frac{P_\theta(y \mid x)}{1 - P_\theta(y \mid x)}$: Output sequence odds $\;\vert\;$ $y_w, y_l$: Chosen / rejected responses for prompt $x$.}
+    \vspace{0.15em}
+    \begin{algosublist}
+      \item[10.1.1] Jointly maximize chosen likelihood while penalizing rejected tokens ($2\times$ memory savings).
+      \item[10.1.2] Supervise via UltraFeedback pairs $\mathcal{D} = \{(x, y_w, y_l)\}$, bypassing unstable RLHF loops.
+    \end{algosublist}
+  \item[10.2] Enforce runtime quality gating via preference score barrier $\mathcal{S}_{\mathrm{ORPO}}(x, y) \ge \tau_{\mathrm{approval}}$:
+    \begin{algosublist}
+      \item[10.2.1] Audit deliverables using fine-tuned model (\texttt{reward\_orpo\_v2}, Qwen2.5-1.5B LoRA).
+      \item[10.2.2] Score candidate outputs on instruction adherence, structural constraints, and safety guardrails.
+    \end{algosublist}
+  \item[10.3] Handle quality failures via targeted DAG re-planning:
+    \begin{algosublist}
+      \item[10.3.1] Capture diagnostic error traces and schema deviations when output falls below $\tau_{\mathrm{approval}}$.
+      \item[10.3.2] Dispatch error logs to DAG Planner for targeted branch re-planning without system abort.
+    \end{algosublist}
+\end{algolist}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% STEP 11: FINAL DELIVERABLE SYNTHESIS & COMMIT
+% -----------------------------------------------------------------------------
+\begin{frame}[t]{Algorithm: Step 11 -- Final Deliverable Synthesis and Commit}
+\vspace{-0.15em}
+{\large\bfseries\color{lavenderDark}Step 11: Artifact Assembly and Global State Commit}
+\vspace{0.15em}
+
+\begin{algolist}
+  \item[11.1] Aggregate and assemble multi-agent deliverables:
+    \begin{algosublist}
+      \item[11.1.1] Harvest verified partial output artifacts $\mathcal{O}_i$ from all terminal nodes in the completed DAG.
+      \item[11.1.2] Coalesce research summaries, verified code diffs, and formatted text into unified final deliverable.
+    \end{algosublist}
+  \item[11.2] Calculate end-to-end composite delivery quality metric:
+    \vspace{-0.2em}
+    $$\text{Delivery Quality } D = \text{Correctness} \times \text{Completeness} \times \text{Timeliness}$$
+    \vspace{-0.2em}
+    {\footnotesize\color{prismDark}%
+      \textbf{\color{lavenderDark}Where:}\enspace $D \in [0, 1]$: Composite quality metric $\;\vert\;$ \text{Correctness}: Schema conformance \& execution pass rate $\;\vert\;$ \text{Completeness}: Fulfillment of goal constraints $\;\vert\;$ \text{Timeliness}: Latency penalty score.}
+    \vspace{0.15em}
+    \begin{algosublist}
+      \item[11.2.1] Apply multiplicative scoring penalty: failure in any single dimension sharply penalizes overall quality.
+      \item[11.2.2] Log quality vector to persistent performance ledger to calibrate future provider routing models.
+    \end{algosublist}
+  \item[11.3] Commit finalized session state with ACID guarantees:
+    \begin{algosublist}
+      \item[11.3.1] Atomically write completed conversation records, DAG execution graphs, and tool receipts to \texttt{PrismDB}.
+      \item[11.3.2] Record end-to-end telemetry: aggregate latency, per-agent token consumption, and audit receipts.
+    \end{algosublist}
+\end{algolist}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% STEP 12: OUTPUT DELIVERY & REACTIVE WORKSPACE UI
+% -----------------------------------------------------------------------------
+\begin{frame}[t]{Algorithm: Step 12 -- Output Delivery and User Display}
+\vspace{-0.15em}
+{\large\bfseries\color{lavenderDark}Step 12: Output Delivery and Reactive Workspace Presentation}
+\vspace{0.15em}
+
+\begin{algolist}
+  \item[12.1] Synthesize and package final deliverable artifacts:
+    \begin{algosublist}
+      \item[12.1.1] Compile structured digital artifacts (Markdown reports, verified code patches, email/document drafts).
+      \item[12.1.2] Generate comprehensive audit receipt containing agent provenance, execution duration, and tool logs.
+    \end{algosublist}
+  \item[12.2] Render presentation layer via multi-pane workspace interface:
+    \begin{algosublist}
+      \item[12.2.1] Update interactive DAG HUD with real-time node states (\texttt{Queued} $\to$ \texttt{Running} $\to$ \texttt{Success} / \texttt{Failed}).
+      \item[12.2.2] Mount Artifact Viewer canvas providing rich Markdown rendering, syntax highlighting, and export controls.
+      \item[12.2.3] Present interactive approval cards for pending external actions with explicit authorization controls.
+    \end{algosublist}
+  \item[12.3] Synchronize client state reactively via local database transactions:
+    \begin{algosublist}
+      \item[12.3.1] Commit verified state transitions and output artifacts directly into browser IndexedDB (\texttt{PrismDB}).
+      \item[12.3.2] Trigger Dexie \texttt{useLiveQuery()} observers to update UI components reactively upon local database commits.
+    \end{algosublist}
+\end{algolist}
+\end{frame}
+
+\ifdefined\algorithminmain\else
+\end{document}
+\fi
+
+% --- END scratch/test_algorithm_section.tex ---
+
+
+% =============================================================================
+% SLIDE 6: AT A GLANCE (FIGURE 1.0) - UNDERSTAND IN 3 SLIDES CENTERPIECE
 % =============================================================================
 \section{System Overview}
 
-\begin{frame}[t]{05. PrismSpace Workflow (Figure 1.0)}
+\begin{frame}[plain]
+\vfill
+\begin{center}
+  {\color{lavenderDark}\fontsize{25}{30}\selectfont\bfseries Project Architecture, Working \& System Design\par}
+  \vspace{0.45em}
+  {\color{prismTeal!85!black}\large Project workflow, architecture, working process, agent lifecycle, dataset pipeline, DAG scheduling, and flow diagrams}
+\end{center}
+\vfill
+\end{frame}
+
+\begin{frame}[t]{06. PrismSpace Workflow (Figure 1.0)}
 \vspace{-0.15em}
 \centering
 \adjustbox{max width=0.98\linewidth, max height=0.74\textheight}{%
@@ -455,40 +2135,391 @@ While ChatGPT is optimized for single-model dialog and frameworks like CrewAI/Au
 \textbf{Figure 1.0: PrismSpace Workflow} $\;\vert\;$ 
 \textbf{DAG} = Directed Acyclic Graph $\;\vert\;$ 
 \textbf{MCP} = Model Context Protocol $\;\vert\;$ 
-\textbf{ORPO} = Odds Ratio Preference Optimization $\;\vert\;$ 
-\textbf{SSE} = Server-Sent Events
+\textbf{ORPO} = Odds Ratio Preference Optimization
 \end{tcolorbox}
 \end{frame}
 
 % =============================================================================
-% SLIDE 6: SYSTEM DESIGN
+% SLIDE 7: PROJECT DATA-FLOW DIAGRAM
 % =============================================================================
-\section{System Design}
+\section{Data Flow}
 
-\begin{frame}[t]{06. System Design Principles}
-\vspace{-0.15em}
-\begin{itemize}\footnotesize\setlength{\itemsep}{4pt}
-  \item \textbf{Layered Decoupling:} Separates the React client UI, FastAPI bridge, and foundation LLMs (each layer has one clear role).
-  \item \textbf{Dynamic DAG Scheduling:} Runs dependent sub-tasks in parallel ($K \le 3$; additional tasks are queued) for daily and technical workflows.
-  \item \textbf{Standardized Protocol (MCP):} Uses open JSON-RPC tool contracts (a common way for agents and tools to communicate).
-  \item \textbf{Human-in-the-Loop:} Sensitive operations require explicit user approval (a safety checkpoint before execution).
-  \item \textbf{Local IndexedDB (\texttt{PrismDB}):} ACID browser storage (reliable local data) for sessions, tasks, tool history, and files.
-  \item \textbf{Reactive Subscriptions:} Dexie \texttt{useLiveQuery()} updates the UI automatically when data changes.
-  \item \textbf{Server-Sent Events (SSE):} Streams tokens and agent telemetry over persistent HTTP (live one-way updates).
-  \item \textbf{Calibrated Preference Gating:} ORPO ranks and filters outputs to improve quality and safety.
-  \item \textbf{Design Philosophy:} Context-aware, sandboxed, and observable multi-agent workspace (safe and traceable by design).
-\end{itemize}
+\begin{frame}[t]{07. PrismSpace Data Flow Diagram}
+\vspace{0.15em}
+\centering
+
+\adjustbox{max width=0.98\linewidth, max height=0.84\textheight, keepaspectratio}{%
+\begin{tikzpicture}[
+  entity/.style={rectangle, draw=lavenderDark!75, line width=0.85pt, rounded corners=2.5pt,
+    align=center, inner sep=4.5pt, font=\fontsize{6.5}{7.5}\selectfont\bfseries,
+    text width=1.75cm, fill=cInput, drop shadow={opacity=0.08, shadow xshift=0.5pt, shadow yshift=-0.5pt}},
+  store/.style={rectangle, draw=lavenderDark!70, line width=0.85pt,
+    align=center, inner sep=4.0pt, font=\fontsize{6.0}{7.0}\selectfont,
+    text width=1.85cm, fill=lavenderLight, drop shadow={opacity=0.08, shadow xshift=0.5pt, shadow yshift=-0.5pt}},
+  proc/.style={circle, draw=lavenderMedium!90, line width=0.85pt,
+    align=center, inner sep=1.5pt, minimum size=1.15cm,
+    font=\fontsize{5.8}{6.8}\selectfont, fill=cStage1, drop shadow={opacity=0.06, shadow xshift=0.5pt, shadow yshift=-0.5pt}},
+  procblue/.style={proc, fill=cStage4},
+  procgold/.style={proc, fill=cStage2},
+  iface/.style={rectangle, rounded corners=5pt, draw=lavenderDark!85, line width=0.95pt,
+    align=center, inner sep=5pt, text width=1.85cm,
+    font=\fontsize{6.5}{7.5}\selectfont\bfseries, fill=cPlanner, drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}},
+  model/.style={entity, text width=1.85cm, fill=cStage2},
+  flow/.style={-{Stealth[scale=0.80]}, line width=0.85pt, draw=lavenderDark!85},
+  dottedflow/.style={-{Stealth[scale=0.75]}, dashed, line width=0.80pt, draw=lavenderDark!75},
+  feedback/.style={-{Stealth[scale=0.80]}, dashed, line width=0.85pt, draw=prismTeal!90!black},
+  label/.style={font=\fontsize{5.2}{6.2}\selectfont\bfseries, text=prismTeal!90!black, inner sep=1.5pt}
+]
+
+% ==================== NODES ====================
+
+% External Entity: User / Workspace (Leftmost)
+\node[entity] (external) at (-6.20, 0.20) {User /\\ Workspace};
+
+% Stores: Top row (y = 2.45)
+\node[store] (accounts) at (-4.20, 2.45) {\textbf{Indexed DB}\\[1pt]\fontsize{5.4}{6.4}\selectfont sessions,\\ messages, files};
+\node[store] (prompts) at (1.50, 2.45) {\textbf{User}\\[1pt]\textbf{Prompts}};
+
+% Model Entity (Top Right, y = 2.45)
+\node[model] (model) at (5.40, 2.45) {Large\\ Language\\ Models};
+
+% Left Process Group (Input ingestion & Session, y = 1.05 and y = -0.45)
+\node[proc] (login) at (-4.20, 1.05) {load\\ context};
+\node[proc] (enter) at (-4.20, -0.45) {enter\\ objective};
+\node[procblue] (validate) at (-2.60, 1.05) {validate\\ session};
+
+% Central Interfaces & Prompt Handling
+\node[iface] (api) at (-1.80, -0.45) {Next.js\\ API\\ proxy};
+\node[procblue] (storeprompt) at (-0.30, 1.05) {store\\ prompt};
+\node[procblue] (pass) at (0.90, 1.05) {pass\\ context};
+\node[procgold] (read) at (2.20, 1.05) {read\\ prompt};
+\node[iface] (llm) at (2.20, -0.45) {LLM\\ interface};
+
+% Execution Output
+\node[proc] (generate) at (5.40, -0.45) {generate\\ response};
+
+% Bottom Row: Validation, Feedback & Adaptation (All on y = -1.95)
+\node[procblue] (display) at (-6.20, -1.95) {display\\ response};
+\node[proc] (correct) at (-1.80, -1.95) {validate\\ result};
+\node[store] (wrong) at (0.40, -1.95) {store\\ failed\\ trace};
+\node[procgold] (train) at (2.40, -1.95) {route /\\ refine};
+\node[procgold] (integrate) at (4.40, -1.95) {update\\ policy};
+
+% ==================== FLOW ARROWS ====================
+
+% 1. Context loading from Indexed DB
+\draw[flow] (accounts.south) -- node[right=1pt, font=\fontsize{4.8}{5.8}\selectfont\color{lavenderDark!70}]{read} (login.north);
+\draw[flow] (login.east) -- (validate.west);
+\draw[flow] (validate.south) to[out=-70,in=140] ([xshift=-0.35cm]api.north);
+
+% 2. User Input flow
+\draw[flow] (external.east) |- (enter.west);
+\draw[flow] (enter.east) -- (api.west);
+
+% 3. Persistence to Indexed DB from API Proxy (runs straight up at X = -1.80 to Y = 2.45, then left into accounts.east)
+\draw[dottedflow] (api.north) -- (-1.80, 2.45) -- node[above, font=\fontsize{4.8}{5.8}\selectfont\color{lavenderDark!80}\itshape]{persist} (accounts.east);
+
+% 4. Prompt Storage in Data Store
+\draw[flow] ([xshift=0.35cm]api.north) |- (storeprompt.west);
+\draw[flow] (storeprompt.north) |- (prompts.west);
+
+% 5. Prompt & Context Retrieval into LLM Interface (Straight parallel vertical drops)
+\draw[flow] ([xshift=-0.60cm]prompts.south) -- (pass.north);
+\draw[flow] ([xshift=0.70cm]prompts.south) -- (read.north);
+\draw[flow] (pass.south) -- ++(0, -0.40) -| ([xshift=-0.45cm]llm.north);
+\draw[flow] (read.south) -- (llm.north);
+
+% 6. LLM Interface <-> Model Inference Cycle
+\draw[flow] (llm.north east) -- (model.south west);
+\draw[flow] (model.south) -- (generate.north);
+\draw[flow] (generate.west) -- (llm.east);
+\draw[flow] (llm.west) -- (api.east);
+
+% 7. Validation Path from API
+\draw[flow] (api.south) -- (correct.north);
+
+% 8. Verified Output Delivery (Pass)
+\draw[feedback] (correct.west) -- node[above, label]{verified output} (display.east);
+\draw[feedback] (display.north) -- (external.south);
+
+% 9. Failure Handling & Adaptive Re-planning Loop
+\draw[flow] (correct.east) -- node[above, font=\fontsize{4.8}{5.8}\selectfont\color{statusFail!90!black}\bfseries]{fail} (wrong.west);
+\draw[flow] (wrong.east) -- (train.west);
+\draw[flow] (train.east) -- (integrate.west);
+% Policy update cleanly loops back to LLM Interface in the open horizontal corridor at Y = -1.15
+\draw[dottedflow] (integrate.north) -- (4.40, -1.15) -- node[above, font=\fontsize{4.8}{5.8}\selectfont\color{lavenderDark}\itshape]{refine / retry} (2.20, -1.15) -- (llm.south);
+
+\end{tikzpicture}%
+}
+
 \end{frame}
 
 % =============================================================================
 % SLIDE 7: AGENT LIFECYCLE, MCP INTEGRATION & RUNTIME FLOW
 % =============================================================================
-\input{agent_lifecycle_frame.tex}
 
-% =============================================================================
-% SLIDE 8: PROPOSED METHODS
-% =============================================================================
-\input{proposed_methods_frame.tex}
+% --- BEGIN agent_lifecycle_frame.tex ---
+% Copyright 2026 Nobin Sijo (NobinSijo7T).
+% SPDX-License-Identifier: Apache-2.0
+% Agent Lifecycle & MCP Integration Slide Frame
+
+\begin{frame}[t]{07. Agent Lifecycle, MCP Integration \& Runtime Flow in PrismSpace}
+\vspace{-0.65em}
+
+% Local color definitions
+\providecolor{mcpBlue}{RGB}{35, 115, 175}
+\providecolor{mcpGreen}{RGB}{39, 174, 96}
+
+\begin{columns}[t]
+
+% ==================== LEFT COLUMN: AGENT LIFECYCLE ====================
+\begin{column}{0.485\textwidth}
+\centering
+{\fontsize{7.2}{8.2}\selectfont\textbf{\color{lavenderDark}\faProjectDiagram\ Agent Lifecycle \& State Flow}}
+\vspace{0.01cm}
+
+\adjustbox{max width=\linewidth, max height=0.39\textheight, keepaspectratio}{%
+\begin{tikzpicture}[
+  x=1cm, y=1cm,
+  font=\sffamily,
+  statenode/.style={
+    rectangle, rounded corners=3.5pt,
+    line width=0.8pt, inner sep=3.0pt,
+    align=center, font=\fontsize{6.2}{7.2}\selectfont\bfseries,
+    drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}
+  },
+  decisionnode/.style={
+    diamond, aspect=1.8,
+    draw=statusApprove!90, fill=statusApprove!18, text=black,
+    line width=0.85pt, inner sep=1.5pt,
+    minimum width=2.5cm, align=center,
+    font=\fontsize{5.6}{6.6}\selectfont\bfseries,
+    drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}
+  },
+  terminode/.style={
+    rectangle, rounded corners=3pt,
+    line width=0.8pt, inner sep=2.5pt,
+    minimum width=1.95cm, minimum height=0.48cm,
+    align=center, font=\fontsize{5.4}{6.4}\selectfont\bfseries,
+    drop shadow={opacity=0.08, shadow xshift=0.5pt, shadow yshift=-0.5pt}
+  },
+  arr/.style={-{Stealth[scale=0.75]}, line width=0.85pt, draw=black!75},
+  greenarr/.style={-{Stealth[scale=0.75]}, line width=0.85pt, draw=statusComplete!90!black},
+  redarr/.style={-{Stealth[scale=0.75]}, line width=0.85pt, draw=statusFail!90!black}
+]
+
+% Colors
+\definecolor{statusInit}{RGB}{70, 130, 218}
+\definecolor{statusPlan}{RGB}{22, 138, 114}
+\definecolor{statusRun}{RGB}{230, 126, 34}
+\definecolor{statusApprove}{RGB}{217, 154, 34}
+\definecolor{statusComplete}{RGB}{39, 174, 96}
+\definecolor{statusFail}{RGB}{217, 54, 54}
+\definecolor{statusCancel}{RGB}{120, 140, 155}
+
+% Agent Lifecycle Nodes
+\node[statenode, draw=statusInit!85, fill=statusInit!14, minimum width=4.9cm, minimum height=0.52cm] (init) at (0, 2.50) {
+  \faRocket\ \textbf{INITIALIZING}\\[-0.08em]
+  {\fontsize{4.9}{5.9}\selectfont\normalfont Run ID assigned $\cdot$ Session token $\cdot$ Background worker setup}
+};
+
+\node[statenode, draw=statusPlan!85, fill=statusPlan!14, minimum width=4.9cm, minimum height=0.52cm] (plan) at (0, 1.62) {
+  \faSitemap\ \textbf{PLANNING}\\[-0.08em]
+  {\fontsize{4.9}{5.9}\selectfont\normalfont Intent routing $\cdot$ Dependency DAG $\cdot$ Spawn workers $(K \le 3)$}
+};
+
+\node[decisionnode] (hitl) at (0, 0.76) {
+  \faUserShield\ HITL Gate\\
+  {\fontsize{4.5}{5.3}\selectfont Destructive op?}
+};
+
+\node[statenode, draw=statusApprove!85, fill=statusApprove!16, minimum width=2.90cm, minimum height=0.58cm] (approval) at (-1.75, -0.30) {
+  \faHandPaper\ \textbf{AWAITING\_APPROVAL}\\[-0.08em]
+  {\fontsize{4.7}{5.7}\selectfont\normalfont Operator prompt (300s timer)}
+};
+
+\node[statenode, draw=statusRun!85, fill=statusRun!16, minimum width=2.90cm, minimum height=0.58cm] (running) at (1.75, -0.30) {
+  \faCogs\ \textbf{RUNNING}\\[-0.08em]
+  {\fontsize{4.7}{5.7}\selectfont\normalfont ReAct loop via Provider API}
+};
+
+% Terminal States
+\node[terminode, draw=statusCancel!85, fill=statusCancel!15] (cancelled) at (-2.15, -1.34) {
+  \faBan\ \textbf{CANCELLED}\\[-0.08em]
+  {\fontsize{4.5}{5.3}\selectfont\normalfont Operator rejected}
+};
+
+\node[terminode, draw=statusFail!85, fill=statusFail!15] (failed) at (0, -1.34) {
+  \faTimesCircle\ \textbf{FAILED}\\[-0.08em]
+  {\fontsize{4.5}{5.3}\selectfont\normalfont Error / Timeout}
+};
+
+\node[terminode, draw=statusComplete!85, fill=statusComplete!15] (completed) at (2.15, -1.34) {
+  \faCheckDouble\ \textbf{COMPLETED}\\[-0.08em]
+  {\fontsize{4.5}{5.3}\selectfont\normalfont Result stored \& verified}
+};
+
+% Non-intersecting Arrow Flows
+\draw[arr] (init) -- (plan);
+\draw[arr] (plan) -- (hitl);
+
+\draw[arr] (hitl.west) -| node[pos=0.35, above, font=\fontsize{4.9}{5.9}\selectfont\bfseries\color{statusApprove!90!black}]{YES} (approval.north);
+\draw[arr] (hitl.east) -| node[pos=0.35, above, font=\fontsize{4.9}{5.9}\selectfont\bfseries\color{statusComplete!90!black}]{NO} (running.north);
+
+% Approval to Running
+\draw[greenarr] (approval.east) -- node[above, font=\fontsize{4.6}{5.6}\selectfont\bfseries\color{statusComplete!90!black}]{Approved} (running.west);
+
+% Downward paths from Approval
+\draw[arr] ([xshift=-0.45cm]approval.south) -- node[left=1pt, font=\fontsize{4.5}{5.3}\selectfont\color{statusCancel!90!black}]{Reject} (cancelled.north);
+\draw[redarr] ([xshift=0.35cm]approval.south) -- node[above right=-2pt, font=\fontsize{4.3}{5.1}\selectfont\color{statusFail!90!black}]{Timeout} ([xshift=-0.40cm]failed.north);
+
+% Downward paths from Running
+\draw[greenarr] ([xshift=0.45cm]running.south) -- node[right=1pt, font=\fontsize{4.5}{5.3}\selectfont\color{statusComplete!90!black}]{Success} (completed.north);
+\draw[redarr] ([xshift=-0.35cm]running.south) -- node[above left=-2pt, font=\fontsize{4.3}{5.1}\selectfont\color{statusFail!90!black}]{Error} ([xshift=0.40cm]failed.north);
+
+\end{tikzpicture}%
+}
+
+\vspace{0.04cm}
+% Explanation Box: Agent Lifecycle
+\begin{tcolorbox}[enhanced, arc=2.5pt, boxrule=0.55pt,
+  colframe=lavenderDark!75, colback=lavenderLight!32,
+  left=5pt, right=5pt, top=2.5pt, bottom=2.5pt]
+{\fontsize{5.3}{6.5}\selectfont
+\textbf{\color{lavenderDark}\faSync\ Agent Lifecycle \& State Machine:}\\[0.06em]
+$\bullet$\ \textbf{Execution Progression:} Orchestrates transitions from \comp{INITIALIZING} $\rightarrow$ \comp{PLANNING} (DAG task compilation, bounded to $K \le 3$ workers) $\rightarrow$ active \comp{RUNNING} ReAct loop.\\
+$\bullet$\ \textbf{HITL Safety \& Terminal States:} Pauses destructive actions in \comp{AWAITING\_APPROVAL} for human sign-off (300s timeout); guarantees deterministic resolution into \comp{COMPLETED}, \comp{FAILED}, or \comp{CANCELLED}.
+}
+\end{tcolorbox}
+
+\end{column}
+
+% ==================== RIGHT COLUMN: MCP INTEGRATION ====================
+\begin{column}{0.485\textwidth}
+\centering
+{\fontsize{7.2}{8.2}\selectfont\textbf{\color{lavenderDark}\faPlug\ MCP Tool Integration \& Runtime Flow}}
+\vspace{0.01cm}
+
+\adjustbox{max width=\linewidth, max height=0.39\textheight, keepaspectratio}{%
+\begin{tikzpicture}[
+  x=1cm, y=1cm,
+  font=\sffamily,
+  mcpbox/.style={
+    rectangle, rounded corners=3.5pt,
+    line width=0.8pt, inner sep=3.0pt,
+    align=center, font=\fontsize{6.2}{7.2}\selectfont\bfseries,
+    drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}
+  },
+  toolbox/.style={
+    rectangle, rounded corners=2.5pt,
+    draw=prismGold!80, fill=prismGold!12, text=black,
+    line width=0.65pt, inner sep=2.0pt,
+    minimum width=1.95cm, minimum height=0.42cm,
+    align=center, font=\fontsize{4.9}{5.9}\selectfont
+  },
+  arr/.style={-{Stealth[scale=0.75]}, line width=0.85pt, draw=black!75},
+  dasharr/.style={-{Stealth[scale=0.65]}, line width=0.75pt, draw=mcpBlue!90, dashed}
+]
+
+% Stage 1: MCP Configuration & Loader
+\node[mcpbox, draw=mcpBlue!85, fill=mcpBlue!12, minimum width=6.2cm, minimum height=0.52cm] (config) at (0, 2.50) {
+  \faFileCode\ \textbf{MCP Configuration \& Transports}\\[-0.08em]
+  {\fontsize{4.9}{5.9}\selectfont\normalfont \texttt{mcp\_servers.json} $\cdot$ Stdio / JSON-RPC $\cdot$ Masked env tokens}
+};
+
+% Stage 2: Orchestration Context
+\node[mcpbox, draw=mcpBlue!85, fill=mcpBlue!12, minimum width=6.2cm, minimum height=0.52cm] (context) at (0, 1.62) {
+  \faBrain\ \textbf{Orchestration Context \& Dynamic Discovery}\\[-0.08em]
+  {\fontsize{4.9}{5.9}\selectfont\normalfont Servers parsed $\rightarrow$ Tool schemas injected into LLM system prompt}
+};
+
+% Stage 3: MCP Tool Grid (2 rows x 3 columns)
+\node[toolbox] (browser) at (-2.10, 0.86) {
+  \faGlobe\ \textbf{Browser}\\[-0.05em]
+  {\fontsize{4.4}{5.2}\selectfont Web scraper}
+};
+
+\node[toolbox] (terminal) at (0, 0.86) {
+  \faTerminal\ \textbf{Terminal}\\[-0.05em]
+  {\fontsize{4.4}{5.2}\selectfont Shell \& CLI}
+};
+
+\node[toolbox] (filesystem) at (2.10, 0.86) {
+  \faFolderOpen\ \textbf{FileSystem}\\[-0.05em]
+  {\fontsize{4.4}{5.2}\selectfont Sandboxed I/O}
+};
+
+\node[toolbox] (database) at (-2.10, 0.30) {
+  \faDatabase\ \textbf{Database}\\[-0.05em]
+  {\fontsize{4.4}{5.2}\selectfont SQLite / PrismDB}
+};
+
+\node[toolbox] (github) at (0, 0.30) {
+  \faGithub\ \textbf{GitHub}\\[-0.05em]
+  {\fontsize{4.4}{5.2}\selectfont PRs \& Commits}
+};
+
+\node[toolbox] (figma) at (2.10, 0.30) {
+  \faPalette\ \textbf{Workspace}\\[-0.05em]
+  {\fontsize{4.4}{5.2}\selectfont APIs \& Design}
+};
+
+% Tool Registry Container Frame
+\begin{scope}[on background layer]
+  \node[rectangle, rounded corners=3pt, draw=prismGold!50, fill=prismGold!5, line width=0.5pt,
+        fit=(browser)(filesystem)(database)(figma), inner sep=2.5pt] (toolframe) {};
+\end{scope}
+
+% Stage 4: ReAct Execution Engine
+\node[mcpbox, draw=mcpGreen!85, fill=mcpGreen!14, minimum width=6.2cm, minimum height=0.52cm] (execution) at (0, -0.44) {
+  \faPlay\ \textbf{Tool Execution \& ReAct Engine}\\[-0.08em]
+  {\fontsize{4.9}{5.9}\selectfont\normalfont Observe (tool output) $\rightarrow$ Think (LLM reasoning) $\rightarrow$ Act (next call)}
+};
+
+% Stage 5: Validation & Response
+\node[mcpbox, draw=mcpGreen!85, fill=mcpGreen!14, minimum width=6.2cm, minimum height=0.52cm] (validation) at (0, -1.26) {
+  \faCheckSquare\ \textbf{Validation, Output Synthesis \& Gating}\\[-0.08em]
+  {\fontsize{4.9}{5.9}\selectfont\normalfont Schema verification $\cdot$ ORPO alignment score $\cdot$ Output response}
+};
+
+% Flow Arrows
+\draw[arr] (config) -- (context);
+
+% Dynamic tool injection arrows from context into tool grid
+\draw[dasharr] (context.south) -- (terminal.north);
+\draw[dasharr] (context.south) -- ++(0, -0.12) -| (browser.north);
+\draw[dasharr] (context.south) -- ++(0, -0.12) -| (filesystem.north);
+
+% Tool invocation flows from tool registry directly into execution engine
+\draw[arr] (database.south) -- ([xshift=-2.10cm]execution.north);
+\draw[arr] (github.south) -- (execution.north);
+\draw[arr] (figma.south) -- ([xshift=2.10cm]execution.north);
+
+\draw[arr] (execution) -- (validation);
+
+\end{tikzpicture}%
+}
+
+\vspace{0.04cm}
+% Explanation Box: MCP Integration
+\begin{tcolorbox}[enhanced, arc=2.5pt, boxrule=0.55pt,
+  colframe=mcpBlue!80!black, colback=mcpBlue!06,
+  left=5pt, right=5pt, top=2.5pt, bottom=2.5pt]
+{\fontsize{5.3}{6.5}\selectfont
+\textbf{\color{mcpBlue!90!black}\faPlug\ Model Context Protocol (MCP) Runtime:}\\[0.06em]
+$\bullet$\ \textbf{Universal Open Standard:} Decouples LLMs from tools via standard JSON-RPC stdio transports, dynamically registering capabilities from \comp{mcp\_servers.json}.\\
+$\bullet$\ \textbf{ReAct Tool Execution:} Workers invoke sandboxed capabilities (Browser, CLI, DB) via iterative ReAct loops; outputs are validated and ORPO-scored before synthesis.
+}
+\end{tcolorbox}
+
+\end{column}
+
+\end{columns}
+
+\end{frame}
+
+% --- END agent_lifecycle_frame.tex ---
+
 
 % =============================================================================
 % SLIDE 9: MODEL RESPONSIBILITIES & INFERENCE FLOW
@@ -585,7 +2616,233 @@ While ChatGPT is optimized for single-model dialog and frameworks like CrewAI/Au
 \end{frame}
 
 % Section 10 is rendered immediately after Section 05.
-\input{section10_frame.tex}
+
+% --- BEGIN section10_frame.tex ---
+% Section 10: Unified Dataset Preparation & Training Pipeline
+% Spacious, un-cramped 4-stage pipeline diagram with generous breathing room
+\begin{frame}[t]{10. Unified Dataset Preparation \& Multi-Model Training Pipeline}
+\vspace{-0.35em}
+
+\centering
+\begin{tcolorbox}[
+  enhanced, colback=lavenderDark!95, colframe=lavenderDark, arc=3pt,
+  boxrule=0.5pt, width=0.99\linewidth, top=1.8pt, bottom=1.8pt, left=8pt, right=8pt,
+  halign=center
+]
+  \textcolor{white}{\fontsize{6.8}{8.2}\selectfont\sffamily
+  \textbf{Raw multi-source datasets} across multiple formats are normalized into a \textbf{unified schema}, curated into \textbf{4 supervised tables}, and trained into \textbf{11 production models}.}
+\end{tcolorbox}
+
+\vspace{-0.10em}
+
+\adjustbox{max width=0.99\linewidth, max height=0.82\textheight, keepaspectratio}{%
+\begin{tikzpicture}[
+  x=1cm, y=1cm, font=\sffamily,
+  arr/.style={-{Stealth[scale=0.75]}, line width=0.70pt, draw=lavenderDark!80},
+  hdr/.style={text=white, rounded corners=2pt, inner xsep=7pt, inner ysep=2.5pt,
+              font=\fontsize{5.8}{6.8}\selectfont\bfseries, anchor=center},
+]
+
+% ──────────────────────────────────────────────────────────────────────
+% COLUMN HEADERS (Y = 2.55)
+% ──────────────────────────────────────────────────────────────────────
+\node[hdr, fill=lavenderDark!85]        at (-5.80, 2.85) {\faDatabase\ 1. Raw Datasets (Sources)};
+\node[hdr, fill=lavenderDark]           at (-2.35, 2.85) {\faCodeBranch\ 2. Unified Schema};
+\node[hdr, fill=prismTeal!85!black]     at ( 0.95, 2.85) {\faTable\ 3. Supervised Tables (4)};
+\node[hdr, fill=lavenderMedium!85!black] at ( 5.75, 2.85) {\faCogs\ 4. Production Models (11)};
+
+% ──────────────────────────────────────────────────────────────────────
+% COLUMN 1: RAW DATASET SOURCES (WIDE & SPACIOUS, DELTA Y = 1.45cm)
+% Center X = -5.80, Width = 3.75cm
+% Centers: Y = 1.85, 0.30, -1.05, -2.40
+% ──────────────────────────────────────────────────────────────────────
+% A: Approval Table Source (Y = 1.85)
+\node[rectangle, rounded corners=2.5pt, draw=prismGold!85!black, fill=prismGold!14,
+  line width=0.55pt, inner sep=3.0pt, align=left, text width=3.75cm,
+  anchor=center] (d1) at (-5.80, 1.85) {
+  \textbf{\fontsize{5.2}{6.0}\selectfont\color{prismGold!90!black}\faCheckSquare\ WildGuardMix}\enspace{\scriptsize\color{prismGold!90!black}(Approval)}\\[1.5pt]
+  \fontsize{4.6}{5.3}\selectfont\color{black!80}
+  Harm labels \& adversarial safety guardrails\\[1.5pt]
+  \fontsize{4.3}{5.0}\selectfont\color{black!70}
+  Columns: \texttt{prompt, prompt\_harm\_label}\\[1.5pt]
+  \texttt{\fontsize{4.1}{4.7}\selectfont\color{prismGold!90!black}.parquet \quad .json \quad .jsonl}
+};
+
+% B: Success Table Source (Y = 0.30)
+\node[rectangle, rounded corners=2.5pt, draw=orange!80!black, fill=orange!12,
+  line width=0.55pt, inner sep=3.0pt, align=left, text width=3.75cm,
+  anchor=center] (d2) at (-5.80, 0.30) {
+  \textbf{\fontsize{5.2}{6.0}\selectfont\color{orange!85!black}\faTasks\ cx-cmu-trajectories}\enspace{\scriptsize\color{orange!85!black}(Success)}\\[1.5pt]
+  \fontsize{4.6}{5.3}\selectfont\color{black!80}
+  Multi-turn agent execution traces \& rewards\\[1.5pt]
+  \fontsize{4.3}{5.0}\selectfont\color{black!70}
+  Columns: \texttt{trajectory, reward\_binary}\\[1.5pt]
+  \texttt{\fontsize{4.1}{4.7}\selectfont\color{orange!85!black}.parquet \quad .jsonl}
+};
+
+% C: Provider Table Sources (Y = -1.05)
+\node[rectangle, rounded corners=2.5pt, draw=prismTeal!80!black, fill=prismTeal!12,
+  line width=0.55pt, inner sep=3.0pt, align=left, text width=3.75cm,
+  anchor=center] (d3) at (-5.80, -1.05) {
+  \textbf{\fontsize{5.2}{6.0}\selectfont\color{prismTeal!85!black}\faRandom\ Chatbot Arena + RouterBench}\\[1.5pt]
+  \fontsize{4.6}{5.3}\selectfont\color{black!80}
+  Provider win-rates \& prompt affinity pairs\\[1.5pt]
+  \fontsize{4.3}{5.0}\selectfont\color{black!70}
+  Columns: \texttt{prompt, winner\_model, vote}\\[1.5pt]
+  \texttt{\fontsize{4.1}{4.7}\selectfont\color{prismTeal!75!black}.parquet \quad .json \quad .jsonl}
+};
+
+% D: Reward Table Source (Y = -2.40)
+\node[rectangle, rounded corners=2.5pt, draw=lavenderDark!70, fill=lavenderLight!65,
+  line width=0.55pt, inner sep=3.0pt, align=left, text width=3.75cm,
+  anchor=center] (d4) at (-5.80, -2.40) {
+  \textbf{\fontsize{5.2}{6.0}\selectfont\color{lavenderDark}\faStar\ UltraFeedback}\enspace{\scriptsize\color{lavenderDark}(Reward)}\\[1.5pt]
+  \fontsize{4.6}{5.3}\selectfont\color{black!80}
+  Pairwise chosen vs.\ rejected preference pairs\\[1.5pt]
+  \fontsize{4.3}{5.0}\selectfont\color{black!70}
+  Columns: \texttt{prompt, chosen, rejected}\\[1.5pt]
+  \texttt{\fontsize{4.1}{4.7}\selectfont\color{lavenderDark!80}.parquet \quad .json \quad .jsonl}
+};
+
+% ──────────────────────────────────────────────────────────────────────
+% COLUMN 2: UNIFIED SCHEMA ENGINE
+% Center X = -2.35, Width = 2.30cm, Height = 5.20cm, Center Y = -0.40
+% ──────────────────────────────────────────────────────────────────────
+\node[rectangle, rounded corners=3.5pt, draw=lavenderDark, fill=lavenderLight!75,
+  line width=0.90pt, inner sep=4.0pt, align=center, text width=2.30cm, minimum height=5.20cm,
+  anchor=center] (unify) at (-2.35, -0.40) {
+  {\normalsize\color{lavenderDark}\faDatabase}\\[3pt]
+  \textbf{\fontsize{6.2}{7.2}\selectfont\color{lavenderDark}Unified Schema}\\[6pt]
+  \textbf{\fontsize{5.0}{5.8}\selectfont Ingestion Normalization:}\\
+  \fontsize{4.5}{5.2}\selectfont
+  Parquet $\to$ DataFrames\\
+  JSON / JSONL $\to$ Records\\
+  CSV / PKL $\to$ Tables\\
+  Markdown $\to$ Text Tokens\\[6pt]
+  \textbf{\fontsize{5.0}{5.8}\selectfont Canonical Schema:}\\
+  \texttt{\fontsize{4.4}{5.0}\selectfont\color{lavenderDark}
+  \{prompt, completion,\\
+  label, split, source\}}\\[7pt]
+  \fontsize{4.8}{5.6}\selectfont\color{prismTeal!90!black}\bfseries
+  Raw Datasets $\to$ 1 Schema
+};
+
+% Connecting arrows: Col 1 -> Col 2
+\draw[arr] (d1.east) -- (-3.70,  1.85) -- (-3.70,  0.70) -- (unify.west |- 0,  0.70);
+\draw[arr] (d2.east) -- (-3.70,  0.30) -- (unify.west |- 0,  0.15);
+\draw[arr] (d3.east) -- (-3.70, -1.05) -- (unify.west |- 0, -0.70);
+\draw[arr] (d4.east) -- (-3.70, -2.40) -- (-3.70, -1.50) -- (unify.west |- 0, -1.50);
+
+% ──────────────────────────────────────────────────────────────────────
+% COLUMN 3: SUPERVISED TABLES (4) (DELTA Y = 1.30cm)
+% Center X = 0.95, Width = 2.45cm
+% Centers: Y = 1.80, 0.50, -0.80, -2.10
+% ──────────────────────────────────────────────────────────────────────
+% Table 1: Approval (Y = 1.80)
+\node[rectangle, rounded corners=2.5pt, draw=prismGold!85!black, fill=prismGold!18,
+  line width=0.55pt, inner sep=3.0pt, align=left, text width=2.45cm,
+  anchor=center] (t1) at (0.95, 1.80) {
+  \textbf{\fontsize{5.2}{6.0}\selectfont\color{prismGold!90!black}\faCheckSquare\ Approval Table}\\[1.5pt]
+  \fontsize{4.6}{5.3}\selectfont
+  Risk scores $\to$ approve/block\\[1.5pt]
+  \fontsize{4.3}{5.0}\selectfont\color{black!70}
+  Columns: \texttt{prompt, label}\\[1.5pt]
+  \texttt{\fontsize{4.2}{4.8}\selectfont\color{prismGold!90!black}approval/train.jsonl}
+};
+
+% Table 2: Success (Y = 0.50)
+\node[rectangle, rounded corners=2.5pt, draw=orange!80!black, fill=orange!14,
+  line width=0.55pt, inner sep=3.0pt, align=left, text width=2.45cm,
+  anchor=center] (t2) at (0.95, 0.50) {
+  \textbf{\fontsize{5.2}{6.0}\selectfont\color{orange!85!black}\faTasks\ Success Table}\\[1.5pt]
+  \fontsize{4.6}{5.3}\selectfont
+  Binary task rewards $\{0, 1\}$\\[1.5pt]
+  \fontsize{4.3}{5.0}\selectfont\color{black!70}
+  Columns: \texttt{prompt, label}\\[1.5pt]
+  \texttt{\fontsize{4.2}{4.8}\selectfont\color{orange!85!black}success/train.jsonl}
+};
+
+% Table 3: Provider (Y = -0.80)
+\node[rectangle, rounded corners=2.5pt, draw=prismTeal!85!black, fill=prismTeal!14,
+  line width=0.55pt, inner sep=3.0pt, align=left, text width=2.45cm,
+  anchor=center] (t3) at (0.95, -0.80) {
+  \textbf{\fontsize{5.2}{6.0}\selectfont\color{prismTeal!90!black}\faRandom\ Provider Table}\\[1.5pt]
+  \fontsize{4.6}{5.3}\selectfont
+  Prompt $\to$ LLM affinity pairs\\[1.5pt]
+  \fontsize{4.3}{5.0}\selectfont\color{black!70}
+  Columns: \texttt{prompt, completion}\\[1.5pt]
+  \texttt{\fontsize{4.2}{4.8}\selectfont\color{prismTeal!90!black}provider/train.jsonl}
+};
+
+% Table 4: Reward (Y = -2.10)
+\node[rectangle, rounded corners=2.5pt, draw=lavenderDark!80, fill=lavenderLight!70,
+  line width=0.55pt, inner sep=3.0pt, align=left, text width=2.45cm,
+  anchor=center] (t4) at (0.95, -2.10) {
+  \textbf{\fontsize{5.2}{6.0}\selectfont\color{lavenderDark}\faStar\ Reward Table}\\[1.5pt]
+  \fontsize{4.6}{5.3}\selectfont
+  Chosen vs.\ rejected responses\\[1.5pt]
+  \fontsize{4.3}{5.0}\selectfont\color{black!70}
+  Columns: \texttt{prompt, completion}\\[1.5pt]
+  \texttt{\fontsize{4.2}{4.8}\selectfont\color{lavenderDark}reward/train.jsonl}
+};
+
+% Connecting arrows: Col 2 -> Col 3
+\draw[arr] (unify.east) -- (-0.85, -0.15) |- (t1.west);
+\draw[arr] (unify.east) -- (-0.85, -0.15) |- (t2.west);
+\draw[arr] (unify.east) -- (-0.85, -0.15) |- (t3.west);
+\draw[arr] (unify.east) -- (-0.85, -0.15) |- (t4.west);
+
+% ──────────────────────────────────────────────────────────────────────
+% COLUMN 4: 11 PRODUCTION MODELS (3 BEAUTIFULLY SPACED, NON-OVERLAPPING CARDS)
+% Center X = 5.75, Width = 5.10cm
+% ──────────────────────────────────────────────────────────────────────
+% Category Card A: Routing & Intent (3 models)
+\node[rectangle, rounded corners=2.5pt, draw=lavenderDark!75, fill=lavenderLight!50,
+  line width=0.55pt, inner sep=3.2pt, align=left, text width=5.10cm,
+  anchor=north] (mcat1) at (5.75, 2.48) {
+  \textbf{\fontsize{5.3}{6.2}\selectfont\color{lavenderDark}\faRoute\ Routing \& Intent Models (3)}\\[1.8pt]
+  \fontsize{4.5}{5.3}\selectfont
+  $\bullet$\enspace\textbf{IntentClassifier:} Categorizes user requests into 12 domains\\
+  $\bullet$\enspace\textbf{AgentRouter:} Selects up to 3 best specialist agents\\
+  $\bullet$\enspace\textbf{ModelRouter:} Picks optimal provider (Groq/OpenAI/NIM)
+};
+
+% Category Card B: Workflow Intelligence & Performance (3 models)
+\node[rectangle, rounded corners=2.5pt, draw=prismTeal!80!black, fill=prismMint!60,
+  line width=0.55pt, inner sep=3.2pt, align=left, text width=5.10cm,
+  anchor=north] (mcat2) at ([yshift=-11pt] mcat1.south) {
+  \textbf{\fontsize{5.3}{6.2}\selectfont\color{prismTeal!90!black}\faSitemap\ Workflow Intelligence \& Performance (3)}\\[1.8pt]
+  \fontsize{4.5}{5.3}\selectfont
+  $\bullet$\enspace\textbf{WorkflowClusterer:} Groups similar task patterns together\\
+  $\bullet$\enspace\textbf{SuccessPredictor:} Estimates task completion probability\\
+  $\bullet$\enspace\textbf{LatencyPredictor:} Predicts execution turnaround \& limits
+};
+
+% Category Card C: Safety, Context & Alignment (5 models)
+\node[rectangle, rounded corners=2.5pt, draw=red!65!black, fill=red!08,
+  line width=0.55pt, inner sep=3.2pt, align=left, text width=5.10cm,
+  anchor=north] (mcat3) at ([yshift=-11pt] mcat2.south) {
+  \textbf{\fontsize{5.3}{6.2}\selectfont\color{red!75!black}\faLock\ Safety, Alignment \& Context (5)}\\[1.8pt]
+  \fontsize{4.5}{5.3}\selectfont
+  $\bullet$\enspace\textbf{ApprovalPredictor:} Blocks harmful requests\\
+  $\bullet$\enspace\textbf{AnomalyDetector:} Catches unusual behavior patterns\\
+  $\bullet$\enspace\textbf{FAISS Vector Retriever:} Finds relevant documents quickly\\
+  $\bullet$\enspace\textbf{RewardModel:} Preference ranking $\;\cdot\;$ \textbf{Qwen2.5-1.5B:} ORPO
+};
+
+% Connecting arrows: Col 3 -> Col 4 (clean separate X-busses to avoid overlap)
+\draw[arr] (t3.east) -- (2.95, -0.80) |- (mcat1.west);
+\draw[arr] (t2.east) -- (2.80,  0.50) |- (mcat2.west);
+\draw[arr] (t1.east) -- (2.55,  1.80) |- ([yshift=7pt] mcat3.west);
+\draw[arr] (t4.east) -- (2.55, -2.10) |- ([yshift=-7pt] mcat3.west);
+
+\end{tikzpicture}%
+}
+
+\end{frame}
+
+% --- END section10_frame.tex ---
+
 
 % The proposed methods frame is rendered above, before Model Responsibilities.
 \iffalse
@@ -1150,229 +3407,236 @@ While ChatGPT is optimized for single-model dialog and frameworks like CrewAI/Au
 \begin{frame}[t]{13. Flowchart: Multi-Agent Execution Flow (Figure 1.3)}
 \vspace{-0.30em}
 \centering
-\adjustbox{max width=0.99\linewidth, max height=0.88\textheight, keepaspectratio}{%
+\adjustbox{max width=0.99\linewidth, max height=0.86\textheight, keepaspectratio}{%
 \begin{tikzpicture}[
   x=1cm, y=1cm,
   font=\sffamily,
   % Node Styles
   startend/.style={
     ellipse, draw=green!60!black, fill=green!45!black, text=white,
-    line width=0.85pt, inner sep=2.5pt, font=\fontsize{6.0}{7.0}\selectfont\bfseries,
-    minimum width=1.45cm, minimum height=0.50cm, drop shadow={opacity=0.12, shadow xshift=0.5pt, shadow yshift=-0.5pt}
+    line width=0.9pt, inner sep=3.5pt, font=\fontsize{7.5}{8.5}\selectfont\bfseries,
+    minimum width=1.65cm, minimum height=0.56cm, drop shadow={opacity=0.12, shadow xshift=0.5pt, shadow yshift=-0.5pt}
   },
   userbox/.style={
     rectangle, rounded corners=3.5pt,
     draw=cyan!70!black, fill=cyan!14, text=black,
-    line width=0.85pt, inner sep=3.5pt, font=\fontsize{6.2}{7.2}\selectfont\bfseries,
-    minimum height=0.68cm, align=center, drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}
+    line width=0.9pt, inner sep=4.5pt, font=\fontsize{7.5}{8.5}\selectfont\bfseries,
+    minimum height=0.74cm, align=center, drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}
   },
   agentbox/.style={
     rectangle, rounded corners=3.5pt,
     draw=orange!80!black, fill=orange!16, text=black,
-    line width=0.85pt, inner sep=3.5pt, font=\fontsize{6.2}{7.2}\selectfont\bfseries,
-    minimum height=0.68cm, align=center, drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}
+    line width=0.9pt, inner sep=4.5pt, font=\fontsize{7.5}{8.5}\selectfont\bfseries,
+    minimum height=0.74cm, align=center, drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}
   },
   decision/.style={
-    diamond, aspect=1.55,
+    diamond, aspect=1.9,
     draw=lavenderDark!90, fill=lavenderLight, text=lavenderDark,
-    line width=0.85pt, inner sep=1.5pt, font=\fontsize{5.6}{6.6}\selectfont\bfseries,
-    minimum width=1.85cm, align=center, drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}
+    line width=0.95pt, inner sep=1.5pt, font=\fontsize{6.8}{7.8}\selectfont\bfseries,
+    minimum width=2.30cm, align=center, drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}
   },
   processbox/.style={
     rectangle, rounded corners=3.5pt,
     draw=prismTeal!85!black, fill=prismMint, text=black,
-    line width=0.85pt, inner sep=3.5pt, font=\fontsize{6.2}{7.2}\selectfont\bfseries,
-    minimum height=0.68cm, align=center, drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}
+    line width=0.9pt, inner sep=4.5pt, font=\fontsize{7.5}{8.5}\selectfont\bfseries,
+    minimum height=0.74cm, align=center, drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}
   },
   toolbox/.style={
     rectangle, rounded corners=3pt,
     draw=prismGold!85!black, fill=prismGold!14, text=black,
-    line width=0.75pt, inner sep=2.5pt, font=\fontsize{5.0}{6.0}\selectfont,
-    minimum height=0.56cm, align=center
+    line width=0.85pt, inner sep=3.5pt, font=\fontsize{6.3}{7.3}\selectfont,
+    minimum height=0.62cm, align=center, drop shadow={opacity=0.08, shadow xshift=0.5pt, shadow yshift=-0.5pt}
   },
   deliverbox/.style={
     rectangle, rounded corners=3.5pt,
     draw=green!65!black, fill=green!12, text=black,
-    line width=0.85pt, inner sep=3.0pt, font=\fontsize{6.0}{7.0}\selectfont\bfseries,
-    minimum height=0.68cm, align=center, drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}
+    line width=0.9pt, inner sep=4.0pt, font=\fontsize{7.3}{8.3}\selectfont\bfseries,
+    minimum height=0.74cm, align=center, drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}
   },
   fixbox/.style={
     rectangle, rounded corners=3.5pt,
     draw=red!75!black, fill=red!10, text=black,
-    line width=0.85pt, inner sep=3.0pt, font=\fontsize{6.0}{7.0}\selectfont\bfseries,
-    minimum height=0.68cm, align=center, drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}
+    line width=0.9pt, inner sep=4.0pt, font=\fontsize{7.3}{8.3}\selectfont\bfseries,
+    minimum height=0.74cm, align=center, drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}
+  },
+  infobox/.style={
+    rectangle, rounded corners=3pt,
+    draw=cyan!60!black, fill=cyan!08, text=black,
+    line width=0.75pt, inner sep=4.0pt, font=\fontsize{6.0}{7.0}\selectfont,
+    align=left, drop shadow={opacity=0.08, shadow xshift=0.5pt, shadow yshift=-0.5pt}
+  },
+  stagebox/.style={
+    rounded corners=6pt, line width=0.75pt
   },
   stagehdr/.style={
-    font=\fontsize{5.4}{6.4}\selectfont\bfseries, text=white,
-    rounded corners=2.5pt, inner xsep=4.5pt, inner ysep=2.0pt
+    rounded corners=2.5pt, inner xsep=5.5pt, inner ysep=2.2pt,
+    font=\fontsize{6.8}{7.8}\selectfont\bfseries, text=white
   },
-  arr/.style={-{Stealth[scale=0.75]}, line width=0.90pt, draw=black!75},
-  redarr/.style={-{Stealth[scale=0.75]}, line width=0.90pt, draw=red!75!black},
-  dasharr/.style={-{Stealth[scale=0.65]}, line width=0.75pt, draw=lavenderMedium, dashed},
-  stagebox/.style={
-    rectangle, rounded corners=5pt, line width=0.6pt
-  }
+  arr/.style={->, >=stealth, line width=0.90pt, draw=black!75},
+  dasharr/.style={->, >=stealth, dashed, line width=0.85pt, draw=lavenderDark},
+  redarr/.style={->, >=stealth, line width=0.95pt, draw=red!80!black}
 ]
 
 % =========================================================================
-% LEFT / CENTER WORKFLOW (Center X = 5.80)
+% STAGE 1: USER OBJECTIVE & INTENT (Centered at X = 7.75)
 % =========================================================================
+\node[startend] (start) at (7.75, 7.55) {\faPlay\ START};
 
-% --- STAGE 1: USER OBJECTIVE & INTENT INGESTION (Y: 5.30 to 8.45) ---
-\node[startend] (start) at (5.80, 8.00) {\faPlay\ START};
-
-\node[userbox, text width=4.3cm] (user) at (5.80, 7.05) {
-  \faUser\ \textbf{1. User Objective}\\[-0.05em]
-  {\fontsize{5.2}{6.2}\selectfont\normalfont\color{black!80} ``Build auth module with SQL DB''}
+\node[userbox, text width=6.60cm] (objective) at (7.75, 6.60) {
+  \faUser\ \textbf{1. User Objective}\\[0.06em]
+  {\fontsize{6.5}{7.5}\selectfont\normalfont ``Build auth module with SQL DB''}
 };
 
-\node[agentbox, text width=4.3cm] (classifier) at (5.80, 5.95) {
-  \faBrain\ \textbf{2. Intent Classifier \& Router}\\[-0.05em]
-  {\fontsize{5.0}{6.0}\selectfont\normalfont\color{black!80} Identifies domain (1 of 12 classes) \& provider}\\[-0.05em]
-  {\fontsize{4.6}{5.6}\selectfont\itshape\color{orange!90!black} (OpenAI, Claude, Gemini, Groq, NVIDIA)}
+\node[agentbox, text width=6.60cm] (intent) at (7.75, 5.45) {
+  \faCompass\ \textbf{2. Intent Classifier \& Router}\\[0.06em]
+  {\fontsize{6.3}{7.3}\selectfont\normalfont Identifies domain (1 of 12 classes) \& provider}\\[0.04em]
+  {\fontsize{6.0}{7.0}\selectfont\normalfont\textit{\color{orange!85!black}(OpenAI, Claude, Gemini, Groq, NVIDIA)}}
 };
 
-\draw[arr] (start) -- (user);
-\draw[arr] (user) -- (classifier);
+\draw[arr] (start) -- (objective);
+\draw[arr] (objective) -- (intent);
 
-% --- STAGE 2: EXECUTION DAG PLANNER & DISPATCH (Y: 3.75 to 5.20) ---
-\node[processbox, text width=4.00cm] (planner) at (5.80, 4.45) {
-  \faProjectDiagram\ \textbf{DAG Task Planner}\\[-0.05em]
-  {\fontsize{4.8}{5.8}\selectfont\normalfont Compiles task DAG $\mathcal{G}(V, E)$ from objective}
-};
-
-% Annotation to the right of planner node (clear corridor, zero collision)
-\node[rectangle, rounded corners=3pt, fill=cyan!10, draw=cyan!60, line width=0.5pt,
-      text width=2.45cm, align=left, inner sep=2.8pt] at (9.48, 4.45) {
-  \fontsize{4.2}{5.2}\selectfont
-  \textbf{\color{prismTeal!90!black}\faSitemap\ Swarm Bounding:}\\
-  $\bullet$\enspace Dispatches $K \le 3$ workers\\
-  $\bullet$\enspace Dependency-aware scheduling
+% =========================================================================
+% STAGE 2: DAG PLANNER & DISPATCH (Centered at X = 7.75)
+% =========================================================================
+\node[processbox, text width=6.60cm] (planner) at (7.75, 3.85) {
+  \faSitemap\ \textbf{DAG Task Planner}\\[0.06em]
+  {\fontsize{6.5}{7.5}\selectfont\normalfont Compiles task DAG $\mathcal{G}(V, E)$ from objective}
 };
 
-\draw[arr] (classifier) -- (planner);
+\node[infobox, text width=3.80cm] (daginfo) at (12.50, 3.85) {
+  \textbf{\color{cyan!80!black}\faNetworkWired\ Swarm Bounding:}\\[0.04em]
+  $\bullet$ Dispatches $K \le 3$ workers\\[0.04em]
+  $\bullet$ Dependency-aware scheduling
+};
 
-% --- STAGE 3: WORKER SWARM & MCP TOOL SERVERS (Y: 0.90 to 3.65) ---
-% Worker A: Research & Context (X = 2.05)
-\node[agentbox, text width=2.30cm] (workera) at (2.05, 2.50) {
-  \faSearch\ \textbf{Agent-A (Research)}\\[-0.05em]
-  {\fontsize{4.8}{5.8}\selectfont\normalfont Context \& spec analysis}
-};
-\node[toolbox, text width=2.30cm] (toola) at (2.05, 1.52) {
-  \textbf{\faGlobe\ Browser MCP / Docs:}\\[-0.05em]
-  {\fontsize{4.6}{5.5}\selectfont $\bullet$ Web scraper \quad $\bullet$ Specs}
-};
-\draw[dasharr] (workera) -- node[right, font=\fontsize{4.0}{4.8}\selectfont\color{lavenderDark}]{ReAct} (toola);
+\draw[arr] (intent) -- (planner);
 
-% Worker B: Code & Terminal (X = 5.80)
-\node[agentbox, text width=2.30cm] (workerb) at (5.80, 2.50) {
-  \faCode\ \textbf{Agent-B (Coding)}\\[-0.05em]
-  {\fontsize{4.7}{5.7}\selectfont\normalfont Logic \& API implementation}
+% =========================================================================
+% STAGE 3: WORKER SWARM & MCP TOOLS (X = 3.00, 7.75, 12.50)
+% =========================================================================
+% Worker A: Research & Browser (X = 3.00)
+\node[agentbox, text width=3.40cm] (workera) at (3.00, 1.85) {
+  \faSearch\ \textbf{Agent-A (Research)}\\[0.06em]
+  {\fontsize{6.3}{7.3}\selectfont\normalfont Context \& spec analysis}
 };
-\node[toolbox, text width=2.30cm] (toolb) at (5.80, 1.52) {
-  \textbf{\faTerminal\ Terminal / FS MCP:}\\[-0.05em]
-  {\fontsize{4.6}{5.5}\selectfont $\bullet$ Shell CLI \quad $\bullet$ File edit}
+\node[toolbox, text width=3.40cm] (toola) at (3.00, 0.85) {
+  \textbf{\faGlobe\ Browser MCP / Docs:}\\[0.06em]
+  {\fontsize{5.8}{6.8}\selectfont $\bullet$ Web scraper \quad $\bullet$ Specs}
 };
-\draw[dasharr] (workerb) -- node[right, font=\fontsize{4.0}{4.8}\selectfont\color{lavenderDark}]{ReAct} (toolb);
+\draw[dasharr] (workera) -- node[fill=orange!08, inner sep=1.5pt, font=\fontsize{5.2}{6.2}\selectfont\color{lavenderDark}]{ReAct} (toola);
 
-% Worker C: Validation & Database (X = 9.55)
-\node[agentbox, text width=2.30cm] (workerc) at (9.55, 2.50) {
-  \faCheckCircle\ \textbf{Agent-C (Validation)}\\[-0.05em]
-  {\fontsize{4.8}{5.8}\selectfont\normalfont Tests syntax \& output}
+% Worker B: Code & Terminal (X = 7.75)
+\node[agentbox, text width=3.40cm] (workerb) at (7.75, 1.85) {
+  \faCode\ \textbf{Agent-B (Coding)}\\[0.06em]
+  {\fontsize{6.3}{7.3}\selectfont\normalfont Logic \& API implementation}
 };
-\node[toolbox, text width=2.30cm] (toolc) at (9.55, 1.52) {
-  \textbf{\faDatabase\ Database MCP:}\\[-0.05em]
-  {\fontsize{4.6}{5.5}\selectfont $\bullet$ SQL query \quad $\bullet$ Dexie DB}
+\node[toolbox, text width=3.40cm] (toolb) at (7.75, 0.85) {
+  \textbf{\faTerminal\ Terminal / FS MCP:}\\[0.06em]
+  {\fontsize{5.8}{6.8}\selectfont $\bullet$ Shell CLI \quad $\bullet$ File edit}
 };
-\draw[dasharr] (workerc) -- node[right, font=\fontsize{4.0}{4.8}\selectfont\color{lavenderDark}]{ReAct} (toolc);
+\draw[dasharr] (workerb) -- node[fill=orange!08, inner sep=1.5pt, font=\fontsize{5.2}{6.2}\selectfont\color{lavenderDark}]{ReAct} (toolb);
 
-% Clean Symmetrical Dispatch Tree routing from DAG Planner INSIDE Stage 3 below header
-\draw[line width=0.85pt, draw=black!75] (planner.south) -- (5.80, 3.20);
-\draw[line width=0.85pt, draw=black!75] (2.05, 3.20) -- (9.55, 3.20);
-\draw[arr] (2.05, 3.20) -- (workera.north);
-\draw[arr] (5.80, 3.20) -- (workerb.north);
-\draw[arr] (9.55, 3.20) -- (workerc.north);
+% Worker C: Validation & Database (X = 12.50)
+\node[agentbox, text width=3.40cm] (workerc) at (12.50, 1.85) {
+  \faCheckCircle\ \textbf{Agent-C (Validation)}\\[0.06em]
+  {\fontsize{6.3}{7.3}\selectfont\normalfont Tests syntax \& output}
+};
+\node[toolbox, text width=3.40cm] (toolc) at (12.50, 0.85) {
+  \textbf{\faDatabase\ Database MCP:}\\[0.06em]
+  {\fontsize{5.8}{6.8}\selectfont $\bullet$ SQL query \quad $\bullet$ IndexedDB}
+};
+\draw[dasharr] (workerc) -- node[fill=orange!08, inner sep=1.5pt, font=\fontsize{5.2}{6.2}\selectfont\color{lavenderDark}]{ReAct} (toolc);
+
+% Symmetrical Dispatch Tree routing INSIDE Stage 3 BELOW the header banner (y = 2.45)
+% Drops from Planner south (x = 7.75) down to y = 2.45, then branches cleanly below header
+\draw[line width=0.90pt, draw=black!75] (planner.south) -- (7.75, 2.45);
+\draw[line width=0.90pt, draw=black!75] (3.00, 2.45) -- (12.50, 2.45);
+\draw[arr] (3.00, 2.45) -- (workera.north);
+\draw[arr] (7.75, 2.45) -- (workerb.north);
+\draw[arr] (12.50, 2.45) -- (workerc.north);
 
 % Inter-Agent DAG Collaboration with clean badges
-\draw[dasharr] (workera.east) -- node[above=0.8pt, fill=orange!06, inner sep=1.2pt, font=\fontsize{3.8}{4.8}\selectfont\color{lavenderDark}]{DAG tasks} (workerb.west);
-\draw[dasharr] (workerb.east) -- node[above=0.8pt, fill=orange!06, inner sep=1.2pt, font=\fontsize{3.8}{4.8}\selectfont\color{lavenderDark}]{code / tests} (workerc.west);
+\draw[dasharr] (workera.east) -- node[above=1pt, fill=orange!06, inner sep=1.8pt, font=\fontsize{5.2}{6.2}\selectfont\color{lavenderDark}]{DAG tasks} (workerb.west);
+\draw[dasharr] (workerb.east) -- node[above=1pt, fill=orange!06, inner sep=1.8pt, font=\fontsize{5.2}{6.2}\selectfont\color{lavenderDark}]{code / tests} (workerc.west);
 
-% Multi-Agent Synthesis Bus (Stage 3 -> Stage 4)
-\draw[line width=0.85pt, draw=black!60] (2.05, 1.10) -- (9.55, 1.10);
-\draw[arr] (toola.south) -- (2.05, 1.10);
-\draw[arr] (toolb.south) -- (5.80, 1.10);
-\draw[arr] (toolc.south) -- (9.55, 1.10);
+% Multi-Agent Synthesis Bus between Stage 3 tools and Stage 4
+\draw[line width=0.90pt, draw=black!60] (3.00, 0.30) -- (12.50, 0.30);
+\draw[arr] (toola.south) -- (3.00, 0.30);
+\draw[arr] (toolb.south) -- (7.75, 0.30);
+\draw[arr] (toolc.south) -- (12.50, 0.30);
 
-% --- STAGE 4: SYNTHESIS, HITL APPROVAL & DELIVERY (Y: -2.45 to 0.75) ---
-\node[processbox, text width=6.9cm] (synthesizer) at (5.80, -0.05) {
-  \faCogs\ \textbf{Synthesizer Agent \& Output Validator}\\[-0.05em]
-  {\fontsize{4.8}{5.8}\selectfont\normalfont Integrates multi-agent worker traces, runs syntax checks, and builds unified response}
+% =========================================================================
+% STAGE 4: SYNTHESIS, HITL APPROVAL & DELIVERY
+% =========================================================================
+\node[processbox, text width=8.6cm] (synthesizer) at (7.50, -1.02) {
+  \faCogs\ \textbf{Synthesizer Agent \& Output Validator}\\[0.08em]
+  {\fontsize{6.3}{7.3}\selectfont\normalfont Integrates multi-agent worker traces, runs syntax checks, and builds unified response}
 };
 
-% Feed Synthesis Bus into Synthesizer with label placed safely to the right of the arrow
-\draw[arr] (5.80, 1.10) -- (synthesizer.north);
-\node[fill=lavenderLight, draw=prismTeal!40, line width=0.4pt, rounded corners=2pt, inner xsep=3.0pt, inner ysep=1.5pt,
-      font=\fontsize{4.4}{5.4}\selectfont\itshape, text=prismTeal!90!black, anchor=west] at (6.05, 0.70) {worker \& MCP outputs};
+% Feed Synthesis Bus into Synthesizer with label placed safely to the right
+\draw[arr] (7.75, 0.30) -- (7.75, -0.64);
+\node[fill=lavenderLight, draw=prismTeal!40, line width=0.5pt, rounded corners=2pt, inner xsep=4.5pt, inner ysep=2.0pt,
+      font=\fontsize{5.8}{6.8}\selectfont\itshape, text=prismTeal!90!black, anchor=west] at (8.15, -0.20) {worker \& MCP outputs};
 
-% HITL Checkpoint Diamond
-\node[decision] (hitl) at (5.80, -1.15) {
+% HITL Checkpoint Diamond (Centered at X = 6.90, directly below synthesizer south at 6.90)
+\node[decision] (hitl) at (6.90, -2.18) {
   \faUserShield\ HITL Check\\Approved?
 };
-\draw[arr] (synthesizer) -- (hitl);
+\draw[arr] (synthesizer.south -| hitl.north) -- (hitl.north);
 
-% Delivery Result (YES - Right)
-\node[deliverbox, text width=2.15cm] (success) at (9.55, -1.15) {
-  \faCheckDouble\ \textbf{Deliver Result}\\[-0.05em]
-  {\fontsize{4.8}{5.8}\selectfont\normalfont Save to PrismDB \& render output}
+% Delivery Result & END Terminal (Horizontal Flow on the right: HITL -> Deliver -> END)
+\node[deliverbox, text width=2.80cm] (success) at (10.60, -2.18) {
+  \faCheckDouble\ \textbf{Deliver Result}\\[0.06em]
+  {\fontsize{6.2}{7.2}\selectfont\normalfont Save to IndexedDB\\[0.02em]\& render output}
 };
-\draw[arr] (hitl.east) -- node[above, font=\fontsize{5.8}{6.8}\selectfont\bfseries, text=green!60!black]{YES} (success.west);
+\draw[arr] (hitl.east) -- node[above, font=\fontsize{7.2}{8.2}\selectfont\bfseries, text=green!60!black]{YES} (success.west);
 
-% END Terminal (cleanly aligned below Deliver Result inside Stage 4)
-\node[startend] (end) at (9.55, -2.05) {\faFlagCheckered\ END};
-\draw[arr] (success.south) -- (end.north);
+\node[startend] (end) at (13.60, -2.18) {\faFlagCheckered\ END};
+\draw[arr] (success.east) -- (end.west);
 
 % Fix Issues (NO - Left)
-\node[fixbox, text width=2.15cm] (replan) at (2.05, -1.15) {
-  \faUndo\ \textbf{Operator Feedback}\\[-0.05em]
-  {\fontsize{4.8}{5.8}\selectfont\normalfont Re-plan or request changes}
+\node[fixbox, text width=2.80cm] (replan) at (2.40, -2.18) {
+  \faUndo\ \textbf{Operator Feedback}\\[0.06em]
+  {\fontsize{6.2}{7.2}\selectfont\normalfont Re-plan or request changes}
 };
-\draw[redarr] (hitl.west) -- node[above, font=\fontsize{5.8}{6.8}\selectfont\bfseries, text=red!75!black]{NO} (replan.east);
+\draw[redarr] (hitl.west) -- node[above, font=\fontsize{7.2}{8.2}\selectfont\bfseries, text=red!75!black]{NO} (replan.east);
 
-% Re-plan Feedback Loop (Corridor at X = 0.35, cleanly positioned at X = 2.05 in Stage 2)
-\draw[redarr] (replan.west) -- (0.35, -1.15) -- (0.35, 4.45) -- (planner.west)
-  node[pos=0.48, fill=white, draw=red!70, text=red!80!black, font=\fontsize{4.6}{5.6}\selectfont\bfseries, rounded corners=2pt, inner xsep=3.5pt, inner ysep=1.5pt] {\faRedo\ Re-plan Feedback Loop};
+% Re-plan Feedback Loop (Routed cleanly at X = 0.25 outside container cards, badge centered cleanly at X = 2.45)
+\draw[redarr] (replan.west) -- (0.25, -2.18) -- (0.25, 3.85) -- (planner.west);
+\node[fill=white, draw=red!70, text=red!80!black, font=\fontsize{6.0}{7.0}\selectfont\bfseries, rounded corners=2.5pt, inner xsep=4.0pt, inner ysep=2.0pt] at (2.45, 3.85) {\faRedo\ Re-plan Feedback Loop};
 
 % =========================================================================
 % BACKGROUND STAGE CONTAINERS (Structured Cards with Headers)
 % =========================================================================
 \begin{scope}[on background layer]
   % Stage 1 Container
-  \draw[stagebox, fill=lavenderLight!50, draw=lavenderBorder] (0.75, 5.30) rectangle (10.85, 8.45);
-  \node[stagehdr, fill=lavenderDark, anchor=north west] at (0.85, 8.40) {
+  \draw[stagebox, fill=lavenderLight!50, draw=lavenderBorder] (0.50, 5.00) rectangle (15.00, 8.05);
+  \node[stagehdr, fill=lavenderDark, anchor=north west] at (0.60, 8.00) {
     \faPaperPlane\ Step 1: User Objective \& Intent
   };
 
   % Stage 2 Container
-  \draw[stagebox, fill=cyan!06, draw=cyan!45] (0.75, 3.75) rectangle (10.85, 5.20);
-  \node[stagehdr, fill=prismTeal!90!black, anchor=north west] at (0.85, 5.15) {
+  \draw[stagebox, fill=cyan!06, draw=cyan!45] (0.50, 3.35) rectangle (15.00, 4.80);
+  \node[stagehdr, fill=prismTeal!90!black, anchor=north west] at (0.60, 4.75) {
     \faProjectDiagram\ Step 2: DAG Planner \& Dispatch
   };
 
-  % Stage 3 Container
-  \draw[stagebox, fill=orange!06, draw=orange!45] (0.75, 0.90) rectangle (10.85, 3.65);
-  \node[stagehdr, fill=orange!85!black, anchor=north west] at (0.85, 3.60) {
+  % Stage 3 Container (Top at 3.10, header at 3.05 down to 2.65, dispatch bus at 2.45)
+  \draw[stagebox, fill=orange!06, draw=orange!45] (0.50, 0.15) rectangle (15.00, 3.10);
+  \node[stagehdr, fill=orange!85!black, anchor=north west] at (0.60, 3.05) {
     \faUsers\ Step 3: Multi-Agent Worker Swarm \& MCP Tools
   };
 
-  % Stage 4 Container
-  \draw[stagebox, fill=lavenderLight!50, draw=lavenderBorder] (0.75, -2.45) rectangle (10.85, 0.75);
-  \node[stagehdr, fill=lavenderDark, anchor=north west] at (0.85, 0.70) {
+  % Stage 4 Container (Top at -0.05, header at -0.10 down to -0.52, synthesizer top at -0.65)
+  \draw[stagebox, fill=lavenderLight!50, draw=lavenderBorder] (0.50, -2.85) rectangle (15.00, -0.05);
+  \node[stagehdr, fill=lavenderDark, anchor=north west] at (0.60, -0.10) {
     \faCheckDouble\ Step 4: Quality Check, HITL \& Delivery
   };
 \end{scope}
 
 % Figure Caption
-\node[font=\fontsize{6.2}{7.2}\selectfont\itshape, text=black!70, anchor=north] at (5.80, -2.60) {
+\node[font=\fontsize{7.0}{8.0}\selectfont\itshape, text=black!70, anchor=north] at (7.75, -2.99) {
   \textit{Figure 1.3: Simplified Multi-Agent Communication Flow in PrismSpace}
 };
 
@@ -1407,7 +3671,17 @@ While ChatGPT is optimized for single-model dialog and frameworks like CrewAI/Au
   \endgroup
 }
 
-\begin{frame}[t]{14. Browser Database Schema: \texttt{PrismDB} (Figure 1.4)}
+\begin{frame}[plain]
+\vfill
+\begin{center}
+  {\color{lavenderDark}\fontsize{25}{30}\selectfont\bfseries Database Design\par}
+  \vspace{0.45em}
+  {\color{prismTeal!85!black}\large PrismDB schema, relationships, and entity--relationship structure}
+\end{center}
+\vfill
+\end{frame}
+
+\begin{frame}[t]{14. Database Schema}
 \vspace{-0.20cm}
 
 \begin{columns}[T, totalwidth=\linewidth]
@@ -1514,10 +3788,32 @@ While ChatGPT is optimized for single-model dialog and frameworks like CrewAI/Au
 \end{columns}
 
 % ------------------------------------------------------------------
-% OVERLAY ARROWS
+% RELATIONSHIP CONNECTORS
 % ------------------------------------------------------------------
-% The remembered tcolorbox coordinates are disabled for current
-% TikZ/tcolorbox versions; the schema boxes remain fully visible.
+% Routed outside the table bodies so they do not cross field text.
+\begin{tikzpicture}[remember picture,overlay]
+  % agent_chat_sessions.id -> agent_chat_messages.sessionId
+  \draw[-{Latex[length=1.5mm]}, line width=0.55pt, lavenderDark!85!black]
+    ([xshift=3.90cm,yshift=6.28cm]current page.south west) --
+    node[above, pos=.50, yshift=2pt, fill=white, inner sep=1pt,
+      font=\fontsize{4.2}{4.8}\selectfont\color{lavenderDark!85!black}]{1:N}
+    ([xshift=4.35cm,yshift=6.28cm]current page.south west);
+
+  % agent_chat_sessions.id -> ai_tool_history.sessionId
+  \draw[-{Latex[length=1.5mm]}, dashed, line width=0.55pt, lavenderMedium!90!black]
+    ([xshift=3.90cm,yshift=6.10cm]current page.south west) --
+    ([xshift=3.90cm,yshift=4.05cm]current page.south west) --
+    node[above, pos=.50, fill=white, inner sep=1pt,
+      font=\fontsize{4.2}{4.8}\selectfont\color{lavenderMedium!90!black}]{sessionId FK, 1:N}
+    ([xshift=10.15cm,yshift=4.05cm]current page.south west) --
+    ([xshift=10.15cm,yshift=6.10cm]current page.south west) --
+    ([xshift=10.35cm,yshift=6.10cm]current page.south west);
+
+  % ai_tool_history -> Agent Key-Value Stores
+  \draw[-{Latex[length=1.5mm]}, dashed, line width=0.55pt, lavenderMedium!90!black]
+    ([xshift=15.45cm,yshift=5.05cm]current page.south west) --
+    ([xshift=15.45cm,yshift=3.90cm]current page.south west);
+\end{tikzpicture}
 
 \vspace{0.08cm}
 \begin{tcolorbox}[
@@ -1533,11 +3829,230 @@ While ChatGPT is optimized for single-model dialog and frameworks like CrewAI/Au
 \end{frame}
 
 % =============================================================================
+% REQUIREMENTS, IMPLEMENTATION LAYERS & SYSTEM MODULES
+% =============================================================================
+
+% --- BEGIN requirements_modules_frames.tex ---
+% Requirements, implementation layers, training modules, and system modules
+
+\begin{frame}[t]{15. Database ER Diagram}
+\vspace{0.25cm}
+\centering
+
+\resizebox{0.96\linewidth}{!}{%
+\begin{tikzpicture}[
+  font=\sffamily,
+  entity/.style={rectangle, draw=lavenderDark!90, fill=lavenderLight,
+    line width=0.95pt, inner xsep=5pt, inner ysep=4.5pt,
+    align=center, font=\fontsize{6.3}{7.3}\selectfont\bfseries,
+    rounded corners=2pt},
+  relation/.style={diamond, aspect=2.0, draw=prismTeal!90!black, fill=prismMint,
+    line width=0.85pt, minimum width=1.05cm, minimum height=0.50cm,
+    align=center, inner sep=1pt, font=\fontsize{4.8}{5.8}\selectfont\bfseries},
+  attr/.style={ellipse, draw=lavenderMedium!90, fill=white, line width=0.75pt,
+    minimum width=1.55cm, minimum height=0.44cm, align=center,
+    inner sep=2pt, font=\fontsize{5.6}{6.6}\selectfont},
+  link/.style={line width=0.75pt, draw=lavenderDark!85!black},
+  card/.style={font=\fontsize{6.2}{7.2}\selectfont\bfseries, text=lavenderDark!95!black}
+]
+
+% ==================== ENTITIES & RELATIONSHIPS ====================
+% Horizontal line of chat entities (y = 0.90)
+\node[entity]   (sessions)  at (-5.60,  0.90) {AGENT\_CHAT\_SESSIONS};
+\node[relation] (hasmsg)    at (-2.80,  0.90) {MESSAGES};
+\node[entity]   (messages)  at ( 0.00,  0.90) {AGENT\_CHAT\_MESSAGES};
+\node[relation] (hastool)   at ( 2.80,  0.90) {TOOLS};
+\node[entity]   (tools)     at ( 5.60,  0.90) {AI\_TOOL\_HISTORY};
+
+% Vertical extension for state store (x = 5.60)
+\node[relation] (usesstate) at ( 5.60, -0.75) {USES STATE};
+\node[entity]   (kv)        at ( 5.60, -2.25) {AGENT KEY--VALUE STORES};
+
+% ==================== ATTRIBUTES ====================
+% Sessions Attributes (Top & Bottom)
+\node[attr] (sid)      at (-6.35, 2.25) {\underline{sessionId}};
+\node[attr] (stitle)   at (-4.85, 2.25) {title};
+\node[attr] (screated) at (-5.60, -0.30) {createdAt};
+\draw[link] (sid)      -- ([xshift=-0.5cm]sessions.north);
+\draw[link] (stitle)   -- ([xshift=0.5cm]sessions.north);
+\draw[link] (screated) -- (sessions.south);
+
+% Messages Attributes (Top & Bottom)
+\node[attr] (mid)      at (-1.10, 2.15) {\underline{id}};
+\node[attr] (msession) at ( 0.00, 2.75) {sessionId (FK)};
+\node[attr] (mrole)    at ( 1.10, 2.15) {role};
+\node[attr] (mcontent) at ( 0.00, -0.30) {content};
+\draw[link] (mid)      -- ([xshift=-0.5cm]messages.north);
+\draw[link] (msession) -- (messages.north);
+\draw[link] (mrole)    -- ([xshift=0.5cm]messages.north);
+\draw[link] (mcontent) -- (messages.south);
+
+% Tool-History Attributes (Top & Right)
+\node[attr] (tid)      at ( 4.50, 2.15) {\underline{id}};
+\node[attr] (tsession) at ( 5.60, 2.75) {sessionId (FK)};
+\node[attr] (ttype)    at ( 6.70, 2.15) {toolType};
+\node[attr] (tinput)   at ( 7.80, 1.35) {input};
+\node[attr] (toutput)  at ( 7.80, 0.45) {output};
+\draw[link] (tid)      -- ([xshift=-0.5cm]tools.north);
+\draw[link] (tsession) -- (tools.north);
+\draw[link] (ttype)    -- ([xshift=0.5cm]tools.north);
+\draw[link] (tinput)   -- (tools.east);
+\draw[link] (toutput)  -- (tools.east);
+
+% Key-Value Attributes (Bottom)
+\node[attr] (key)   at ( 4.55, -3.20) {\underline{key}};
+\node[attr] (value) at ( 6.65, -3.20) {value};
+\draw[link] (key)   -- ([xshift=-0.6cm]kv.south);
+\draw[link] (value) -- ([xshift=0.6cm]kv.south);
+
+% ==================== CONNECTORS & CARDINALITIES ====================
+% Sessions <-> MESSAGES <-> Messages
+\draw[link] (sessions.east) -- node[above=2pt, card] {1} (hasmsg.west);
+\draw[link] (hasmsg.east)   -- node[above=2pt, card] {N} (messages.west);
+
+% Messages <-> TOOLS <-> Tools
+\draw[link] (messages.east) -- node[above=2pt, card] {1} (hastool.west);
+\draw[link] (hastool.east)  -- node[above=2pt, card] {N} (tools.west);
+
+% Tools <-> USES STATE <-> Key-Value Stores
+\draw[link] (tools.south)     -- node[right=3.5pt, card] {N} (usesstate.north);
+\draw[link] (usesstate.south) -- node[right=3.5pt, card] {1} (kv.north);
+
+\end{tikzpicture}%
+}
+\end{frame}
+
+\begin{frame}[plain]
+\vfill
+\begin{center}
+  {\color{lavenderDark}\fontsize{25}{30}\selectfont\bfseries Project Requirements\par}
+  \vspace{0.45em}
+  {\color{prismTeal!85!black}\large Hardware and software needed to build and run PrismSpace}
+\end{center}
+\vfill
+\end{frame}
+
+\begin{frame}[t]{16. Hardware Requirements}
+\vspace{-0.15cm}
+\begin{tcolorbox}[enhanced,arc=3pt,colframe=lavenderDark!70,colback=lavenderLight!22,
+  boxrule=0.7pt,left=8pt,right=8pt,top=6pt,bottom=6pt]
+\begin{itemize}\setlength{\itemsep}{8pt}\small
+  \item \textbf{CPU:} Multi-core processor for the Next.js client, FastAPI service, and local development tools.
+  \item \textbf{GPU:} NVIDIA RTX 3050 or above for embedding generation, vector indexing, and model-training workloads.
+  \item \textbf{Memory:} Minimum 16 GB RAM for running the frontend, backend, databases, and supporting services concurrently.
+  \item \textbf{Storage:} SSD with sufficient capacity for the codebase, PrismDB data, logs, model checkpoints, and FAISS indexes.
+  \item \textbf{Network:} Reliable internet connection for provider APIs, MCP integrations, and model downloads.
+  \item \textbf{Security:} Secure environment-variable or secret-manager support for provider and tool credentials.
+\end{itemize}
+\end{tcolorbox}
+\end{frame}
+
+\begin{frame}[t]{17. Software Requirements}
+\vspace{-0.15cm}
+\begin{itemize}\setlength{\itemsep}{7pt}\small
+  \item \textbf{Next.js 14 / React / TypeScript:} browser-based workspace for objectives, chat history, agent status, and approvals.
+  \item \textbf{FastAPI / Python:} asynchronous backend framework for agent orchestration, REST endpoints, and runtime events.
+  \item \textbf{Dexie.js / IndexedDB:} local ACID storage for sessions, messages, files, settings, and tool history.
+  \item \textbf{Joblib / scikit-learn:} Python libraries for data preparation, utility functions, serialization, and general machine-learning support.
+  \item \textbf{MCP JSON-RPC:} MCP (Model Context Protocol) uses JSON-RPC (JavaScript Object Notation--Remote Procedure Call) messages to standardize tool names, inputs, outputs, and errors for browser, terminal, filesystem, GitHub, database, and workspace tools.
+  \item \textbf{Provider SDKs/APIs:} \textbf{NVIDIA NIM} provides optimized model-serving endpoints; the \textbf{Groq SDK} supports low-latency inference; and the \textbf{Anthropic Claude SDK/API}, OpenAI-compatible APIs, and similar provider clients connect the orchestrator to different language models.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[plain]
+\vfill
+\begin{center}
+  {\color{lavenderDark}\fontsize{25}{30}\selectfont\bfseries Project Implementation\par}
+  \vspace{0.45em}
+  {\color{prismTeal!85!black}\large Frontend, backend, and training components}
+\end{center}
+\vfill
+\end{frame}
+
+\begin{frame}[t]{18. Frontend Implementation}
+\vspace{-0.15cm}
+\begin{itemize}\setlength{\itemsep}{8pt}\small
+  \item \textbf{Next.js 14:} React-based framework for building the browser application and managing frontend pages.
+  \item \textbf{React:} component library for creating reusable user-interface elements.
+  \item \textbf{TypeScript:} typed JavaScript used for safer and more maintainable frontend development.
+  \item \textbf{Tailwind CSS:} utility-first styling framework for responsive layouts and consistent visual design.
+  \item \textbf{Dexie.js, IndexedDB, and dexie-react-hooks:} browser storage and reactive data-access libraries for local application data.
+  \item \textbf{Lucide React:} icon library used for interface symbols and controls.
+  \item \textbf{Framer Motion and GSAP (GreenSock Animation Platform):} frontend animation libraries for smooth interface transitions.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{19. Backend Implementation}
+\vspace{-0.15cm}
+\begin{itemize}\setlength{\itemsep}{8pt}\small
+  \item \textbf{FastAPI:} Python framework for building asynchronous backend services and application endpoints.
+  \item \textbf{Python:} primary backend language for API services, integrations, data handling, and runtime coordination.
+  \item \textbf{Uvicorn:} lightweight \textbf{ASGI (Asynchronous Server Gateway Interface)} server used to run FastAPI. ASGI connects asynchronous Python applications to web servers and supports non-blocking concurrent requests.
+  \item \textbf{REST (Representational State Transfer):} API style for communicating with the frontend through structured HTTP requests and responses.
+  \item \textbf{Pydantic:} schema validation and typed data models for request, response, configuration, and tool payloads.
+  \item \textbf{MCP (Model Context Protocol) and JSON-RPC (JavaScript Object Notation--Remote Procedure Call):} standards for structured communication between the backend and external tools.
+  \item \textbf{Provider SDKs/APIs:} integration layer for connecting the backend to external language-model and model-serving services.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{20. Model Training Modules}
+\vspace{-0.15cm}
+\begin{itemize}\setlength{\itemsep}{2pt}\footnotesize
+  \item \textbf{Dataset preparation:} collects, cleans, and combines task traces and preference data using \textbf{Pandas}, \textbf{NumPy}, and \textbf{PyArrow}.
+  \item \textbf{Intent classification:} categorizes user objectives using \textbf{scikit-learn} text features, classifiers, and \textbf{XGBoost}.
+  \item \textbf{Agent routing:} selects specialist agents using shared \textbf{scikit-learn} pipelines and \textbf{XGBoost} classification support.
+  \item \textbf{Model and provider routing:} compares task features and provider signals using \textbf{Pandas}, \textbf{NumPy}, \textbf{scikit-learn}, and \textbf{XGBoost}.
+  \item \textbf{Performance prediction:} estimates latency and cost with \textbf{XGBoost} regression, supported by \textbf{scikit-learn} preprocessing.
+  \item \textbf{Safety prediction:} estimates approval needs and detects unusual patterns with \textbf{scikit-learn}, \textbf{XGBoost}, and \textbf{Isolation Forest} utilities.
+  \item \textbf{Retrieval:} uses \textbf{FAISS (Facebook AI Similarity Search)}, \textbf{NumPy}, and optional \textbf{sentence-transformers} embeddings for context search.
+  \item \textbf{Preference alignment:} uses \textbf{PyTorch}, \textbf{Hugging Face Transformers}, \textbf{TRL (Transformer Reinforcement Learning)}, \textbf{PEFT}, and \textbf{Datasets} for ORPO training.
+  \item \textbf{Runtime artifacts:} uses \textbf{Joblib}, \textbf{Safetensors}, and \textbf{Hugging Face Accelerate} to save, validate, and load trained components.
+\end{itemize}
+\vspace{0.02cm}
+\begin{tcolorbox}[enhanced,arc=3pt,colframe=lavenderDark!65,colback=lavenderLight!30,
+  boxrule=0.6pt,left=6pt,right=6pt,top=3pt,bottom=3pt]
+\fontsize{4.8}{5.8}\selectfont
+\textbf{Artifact:} a saved output from training, such as a trained model, vector index, or configuration file, that can be reused later.\quad
+\textbf{FAISS (Facebook AI Similarity Search):} a library for quickly finding similar vectors.\quad
+\textbf{PEFT (Parameter-Efficient Fine-Tuning):} adapts a model by training only a small set of additional parameters.
+\end{tcolorbox}
+\end{frame}
+
+\begin{frame}[plain]
+\vfill
+\begin{center}
+  {\color{lavenderDark}\fontsize{25}{30}\selectfont\bfseries System Design\par}
+  \vspace{0.45em}
+  {\color{prismTeal!85!black}\large Modules, responsibilities, and system-level organization}
+\end{center}
+\vfill
+\end{frame}
+
+\begin{frame}[t]{21. System Modules and Responsibilities}
+\vspace{-0.15cm}
+\begin{itemize}\setlength{\itemsep}{6pt}\footnotesize
+  \item \textbf{User and Session Module:} captures objectives, settings, conversation history, uploaded files, and session state.
+  \item \textbf{Context and Routing Module:} classifies intent and selects the most suitable provider, model, and specialist agents.
+  \item \textbf{DAG (Directed Acyclic Graph) Planning Module:} decomposes objectives into dependency-aware subtasks and schedules parallel work.
+  \item \textbf{Agent Execution Module:} runs bounded \textbf{ReAct (Reasoning and Acting)} loops and invokes approved tools.
+  \item \textbf{MCP (Model Context Protocol) Integration Module:} exposes filesystem, terminal, database, memory, and external-service tools through \textbf{JSON-RPC (JavaScript Object Notation--Remote Procedure Call)}.
+  \item \textbf{Verification and Safety Module:} applies schema checks, \textbf{ORPO (Odds Ratio Preference Optimization)} preference gating, anomaly detection, and \textbf{HITL (Human-in-the-Loop)} approvals.
+  \item \textbf{Persistence Module:} stores sessions, messages, artifacts, and errors in the local \textbf{PrismDB (browser IndexedDB database)}.
+\end{itemize}
+\end{frame}
+
+% --- END requirements_modules_frames.tex ---
+
+
+% =============================================================================
 % =============================================================================
 % =============================================================================
 % SLIDE 14+: SIMPLIFIED PROJECT WORKFLOW ALGORITHM
 % =============================================================================
 \section{Swarm Algorithm}
+
+% The algorithm pages are rendered before the workflow diagram above.
+\iffalse
 
 % Hierarchical Algorithm List Environments matching Screenshot 2 structure
 \newenvironment{algolist}{%
@@ -1951,6 +4466,132 @@ While ChatGPT is optimized for single-model dialog and frameworks like CrewAI/Au
     \end{algosublist}
 \end{algolist}
 \end{frame}
+\fi
+
+% =============================================================================
+% REFERENCES (placed after the complete swarm algorithm)
+% =============================================================================
+\section{Conclusion}
+\begin{frame}[t]{22. Conclusion}
+\vspace{0.35cm}
+\begin{itemize}\setlength{\itemsep}{12pt}\large
+  \item \textbf{PrismSpace} converts a user's natural-language goal into smaller, organized tasks.
+  \item Independent tasks can be executed by multiple agents in parallel.
+  \item Standard tools are connected through the \textbf{Model Context Protocol (MCP)}.
+  \item Human approval and local browser storage improve safety, privacy, and control.
+  \item The platform provides a flexible foundation for future agent-based applications.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{23. Gantt Chart}
+\centering
+\resizebox{1.0\textwidth}{!}{%
+\begin{tikzpicture}[
+  x=1.00cm, y=0.52cm,
+  lab/.style={anchor=east, font=\scriptsize, inner sep=3pt, text=prismNavy}
+]
+\def\nm{9}
+\def\rowh{1.0}
+\def\bh{0.36}
+\def\topY{11.5}
+
+\foreach \i in {0,1,...,\nm} {
+  \draw[gray!22] (\i,0.5) -- (\i,\topY);
+}
+\foreach \i/\m in {0.5/Jul'26,1.5/Aug'26,2.5/Sep'26,3.5/Oct'26,4.5/Nov'26,5.5/Dec'26,6.5/Jan'27,7.5/Feb'27,8.5/Mar'27} {
+  \node[anchor=south, font=\scriptsize\bfseries, text=prismNavy] at (\i,\topY+0.08) {\m};
+}
+\draw[prismNavy, line width=0.7pt] (0,\topY) -- (\nm,\topY);
+\draw[prismNavy, line width=0.6pt] (0,0.5) -- (\nm,0.5);
+
+\foreach \k in {0,...,10} {
+  \pgfmathsetmacro{\yc}{11.0-\k}
+  \ifodd\k
+    \fill[prismMint, opacity=0.45] (0,\yc-0.5) rectangle (\nm,\yc+0.5);
+  \fi
+}
+
+\node[lab] at (0,11.0) {Project ideation \& problem identification};
+\node[lab] at (0,10.0) {Literature survey \& research};
+\node[lab] at (0,9.0) {Requirement analysis \& feasibility};
+\node[lab] at (0,8.0) {System design (agents, \textbf{MCP}, \textbf{HITL})};
+\node[lab] at (0,7.0) {Trajectory data collection \& pairing};
+\node[lab] at (0,6.0) {Implementation: \textbf{MCP} \textbf{ReAct} swarm};
+\node[lab] at (0,5.0) {Implementation: \textbf{ORPO} \& \textbf{ML} routing};
+\node[lab] at (0,4.0) {Workspace integration \& \textbf{HITL} gates};
+\node[lab] at (0,3.0) {Testing \& evaluation};
+\node[lab] at (0,2.0) {Project documentation};
+\node[lab] at (0,1.0) {Final review \& submission};
+
+\fill[prismBlue]     (0.0,11.0-0.18) rectangle (2.0,11.0+0.18);
+\fill[prismTeal]     (1.0,10.0-0.18) rectangle (2.5,10.0+0.18);
+\fill[prismGold]     (1.5,9.0-0.18)  rectangle (2.5,9.0+0.18);
+\fill[prismBlue]     (2.0,8.0-0.18)  rectangle (3.5,8.0+0.18);
+\fill[prismTeal]     (3.0,7.0-0.18)  rectangle (4.5,7.0+0.18);
+\fill[prismGold]     (4.0,6.0-0.18)  rectangle (5.5,6.0+0.18);
+\fill[prismBlue]     (5.0,5.0-0.18)  rectangle (6.5,5.0+0.18);
+\fill[prismTeal]     (6.0,4.0-0.18)  rectangle (7.5,4.0+0.18);
+\fill[prismGold]     (7.0,3.0-0.18)  rectangle (8.0,3.0+0.18);
+\fill[prismBlue]     (7.5,2.0-0.18)  rectangle (9.0,2.0+0.18);
+\fill[prismTeal]     (8.0,1.0-0.18)  rectangle (9.0,1.0+0.18);
+
+\node[font=\scriptsize\bfseries, text=prismNavy] at (4.5,-0.15) {Timeline (Jul 2026 -- Mar 2027)};
+\end{tikzpicture}%
+}
+\end{frame}
+
+
+% --- BEGIN literature_review_ppt/ppt/slides/references_all.tex ---
+\section{References}
+
+\begin{frame}{References}
+\scriptsize
+\setbeamertemplate{enumerate item}{\textbf{\color{lavenderDark}[\insertenumlabel]}}
+\begin{enumerate}\itemsep0.28em\leftskip=-0.55em
+\item \textbf{Cornalba F, Disselkamp C, Scassola D, Helf C (2024)} Multi-objective reward generalization: improving performance of Deep Reinforcement Learning for applications in single-asset trading. \textit{Neural Computing and Applications}. DOI: 10.1007/s00521-023-09033-7
+\item \textbf{Schneckenreither M, Moser G (2025)} Average reward adjusted discounted reinforcement learning. \textit{Neural Computing and Applications}. DOI: 10.1007/s00521-024-10620-5
+\item \textbf{Aina K, Ha S (2026)} Deep reinforcement learning for multi-agent coordination. \textit{Artificial Life and Robotics}. DOI: 10.1007/s10015-025-01089-z
+\item \textbf{Rother D, Pajarinen J, Peters J, Weisswange TH (2025)} Open-ended coordination for multi-agent systems using modular open policies. \textit{Autonomous Agents and Multi-Agent Systems}. DOI: 10.1007/s10458-025-09723-7
+\item \textbf{Liu D, Ren F, Yan J, Su G, Gu W, Kato S (2026)} Improving scalability of multi-agent deep reinforcement learning with suboptimal human knowledge. \textit{Autonomous Agents and Multi-Agent Systems}. DOI: 10.1007/s10458-025-09729-1
+\item \textbf{Marzari L, Liu C, Donti PL, Marchesini E (2026)} $\varepsilon$-retraining reinforcement learning algorithms. \textit{Autonomous Agents and Multi-Agent Systems}. DOI: 10.1007/s10458-026-09748-6
+\item \textbf{Wong A, B\"ack T, Kononova AV, Plaat A (2023)} Deep multiagent reinforcement learning: challenges and directions. \textit{Artificial Intelligence Review}. DOI: 10.1007/s10462-022-10299-x
+\item \textbf{Niu B, Luo B, Cui Y, Xu X, Zhao Y, Feng Y (2025)} HIAT: human-in-the-loop reinforcement learning with auxiliary task. \textit{Artificial Intelligence Review}. DOI: 10.1007/s10462-025-11260-4
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{References}
+\scriptsize
+\setbeamertemplate{enumerate item}{\textbf{\color{lavenderDark}[\insertenumlabel]}}
+\begin{enumerate}\setcounter{enumi}{8}\itemsep0.28em\leftskip=-0.55em
+\item \textbf{Lee J (2025)} InstructPatentGPT: training patent language models to follow instructions with human feedback. \textit{Artificial Intelligence and Law}. DOI: 10.1007/s10506-024-09401-1
+\item \textbf{Zhuang S, Qiao Z, Zuccon G (2023)} Reinforcement online learning to rank with unbiased reward shaping. \textit{Information Retrieval Journal}. DOI: 10.1007/s10791-022-09413-y
+\item \textbf{Ghazal TM, Awouda AE, Hasan MK, Rahman AHA, Islam S, Saeed RA, Elshafie H, Iqbal A, Hussein AH (2025)} Knowledge Learning for Securing Workflow Scheduling Algorithm in Mobile Edge Computing. \textit{Mobile Networks and Applications}. DOI: 10.1007/s11036-025-02465-6
+\item \textbf{Barredo P, Puente J (2025)} Energy-aware cooperative multi-fitness evolutionary algorithm for workflow scheduling in cloud computing. \textit{Natural Computing}. DOI: 10.1007/s11047-025-10023-y
+\item \textbf{Heirati A, Fartash M, Khalily-Dermany M (2025)} Optimized Task Scheduling in Fog-Cloud Computing Using Hybrid Deep Learning and Metaheuristic Algorithms. \textit{Neural Processing Letters}. DOI: 10.1007/s11063-025-11819-w
+\item \textbf{Abdi S, Ashjaei M, Mubeen S (2024)} Cost-aware workflow offloading in edge-cloud computing using a genetic algorithm. \textit{The Journal of Supercomputing}. DOI: 10.1007/s11227-024-06341-0
+\item \textbf{Xia Y, Zhu J, Zhu L (2023)} Dynamic role discovery and assignment in multi-agent task decomposition. \textit{Complex \& Intelligent Systems}. DOI: 10.1007/s40747-023-01071-x
+\item \textbf{Li J, Xing L, Zhong W, Cai Z, Hou F (2023)} Decision variable contribution based adaptive mechanism for evolutionary multi-objective cloud workflow scheduling. \textit{Complex \& Intelligent Systems}. DOI: 10.1007/s40747-023-01137-w
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{References}
+\scriptsize
+\setbeamertemplate{enumerate item}{\textbf{\color{lavenderDark}[\insertenumlabel]}}
+\begin{enumerate}\setcounter{enumi}{16}\itemsep0.22em\leftskip=-0.55em
+\item \textbf{Yu X, Lin Y, Wang X, Han S, Lv K (2024)} GHQ: grouped hybrid Q-learning for cooperative heterogeneous multi-agent reinforcement learning. \textit{Complex \& Intelligent Systems}. DOI: 10.1007/s40747-024-01415-1
+\item \textbf{Xu C, Wang J, Zhu X, Yue Y, Zhou W, Liang Z, Wojtczak D (2024)} Decentralized multi-agent cooperation via adaptive partner modeling. \textit{Complex \& Intelligent Systems}. DOI: 10.1007/s40747-024-01421-3
+\item \textbf{Vyhmeister E, Casta\~n\'e GG, \"Ostberg PO, Thevenin S (2023)} A responsible AI framework: pipeline contextualisation. \textit{AI and Ethics}. DOI: 10.1007/s43681-022-00154-8
+\item \textbf{Cavalcante Siebert L, Lupetti ML, Aizenberg E, Beckers N, Zgonnikov A, Veluwenkamp H, Abbink D, Giaccardi E, Houben GJ, Jonker CM, van den Hoven J, Forster D, Lagendijk RL (2023)} Meaningful human control: actionable properties for AI system development. \textit{AI and Ethics}. DOI: 10.1007/s43681-022-00167-3
+\item \textbf{Yue Q, Tian L, Feng X, Yuan Z, Wei S, Xia J, Chen B, Song X, Yao Y (2026)} CPN-HRL: a hierarchical deep reinforcement learning approach for priority-aware task scheduling in CPN enabled by cloud-edge-end environments. \textit{Journal of King Saud University Computer and Information Sciences}. DOI: 10.1007/s44443-026-00690-x
+\item \textbf{Skirzy\'{n}ski J, Jain Y, Lieder F (2023)} Automatic discovery and description of human planning strategies. \textit{Behavior Research Methods}. DOI: 10.3758/s13428-023-02062-z
+\item \textbf{Zhang S, Zhao Z, Liu C, Qin S (2023)} Data-intensive workflow scheduling strategy based on deep reinforcement learning in multi-clouds. \textit{Journal of Cloud Computing}. DOI: 10.1186/s13677-023-00504-9
+\item \textbf{Wang Z, Chen S, Bai L, Gao J, Tao J, Bond RR, Mulvenna MD (2023)} Reinforcement learning based task scheduling for environmentally sustainable federated cloud computing. \textit{Journal of Cloud Computing}. DOI: 10.1186/s13677-023-00553-0
+\item \textbf{Subashree S, Rajakumaran M, Pushpa G, Senthilkumar S (2025)} Hybrid dolphin swarm sparrow search optimization based multi-objective cloud workflow scheduling. \textit{Journal of Cloud Computing}. DOI: 10.1186/s13677-025-00828-8
+\end{enumerate}
+\end{frame}
+
+% --- END literature_review_ppt/ppt/slides/references_all.tex ---
+
 
 % Restore Madrid Theme Palette
 \setbeamercolor{frametitle}{bg=lavenderDark,fg=white}
@@ -1969,14 +4610,16 @@ While ChatGPT is optimized for single-model dialog and frameworks like CrewAI/Au
     \fill[prismLight] (current page.north west) rectangle (current page.south east);
   \end{tikzpicture}
   \centering
-  \vspace{1.5cm}
-  {\Huge \textbf{\color{lavenderDark}Thank You!}}\\[1.0em]
-  {\Large \textbf{\color{lavenderMedium}Questions \& Discussion}}\\[1.5em]
+  \vfill
+  \vspace{0.4cm}
+  {\fontsize{30}{36}\selectfont \textbf{\color{lavenderDark}Thank You!}}
+  \vfill
   {\normalsize \color{prismDark}
     Nobin Sijo \quad$\vert$\quad Pranav P \quad$\vert$\quad Prasanth P \quad$\vert$\quad Sankar Narayan S\\[0.5em]
-    \color{prismSlate}Department of Computer Science \& Engineering\\
+    \fontsize{9}{12}\selectfont\color{prismSlate}Department of Computer Science \& Engineering\\
     College of Engineering, Karunagappally
   }
+  \vspace{0.8cm}
 \end{frame}
 
 \end{document}

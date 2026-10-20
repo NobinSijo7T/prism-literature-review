@@ -40,3 +40,6 @@ final_ppt - Copy/Models/faiss.index
 
 # Ignore the compressed archive
 /final_ppt - Copy.7z
+"final_ppt - Copy.zip" 
+"template.zip" 
+"*.png" 
