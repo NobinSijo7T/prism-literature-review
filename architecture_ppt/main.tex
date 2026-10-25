@@ -238,11 +238,11 @@
 \end{frame}
 
 % =============================================================================
-% SLIDE 3: COMPARATIVE ANALYSIS (EXISTING PLATFORMS VS. PRISMSPACE)
+% SLIDE 4: LITERATURE REVIEW (EXISTING PLATFORMS VS. PRISMSPACE)
 % =============================================================================
-\section{Comparative Analysis}
+\section{Literature Review}
 
-\begin{frame}[t]{03. Comparative Analysis: Existing Platforms vs. PrismSpace}
+\begin{frame}[t]{03. Literature Review: Existing Platforms vs. PrismSpace}
 \vspace{-0.44em}
 
 % Top subtitle banner
@@ -345,7 +345,49 @@ Cloud or temporary in-memory state &
 \end{frame}
 
 % =============================================================================
-% SLIDE 4: OBJECTIVES
+% SLIDE 5: RESEARCH GAP
+% =============================================================================
+\section{Research Gap}
+
+\begin{frame}[t]{04. Research Gap: What Existing Platforms Still Miss}
+\vspace{0.25em}
+
+\centering
+\begin{minipage}{0.94\linewidth}
+\fontsize{8.0}{10.2}\selectfont
+
+\begin{tcolorbox}[
+  enhanced, arc=4pt, colframe=lavenderDark!75, colback=lavenderLight!22,
+  boxrule=0.7pt, left=9pt, right=9pt, top=7pt, bottom=7pt, width=\linewidth
+]
+\textbf{The literature shows strong individual solutions, but limited integration:}
+\begin{itemize}\setlength{\itemsep}{4.5pt}
+  \item Single-agent and conversational systems provide capable reasoning, but lack transparent multi-step coordination and parallel execution.
+  \item Autonomous-agent frameworks support delegation, yet commonly depend on rigid chains, fragmented tools, or opaque run state.
+  \item Multi-agent platforms improve specialization, but often omit unified model routing, local-first persistence, and user approval for risky actions.
+\end{itemize}
+\end{tcolorbox}
+
+\vspace{0.35em}
+
+\begin{tcolorbox}[
+  enhanced, arc=4pt, colframe=prismTeal!80!black, colback=prismMint!55,
+  boxrule=0.8pt, left=10pt, right=10pt, top=8pt, bottom=8pt, width=\linewidth
+]
+\centering
+\textbf{Research gap addressed by PrismSpace}\par
+\vspace{3pt}
+\fontsize{8.6}{11}\selectfont
+There is a need for a browser-based, local-first workspace that combines\par
+\textbf{DAG-based parallel orchestration + multi-model routing + MCP tools + live observability + HITL safety}\par
+within one coherent workflow.
+\end{tcolorbox}
+
+\end{minipage}
+\end{frame}
+
+% =============================================================================
+% SLIDE 6: OBJECTIVES
 % =============================================================================
 \section{Objectives}
 
@@ -359,7 +401,7 @@ Cloud or temporary in-memory state &
 \vfill
 \end{frame}
 
-\begin{frame}[t]{04. Project Objectives}
+\begin{frame}[t]{05. Project Objectives}
 \vspace{0.55em}
   \begin{minipage}{0.94\linewidth}
   \fontsize{8.6}{11.2}\selectfont

@@ -1,0 +1,132 @@
+% =============================================================================
+% SLIDE: INTENT CLASSIFICATION, DECOMPOSITION & JSON SERIALIZATION
+% =============================================================================
+\begin{frame}[t]{Intent Classifier: Prompt Decomposition, NLP Algorithm \& Serialization}
+\vspace{-0.45em}
+
+% Technical Header Formula Banner
+\begin{tcolorbox}[
+  enhanced, arc=2.5pt, boxrule=0.50pt,
+  colframe=lavenderDark!85, colback=lavenderLight!35,
+  left=4pt, right=4pt, top=1.5pt, bottom=1.5pt
+]
+\centering\fontsize{4.9}{5.9}\selectfont\color{lavenderDark}
+\textbf{Formal Pipeline:}\enspace
+$\mathcal{T}_{\text{user}} \xrightarrow{\text{Dense Tokenize}} \mathbf{e} \in \mathbb{R}^{384} \xrightarrow{\text{Intent Classifier}} \hat{\mathbf{y}}_{\text{intent}} \xrightarrow{\text{Semantic Decomposition}} \mathcal{G}(V, E) \xrightarrow{\text{JSON Schema}} \text{JSON-RPC Task Packet}$
+\end{tcolorbox}
+
+\vspace{-0.30em}
+\centering
+\adjustbox{max width=0.99\linewidth, max height=0.74\textheight, keepaspectratio}{%
+\begin{tikzpicture}[
+  x=1cm, y=1cm, font=\sffamily,
+  stagebox/.style={rectangle, rounded corners=3.0pt, draw=lavenderDark!75, line width=0.70pt,
+    fill=white, inner sep=3.5pt, align=left,
+    drop shadow={shadow xshift=0.7pt, shadow yshift=-0.7pt, opacity=0.10}},
+  stepnode/.style={rectangle, rounded corners=2.5pt, draw=prismTeal!85!black, line width=0.65pt,
+    fill=prismMint!60, inner sep=2.5pt, align=center, font=\fontsize{4.4}{5.2}\selectfont},
+  flow/.style={-{Stealth[scale=0.72]}, line width=0.80pt, draw=lavenderDark!85},
+  dataflow/.style={-{Stealth[scale=0.68]}, line width=0.75pt, draw=prismTeal!90!black},
+  gateflow/.style={-{Stealth[scale=0.68]}, line width=0.75pt, dashed, draw=red!75!black}
+]
+
+  % ---------------------------------------------------------------------------
+  % ROW 1: Prompt Parsing & Semantic Intent Classification (Y = 1.85)
+  % ---------------------------------------------------------------------------
+  % 1. Raw Prompt Box
+  \node[stagebox, fill=lavenderLight!45, text width=3.30cm] (raw) at (-5.05, 1.85) {
+    \textbf{\fontsize{5.5}{6.5}\selectfont\color{lavenderDark}\faUserCircle\ Raw Input $\mathcal{T}_{\text{user}}$}\\[1.0pt]
+    \fontsize{4.6}{5.5}\selectfont
+    \textit{``Find the latest API changes, summarize them, and update my notes.''}
+  };
+
+  % 2. Intent Classifier Model Box (Simple, functional focus: what it does)
+  \node[stagebox, fill=prismMint!40, text width=4.15cm] (classifier) at (-0.10, 1.85) {
+    \textbf{\fontsize{5.6}{6.6}\selectfont\color{prismTeal!90!black}\faBrain\ Intent Classifier}\\[1.5pt]
+    \fontsize{4.4}{5.3}\selectfont
+    $\bullet$\;\textbf{Extracts intent:} Understands requested user actions.\\
+    $\bullet$\;\textbf{Maps task domains:} Identifies web search, synthesis \& tools.\\
+    $\bullet$\;\textbf{Enforces safety rules:} Flags file modifications for approval.
+  };
+
+  % 3. Semantic Graph Generator Box
+  \node[stagebox, fill=lavenderLight!50, text width=3.35cm] (decomposer) at (4.70, 1.85) {
+    \textbf{\fontsize{5.5}{6.5}\selectfont\color{lavenderDark}\faSitemap\ Semantic Role Decomposer}\\[1.0pt]
+    \fontsize{4.4}{5.2}\selectfont
+    $\bullet$\;\textbf{Algorithm:} Action-Entity-Precondition SRL\\
+    $\bullet$\;\textbf{Decomposition:} 4 Vertices ($V$), 3 Edges ($E$)\\
+    $\bullet$\;\textbf{Rule:} Causal pipeline $v_i \to v_{i+1}$
+  };
+
+  \draw[flow] (raw.east) -- node[above=1.5pt, font=\fontsize{4.2}{5.0}\selectfont\bfseries\color{lavenderDark}]{vector $\mathbf{e}$} (classifier.west);
+  \draw[flow] (classifier.east) -- node[above=1.5pt, font=\fontsize{4.2}{5.0}\selectfont\bfseries\color{lavenderDark}]{intents $\hat{\mathbf{y}}$} (decomposer.west);
+
+  % ---------------------------------------------------------------------------
+  % ROW 2: Atomic Decomposed Task Pipeline (Forward Left-to-Right, Y = 0.45)
+  % ---------------------------------------------------------------------------
+  \node[stepnode, text width=2.45cm] (v1) at (-4.80, 0.45) {
+    \textbf{\color{lavenderDark}Node $v_1$: Research}\\[0.5pt]
+    \texttt{\fontsize{3.8}{4.5}\selectfont SearchWeb("API changes")}\\
+    \fontsize{3.6}{4.2}\selectfont\color{prismTeal!80!black}Browser MCP $\cdot$ \texttt{raw\_docs}
+  };
+
+  \node[stepnode, text width=2.45cm] (v2) at (-1.60, 0.45) {
+    \textbf{\color{lavenderDark}Node $v_2$: Extraction}\\[0.5pt]
+    \texttt{\fontsize{3.8}{4.5}\selectfont ParseDOMDiff(raw\_docs)}\\
+    \fontsize{3.6}{4.2}\selectfont\color{prismTeal!80!black}Parser MCP $\cdot$ \texttt{api\_diff}
+  };
+
+  \node[stepnode, text width=2.45cm] (v3) at (1.60, 0.45) {
+    \textbf{\color{lavenderDark}Node $v_3$: Synthesis}\\[0.5pt]
+    \texttt{\fontsize{3.8}{4.5}\selectfont Summarize(api\_diff)}\\
+    \fontsize{3.6}{4.2}\selectfont\color{prismTeal!80!black}Writer Agent $\cdot$ \texttt{summary\_md}
+  };
+
+  \node[stepnode, draw=red!70!black, fill=red!08, text width=2.45cm] (v4) at (4.80, 0.45) {
+    \textbf{\color{red!80!black}Node $v_4$: Approval \& Write}\\[0.5pt]
+    \texttt{\fontsize{3.8}{4.5}\selectfont Filesystem.Write(summary)}\\
+    \fontsize{3.6}{4.2}\selectfont\color{red!85!black}\textbf{HITL Gate} $\implies$ Commit notes
+  };
+
+  % Downward connector from Decomposer to pipeline
+  \draw[flow] (decomposer.south) to[out=-90, in=90] (v4.north);
+
+  % Directed Left-to-Right Causal Flow (Arrowheads correctly point forward!)
+  \draw[dataflow] (v1.east) -- node[above=0.5pt, font=\fontsize{3.7}{4.5}\selectfont\bfseries\color{prismTeal!90!black}]{\texttt{raw\_docs}} (v2.west);
+  \draw[dataflow] (v2.east) -- node[above=0.5pt, font=\fontsize{3.7}{4.5}\selectfont\bfseries\color{prismTeal!90!black}]{\texttt{api\_diff}} (v3.west);
+  \draw[gateflow] (v3.east) -- node[above=0.5pt, font=\fontsize{3.7}{4.5}\selectfont\bfseries\color{red!80!black}]{\texttt{summary}} (v4.west);
+
+  % ---------------------------------------------------------------------------
+  % ROW 3: Serialization Schema & Scheduler Handoff (Y = -1.25)
+  % ---------------------------------------------------------------------------
+  % Left: Strongly-Typed JSON DAG Packet
+  \node[stagebox, fill=lavenderLight!35, text width=6.50cm] (json) at (-2.15, -1.25) {
+    \textbf{\fontsize{5.2}{6.2}\selectfont\color{lavenderDark}\faCode\ Strongly-Typed JSON-RPC Task Packet Schema}\\[1.2pt]
+    \fontsize{4.0}{4.8}\selectfont\ttfamily
+    \{\\
+    \enspace"task\_id": "dag\_8921", "algorithm": "kahn\_topological",\\
+    \enspace"vertices": [\\
+    \enspace\enspace\{"id": "v1", "agent": "Researcher", "mcp": "browser.search", "deps": []\},\\
+    \enspace\enspace\{"id": "v2", "agent": "Analyst",    "mcp": "parser.extract",  "deps": ["v1"]\},\\
+    \enspace\enspace\{"id": "v3", "agent": "Writer",     "mcp": "llm.summarize",   "deps": ["v2"]\},\\
+    \enspace\enspace\{"id": "v4", "agent": "Filesystem", "mcp": "fs.write\_file", "deps": ["v3"], "approval\_gate": true\}\\
+    \enspace]\\
+    \}
+  };
+
+  % Right: Simplified Task Dispatcher Box
+  \node[stagebox, fill=prismMint!35, text width=4.70cm] (dispatch) at (4.20, -1.25) {
+    \textbf{\fontsize{5.6}{6.6}\selectfont\color{prismTeal!90!black}\faPlayCircle\ Task Dispatcher}\\[2.0pt]
+    \fontsize{4.5}{5.5}\selectfont
+    $\bullet$\;\textbf{Runs tasks in order:} Dispatches ready tasks and passes outputs forward.\\
+    $\bullet$\;\textbf{Enforces approval:} Pauses before writing files until user confirms.\\
+    $\bullet$\;\textbf{Verifies quality:} Checks outputs before saving results.
+  };
+
+  \draw[flow] (v4.south) -- ++(0, -0.32) -| node[pos=0.35, above=1pt, font=\fontsize{4.0}{4.8}\selectfont\bfseries\color{lavenderDark}]{serialize} ([xshift=-0.5cm]json.north east);
+  \draw[flow] (json.east) -- node[above=1pt, font=\fontsize{4.3}{5.2}\selectfont\bfseries\color{prismTeal!90!black}]{execute} (dispatch.west);
+
+\end{tikzpicture}%
+}
+
+\end{frame}

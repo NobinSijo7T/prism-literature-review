@@ -20,6 +20,7 @@
 \providecommand{\pk}[1]{\textbf{#1}}
 \providecommand{\idx}[1]{\textit{#1}}
 \providecommand{\comp}[1]{\texttt{#1}}
+\providecommand{\faShieldAlt}{\faIcon{shield-alt}}
 
 % Lavender Color Palette for Professional Headers & Visual Flow
 \definecolor{lavenderDark}{RGB}{76, 51, 122}      % #4C337A - Deep Royal Lavender for Frametitles, Banners, Headers
@@ -198,18 +199,66 @@
 \end{frame}
 
 % =============================================================================
-% COMPLETE LITERATURE REVIEW
-% Imported from the literature_review_ppt deck (all 25 papers + research gap)
+% SLIDE 2: PROBLEM STATEMENT
 % =============================================================================
-\def\mainliteraturereview{}
+\section{Problem Statement}
+
 \begin{frame}[plain]
 \vfill
 \begin{center}
-  {\color{lavenderDark}\fontsize{25}{30}\selectfont\bfseries Literature Review\par}
+  {\color{lavenderDark}\fontsize{25}{30}\selectfont\bfseries Problem Statement\par}
   \vspace{0.45em}
-  {\color{prismTeal!85!black}\large Research background, key findings, and identified gap}
+  {\color{prismTeal!85!black}\large Challenges in current AI-agent and workflow systems}
 \end{center}
 \vfill
+\end{frame}
+
+\begin{frame}[t]{02. Problem Statement: Core Challenges in AI Agent Systems}
+\vfill
+\begin{center}
+\begin{minipage}{0.88\linewidth}
+\centering\normalsize
+Current AI-agent systems suffer from monolithic model bottlenecks, rigid sequential execution, fragmented tool integrations, limited observability, hallucinated tool calls, and unsafe or privacy-sensitive actions. \textbf{PrismSpace} takes developer task prompts, workspace and session state, uploaded files, and MCP/HITL configurations as \textbf{inputs}; applies intent classification, supervised model/provider routing, DAG decomposition with topological scheduling, MCP-enabled ReAct execution, ORPO preference alignment, and human approval as its \textbf{method}; and produces \textbf{outputs} including verified artifacts, tool results, execution traces, quality and cost telemetry, and persistent session records.
+\end{minipage}
+\end{center}
+\vfill
+\end{frame}
+
+% =============================================================================
+% SLIDE 3: OBJECTIVES
+% =============================================================================
+\section{Objectives}
+
+\begin{frame}[t]{03. Objectives}
+\vspace{0.15cm}
+\begin{center}
+\begin{minipage}{0.86\linewidth}
+\normalsize
+\begin{enumerate}\setlength{\itemsep}{8pt}\setlength{\leftmargin}{0.28in}
+  \item Decompose complex user goals into dependency-aware \textbf{DAGs} for structured and parallel task execution.
+  \item Orchestrate specialist agents and approved tools through \textbf{MCP} and bounded \textbf{ReAct} loops.
+  \item Align generated responses using \textbf{ORPO} preference optimization for quality, faithfulness, and safety.
+  \item Route tasks to suitable models and providers using supervised capability, cost, and latency signals.
+  \item Validate risky actions with \textbf{HITL} approval and preserve verified outputs with execution telemetry.
+\end{enumerate}
+\end{minipage}
+\end{center}
+\end{frame}
+
+% =============================================================================
+% COMPLETE LITERATURE REVIEW
+% Imported from the literature_review_ppt deck (all 25 papers + research gap)
+% =============================================================================
+\section{Literature review}
+\def\mainliteraturereview{}
+\begin{frame}[plain]
+  \vfill
+  \begin{center}
+    {\color{lavenderDark}\fontsize{25}{30}\selectfont\bfseries 04. Literature Review\par}
+    \vspace{0.45em}
+    {\color{prismTeal!85!black}\large Research background, key findings, and identified gap}
+  \end{center}
+  \vfill
 \end{frame}
 
 % --- BEGIN literature_review_ppt/ppt/slides/prismspace_deck.tex ---
@@ -258,7 +307,7 @@ While modern development tasks span code, browsers, databases, and \textbf{APIs}
 \vspace{0.25cm}
 \begin{block}{Core Objectives}
 \normalsize
-The primary objective is to enable structured task execution through \textbf{DAG} (Directed Acyclic Graph)-based task decomposition, \textbf{MCP} (Model Context Protocol)-enabled multi-agent \textbf{ReAct} (Reasoning and Acting) orchestration, and \textbf{ORPO} (Odds Ratio Preference Optimization) preference optimization. Additionally, the system ensures reliable and cost-effective operation by incorporating supervised \textbf{LLM} (Large Language Model) routing alongside Isolation Forest anomaly detection and human-in-the-loop validation.
+The primary objective is to enable structured task execution through \textbf{DAG} (Directed Acyclic Graph)-based task decomposition, \textbf{MCP} (Model Context Protocol)-enabled multi-agent \textbf{ReAct} (Reasoning and Acting) orchestration, and \textbf{ORPO} (Odds Ratio Preference Optimization) preference optimization. Additionally, the system ensures reliable and cost-effective operation through supervised \textbf{LLM} (Large Language Model) routing and human-in-the-loop validation.
 \end{block}
 \end{frame}
 
@@ -273,8 +322,6 @@ Because ungrounded \textbf{LLM} (Large Language Model) agents risk hallucinating
 \end{frame}
 
 \fi
-\section{Literature review}
-
 \begin{frame}[t]{Multi-Objective Reward Generalization in Deep Reinforcement Learning}
 \vspace{-0.25cm}
 \centering
@@ -1213,6 +1260,7 @@ Proposes a hybrid bio-inspired metaheuristic combining \textbf{Dolphin Swarm Opt
 
 % Findings-transfer tables remain omitted from this presentation.
 
+% Research gap closes the literature-review section.
 \begin{frame}{Research Gap}
 \vspace{-0.05cm}
 \begin{block}{What the surveyed methods already do}
@@ -1357,46 +1405,6 @@ No reviewed system jointly grounds tool observations, aligns policies on agent t
 
 % --- END literature_review_ppt/ppt/slides/prismspace_deck.tex ---
 
-
-% =============================================================================
-% SLIDE 3: PROBLEM STATEMENT
-% =============================================================================
-\section{Problem Statement}
-
-\begin{frame}[plain]
-\vfill
-\begin{center}
-  {\color{lavenderDark}\fontsize{25}{30}\selectfont\bfseries Problem Statement\par}
-  \vspace{0.45em}
-  {\color{prismTeal!85!black}\large Challenges in current AI-agent and workflow systems}
-\end{center}
-\vfill
-\end{frame}
-
-\begin{frame}[t]{02. Problem Statement: Core Challenges in AI Agent Systems}
-\vspace{0.25em}
-
-\centering
-\begin{minipage}{0.95\linewidth}
-\fontsize{7.8}{10.0}\selectfont
-
-\begin{enumerate}\setlength{\itemsep}{7.5pt}\setlength{\leftmargin}{0.28in}
-  \item \textbf{Monolithic LLM Bottleneck \& High Cost:} Traditional platforms route all planning, reasoning, and tool use through a single massive LLM, causing severe prompt bloat, high latency, and $3\times$ higher inference expenses.\\
-  \textcolor{prismTeal!90!black}{\textbf{\faArrowCircleRight\ PrismSpace Solution:}} Dynamically routes sub-tasks to cost- and latency-optimal models (Groq for rapid inference, OpenAI/NIM for complex reasoning).
-
-  \item \textbf{Sequential \& Rigid Task Execution:} Existing agent chains run strictly in linear sequence; independent sub-tasks wait needlessly in line, and a single step crash causes total pipeline collapse.\\
-  \textcolor{prismTeal!90!black}{\textbf{\faArrowCircleRight\ PrismSpace Solution:}} Deconstructs goals into dynamic Directed Acyclic Graphs (DAGs) to execute independent tasks in parallel ($K \le 3$) with isolated fault recovery.
-
-  \item \textbf{Fragmented Tool Silos \& Black-Box Runs:} Proprietary integrations isolate essential productivity tools (Gmail, Drive, Terminal, Local Files), while users remain blind during long runs with no status logs.\\
-  \textcolor{prismTeal!90!black}{\textbf{\faArrowCircleRight\ PrismSpace Solution:}} Standardizes all tool connections via Model Context Protocol (MCP) paired with real-time execution telemetry and progress logs.
-
-  \item \textbf{Safety Hazards \& Cloud Data Lock-in:} Autonomous agents execute irreversible actions (sending emails, modifying files) without oversight, while cloud databases expose private user data.\\
-  \textcolor{prismTeal!90!black}{\textbf{\faArrowCircleRight\ PrismSpace Solution:}} Enforces Human-in-the-Loop (HITL) approval gates, ORPO alignment, and zero-latency local browser database storage (\texttt{PrismDB}).
-\end{enumerate}
-
-\end{minipage}
-\end{frame}
-
 % =============================================================================
 % SLIDE 3: COMPARATIVE ANALYSIS (EXISTING PLATFORMS VS. PRISMSPACE)
 % =============================================================================
@@ -1505,34 +1513,6 @@ Cloud or temporary in-memory state &
 \end{frame}
 
 % =============================================================================
-% SLIDE 4: OBJECTIVES
-% =============================================================================
-\section{Objectives}
-
-\begin{frame}[plain]
-\vfill
-\begin{center}
-  {\color{lavenderDark}\fontsize{25}{30}\selectfont\bfseries Project Objectives\par}
-  \vspace{0.45em}
-  {\color{prismTeal!85!black}\large Goals and expected outcomes of the PrismSpace platform}
-\end{center}
-\vfill
-\end{frame}
-
-\begin{frame}[t]{04. Project Objectives}
-\vspace{0.55em}
-  \begin{minipage}{0.94\linewidth}
-  \fontsize{8.6}{11.2}\selectfont
-  \begin{enumerate}\setlength{\itemsep}{12pt}\setlength{\leftmargin}{0.34in}
-    \item \textbf{Context-Aware Task Planning:} Convert everyday user goals (communication, file management, daily schedules) and technical requests into structured Directed Acyclic Graphs (DAGs) for organized, dependency-safe execution.
-    \item \textbf{Intelligent Model \& Agent Routing:} Dynamically route each sub-task to the most suitable Large Language Model (LLM) backend and dispatch specialized, context-aware agents in parallel.
-    \item \textbf{Practical Tool Execution via MCP:} Connect agents to everyday productivity tools and development utilities (Gmail, Google Drive, Filesystem, Terminal CLI, GitHub) through the Model Context Protocol (MCP), accompanied by live Server-Sent Events (SSE) updates.
-    \item \textbf{Safety Verification \& Local Persistence:} Validate outputs with human approval checkpoints and Odds Ratio Preference Optimization (ORPO), storing results reactively in local IndexedDB (Indexed Database: \texttt{PrismDB}).
-  \end{enumerate}
-  \end{minipage}
-\end{frame}
-
-% =============================================================================
 % SLIDE 5: METHODOLOGY
 % =============================================================================
 \section{Methodology}
@@ -1547,7 +1527,7 @@ Cloud or temporary in-memory state &
   \item \textbf{Architecture Design:} Implement layered React, FastAPI, model, MCP-tool, and local IndexedDB components with observable state transitions.
   \item \textbf{Task Decomposition Algorithm:} Convert user goals into dependency-aware Directed Acyclic Graphs (DAGs) and execute independent tasks in parallel ($K \le 3$).
   \item \textbf{Agent and Model Routing:} Use intent classification, capability matching, and cost/latency-aware routing to assign tasks to specialist agents and suitable LLMs.
-  \item \textbf{Execution and Safety Algorithms:} Combine ReAct loops, MCP JSON-RPC tools, Server-Sent Events (SSE), Human-in-the-Loop approval, ORPO preference gating, and Isolation Forest anomaly detection.
+  \item \textbf{Execution and Safety Algorithms:} Combine ReAct loops, MCP JSON-RPC tools, Human-in-the-Loop approval, ORPO preference gating, and Isolation Forest anomaly detection.
   \item \textbf{Implementation and Evaluation:} Integrate the modules, persist runs in \texttt{PrismDB}, and evaluate correctness, faithfulness, latency, token cost, recovery, and safety.
 \end{itemize}
 \end{frame}
@@ -1638,27 +1618,21 @@ Cloud or temporary in-memory state &
 \vspace{0.15em}
 
 \begin{algolist}
-  \item[1.1] Ingest raw natural language prompt $\mathcal{T}_{\text{user}}$ via client interface and extract core objective.
+  \item[1.1] Read the user's natural-language prompt and identify the main goal.
   \item[1.2] Retrieve persistent session context and workspace history from browser IndexedDB (\texttt{PrismDB}):
     \begin{algosublist}
-      \item[1.2.1] Load prior interaction turns, agent memory checkpoints, and active user configurations.
-      \item[1.2.2] Resolve local file system references, target project repositories, and access tokens.
+      \item[1.2.1] Load relevant conversation history, saved preferences, and agent state.
+      \item[1.2.2] Resolve referenced files, repositories, and available permissions.
     \end{algosublist}
-  \item[1.3] Construct strongly-typed operational execution tuple:
-    \vspace{-0.2em}
-    $$T = \langle \text{Goal}, \, \text{Constraints}, \, \text{Context}, \, \mathcal{M}_{\text{tools}}, \, \Phi_{\text{out}} \rangle$$
-    \vspace{-0.2em}
-    {\footnotesize\color{prismDark}%
-      \textbf{\color{lavenderDark}Where:}\enspace \text{Goal}: Target objective $\;\vert\;$ \text{Constraints}: Safety \& SLA bounds $\;\vert\;$ \text{Context}: Session state in \texttt{PrismDB} $\;\vert\;$ $\mathcal{M}_{\text{tools}}$: Authorized MCP tools $\;\vert\;$ $\Phi_{\text{out}}$: Deliverable schema contract.}
-    \vspace{0.15em}
+  \item[1.3] Build a structured task record containing the goal, constraints, context, allowed tools, and expected output.
     \begin{algosublist}
-      \item[1.3.1] Parse explicit operational constraints (deadlines, schema specifications, output formats).
-      \item[1.3.2] Bind authorized Model Context Protocol (MCP) tool capabilities and environment permissions.
+      \item[1.3.1] Record deadlines, output format, and other task constraints.
+      \item[1.3.2] Attach the MCP tools and permissions required for execution.
     \end{algosublist}
   \item[1.4] Perform input boundary and security screening:
     \begin{algosublist}
-      \item[1.4.1] Evaluate prompt against token limits and scan for prompt injection patterns.
-      \item[1.4.2] Flag state-mutating actions requiring mandatory human-in-the-loop authorization.
+      \item[1.4.1] Check input size and screen for prompt-injection patterns.
+      \item[1.4.2] Mark file, email, or other state-changing actions for user approval.
     \end{algosublist}
 \end{algolist}
 \end{frame}
@@ -1672,26 +1646,20 @@ Cloud or temporary in-memory state &
 \vspace{0.15em}
 
 \begin{algolist}
-  \item[2.1] Categorize user prompt into functional operational domains:
-    \vspace{-0.2em}
-    $$\text{Domain} \in \{\text{Productivity/Automation}, \, \text{Document Synthesis}, \, \text{Web Research}, \, \text{Code Engineering}\}$$
-    \vspace{-0.2em}
-    {\footnotesize\color{prismDark}%
-      \textbf{\color{lavenderDark}Where:}\enspace \text{Productivity}: Communication \& planning $\;\vert\;$ \text{Synthesis}: Summarization $\;\vert\;$ \text{Research}: Web search \& scraping $\;\vert\;$ \text{Coding}: CLI \& code synthesis.}
-    \vspace{0.15em}
+  \item[2.1] Classify the prompt into a functional domain such as automation, document work, research, or coding:
     \begin{algosublist}
-      \item[2.1.1] Compute dense semantic embeddings and syntactic keyword vectors for input prompt.
-      \item[2.1.2] Route through multi-class classifier head $\hat{\mathbf{y}}_{\text{intent}}$ to determine target capability domain.
+      \item[2.1.1] Extract semantic and keyword features from the prompt.
+      \item[2.1.2] Use the intent classifier to select the most likely domain.
     \end{algosublist}
   \item[2.2] Profile required system capabilities and operational risk levels:
     \begin{algosublist}
-      \item[2.2.1] Determine required subsystem resources (live web search, local filesystem I/O, terminal execution).
-      \item[2.2.2] Enforce safety categorization: Read-Only (autonomous execution) vs. State-Mutating (approval-gated).
+      \item[2.2.1] Identify required resources, such as web search, file access, or terminal execution.
+      \item[2.2.2] Separate read-only work from actions that need approval.
     \end{algosublist}
   \item[2.3] Select optimal execution pathway:
     \begin{algosublist}
-      \item[2.3.1] Route single-step queries to direct, low-latency single-model inference pipeline.
-      \item[2.3.2] Dispatch multi-step complex requests to DAG Planner agent for task decomposition.
+      \item[2.3.1] Send simple requests directly to one model.
+      \item[2.3.2] Send complex requests to the DAG planner for decomposition.
     \end{algosublist}
 \end{algolist}
 \end{frame}
@@ -1707,25 +1675,25 @@ Cloud or temporary in-memory state &
 \begin{algolist}
   \item[3.1] Deconstruct objective into Directed Acyclic Graph $\mathcal{G} = (V, E)$:
     \begin{algosublist}
-      \item[3.1.1] Instantiate discrete task vertices $v_i \in V$ with atomic execution contracts and output targets.
-      \item[3.1.2] \textbf{Data Dependencies as Directed Edges} ($e = \langle v_i, v_j \rangle \in E \iff \mathcal{O}_i \cap \mathcal{I}_j \neq \emptyset$): Task $v_j$ requires input artifacts produced by $v_i$ (e.g., synthesis requires scraped research).
-      \item[3.1.3] \textbf{Execution Barrier:} Consumer $v_j$ remains blocked until producer $v_i$ delivers $\mathcal{O}_i$, guaranteeing tasks never run on missing or partial data.
+      \item[3.1.1] Create one vertex for each atomic task and define its expected output.
+      \item[3.1.2] Connect tasks with directed edges when one task depends on another's output.
+      \item[3.1.3] Hold a dependent task until all required inputs are available.
     \end{algosublist}
   \item[3.2] Compute topological task execution schedule $\pi = \mathrm{TopologicalSort}(\mathcal{G})$:
     \begin{algosublist}
-      \item[3.2.1] Identify independent vertices ($\text{in-degree} = 0$) for concurrent parallel dispatch ($K \le 3$).
-      \item[3.2.2] Schedule downstream vertices dynamically upon upstream output event emission.
+      \item[3.2.1] Find independent tasks that can run in parallel ($K \le 3$).
+      \item[3.2.2] Release dependent tasks when their parent tasks finish.
     \end{algosublist}
-  \item[3.3] Solve multi-objective provider routing optimization for each sub-task $v_i$:
+  \item[3.3] Select a model for each sub-task by balancing cost, latency, and quality:
     \vspace{-0.2em}
     $$\text{Provider}^* = \arg\min_m \Big(\lambda_{\text{cost}} \, \text{Cost}_m + \lambda_{\text{latency}} \, \text{Latency}_m\Big) \quad \text{s.t. } \text{Quality}_m \ge \tau$$
     \vspace{-0.2em}
     {\footnotesize\color{prismDark}%
-      \textbf{\color{lavenderDark}Where:}\enspace $\text{Provider}^*$: Optimal LLM backend $\;\vert\;$ $m$: Candidate model $\;\vert\;$ $\text{Cost}_m, \text{Latency}_m$: Normalized price \& delay $\;\vert\;$ $\lambda_{\text{cost}}, \lambda_{\text{latency}}$: Balancing weights $\;\vert\;$ $\tau$: Quality barrier.}
+      \textbf{\color{lavenderDark}Meaning:}\enspace Choose the lowest-cost and lowest-latency model that still meets the required quality threshold.}
     \vspace{0.15em}
     \begin{algosublist}
-      \item[3.3.1] Route high-throughput, latency-critical nodes to LPU backends (Groq / Llama-3).
-      \item[3.3.2] Route deep reasoning and code generation tasks to frontier backends (OpenAI GPT-4o, Claude 3.5).
+      \item[3.3.1] Use fast backends for simple or latency-sensitive tasks.
+      \item[3.3.2] Use stronger models for reasoning, research, and code generation.
     \end{algosublist}
 \end{algolist}
 \end{frame}
@@ -1739,30 +1707,27 @@ Cloud or temporary in-memory state &
 \vspace{0.15em}
 
 \begin{algolist}
-  \item[4.1] Query specialist agent registry and capability profiles:
-    \vspace{-0.2em}
-    $$\mathcal{A} = \{\text{Planner}, \, \text{Assistant}, \, \text{Researcher}, \, \text{Coder}, \, \text{Validator}\}$$
-    \vspace{-0.2em}
+  \item[4.1] Check the specialist-agent registry and their capability profiles:
     \begin{algosublist}
-      \item[4.1.1] Evaluate persona system prompts, specialized instruction boundaries, and assigned MCP tools.
-      \item[4.1.2] Verify agent worker availability and monitor concurrent thread utilization.
+      \item[4.1.1] Review each agent's role, instructions, and assigned tools.
+      \item[4.1.2] Check worker availability before dispatch.
     \end{algosublist}
-  \item[4.2] Execute capability matching algorithm for each sub-task node $v_i$:
+  \item[4.2] Match each sub-task to the agent with the closest capability profile:
     \vspace{-0.2em}
     $$\text{Agent}^* = \arg\max_{a \in \mathcal{A}} \; \mathrm{CosineSimilarity}\big(\mathbf{Req}(v_i), \, \mathbf{Cap}(a)\big)$$
     \vspace{-0.2em}
     {\footnotesize\color{prismDark}%
-      \textbf{\color{lavenderDark}Where:}\enspace $\text{Agent}^*$: Assigned specialist persona $\;\vert\;$ $\mathcal{A}$: Swarm agent registry $\;\vert\;$ $\mathbf{Req}(v_i)$: Task requirement vector $\;\vert\;$ $\mathbf{Cap}(a)$: Agent capability embedding $\;\vert\;$ $\mathrm{CosineSimilarity}$: Semantic alignment.}
+      \textbf{\color{lavenderDark}Meaning:}\enspace Compare the task requirements with each agent's capabilities and choose the best match.}
     \vspace{0.15em}
     \begin{algosublist}
-      \item[4.2.1] Match information gathering requirements ($\text{Tag} \ni \texttt{web\_search}$) to Researcher agent.
-      \item[4.2.2] Match software synthesis and execution ($\text{Tag} \ni \texttt{python, cli}$) to Coder agent.
-      \item[4.2.3] Match quality assurance and policy compliance ($\text{Tag} \ni \texttt{audit, verify}$) to Validator agent.
+      \item[4.2.1] Send information-gathering tasks to the Researcher.
+      \item[4.2.2] Send software tasks to the Coder.
+      \item[4.2.3] Send checking and policy tasks to the Validator.
     \end{algosublist}
   \item[4.3] Manage task lifecycle states in dispatcher queue:
     \begin{algosublist}
-      \item[4.3.1] Place sub-tasks in \texttt{PENDING} state until all parent dependency inputs resolve.
-      \item[4.3.2] Transition verified nodes to \texttt{READY} and dispatch execution payloads to assigned agents.
+      \item[4.3.1] Keep tasks in \texttt{PENDING} until their dependencies finish.
+      \item[4.3.2] Move ready tasks to \texttt{READY} and dispatch them.
     \end{algosublist}
 \end{algolist}
 \end{frame}
@@ -1776,28 +1741,28 @@ Cloud or temporary in-memory state &
 \vspace{0.15em}
 
 \begin{algolist}
-  \item[5.1] Execute autonomous Reasoning-Action (ReAct) cycle for each dispatched agent:
+  \item[5.1] Run a ReAct cycle for each dispatched agent:
     \vspace{-0.2em}
     $$\text{State } s_t \;\longrightarrow\; \text{\textbf{Observe}} \;\longrightarrow\; \text{\textbf{Reason}} \;\longrightarrow\; \text{\textbf{Act}} \;\longrightarrow\; \text{\textbf{Reflect}}$$
     \vspace{-0.2em}
     {\footnotesize\color{prismDark}%
-      \textbf{\color{lavenderDark}Where:}\enspace $s_t$: Current execution state at turn $t$ $\;\vert\;$ \textbf{Observe}: Ingest context \& parent outputs $\mathcal{O}_i$ $\;\vert\;$ \textbf{Reason}: Plan via CoT $\;\vert\;$ \textbf{Act}: Invoke MCP tools $\;\vert\;$ \textbf{Reflect}: Self-correct on error.}
+      \textbf{\color{lavenderDark}Meaning:}\enspace Observe the task, reason about the next step, act with a tool or response, and reflect on the result.}
     \vspace{0.15em}
     \begin{algosublist}
-      \item[5.1.1] \textbf{Observe:} Ingest assigned sub-task description, operational constraints, and parent inputs.
-      \item[5.1.2] \textbf{Reason:} Formulate intermediate chain-of-thought rationale to plan next tool invocation.
-      \item[5.1.3] \textbf{Act:} Dispatch structured JSON-RPC tool calls to external MCP servers or formulate text.
-      \item[5.1.4] \textbf{Reflect:} Inspect execution exit codes and output schemas; initiate local correction on errors.
+      \item[5.1.1] \textbf{Observe:} Read the task, constraints, and parent outputs.
+      \item[5.1.2] \textbf{Reason:} Choose the next operation.
+      \item[5.1.3] \textbf{Act:} Call an MCP tool or generate an answer.
+      \item[5.1.4] \textbf{Reflect:} Check the result and correct local errors.
     \end{algosublist}
   \item[5.2] Transmit intermediate artifacts via DAG edge message passing:
     \begin{algosublist}
-      \item[5.2.1] Route validated producer artifact $\mathcal{O}_i$ directly into consumer input buffer $\mathcal{I}_j$.
-      \item[5.2.2] Enforce strict artifact isolation to prevent cross-task context contamination and token inflation.
+      \item[5.2.1] Pass verified outputs from completed tasks to their dependent tasks.
+      \item[5.2.2] Pass only relevant artifacts to limit context growth.
     \end{algosublist}
   \item[5.3] Synchronize shared state via local blackboard memory:
     \begin{algosublist}
-      \item[5.3.1] Commit global project state, conversation turns, and file handles to IndexedDB (\texttt{PrismDB}).
-      \item[5.3.2] Dispatch event-driven signals upon node resolution to awaken dependent downstream workers.
+      \item[5.3.1] Save task state, conversation turns, and file references in \texttt{PrismDB}.
+      \item[5.3.2] Notify dependent workers when a task completes.
     \end{algosublist}
 \end{algolist}
 \end{frame}
@@ -1813,17 +1778,17 @@ Cloud or temporary in-memory state &
 \begin{algolist}
   \item[6.1] Execute Planner Agent workflow (System Architect \& Coordinator):
     \begin{algosublist}
-      \item[6.1.1] Ingest user objective string and conversation context from \texttt{PrismDB}.
-      \item[6.1.2] Decompose objective into atomic independent and dependent sub-goals.
-      \item[6.1.3] Construct DAG graph vertices $V$, dependency edges $E$, and capability tags.
-      \item[6.1.4] Solve provider routing optimization and enqueue topological schedule into Dispatcher.
+      \item[6.1.1] Read the objective and relevant context from \texttt{PrismDB}.
+      \item[6.1.2] Split the objective into independent and dependent sub-goals.
+      \item[6.1.3] Build the DAG and add capability tags.
+      \item[6.1.4] Select models and enqueue the topological schedule.
     \end{algosublist}
   \item[6.2] Execute Assistant Agent workflow (Productivity \& Communication):
     \begin{algosublist}
-      \item[6.2.1] Retrieve user communication preferences, profiles, and reference documents from storage.
-      \item[6.2.2] Formulate structured response drafts, templates, or executive summaries.
-      \item[6.2.3] Interface with Google Workspace MCP tools (Gmail draft creation, Drive document retrieval).
-      \item[6.2.4] Emit verified communication draft; enforce approval gate prior to external message transmission.
+      \item[6.2.1] Retrieve preferences and reference documents.
+      \item[6.2.2] Create a structured draft or summary.
+      \item[6.2.3] Use Google Workspace tools when required.
+      \item[6.2.4] Verify the draft and request approval before sending it.
     \end{algosublist}
 \end{algolist}
 \end{frame}
@@ -1839,20 +1804,20 @@ Cloud or temporary in-memory state &
 \begin{algolist}
   \item[7.1] Execute Researcher Agent workflow (Information Retrieval \& Synthesis):
     \begin{algosublist}
-      \item[7.1.1] Formulate optimized web search queries and invoke Browser MCP server endpoints.
-      \item[7.1.2] Scrape target web documents, parse DOM trees, and extract relevant contextual passages.
-      \item[7.1.3] Deduplicate findings and compile structured Markdown report with verified source citations.
+      \item[7.1.1] Create search queries and use the Browser MCP server.
+      \item[7.1.2] Extract relevant information from retrieved documents.
+      \item[7.1.3] Remove duplicates and prepare a cited report.
     \end{algosublist}
   \item[7.2] Execute Coder Agent workflow (Software Synthesis \& Execution):
     \begin{algosublist}
-      \item[7.2.1] Inspect local repository tree via Filesystem MCP and synthesize target source code files.
-      \item[7.2.2] Execute scripts inside Sandboxed Terminal CLI and inspect exit codes and error streams.
-      \item[7.2.3] Analyze stack traces and compiler lints to autonomously self-correct syntax and runtime bugs.
+      \item[7.2.1] Inspect the repository and edit the required source files.
+      \item[7.2.2] Run tests or scripts in the terminal and inspect errors.
+      \item[7.2.3] Fix syntax and runtime problems using test feedback.
     \end{algosublist}
   \item[7.3] Execute Validator Agent workflow (Quality Auditing \& Safety Gate):
     \begin{algosublist}
-      \item[7.3.1] Scan candidate outputs against safety policies, token invariants, and functional constraints.
-      \item[7.3.2] Emit binary verification signal: \textbf{PASS} to release artifact, or \textbf{FAIL} with error diagnostics.
+      \item[7.3.1] Check outputs against safety, format, and functional requirements.
+      \item[7.3.2] Return \textbf{PASS} for valid output or \textbf{FAIL} with diagnostics.
     \end{algosublist}
 \end{algolist}
 \end{frame}
@@ -1868,20 +1833,20 @@ Cloud or temporary in-memory state &
 \begin{algolist}
   \item[8.1] Interface agents to external tools via Model Context Protocol (MCP):
     \begin{algosublist}
-      \item[8.1.1] Standardize client-server communication using JSON-RPC protocol specifications.
-      \item[8.1.2] Enable dynamic tool discovery: inspect exposed tool schemas, input parameters, and return types.
-      \item[8.1.3] Decouple agent reasoning logic from external tool implementation details.
+      \item[8.1.1] Use JSON-RPC for consistent client-server communication.
+      \item[8.1.2] Discover tool schemas, inputs, and return types at runtime.
+      \item[8.1.3] Keep agent logic independent of tool implementation details.
     \end{algosublist}
   \item[8.2] Orchestrate multi-domain tool execution ecosystem:
     \begin{algosublist}
-      \item[8.2.1] \textbf{System \& Dev Tools:} Local Filesystem (file I/O), Sandboxed CLI (isolated shell), GitHub API.
-      \item[8.2.2] \textbf{Productivity Tools:} Google Workspace MCP (Gmail messaging, Google Drive document access).
-      \item[8.2.3] \textbf{Web Intelligence:} Browser MCP for real-time document search, retrieval, and scraping.
+      \item[8.2.1] \textbf{System \& Dev Tools:} Filesystem, terminal, and GitHub.
+      \item[8.2.2] \textbf{Productivity Tools:} Gmail and Google Drive.
+      \item[8.2.3] \textbf{Web Intelligence:} Browser search and document retrieval.
     \end{algosublist}
   \item[8.3] Enforce Human-in-the-Loop (HITL) authorization policy:
     \begin{algosublist}
-      \item[8.3.1] Permit autonomous execution for non-destructive, read-only tool queries.
-      \item[8.3.2] Intercept state-mutating actions (file modification, email dispatch, CLI execution) for user approval.
+      \item[8.3.1] Allow read-only queries to run automatically.
+      \item[8.3.2] Request approval for file changes, email sending, or other state changes.
     \end{algosublist}
 \end{algolist}
 \end{frame}
@@ -1897,24 +1862,18 @@ Cloud or temporary in-memory state &
 \begin{algolist}
   \item[9.1] Address context window constraints and token consumption limits:
     \begin{algosublist}
-      \item[9.1.1] Mitigate fixed LLM context window boundaries to eliminate token overflow and latency degradation.
-      \item[9.1.2] Prevent quadratic attention computation overhead across long multi-agent interaction sessions.
+      \item[9.1.1] Keep the active context within the model's token limit.
+      \item[9.1.2] Reduce unnecessary history to control latency and attention cost.
     \end{algosublist}
-  \item[9.2] Execute dynamic context compaction and artifact pruning:
-    \vspace{-0.2em}
-    $$C_{t+1} = \mathrm{Prune}\big(C_t \cup \Delta \text{Artifacts} \setminus \text{Stale Tokens}\big)$$
-    \vspace{-0.2em}
-    {\footnotesize\color{prismDark}%
-      \textbf{\color{lavenderDark}Where:}\enspace $C_{t+1}, C_t$: Next and current context buffers $\;\vert\;$ $\Delta\text{Artifacts}$: Verified upstream deliverables $\mathcal{O}_i$ $\;\vert\;$ $\text{Stale Tokens}$: Discarded scratchpad tokens \& raw tool logs $\;\vert\;$ $\mathrm{Prune}(\cdot)$: Heuristic eviction filter.}
-    \vspace{0.15em}
+  \item[9.2] Compact the context by keeping verified outputs and removing stale or repeated content.
     \begin{algosublist}
-      \item[9.2.1] Forward only verified parent output artifacts $\mathcal{O}_i$ to dependent downstream child nodes.
-      \item[9.2.2] Evict intermediate reasoning scratchpads, redundant tool telemetry, and discarded draft tokens.
+      \item[9.2.1] Forward only verified parent outputs to dependent tasks.
+      \item[9.2.2] Remove redundant logs, drafts, and intermediate reasoning.
     \end{algosublist}
   \item[9.3] Persist global execution state using client-side database (\texttt{PrismDB}):
     \begin{algosublist}
-      \item[9.3.1] Commit session turns, task graphs, and tool execution logs to browser IndexedDB via Dexie.js.
-      \item[9.3.2] Ensure client data privacy, full offline execution persistence, and instant crash recovery.
+      \item[9.3.1] Save session turns, task graphs, and tool logs in IndexedDB.
+      \item[9.3.2] Preserve local state for privacy and recovery after failure.
     \end{algosublist}
 \end{algolist}
 \end{frame}
@@ -1928,26 +1887,26 @@ Cloud or temporary in-memory state &
 \vspace{0.15em}
 
 \begin{algolist}
-  \item[10.1] Single-stage reference-free preference alignment formulation (ORPO):
+  \item[10.1] Train the response-quality model with chosen and rejected examples using ORPO:
     \vspace{-0.25em}
     $$\mathcal{L}_{\mathrm{ORPO}} = \mathcal{L}_{\mathrm{SFT}} + \lambda_{\mathrm{OR}} \cdot \mathcal{L}_{\mathrm{OR}} \quad \text{where} \quad \mathcal{L}_{\mathrm{OR}} = -\log \sigma \left( \log \left[ \frac{\mathrm{odds}_\theta(y_w \mid x)}{\mathrm{odds}_\theta(y_l \mid x)} \right] \right)$$
     \vspace{-0.2em}
     {\footnotesize\color{prismDark}%
-      \textbf{\color{lavenderDark}Where:}\enspace $\mathcal{L}_{\mathrm{ORPO}}$: Total loss $\;\vert\;$ $\mathcal{L}_{\mathrm{SFT}}$: SFT cross-entropy loss $\;\vert\;$ $\lambda_{\mathrm{OR}}$: Odds weight $\;\vert\;$ $\mathcal{L}_{\mathrm{OR}}$: Odds ratio penalty $\;\vert\;$ $\mathrm{odds}_\theta(y \mid x) = \frac{P_\theta(y \mid x)}{1 - P_\theta(y \mid x)}$: Output sequence odds $\;\vert\;$ $y_w, y_l$: Chosen / rejected responses for prompt $x$.}
+      \textbf{\color{lavenderDark}Meaning:}\enspace Combine normal supervised loss with a preference loss that favors the chosen response $y_w$ over the rejected response $y_l$.}
     \vspace{0.15em}
     \begin{algosublist}
-      \item[10.1.1] Jointly maximize chosen likelihood while penalizing rejected tokens ($2\times$ memory savings).
-      \item[10.1.2] Supervise via UltraFeedback pairs $\mathcal{D} = \{(x, y_w, y_l)\}$, bypassing unstable RLHF loops.
+      \item[10.1.1] Increase the likelihood of chosen responses and reduce the likelihood of rejected responses.
+      \item[10.1.2] Train on preference pairs $(x, y_w, y_l)$ without a separate reward model.
     \end{algosublist}
-  \item[10.2] Enforce runtime quality gating via preference score barrier $\mathcal{S}_{\mathrm{ORPO}}(x, y) \ge \tau_{\mathrm{approval}}$:
+  \item[10.2] Apply a quality gate before accepting an output:
     \begin{algosublist}
-      \item[10.2.1] Audit deliverables using fine-tuned model (\texttt{reward\_orpo\_v2}, Qwen2.5-1.5B LoRA).
-      \item[10.2.2] Score candidate outputs on instruction adherence, structural constraints, and safety guardrails.
+      \item[10.2.1] Score each deliverable with the fine-tuned preference model.
+      \item[10.2.2] Check instruction following, format, and safety requirements.
     \end{algosublist}
   \item[10.3] Handle quality failures via targeted DAG re-planning:
     \begin{algosublist}
-      \item[10.3.1] Capture diagnostic error traces and schema deviations when output falls below $\tau_{\mathrm{approval}}$.
-      \item[10.3.2] Dispatch error logs to DAG Planner for targeted branch re-planning without system abort.
+      \item[10.3.1] Record errors when an output fails the quality threshold.
+      \item[10.3.2] Send the failed branch back to the planner for targeted revision.
     \end{algosublist}
 \end{algolist}
 \end{frame}
@@ -1963,24 +1922,18 @@ Cloud or temporary in-memory state &
 \begin{algolist}
   \item[11.1] Aggregate and assemble multi-agent deliverables:
     \begin{algosublist}
-      \item[11.1.1] Harvest verified partial output artifacts $\mathcal{O}_i$ from all terminal nodes in the completed DAG.
-      \item[11.1.2] Coalesce research summaries, verified code diffs, and formatted text into unified final deliverable.
+      \item[11.1.1] Collect verified outputs from completed DAG tasks.
+      \item[11.1.2] Combine reports, code changes, and formatted content into one deliverable.
     \end{algosublist}
-  \item[11.2] Calculate end-to-end composite delivery quality metric:
-    \vspace{-0.2em}
-    $$\text{Delivery Quality } D = \text{Correctness} \times \text{Completeness} \times \text{Timeliness}$$
-    \vspace{-0.2em}
-    {\footnotesize\color{prismDark}%
-      \textbf{\color{lavenderDark}Where:}\enspace $D \in [0, 1]$: Composite quality metric $\;\vert\;$ \text{Correctness}: Schema conformance \& execution pass rate $\;\vert\;$ \text{Completeness}: Fulfillment of goal constraints $\;\vert\;$ \text{Timeliness}: Latency penalty score.}
-    \vspace{0.15em}
+  \item[11.2] Evaluate the final deliverable for correctness, completeness, and timeliness:
     \begin{algosublist}
-      \item[11.2.1] Apply multiplicative scoring penalty: failure in any single dimension sharply penalizes overall quality.
-      \item[11.2.2] Log quality vector to persistent performance ledger to calibrate future provider routing models.
+      \item[11.2.1] Reject or revise the deliverable if a required dimension is weak.
+      \item[11.2.2] Log quality results to improve future routing decisions.
     \end{algosublist}
-  \item[11.3] Commit finalized session state with ACID guarantees:
+  \item[11.3] Save the completed session state:
     \begin{algosublist}
-      \item[11.3.1] Atomically write completed conversation records, DAG execution graphs, and tool receipts to \texttt{PrismDB}.
-      \item[11.3.2] Record end-to-end telemetry: aggregate latency, per-agent token consumption, and audit receipts.
+      \item[11.3.1] Write conversation records, DAG state, and tool receipts to \texttt{PrismDB}.
+      \item[11.3.2] Record latency, token use, and audit information.
     \end{algosublist}
 \end{algolist}
 \end{frame}
@@ -1996,19 +1949,19 @@ Cloud or temporary in-memory state &
 \begin{algolist}
   \item[12.1] Synthesize and package final deliverable artifacts:
     \begin{algosublist}
-      \item[12.1.1] Compile structured digital artifacts (Markdown reports, verified code patches, email/document drafts).
-      \item[12.1.2] Generate comprehensive audit receipt containing agent provenance, execution duration, and tool logs.
+      \item[12.1.1] Package reports, verified code patches, and document drafts.
+      \item[12.1.2] Create an audit receipt with agent, timing, and tool information.
     \end{algosublist}
   \item[12.2] Render presentation layer via multi-pane workspace interface:
     \begin{algosublist}
-      \item[12.2.1] Update interactive DAG HUD with real-time node states (\texttt{Queued} $\to$ \texttt{Running} $\to$ \texttt{Success} / \texttt{Failed}).
-      \item[12.2.2] Mount Artifact Viewer canvas providing rich Markdown rendering, syntax highlighting, and export controls.
-      \item[12.2.3] Present interactive approval cards for pending external actions with explicit authorization controls.
+      \item[12.2.1] Show task states such as \texttt{Queued}, \texttt{Running}, \texttt{Success}, and \texttt{Failed}.
+      \item[12.2.2] Render the result with formatting, syntax highlighting, and export controls.
+      \item[12.2.3] Show approval controls for pending external actions.
     \end{algosublist}
   \item[12.3] Synchronize client state reactively via local database transactions:
     \begin{algosublist}
-      \item[12.3.1] Commit verified state transitions and output artifacts directly into browser IndexedDB (\texttt{PrismDB}).
-      \item[12.3.2] Trigger Dexie \texttt{useLiveQuery()} observers to update UI components reactively upon local database commits.
+      \item[12.3.1] Save verified state changes and output artifacts in \texttt{PrismDB}.
+      \item[12.3.2] Update the interface when local database state changes.
     \end{algosublist}
 \end{algolist}
 \end{frame}
@@ -2036,229 +1989,438 @@ Cloud or temporary in-memory state &
 \end{frame}
 
 \begin{frame}[t]{06. PrismSpace Workflow (Figure 1.0)}
-\vspace{-0.15em}
+\vspace{-0.35em}
 \centering
-\adjustbox{max width=0.98\linewidth, max height=0.74\textheight}{%
+\adjustbox{max width=0.98\linewidth, max height=0.75\textheight}{%
 \begin{tikzpicture}[
     x=1cm, y=1cm,
     font=\sffamily,
-    stepbox/.style={
-        rectangle, draw=lavenderDark!80, line width=0.85pt, fill=white,
-        rounded corners=4pt, inner sep=4pt, align=center,
-        drop shadow={shadow xshift=1pt, shadow yshift=-1pt, opacity=0.2}
+    refcard/.style={
+        rectangle, draw=lavenderDark!85, line width=0.9pt, fill=white,
+        rounded corners=5pt, inner sep=4pt, align=center,
+        drop shadow={shadow xshift=1.2pt, shadow yshift=-1.2pt, opacity=0.18}
     },
     flowarr/.style={
-        -{Stealth[scale=0.85]}, line width=1.1pt, draw=lavenderDark!90
+        -{Stealth[scale=0.95]}, line width=1.15pt, draw=lavenderDark!90
+    },
+    curvearr/.style={
+        -{Stealth[scale=0.95]}, line width=1.15pt, draw=lavenderDark!90
     },
     dashloop/.style={
-        -{Stealth[scale=0.75]}, line width=0.85pt, dashed, draw=prismGold!90!black
+        -{Stealth[scale=0.90]}, line width=0.95pt, dashed, draw=prismGold!95!black
     }
 ]
 
-    % Step 1: User Request
-    \node [stepbox, fill=cInput, text width=2.5cm] (b1) at (-6.2, 0) {
-        \textbf{\fontsize{8.2}{9.8}\selectfont\color{lavenderDark}1. User Request}\\[0.22em]
-        \fontsize{6.2}{7.4}\selectfont
-        $\bullet$ Daily or tech goal\\
-        $\bullet$ Email, docs, or code\\
-        $\bullet$ Context and history
+    % Stage 1: Agent Loop (Matching Reference Image)
+    \node [refcard, fill=cPlanner!25, text width=3.10cm, minimum height=4.2cm] (b_loop) at (-5.35, -0.15) {
+        \vspace{0.25em}
+        {\fontsize{9.2}{11}\selectfont\bfseries\color{lavenderDark}Agent Loop}\\[0.25em]
+        {\color{prismTeal}\fontsize{24}{28}\selectfont\faSync}\\[0.35em]
+        {\fontsize{6.1}{7.3}\selectfont\bfseries\color{lavenderDark}1. User Request \& Router}\\[0.20em]
+        \begin{minipage}{2.80cm}\raggedright\fontsize{5.7}{7.0}\selectfont
+        $\bullet$ Emails, docs \& scheduling\\[1.8pt]
+        $\bullet$ Code edits, debug \& CLI\\[1.8pt]
+        $\bullet$ Web search \& tool runs\\[1.8pt]
+        $\bullet$ Model routing \& context
+        \end{minipage}
+        \vspace{0.25em}
     };
 
-    % Step 2: Supervisor & Router
-    \node [stepbox, fill=cPlanner, text width=2.6cm] (b2) at (-2.8, 0) {
-        \textbf{\fontsize{8.2}{9.8}\selectfont\color{lavenderDark}2. Task Router}\\[0.22em]
-        \fontsize{6.2}{7.4}\selectfont
-        $\bullet$ Request type\\
-        $\bullet$ Best model selection\\
-        $\bullet$ Task planning
+    % Branching Dot Node (Matching Reference Image 'Make control explicit')
+    \node [circle, fill=lavenderDark, inner sep=2.5pt] (dot) at (-2.45, -0.15) {};
+    \node [above=5pt of dot, align=center, font=\fontsize{5.8}{6.8}\selectfont\bfseries\color{lavenderDark}] {
+        Make control\\[-1pt]explicit
+    };
+    \node [below=5pt of dot, align=center, font=\fontsize{5.2}{6.2}\selectfont\bfseries\color{prismTeal}] {
+        (DAG Planning)
     };
 
-    % Step 3: Swarm Agents and responsibilities
-    \node [stepbox, fill=cReact, text width=3.05cm] (b3) at (0.8, 1.25) {
-        \textbf{\fontsize{8.2}{9.8}\selectfont\color{lavenderDark}3. Swarm Agents}\\[0.18em]
-        \fontsize{5.7}{6.8}\selectfont
-        {\color{prismIndigo}\faProjectDiagram}\; \textbf{Planner:} makes task plan\\
-        {\color{prismBlue}\faSearch}\; \textbf{Assistant:} \mbox{handles daily tasks}\\
-        {\color{prismTeal}\faCode}\; \textbf{Coder:} edits code\\
-        {\color{purple!75!black}\faClipboardCheck}\; \textbf{Validator:} checks results
+    % Stage 2: Three Parallel Sub-Tasks / Agents (Matching Reference Image middle 3 cards with gaps)
+    % 1. Top Card: Assistant & Docs (Document icon + Gmail & Drive)
+    \node [refcard, fill=cStage1!30, text width=4.25cm, minimum height=1.15cm] (b_top) at (0.80, 1.45) {
+        \textbf{\fontsize{7.8}{9.2}\selectfont\color{lavenderDark}{\color{prismBlue}\faFile}\; Assistant \& Documents}\\[0.20em]
+        \fontsize{5.8}{7.0}\selectfont
+        \includegraphics[height=1.35ex]{logos/gmail.png}\;\textbf{Gmail MCP:} sent emails \& drafts\\[0.1em]
+        \includegraphics[height=1.35ex]{logos/drive.png}\;\textbf{Drive MCP:} docs \& spreadsheets
     };
 
-    % Step 4: MCP servers with project connections
-    \node [stepbox, fill=cTool, text width=3.05cm] (b4) at (0.8, -1.25) {
-        \textbf{\fontsize{8.2}{9.8}\selectfont\color{lavenderDark}4. MCP Servers}\\[0.15em]
-        \fontsize{5.7}{6.8}\selectfont
-        {\color{red!70!black}\faGoogle}\; \textbf{Gmail:} email management\\
-        {\color{prismBlue}\faGoogleDrive}\; \textbf{Google Drive:} documents\\
-        {\color{prismGold!90!black}\faFolderOpen}\; \textbf{Filesystem:} local files\\
-        {\color{prismTeal}\faTerminal}\; \textbf{Tools:} terminal, web
+    % 2. Middle Card: Coder & Terminal (Code window </> icon + Filesystem & Terminal)
+    \node [refcard, fill=cStage4!30, text width=4.25cm, minimum height=1.15cm] (b_mid) at (0.80, -0.15) {
+        \textbf{\fontsize{7.8}{9.2}\selectfont\color{lavenderDark}{\color{prismTeal}\faCode}\; Coder \& Workspace}\\[0.20em]
+        \fontsize{5.8}{7.0}\selectfont
+        {\color{prismGold!90!black}\faFolderOpen}\;\textbf{Filesystem MCP:} local code edits\\[0.1em]
+        {\color{prismTeal}\faTerminal}\;\textbf{Terminal MCP:} CLI commands \& tools
     };
 
-    % Step 5: Validator & Safety Gate
-    \node [stepbox, fill=cSafety, text width=2.6cm] (b5) at (4.4, 0) {
-        \textbf{\fontsize{8.2}{9.8}\selectfont\color{lavenderDark}5. Validation}\\[0.22em]
-        \fontsize{6.2}{7.4}\selectfont
+    % 3. Bottom Card: Tool Mesh & Testing (Checklist + Flask icon + MCP Official Logo)
+    \node [refcard, fill=cStage2!30, text width=4.35cm, minimum height=1.15cm] (b_bot) at (0.80, -1.75) {
+        \textbf{\fontsize{7.8}{9.2}\selectfont\color{lavenderDark}{\color{purple!75!black}\faTasks}\; Tool Mesh \& Testing}\\[0.20em]
+        \fontsize{5.6}{6.8}\selectfont
+        \includegraphics[height=1.35ex]{logos/mcp.png}\;\textbf{MCP Standard:} JSON-RPC tool mesh\\[0.1em]
+        {\color{purple!75!black}\faFlask}\;\textbf{ReAct:}\;Reason $\rightarrow$ Act $\rightarrow$ Observe loop
+    };
+
+    % Stage 3: Verify Box (Matching Reference Image Shield with checkmark)
+    \node [refcard, fill=cSafety!30, text width=2.1cm, minimum height=4.2cm] (b_verify) at (4.30, -0.15) {
+        \vspace{0.4em}
+        {\color{lavenderDark}\fontsize{24}{28}\selectfont\faIcon{shield-alt}}\\[0.3em]
+        \textbf{\fontsize{8.6}{10.5}\selectfont\color{lavenderDark}Verify}\\[0.4em]
+        \fontsize{6.0}{7.3}\selectfont
         $\bullet$ Policy check\\
-        $\bullet$ Human approval\\
+        $\bullet$ Anomaly filter\\
         $\bullet$ ORPO score
+        \vspace{0.4em}
     };
 
-    % Step 6: Real Outputs
-    \node [stepbox, fill=cDeliverable, text width=3.35cm] (b6) at (8.15, 0) {
-        \textbf{\fontsize{8.2}{9.8}\selectfont\color{lavenderDark}6. Real Outputs}\\[0.18em]
-        \fontsize{5.7}{6.8}\selectfont
-        {\color{red!70!black}\faEnvelope}\; \textbf{Gmail:} sent emails \& drafts\\
-        {\color{prismBlue}\faGoogleDrive}\; \textbf{Drive:} docs \& spreadsheets\\
-        {\color{prismTeal}\faCode}\; \textbf{Files:} code edits \& artifacts\\
-        {\color{prismGold!90!black}\faTerminal}\; \textbf{Tools:} CLI runs \& web data
+    % Stage 4: Approve Box (Matching Reference Image Person with badge / checkmark)
+    \node [refcard, fill=cDeliverable!40, text width=2.15cm, minimum height=4.2cm] (b_approve) at (6.80, -0.15) {
+        \vspace{0.4em}
+        {\color{prismTeal}\fontsize{24}{28}\selectfont\faUserCheck}\\[0.3em]
+        \textbf{\fontsize{8.6}{10.5}\selectfont\color{lavenderDark}Approve}\\[0.4em]
+        \fontsize{6.0}{7.3}\selectfont
+        $\bullet$ Action sign-off\\
+        $\bullet$ Verified artifacts\\
+        $\bullet$ Output dispatch
+        \vspace{0.4em}
     };
 
-    % Connect main flow
-    \draw [flowarr] (b1) -- (b2);
-    \draw [flowarr] (b2.east) -- ++(0.3, 0) |- (b3.west);
-    \draw [flowarr] (b2.east) -- ++(0.3, 0) |- (b4.west);
-    \draw [{Stealth[scale=0.8]}-{Stealth[scale=0.8]}, line width=1.0pt, draw=prismTeal] (b3) -- (b4);
-    \draw [flowarr] (b3.east) -| ++(0.3, -1.25) -- (b5.west);
-    \draw [flowarr] (b4.east) -| ++(0.3, 1.25) -- (b5.west);
-    \draw [flowarr] (b5) -- (b6);
+    % Main Connecting Arrows
+    % 1. From Agent Loop to Dot
+    \draw [flowarr] (b_loop.east) -- (dot);
 
-    % Feedback Loop - lifted clear of the Swarm Agents box
-    \draw [dashloop] (b5.north) -- ++(0, 1.75) -| node[pos=0.5, above=2pt, font=\fontsize{6.2}{7.5}\selectfont\bfseries\color{prismGold!90!black}]{Validation Feedback \& Retry Loop} (b2.north);
+    % 2. Branching from Dot to 3 Parallel Cards (Curved Paths like Reference Image)
+    \draw [curvearr] (dot) to[out=28, in=180] (b_top.west);
+    \draw [flowarr] (dot) -- (b_mid.west);
+    \draw [curvearr] (dot) to[out=-28, in=180] (b_bot.west);
+
+    % 3. Merging from 3 Parallel Cards into Verify (Curved Paths like Reference Image)
+    \draw [curvearr] (b_top.east) to[out=0, in=150] ([yshift=0.7cm]b_verify.west);
+    \draw [flowarr] (b_mid.east) -- (b_verify.west);
+    \draw [curvearr] (b_bot.east) to[out=0, in=-150] ([yshift=-0.7cm]b_verify.west);
+
+    % 4. From Verify to Approve
+    \draw [flowarr] (b_verify.east) -- (b_approve.west);
+
+    % 5. Validation Feedback & Retry Loop (Clean loop entering left side of Agent Loop)
+    \draw [dashloop] (b_verify.north) -- ([yshift=0.45cm]b_verify.north |- 0, 2.45) 
+        -- node[pos=0.5, above=2pt, font=\fontsize{6.5}{7.8}\selectfont\bfseries\color{prismGold!95!black}]{\faRedo\ Validation Feedback \& Retry Loop} 
+        ([xshift=-0.85cm]b_loop.north |- 0, 2.45) -- ([xshift=-0.85cm]b_loop.north);
 
 \end{tikzpicture}%
 }
 \vspace{0.2em}
 \begin{tcolorbox}[
   enhanced, arc=3pt, colframe=lavenderDark!65, colback=lavenderLight!35,
-  boxrule=0.6pt, left=4pt, right=4pt, top=1.5pt, bottom=1.5pt
+  boxrule=0.6pt, left=2pt, right=2pt, top=1.2pt, bottom=1.2pt
 ]
-\centering\fontsize{4.8}{5.8}\selectfont\color{lavenderDark}
-\textbf{Figure 1.0: PrismSpace Workflow} $\;\vert\;$ 
-\textbf{DAG} = Directed Acyclic Graph $\;\vert\;$ 
-\textbf{MCP} = Model Context Protocol $\;\vert\;$ 
-\textbf{ORPO} = Odds Ratio Preference Optimization
+\centering\fontsize{4.2}{5.0}\selectfont\color{lavenderDark}
+\textbf{Figure 1.0: PrismSpace Workflow} $\,\vert\,$ 
+\textbf{DAG} = Directed Acyclic Graph $\,\vert\,$ 
+\textbf{MCP} = Model Context Protocol $\,\vert\,$ 
+\textbf{ReAct} = Reason + Act $\,\vert\,$ 
+\textbf{ORPO} = Odds Ratio Preference Optimization $\,\vert\,$ 
+\textbf{HITL} = Human-in-the-Loop
 \end{tcolorbox}
 \end{frame}
 
 % =============================================================================
-% SLIDE 7: PROJECT DATA-FLOW DIAGRAM
 % =============================================================================
-\section{Data Flow}
 
-\begin{frame}[t]{07. PrismSpace Data Flow Diagram}
-\vspace{0.15em}
+% Dataset pipeline belongs immediately after the workflow figure.
+\begin{frame}[t]{10. Unified Dataset Preparation \& Multi-Model Training Pipeline}
+\vspace{-0.2em}
 \centering
-
-\adjustbox{max width=0.98\linewidth, max height=0.84\textheight, keepaspectratio}{%
+\begin{tcolorbox}[enhanced, colback=lavenderDark!95, colframe=lavenderDark, arc=3pt,
+  boxrule=0.5pt, width=0.99\linewidth, top=2pt, bottom=2pt, left=8pt, right=8pt]
+\centering\textcolor{white}{\fontsize{7}{8.4}\selectfont\bfseries
+Raw multi-source datasets flow through normalization and curation into four supervised tables, then train eleven production models.}
+\end{tcolorbox}
+\vspace{0.35em}
+\resizebox{0.98\linewidth}{!}{%
 \begin{tikzpicture}[
-  entity/.style={rectangle, draw=lavenderDark!75, line width=0.85pt, rounded corners=2.5pt,
-    align=center, inner sep=4.5pt, font=\fontsize{6.5}{7.5}\selectfont\bfseries,
-    text width=1.75cm, fill=cInput, drop shadow={opacity=0.08, shadow xshift=0.5pt, shadow yshift=-0.5pt}},
-  store/.style={rectangle, draw=lavenderDark!70, line width=0.85pt,
-    align=center, inner sep=4.0pt, font=\fontsize{6.0}{7.0}\selectfont,
-    text width=1.85cm, fill=lavenderLight, drop shadow={opacity=0.08, shadow xshift=0.5pt, shadow yshift=-0.5pt}},
-  proc/.style={circle, draw=lavenderMedium!90, line width=0.85pt,
-    align=center, inner sep=1.5pt, minimum size=1.15cm,
-    font=\fontsize{5.8}{6.8}\selectfont, fill=cStage1, drop shadow={opacity=0.06, shadow xshift=0.5pt, shadow yshift=-0.5pt}},
-  procblue/.style={proc, fill=cStage4},
-  procgold/.style={proc, fill=cStage2},
-  iface/.style={rectangle, rounded corners=5pt, draw=lavenderDark!85, line width=0.95pt,
-    align=center, inner sep=5pt, text width=1.85cm,
-    font=\fontsize{6.5}{7.5}\selectfont\bfseries, fill=cPlanner, drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}},
-  model/.style={entity, text width=1.85cm, fill=cStage2},
-  flow/.style={-{Stealth[scale=0.80]}, line width=0.85pt, draw=lavenderDark!85},
-  dottedflow/.style={-{Stealth[scale=0.75]}, dashed, line width=0.80pt, draw=lavenderDark!75},
-  feedback/.style={-{Stealth[scale=0.80]}, dashed, line width=0.85pt, draw=prismTeal!90!black},
-  label/.style={font=\fontsize{5.2}{6.2}\selectfont\bfseries, text=prismTeal!90!black, inner sep=1.5pt}
+  stage/.style={rectangle, rounded corners=4pt, draw=lavenderDark!75, line width=0.9pt,
+    minimum height=4.4cm, align=left, inner sep=3.5pt, font=\fontsize{5.0}{5.6}\selectfont},
+  flow/.style={-{Stealth[scale=0.8]}, line width=1pt, draw=prismTeal!85!black}
 ]
-
-% ==================== NODES ====================
-
-% External Entity: User / Workspace (Leftmost)
-\node[entity] (external) at (-6.20, 0.20) {User /\\ Workspace};
-
-% Stores: Top row (y = 2.45)
-\node[store] (accounts) at (-4.20, 2.45) {\textbf{Indexed DB}\\[1pt]\fontsize{5.4}{6.4}\selectfont sessions,\\ messages, files};
-\node[store] (prompts) at (1.50, 2.45) {\textbf{User}\\[1pt]\textbf{Prompts}};
-
-% Model Entity (Top Right, y = 2.45)
-\node[model] (model) at (5.40, 2.45) {Large\\ Language\\ Models};
-
-% Left Process Group (Input ingestion & Session, y = 1.05 and y = -0.45)
-\node[proc] (login) at (-4.20, 1.05) {load\\ context};
-\node[proc] (enter) at (-4.20, -0.45) {enter\\ objective};
-\node[procblue] (validate) at (-2.60, 1.05) {validate\\ session};
-
-% Central Interfaces & Prompt Handling
-\node[iface] (api) at (-1.80, -0.45) {Next.js\\ API\\ proxy};
-\node[procblue] (storeprompt) at (-0.30, 1.05) {store\\ prompt};
-\node[procblue] (pass) at (0.90, 1.05) {pass\\ context};
-\node[procgold] (read) at (2.20, 1.05) {read\\ prompt};
-\node[iface] (llm) at (2.20, -0.45) {LLM\\ interface};
-
-% Execution Output
-\node[proc] (generate) at (5.40, -0.45) {generate\\ response};
-
-% Bottom Row: Validation, Feedback & Adaptation (All on y = -1.95)
-\node[procblue] (display) at (-6.20, -1.95) {display\\ response};
-\node[proc] (correct) at (-1.80, -1.95) {validate\\ result};
-\node[store] (wrong) at (0.40, -1.95) {store\\ failed\\ trace};
-\node[procgold] (train) at (2.40, -1.95) {route /\\ refine};
-\node[procgold] (integrate) at (4.40, -1.95) {update\\ policy};
-
-% ==================== FLOW ARROWS ====================
-
-% 1. Context loading from Indexed DB
-\draw[flow] (accounts.south) -- node[right=1pt, font=\fontsize{4.8}{5.8}\selectfont\color{lavenderDark!70}]{read} (login.north);
-\draw[flow] (login.east) -- (validate.west);
-\draw[flow] (validate.south) to[out=-70,in=140] ([xshift=-0.35cm]api.north);
-
-% 2. User Input flow
-\draw[flow] (external.east) |- (enter.west);
-\draw[flow] (enter.east) -- (api.west);
-
-% 3. Persistence to Indexed DB from API Proxy (runs straight up at X = -1.80 to Y = 2.45, then left into accounts.east)
-\draw[dottedflow] (api.north) -- (-1.80, 2.45) -- node[above, font=\fontsize{4.8}{5.8}\selectfont\color{lavenderDark!80}\itshape]{persist} (accounts.east);
-
-% 4. Prompt Storage in Data Store
-\draw[flow] ([xshift=0.35cm]api.north) |- (storeprompt.west);
-\draw[flow] (storeprompt.north) |- (prompts.west);
-
-% 5. Prompt & Context Retrieval into LLM Interface (Straight parallel vertical drops)
-\draw[flow] ([xshift=-0.60cm]prompts.south) -- (pass.north);
-\draw[flow] ([xshift=0.70cm]prompts.south) -- (read.north);
-\draw[flow] (pass.south) -- ++(0, -0.40) -| ([xshift=-0.45cm]llm.north);
-\draw[flow] (read.south) -- (llm.north);
-
-% 6. LLM Interface <-> Model Inference Cycle
-\draw[flow] (llm.north east) -- (model.south west);
-\draw[flow] (model.south) -- (generate.north);
-\draw[flow] (generate.west) -- (llm.east);
-\draw[flow] (llm.west) -- (api.east);
-
-% 7. Validation Path from API
-\draw[flow] (api.south) -- (correct.north);
-
-% 8. Verified Output Delivery (Pass)
-\draw[feedback] (correct.west) -- node[above, label]{verified output} (display.east);
-\draw[feedback] (display.north) -- (external.south);
-
-% 9. Failure Handling & Adaptive Re-planning Loop
-\draw[flow] (correct.east) -- node[above, font=\fontsize{4.8}{5.8}\selectfont\color{statusFail!90!black}\bfseries]{fail} (wrong.west);
-\draw[flow] (wrong.east) -- (train.west);
-\draw[flow] (train.east) -- (integrate.west);
-% Policy update cleanly loops back to LLM Interface in the open horizontal corridor at Y = -1.15
-\draw[dottedflow] (integrate.north) -- (4.40, -1.15) -- node[above, font=\fontsize{4.8}{5.8}\selectfont\color{lavenderDark}\itshape]{refine / retry} (2.20, -1.15) -- (llm.south);
-
+\node[stage, fill=lavenderLight!55, minimum width=2.9cm, text width=2.5cm] (raw) at (-0.1,0) {
+  \centering{\fontsize{12}{12}\selectfont\color{lavenderDark}\faDatabase}\\[2pt]
+  \centering\textbf{1. Raw Datasets}\\[3pt]
+  \raggedright\fontsize{4.6}{5.5}\selectfont
+  \textbullet\ \textbf{WildGuardMix}\\
+  \textbullet\ \textbf{Agent trajectories}\\
+  \textbullet\ \textbf{RouterBench}\\
+  \textbullet\ \textbf{UltraFeedback}\\[3pt]
+  \centering\texttt{\fontsize{4.2}{5.0}\selectfont .parquet, .json, .jsonl}
+};
+\node[stage, fill=prismTeal!14, minimum width=6.25cm, text width=5.90cm] (tables) at (5.35,0) {
+  \centering{\fontsize{12}{12}\selectfont\color{prismTeal!85!black}\faTable}\\[1.5pt]
+  \centering\textbf{2. Supervised Tables: Fields \& Training Roles}\\[2.5pt]
+  \fontsize{3.9}{4.75}\selectfont
+  \setlength{\tabcolsep}{1.8pt}
+  \renewcommand{\arraystretch}{1.18}
+  \begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}m{1.50cm}|>{\raggedright\arraybackslash\ttfamily}m{1.55cm}|>{\raggedright\arraybackslash}X|}
+  \hline
+  \rowcolor{prismTeal!25}
+  \textrm{\textbf{Dataset $\to$ Table}} & \textrm{\textbf{Training Fields}} & \textrm{\textbf{How Fields Are Used in Training}} \\\hline
+  \textbf{WildGuardMix}\newline\comp{approval.jsonl} & 
+  prompt,\newline label (harm) & 
+  Trains \textbf{ApprovalPredictor} \& anomaly filter to block harmful/adversarial prompts. \\\hline
+  \textbf{Trajectories}\newline\comp{success.jsonl} & 
+  prompt,\newline reward (0/1) & 
+  Trains \textbf{SuccessPredictor} to estimate DAG task completion probability. \\\hline
+  \textbf{RouterBench}\newline\comp{provider.jsonl} & 
+  prompt, winner,\newline vote\_score & 
+  Trains \textbf{ModelRouter} to select optimal provider (Groq vs OpenAI vs NIM). \\\hline
+  \textbf{UltraFeedback}\newline\comp{reward.jsonl} & 
+  prompt, chosen,\newline rejected & 
+  Trains \textbf{ORPO RewardModel} (Qwen2.5-1.5B) via preference ranking loss. \\\hline
+  \end{tabularx}
+};
+\node[stage, fill=lavenderMedium!22, minimum width=4.45cm, text width=4.05cm] (models) at (11.45,0) {
+  \centering{\fontsize{13}{13}\selectfont\color{lavenderMedium!85!black}\faCogs}\\[2pt]
+  \centering\textbf{3. Production Models (11)}\\[3pt]
+  \begin{minipage}{4.05cm}\centering\fontsize{3.9}{4.45}\selectfont
+  \fcolorbox{lavenderDark!75}{lavenderLight!55}{\parbox{3.82cm}{\raggedright\textbf{\color{lavenderDark}Routing \& Intent Models (3)}\\[-1pt]
+  \textbullet\ IntentClassifier\\
+  \textbullet\ AgentRouter\\
+  \textbullet\ ModelRouter: Groq / OpenAI / NIM}}\\[2pt]
+  \fcolorbox{prismTeal!80!black}{prismMint!55}{\parbox{3.82cm}{\raggedright\textbf{\color{prismTeal!90!black}Workflow Intelligence \& Performance (3)}\\[-1pt]
+  \textbullet\ WorkflowClusterer\\
+  \textbullet\ SuccessPredictor\\
+  \textbullet\ LatencyPredictor}}\\[2pt]
+  \fcolorbox{red!70!black}{red!08}{\parbox{3.82cm}{\raggedright\textbf{\color{red!75!black}Safety, Alignment \& Context (5)}\\[-1pt]
+  \textbullet\ ApprovalPredictor; AnomalyDetector\\
+  \textbullet\ FAISS Vector Retriever\\
+  \textbullet\ RewardModel + Qwen2.5-1.5B ORPO}}
+  \end{minipage}
+};
+% Keep connector labels in dedicated lanes so they cannot cross table content.
+\draw[flow, line width=1.35pt] (raw.east |- 0,1.05) --
+  node[above, fill=prismLight, inner sep=1pt, font=\fontsize{5.0}{5.8}\selectfont\bfseries]{normalize + curate}
+  (tables.west |- 0,1.05);
+\draw[flow, line width=1.35pt] (tables.east |- 0,-1.05) --
+  node[below, fill=prismLight, inner sep=1pt, font=\fontsize{5.0}{5.8}\selectfont\bfseries]{train + deploy}
+  (models.west |- 0,-1.05);
 \end{tikzpicture}%
 }
-
+\vspace{-0.10cm}
+\begin{tcolorbox}[
+  enhanced, arc=2.5pt, colframe=prismTeal!80!black, colback=prismMint!28,
+  boxrule=0.55pt, width=0.88\linewidth, left=3pt, right=3pt, top=1.2pt, bottom=1.2pt
+]
+\centering\fontsize{5.2}{6.2}\selectfont
+\textbf{Dataset split:} \textbf{80\% training} \;|\; \textbf{10\% validation} \;|\; \textbf{10\% testing}.\\[-1pt]
+The held-out 20\% is divided equally for validation and final testing.
+\end{tcolorbox}
+\vspace{-0.35cm}
 \end{frame}
 
 % =============================================================================
-% SLIDE 7: AGENT LIFECYCLE, MCP INTEGRATION & RUNTIME FLOW
+% SLIDE 10: MODEL TRAINING MAP
 % =============================================================================
+\begin{frame}[t]{10. Model Training Map: Algorithm Choice by Responsibility}
+\vspace{-0.38em}
+\begin{tcolorbox}[
+  enhanced, arc=3pt, colframe=lavenderDark!75, colback=white,
+  boxrule=0.6pt, left=2pt, right=2pt, top=1.4pt, bottom=1.4pt,
+  title={\scriptsize\bfseries\color{white}\faTable\; Model-to-Algorithm Training Matrix}
+]
+\centering
+\adjustbox{max width=0.99\linewidth, max totalheight=0.72\textheight, keepaspectratio}{%
+\fontsize{4.7}{5.5}\selectfont
+\renewcommand{\arraystretch}{1.13}
+\setlength{\tabcolsep}{2.2pt}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}m{3.05cm} >{\centering\arraybackslash}m{1.65cm} >{\raggedright\arraybackslash}m{3.35cm} >{\raggedright\arraybackslash}X}
+\rowcolor{lavenderLight!90}
+\textbf{Model} & \textbf{Type} & \textbf{ML algorithm for training} & \textbf{Why choose this algorithm?}\\
+\hline
+\rowcolor{prismMint!45}
+\textbf{Intent Classifier} & Classification & TF--IDF + XGBoost classifier & Fast and strong on sparse text features; captures nonlinear boundaries across the 12 intent classes.\\
+\hline
+\textbf{Agent Router} & Multilabel & Binary-relevance XGBoost & Predicts several specialist agents independently while preserving strong tabular/text-feature performance.\\
+\hline
+\textbf{Approval Predictor} & Classification & Calibrated XGBoost & Models nonlinear safety signals and produces probabilities that can be thresholded for HITL approval.\\
+\hline
+\textbf{Workflow Success Predictor} & Classification & XGBoost classifier & Learns interactions among task features, history, and plan shape; effective for structured trace data.\\
+\hline
+\textbf{Provider Router} & Classification & XGBoost ranking/classifier & Combines capability, quality, cost, and availability signals to choose the best provider/model.\\
+\hline
+\textbf{Latency Predictor} & Regression & XGBoost regressor & Captures nonlinear effects of provider load, prompt size, model, and tool complexity.\\
+\hline
+\textbf{Cost Predictor} & Regression & XGBoost regressor & Handles token-based and provider-specific cost interactions without requiring a linear cost assumption.\\
+\hline
+\textbf{Anomaly Detector} & Anomaly & Isolation Forest & Works with few or no anomaly labels and isolates rare, unusual execution patterns efficiently.\\
+\hline
+\textbf{Reward ORPO Adapter} & ORPO & ORPO + Reinforcement Learning & Learns from chosen-versus-rejected preference feedback to improve response quality and alignment.\\
+\hline
+\textbf{FAISS Retrieval Index} & Unsupervised & Sentence embeddings + FAISS & Requires no class labels; semantic vectors support fast nearest-neighbor retrieval over workspace context.\\
+\hline
+\textbf{Workflow Clusters} & Unsupervised & K-Means clustering & Groups similar execution traces to discover reusable workflow templates without labeled outcomes.\\
+\hline
+\end{tabularx}%
+}
+\end{tcolorbox}
+\end{frame}
+
+\iffalse
+% --- BEGIN agent_lifecycle_frame.tex ---
+% Intent-classifier processing and action-guideline diagram.
+\begin{frame}[t]{Intent Classifier: From Prompt to Action Guidelines}
+\vspace{-0.2em}
+\begin{tcolorbox}[enhanced, arc=2pt, boxrule=0.55pt,
+  colframe=lavenderDark!75, colback=lavenderLight!28,
+  left=5pt, right=5pt, top=2pt, bottom=2pt]
+\centering\fontsize{6.1}{7.2}\selectfont
+\textbf{Goal:} convert a natural-language request into a dependency-safe DAG, specialist agents, and verifiable tool actions.
+\end{tcolorbox}
+\vspace{0.12em}
+\centering
+\adjustbox{max width=0.98\linewidth, max height=0.52\textheight, keepaspectratio}{%
+\begin{tikzpicture}[
+  font=\sffamily,
+  stage/.style={rectangle, rounded corners=3pt, draw=lavenderDark!70,
+    line width=0.7pt, minimum height=0.72cm, text width=2.35cm,
+    align=center, inner sep=3pt, font=\fontsize{5.8}{6.8}\selectfont\bfseries},
+  detail/.style={rectangle, rounded corners=2pt, draw=black!25,
+    fill=white, line width=0.5pt, text width=2.55cm, align=left,
+    inner sep=3pt, font=\fontsize{4.8}{5.7}\selectfont},
+  flow/.style={-{Stealth[scale=0.72]}, line width=0.8pt, draw=prismTeal!90!black},
+  branch/.style={-{Stealth[scale=0.65]}, line width=0.65pt, draw=prismGold!90!black}
+]
+% Main processing path
+\node[stage, fill=prismGold!18] (prompt) at (0,2.15) {1. User Prompt\\\scriptsize natural language};
+\node[detail] (clean) at (0,0.72) {\textbf{Normalize}\\lowercase, resolve references, detect constraints\\\texttt{prompt\_cleaner}};
+\node[stage, fill=lavenderLight!65] (features) at (3.3,2.15) {2. Feature Extraction\\\scriptsize entities + constraints};
+\node[detail] (intent) at (3.3,0.72) {\textbf{Classify intent}\\research / coding / tool use / synthesis\\\texttt{intent\_classifier.joblib}};
+\node[stage, fill=prismTeal!18] (classify) at (6.6,2.15) {3. Intent Classifier\\\scriptsize task type + confidence};
+\node[detail] (route) at (6.6,0.72) {\textbf{Route}\\select agent roles, model provider, and safety policy\\confidence threshold};
+\node[stage, fill=prismMint!55] (dag) at (9.9,2.15) {4. DAG Segmentation\\\scriptsize dependency-safe subtasks};
+\node[detail] (actions) at (9.9,0.72) {\textbf{Action guidelines}\\sequence, tools, approvals, retry policy\\\texttt{dag\_planner.pkl}};
+
+\draw[flow] (prompt.east) -- node[above, font=\fontsize{4.7}{5.5}\selectfont]{parse} (features.west);
+\draw[flow] (features.east) -- node[above, font=\fontsize{4.7}{5.5}\selectfont]{predict} (classify.west);
+\draw[flow] (classify.east) -- node[above, font=\fontsize{4.7}{5.5}\selectfont]{decompose} (dag.west);
+\draw[branch] (prompt.south) -- (clean.north);
+\draw[branch] (features.south) -- (intent.north);
+\draw[branch] (classify.south) -- (route.north);
+\draw[branch] (dag.south) -- (actions.north);
+
+% Interactive-style decision branches
+\node[stage, fill=red!10, text width=2.7cm] (safe) at (3.3,-1.15) {5. Safety Gate\\\scriptsize approval required?};
+\node[stage, fill=prismGold!18, text width=2.7cm] (parallel) at (6.6,-1.15) {6. Parallelize\\\scriptsize independent DAG nodes};
+\node[stage, fill=prismTeal!18, text width=2.7cm] (execute) at (9.9,-1.15) {7. Execute + Verify\\\scriptsize observe, act, validate};
+\draw[flow] (actions.south) -- (safe.north);
+\draw[flow] (safe.east) -- node[above, font=\fontsize{4.5}{5.2}\selectfont]{approved} (parallel.west);
+\draw[flow] (parallel.east) -- node[above, font=\fontsize{4.5}{5.2}\selectfont]{dispatch} (execute.west);
+\draw[branch] (safe.south) -- ++(0,-0.35) -| node[pos=0.25, below, font=\fontsize{4.4}{5.2}\selectfont]{pause / request HITL} (safe.west);
+\end{tikzpicture}%
+}
+\vspace{0.12em}
+\begin{tcolorbox}[enhanced, arc=2pt, boxrule=0.5pt,
+  colframe=prismTeal!75!black, colback=prismTeal!06,
+  left=5pt, right=5pt, top=2pt, bottom=2pt]
+\fontsize{5.0}{6.0}\selectfont
+\textbf{Example:} “Find the latest API documentation, summarize the breaking changes, and update the project notes.”\\[-1pt]
+\textcolor{prismTeal!90!black}{\textbf{DAG output:}} \texttt{retrieve docs} $\rightarrow$ \texttt{extract changes} $\rightarrow$ \texttt{summarize} $\rightarrow$ \texttt{request approval} $\rightarrow$ \texttt{write notes}.
+\end{tcolorbox}
+\end{frame}
+\fi
 
 % --- BEGIN agent_lifecycle_frame.tex ---
+% SLIDE 9: MODEL RESPONSIBILITIES & INFERENCE FLOW
+% =============================================================================
+\section{Model Responsibilities}
+
+\begin{frame}[t]{09. Model Responsibilities \& Inference Flow}
+\vspace{-0.30em}
+
+% Intent Definition Box - Ultra compact version
+\begin{center}
+\begin{tcolorbox}[
+  colback=lavenderLight!60,
+  colframe=lavenderDark!70,
+  arc=2pt,
+  boxrule=0.5pt,
+  left=2.5pt, right=2.5pt, top=1.5pt, bottom=1.5pt,
+  width=0.88\linewidth,
+  fontupper=\fontsize{5.8}{6.8}\selectfont
+]
+\textbf{\faInfoCircle\ Intent:} The \textbf{underlying goal} of a user's request. Determines \textit{task type} (research, coding, tool use, synthesis) for routing to agents \& tools.
+\end{tcolorbox}
+\end{center}
+
+\vspace{-0.12em}
+
+\vspace{-0.10cm}
+\begin{center}
+\begin{tikzpicture}[
+    x=1cm, y=0.94cm, font=\sffamily,
+    modelrow/.style={rectangle, rounded corners=3pt, draw=lavenderDark!40,
+      line width=0.55pt, minimum height=0.74cm, inner sep=2.5pt},
+    arrow/.style={-{Stealth[scale=0.65]}, line width=0.7pt, draw=lavenderDark!80}
+]
+  % Stage 1: intent
+  \node[modelrow, fill=lavenderLight!85!white, text width=2.00cm, align=center] (m1l) at (-5.70,2.65)
+    {{\fontsize{7.2}{8.2}\selectfont\faBrain\ \textbf{1. Intent}}\\[1pt]
+     {\fontsize{7.2}{8.2}\selectfont\bfseries Classifier}};
+  \node[modelrow, fill=lavenderLight!85!white, text width=7.40cm, align=left] (m1p) at (-0.60,2.65)
+    {\fontsize{6.5}{8.0}\selectfont \textbf{Prompt} $\rightarrow$ \textbf{Extracted features} $\rightarrow$ \textbf{classify intent}\\[1pt](research, tool use, coding, everyday synthesis)};
+  \node[modelrow, fill=lavenderLight!85!white, text width=3.35cm, align=left] (m1r) at (5.18,2.65)
+    {\fontsize{6.2}{7.2}\selectfont \textbf{Task type}\\[1pt]{\fontsize{5.2}{6.2}\selectfont\texttt{intent\_classifier.joblib}}};
+
+  % Stage 2: agent routing
+  \node[modelrow, fill=lavenderLight!65!prismTeal, text width=2.00cm, align=center] (m2l) at (-5.70,1.50)
+    {{\fontsize{7.2}{8.2}\selectfont\faUsers\ \textbf{2. Agent}}\\[1pt]
+     {\fontsize{7.2}{8.2}\selectfont\bfseries Router}};
+  \node[modelrow, fill=lavenderLight!65!prismTeal, text width=7.40cm, align=left] (m2p) at (-0.60,1.50)
+    {\fontsize{6.5}{8.0}\selectfont \textbf{Intent + task features} $\rightarrow$ predict \textbf{multiple agent labels}\\[1pt]$\rightarrow$ form the \textbf{specialist team}};
+  \node[modelrow, fill=lavenderLight!65!prismTeal, text width=3.35cm, align=left] (m2r) at (5.18,1.50)
+    {\fontsize{6.2}{7.2}\selectfont \textbf{Agent selection}\\[1pt]{\fontsize{5.2}{6.2}\selectfont\texttt{agent\_router.joblib}}};
+
+  % Stage 3: workflow planning
+  \node[modelrow, fill=lavenderLight!65!prismGold, text width=2.00cm, align=center] (m3l) at (-5.70,0.35)
+    {{\fontsize{7.2}{8.2}\selectfont\faProjectDiagram\ \textbf{3. Workflow}}\\[1pt]
+     {\fontsize{7.2}{8.2}\selectfont\bfseries Planner}};
+  \node[modelrow, fill=lavenderLight!65!prismGold, text width=7.40cm, align=left] (m3p) at (-0.60,0.35)
+    {\fontsize{6.5}{8.0}\selectfont \textbf{Workflow templates} $\rightarrow$ estimate \textbf{completion probability}\\[1pt]$\rightarrow$ choose a \textbf{dependency-safe DAG plan}};
+  \node[modelrow, fill=lavenderLight!65!prismGold, text width=3.35cm, align=left] (m3r) at (5.18,0.35)
+    {\fontsize{6.0}{7.0}\selectfont \textbf{Plan reuse + success}\\[1pt]{\fontsize{5.0}{5.9}\selectfont\texttt{workflow\_templates.pkl}\\\texttt{workflow\_success\_predictor.joblib}}};
+
+  % Stage 4: provider and performance routing
+  \node[modelrow, fill=lavenderLight!65!prismBlue, text width=2.00cm, align=center] (m4l) at (-5.70,-0.80)
+    {{\fontsize{7.2}{8.2}\selectfont\faRandom\ \textbf{4. Provider}}\\[1pt]
+     {\fontsize{7.2}{8.2}\selectfont\bfseries Routing}};
+  \node[modelrow, fill=lavenderLight!65!prismBlue, text width=7.40cm, align=left] (m4p) at (-0.60,-0.80)
+    {\fontsize{6.5}{8.0}\selectfont \textbf{Candidate task} $\rightarrow$ choose \textbf{provider/model}\\[1pt]$\rightarrow$ compare \textbf{predicted latency} and \textbf{token cost}};
+  \node[modelrow, fill=lavenderLight!65!prismBlue, text width=3.35cm, align=left] (m4r) at (5.18,-0.80)
+    {\fontsize{6.0}{7.0}\selectfont \textbf{Provider + cost balance}\\[1pt]{\fontsize{4.8}{5.7}\selectfont\texttt{model\_router.joblib}\\\texttt{latency\_predictor.joblib}\\\texttt{cost\_predictor.joblib}}};
+
+  % Stage 5: safety and reliability
+  \node[modelrow, fill=lavenderLight!70!cSafety, text width=2.00cm, align=center] (m5l) at (-5.70,-1.95)
+    {{\fontsize{7.2}{8.2}\selectfont\faLock\ \textbf{5. Safety}}\\[1pt]
+     {\fontsize{7.2}{8.2}\selectfont\bfseries Gate}};
+  \node[modelrow, fill=lavenderLight!70!cSafety, text width=7.40cm, align=left] (m5p) at (-0.60,-1.95)
+    {\fontsize{6.5}{8.0}\selectfont \textbf{Planned action} $\rightarrow$ score \textbf{approval risk} + \textbf{detect anomalies}\\[1pt]$\rightarrow$ \textbf{approve, pause, or block} execution};
+  \node[modelrow, fill=lavenderLight!70!cSafety, text width=3.35cm, align=left] (m5r) at (5.18,-1.95)
+    {\fontsize{6.0}{7.0}\selectfont \textbf{Risk approval \& safety}\\[1pt]{\fontsize{5.0}{5.9}\selectfont\texttt{approval\_predictor.joblib}\\\texttt{anomaly\_detector.joblib}}};
+
+  % Stage 6: retrieval and output quality
+  \node[modelrow, fill=lavenderLight!75!cHead, text width=2.00cm, align=center] (m6l) at (-5.70,-3.10)
+    {{\fontsize{7.2}{8.2}\selectfont\faSearch\ \textbf{6. Context}}\\[1pt]
+     {\fontsize{7.2}{8.2}\selectfont\bfseries \& Quality}};
+  \node[modelrow, fill=lavenderLight!75!cHead, text width=7.40cm, align=left] (m6p) at (-0.60,-3.10)
+    {\fontsize{6.5}{8.0}\selectfont \textbf{Query} $\rightarrow$ \textbf{FAISS semantic retrieval} $\rightarrow$ add \textbf{context}\\[1pt]$\rightarrow$ generate \& \textbf{ORPO-align response}};
+  \node[modelrow, fill=lavenderLight!75!cHead, text width=3.35cm, align=left] (m6r) at (5.18,-3.10)
+    {\fontsize{5.8}{6.8}\selectfont \textbf{Evidence + output quality}\\[1pt]{\fontsize{4.5}{5.4}\selectfont\texttt{faiss.index} $\cdot$ \texttt{faiss.vectorizer.joblib}\\\texttt{reward\_orpo\_v2/adapter\_model.safetensors}}};
+
+  % Flow arrows between the model stages
+  \foreach \a/\b in {m1l/m2l,m2l/m3l,m3l/m4l,m4l/m5l,m5l/m6l}
+    {\draw[arrow] (\a.south) -- (\b.north);}
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\input{intent_classifier_frame.tex}
 % Copyright 2026 Nobin Sijo (NobinSijo7T).
 % SPDX-License-Identifier: Apache-2.0
 % Agent Lifecycle & MCP Integration Slide Frame
@@ -2381,17 +2543,6 @@ Cloud or temporary in-memory state &
 }
 
 \vspace{0.04cm}
-% Explanation Box: Agent Lifecycle
-\begin{tcolorbox}[enhanced, arc=2.5pt, boxrule=0.55pt,
-  colframe=lavenderDark!75, colback=lavenderLight!32,
-  left=5pt, right=5pt, top=2.5pt, bottom=2.5pt]
-{\fontsize{5.3}{6.5}\selectfont
-\textbf{\color{lavenderDark}\faSync\ Agent Lifecycle \& State Machine:}\\[0.06em]
-$\bullet$\ \textbf{Execution Progression:} Orchestrates transitions from \comp{INITIALIZING} $\rightarrow$ \comp{PLANNING} (DAG task compilation, bounded to $K \le 3$ workers) $\rightarrow$ active \comp{RUNNING} ReAct loop.\\
-$\bullet$\ \textbf{HITL Safety \& Terminal States:} Pauses destructive actions in \comp{AWAITING\_APPROVAL} for human sign-off (300s timeout); guarantees deterministic resolution into \comp{COMPLETED}, \comp{FAILED}, or \comp{CANCELLED}.
-}
-\end{tcolorbox}
-
 \end{column}
 
 % ==================== RIGHT COLUMN: MCP INTEGRATION ====================
@@ -2500,21 +2651,51 @@ $\bullet$\ \textbf{HITL Safety \& Terminal States:} Pauses destructive actions i
 \end{tikzpicture}%
 }
 
-\vspace{0.04cm}
-% Explanation Box: MCP Integration
-\begin{tcolorbox}[enhanced, arc=2.5pt, boxrule=0.55pt,
-  colframe=mcpBlue!80!black, colback=mcpBlue!06,
-  left=5pt, right=5pt, top=2.5pt, bottom=2.5pt]
-{\fontsize{5.3}{6.5}\selectfont
-\textbf{\color{mcpBlue!90!black}\faPlug\ Model Context Protocol (MCP) Runtime:}\\[0.06em]
-$\bullet$\ \textbf{Universal Open Standard:} Decouples LLMs from tools via standard JSON-RPC stdio transports, dynamically registering capabilities from \comp{mcp\_servers.json}.\\
-$\bullet$\ \textbf{ReAct Tool Execution:} Workers invoke sandboxed capabilities (Browser, CLI, DB) via iterative ReAct loops; outputs are validated and ORPO-scored before synthesis.
-}
-\end{tcolorbox}
-
 \end{column}
 
 \end{columns}
+
+\vspace{-0.02cm}
+% Agent-to-MCP JSON-RPC communication figure with request/response example.
+\begin{tcolorbox}[
+  enhanced, arc=2.5pt, boxrule=0.55pt,
+  colframe=prismTeal!75!black, colback=white,
+  left=4pt, right=4pt, top=2pt, bottom=2pt,
+  width=0.99\linewidth]
+\centering
+{\fontsize{6.2}{7.2}\selectfont\bfseries\color{prismTeal!90!black}How Agents Communicate with MCP}\par
+\vspace{0.04cm}
+\resizebox{0.98\linewidth}{!}{%
+\begin{tikzpicture}[
+  font=\sffamily,
+  comm/.style={rectangle, rounded corners=2.5pt, draw=lavenderDark!75,
+    fill=lavenderLight!45, line width=0.65pt, minimum height=0.48cm,
+    text width=2.35cm, align=center, font=\fontsize{5.4}{6.2}\selectfont\bfseries,
+    inner sep=2.5pt},
+  req/.style={-{Stealth[scale=0.65]}, line width=0.7pt, draw=prismTeal!90!black},
+  resp/.style={{Stealth[scale=0.65]}-, line width=0.6pt, draw=prismGold!90!black, dashed}
+]
+\node[comm, fill=prismGold!18] (agent) at (0,0) {Agent / LLM\\\scriptsize decides tool call};
+\node[comm, fill=prismTeal!14] (client) at (3.2,0) {MCP Client\\\scriptsize validates request};
+\node[comm, fill=lavenderLight!70] (server) at (6.4,0) {MCP Server\\\scriptsize exposes tools};
+\node[comm, fill=prismMint!55] (tool) at (9.6,0) {Tool\\\scriptsize browser / DB / CLI};
+\draw[req] (agent) -- node[above=2pt, fill=white, inner sep=0.8pt, font=\fontsize{4.8}{5.6}\selectfont]{request} (client);
+\draw[req] (client) -- (server);
+\draw[req] (server) -- node[above=2pt, fill=white, inner sep=0.8pt, font=\fontsize{4.8}{5.6}\selectfont]{tools/call} (tool);
+\coordinate (returnStart) at ([yshift=-0.48cm]tool.south);
+\coordinate (returnEnd) at ([yshift=-0.48cm]agent.south);
+\draw[resp] (tool.south) -- (returnStart) -- node[below=1pt, fill=white, inner sep=0.8pt, font=\fontsize{4.8}{5.6}\selectfont]{tool result} (returnEnd) -- (agent.south);
+\end{tikzpicture}%
+}
+\vspace{0.03cm}
+\begin{minipage}{0.98\linewidth}
+\centering
+\colorbox{lavenderLight!35}{\parbox{0.96\linewidth}{\fontsize{4.8}{5.8}\selectfont\ttfamily
+\detokenize{--> request: {"jsonrpc":"2.0","id":7,"method":"tools/call","params":{"name":"search","arguments":{"q":"MCP"}}}}\\
+\detokenize{<-- response: {"jsonrpc":"2.0","id":7,"result":{"content":[{"type":"text","text":"3 matches"}]}}}
+}}
+\end{minipage}
+\end{tcolorbox}
 
 \end{frame}
 
@@ -2522,101 +2703,10 @@ $\bullet$\ \textbf{ReAct Tool Execution:} Workers invoke sandboxed capabilities 
 
 
 % =============================================================================
-% SLIDE 9: MODEL RESPONSIBILITIES & INFERENCE FLOW
-% =============================================================================
-\section{Model Responsibilities}
-
-\begin{frame}[t]{09. Model Responsibilities \& Inference Flow}
-\vspace{-0.30em}
-
-% Intent Definition Box - Ultra compact version
-\begin{center}
-\begin{tcolorbox}[
-  colback=lavenderLight!60,
-  colframe=lavenderDark!70,
-  arc=2pt,
-  boxrule=0.5pt,
-  left=2.5pt, right=2.5pt, top=1.5pt, bottom=1.5pt,
-  width=0.88\linewidth,
-  fontupper=\fontsize{5.8}{6.8}\selectfont
-]
-\textbf{\faInfoCircle\ Intent:} The \textbf{underlying goal} of a user's request. Determines \textit{task type} (research, coding, tool use, synthesis) for routing to agents \& tools.
-\end{tcolorbox}
-\end{center}
-
-\vspace{-0.12em}
-
-\vspace{-0.10cm}
-\begin{center}
-\begin{tikzpicture}[
-    x=1cm, y=0.94cm, font=\sffamily,
-    modelrow/.style={rectangle, rounded corners=3pt, draw=lavenderDark!40,
-      line width=0.55pt, minimum height=0.74cm, inner sep=2.5pt},
-    arrow/.style={-{Stealth[scale=0.65]}, line width=0.7pt, draw=lavenderDark!80}
-]
-  % Stage 1: intent
-  \node[modelrow, fill=lavenderLight!85!white, text width=2.00cm, align=center] (m1l) at (-5.70,2.65)
-    {{\fontsize{7.2}{8.2}\selectfont\faBrain\ \textbf{1. Intent}}\\[1pt]
-     {\fontsize{7.2}{8.2}\selectfont\bfseries Classifier}};
-  \node[modelrow, fill=lavenderLight!85!white, text width=7.40cm, align=left] (m1p) at (-0.60,2.65)
-    {\fontsize{6.5}{8.0}\selectfont \textbf{Prompt} $\rightarrow$ \textbf{Extracted features} $\rightarrow$ \textbf{classify intent}\\[1pt](research, tool use, coding, everyday synthesis)};
-  \node[modelrow, fill=lavenderLight!85!white, text width=3.35cm, align=left] (m1r) at (5.18,2.65)
-    {\fontsize{6.2}{7.2}\selectfont \textbf{Task type}\\[1pt]{\fontsize{5.2}{6.2}\selectfont\texttt{intent\_classifier.joblib}}};
-
-  % Stage 2: agent routing
-  \node[modelrow, fill=lavenderLight!65!prismTeal, text width=2.00cm, align=center] (m2l) at (-5.70,1.50)
-    {{\fontsize{7.2}{8.2}\selectfont\faUsers\ \textbf{2. Agent}}\\[1pt]
-     {\fontsize{7.2}{8.2}\selectfont\bfseries Router}};
-  \node[modelrow, fill=lavenderLight!65!prismTeal, text width=7.40cm, align=left] (m2p) at (-0.60,1.50)
-    {\fontsize{6.5}{8.0}\selectfont \textbf{Intent + task features} $\rightarrow$ predict \textbf{multiple agent labels}\\[1pt]$\rightarrow$ form the \textbf{specialist team}};
-  \node[modelrow, fill=lavenderLight!65!prismTeal, text width=3.35cm, align=left] (m2r) at (5.18,1.50)
-    {\fontsize{6.2}{7.2}\selectfont \textbf{Agent selection}\\[1pt]{\fontsize{5.2}{6.2}\selectfont\texttt{agent\_router.joblib}}};
-
-  % Stage 3: workflow planning
-  \node[modelrow, fill=lavenderLight!65!prismGold, text width=2.00cm, align=center] (m3l) at (-5.70,0.35)
-    {{\fontsize{7.2}{8.2}\selectfont\faProjectDiagram\ \textbf{3. Workflow}}\\[1pt]
-     {\fontsize{7.2}{8.2}\selectfont\bfseries Planner}};
-  \node[modelrow, fill=lavenderLight!65!prismGold, text width=7.40cm, align=left] (m3p) at (-0.60,0.35)
-    {\fontsize{6.5}{8.0}\selectfont \textbf{Workflow templates} $\rightarrow$ estimate \textbf{completion probability}\\[1pt]$\rightarrow$ choose a \textbf{dependency-safe DAG plan}};
-  \node[modelrow, fill=lavenderLight!65!prismGold, text width=3.35cm, align=left] (m3r) at (5.18,0.35)
-    {\fontsize{6.0}{7.0}\selectfont \textbf{Plan reuse + success}\\[1pt]{\fontsize{5.0}{5.9}\selectfont\texttt{workflow\_templates.pkl}\\\texttt{workflow\_success\_predictor.joblib}}};
-
-  % Stage 4: provider and performance routing
-  \node[modelrow, fill=lavenderLight!65!prismBlue, text width=2.00cm, align=center] (m4l) at (-5.70,-0.80)
-    {{\fontsize{7.2}{8.2}\selectfont\faRandom\ \textbf{4. Provider}}\\[1pt]
-     {\fontsize{7.2}{8.2}\selectfont\bfseries Routing}};
-  \node[modelrow, fill=lavenderLight!65!prismBlue, text width=7.40cm, align=left] (m4p) at (-0.60,-0.80)
-    {\fontsize{6.5}{8.0}\selectfont \textbf{Candidate task} $\rightarrow$ choose \textbf{provider/model}\\[1pt]$\rightarrow$ compare \textbf{predicted latency} and \textbf{token cost}};
-  \node[modelrow, fill=lavenderLight!65!prismBlue, text width=3.35cm, align=left] (m4r) at (5.18,-0.80)
-    {\fontsize{6.0}{7.0}\selectfont \textbf{Provider + cost balance}\\[1pt]{\fontsize{4.8}{5.7}\selectfont\texttt{model\_router.joblib}\\\texttt{latency\_predictor.joblib}\\\texttt{cost\_predictor.joblib}}};
-
-  % Stage 5: safety and reliability
-  \node[modelrow, fill=lavenderLight!70!cSafety, text width=2.00cm, align=center] (m5l) at (-5.70,-1.95)
-    {{\fontsize{7.2}{8.2}\selectfont\faLock\ \textbf{5. Safety}}\\[1pt]
-     {\fontsize{7.2}{8.2}\selectfont\bfseries Gate}};
-  \node[modelrow, fill=lavenderLight!70!cSafety, text width=7.40cm, align=left] (m5p) at (-0.60,-1.95)
-    {\fontsize{6.5}{8.0}\selectfont \textbf{Planned action} $\rightarrow$ score \textbf{approval risk} + \textbf{detect anomalies}\\[1pt]$\rightarrow$ \textbf{approve, pause, or block} execution};
-  \node[modelrow, fill=lavenderLight!70!cSafety, text width=3.35cm, align=left] (m5r) at (5.18,-1.95)
-    {\fontsize{6.0}{7.0}\selectfont \textbf{Risk approval \& safety}\\[1pt]{\fontsize{5.0}{5.9}\selectfont\texttt{approval\_predictor.joblib}\\\texttt{anomaly\_detector.joblib}}};
-
-  % Stage 6: retrieval and output quality
-  \node[modelrow, fill=lavenderLight!75!cHead, text width=2.00cm, align=center] (m6l) at (-5.70,-3.10)
-    {{\fontsize{7.2}{8.2}\selectfont\faSearch\ \textbf{6. Context}}\\[1pt]
-     {\fontsize{7.2}{8.2}\selectfont\bfseries \& Quality}};
-  \node[modelrow, fill=lavenderLight!75!cHead, text width=7.40cm, align=left] (m6p) at (-0.60,-3.10)
-    {\fontsize{6.5}{8.0}\selectfont \textbf{Query} $\rightarrow$ \textbf{FAISS semantic retrieval} $\rightarrow$ add \textbf{context}\\[1pt]$\rightarrow$ generate \& \textbf{ORPO-align response}};
-  \node[modelrow, fill=lavenderLight!75!cHead, text width=3.35cm, align=left] (m6r) at (5.18,-3.10)
-    {\fontsize{5.8}{6.8}\selectfont \textbf{Evidence + output quality}\\[1pt]{\fontsize{4.5}{5.4}\selectfont\texttt{faiss.index} $\cdot$ \texttt{faiss.vectorizer.joblib}\\\texttt{reward\_orpo\_v2/adapter\_model.safetensors}}};
-
-  % Flow arrows between the model stages
-  \foreach \a/\b in {m1l/m2l,m2l/m3l,m3l/m4l,m4l/m5l,m5l/m6l}
-    {\draw[arrow] (\a.south) -- (\b.north);}
-\end{tikzpicture}
-\end{center}
-\end{frame}
 
 % Section 10 is rendered immediately after Section 05.
 
+\iffalse
 % --- BEGIN section10_frame.tex ---
 % Section 10: Unified Dataset Preparation & Training Pipeline
 % Spacious, un-cramped 4-stage pipeline diagram with generous breathing room
@@ -2842,6 +2932,7 @@ $\bullet$\ \textbf{ReAct Tool Execution:} Workers invoke sandboxed capabilities 
 \end{frame}
 
 % --- END section10_frame.tex ---
+\fi
 
 
 % The proposed methods frame is rendered above, before Model Responsibilities.
@@ -3083,7 +3174,7 @@ $\bullet$\ \textbf{ReAct Tool Execution:} Workers invoke sandboxed capabilities 
   \begin{itemize}\setlength{\itemsep}{0.8pt}
     \item \textbf{Classify intent:} ML classifier identifies task type from 12 categories (99.6\% accuracy).
     \item \textbf{Choose agents \& models:} Route sub-tasks to specialized LLM agents.
-    \item \textbf{Build the DAG:} Create dependency graph ensuring safe execution order.
+    \item \textbf{Topological sorting:} Order DAG tasks by dependencies; execute only after all prerequisites finish.
   \end{itemize}
   \end{tcolorbox}
 \end{column}
@@ -3122,7 +3213,7 @@ $\bullet$\ \textbf{ReAct Tool Execution:} Workers invoke sandboxed capabilities 
   \node[dagstep] (s1) at (-5.25, 0.28) {1. User Goal Prompt\\\normalfont\fontsize{4.2}{4.8}\selectfont ``Analyze news+CSV, email summary''};
   \node[dagstep] (s2) at (-1.75, 0.28) {2. Split into Vertices $V$\\\normalfont\fontsize{4.2}{4.8}\selectfont Modular async tasks $A, B, C, D$};
   \node[dagstep] (s3) at (1.75, 0.28) {3. Connect Edges $E$\\\normalfont\fontsize{4.2}{4.8}\selectfont Map output return $\to$ input args};
-  \node[dagstep] (s4) at (5.25, 0.28) {4. Topological Run\\\normalfont\fontsize{4.2}{4.8}\selectfont Run in-degree $=0 \implies$ join barrier};
+  \node[dagstep] (s4) at (5.25, 0.28) {4. Topological Sort\\\normalfont\fontsize{4.2}{4.8}\selectfont Pick in-degree $=0$; unlock dependents};
   \draw[dagarrow] (s1) -- (s2);
   \draw[dagarrow] (s2) -- (s3);
   \draw[dagarrow] (s3) -- (s4);
@@ -3131,7 +3222,7 @@ $\bullet$\ \textbf{ReAct Tool Execution:} Workers invoke sandboxed capabilities 
   \node[rectangle, rounded corners=2.5pt, draw=lavenderMedium!60, fill=lavenderLight!30,
         line width=0.55pt, text width=7.4cm, inner sep=2.4pt, align=left, anchor=north] at (-3.45, -0.06) {%
     \fontsize{4.8}{5.8}\selectfont\textbf{\color{lavenderDark}\faCode\ Computer Science Explanation (By Concrete Example):}\\[0.8pt]
-    \fontsize{4.0}{4.8}\selectfont
+    \fontsize{3.5}{4.0}\selectfont
     $\bullet$\enspace\textbf{Vertices ($V$) = Sub-Task Functions (Async Call Units):}\\
     \enspace\enspace Node $A$: \texttt{news = await SearchWeb("Tesla news")} \hfill \textit{[Researcher]}\\
     \enspace\enspace Node $B$: \texttt{data = await FetchCSV("metrics.csv")} \hfill \textit{[Data Agent]}\\
@@ -3140,12 +3231,10 @@ $\bullet$\ \textbf{ReAct Tool Execution:} Workers invoke sandboxed capabilities 
     $\bullet$\enspace\textbf{Edges ($E$) = Data Pipes \& Synchronization Barriers:}\\
     \enspace\enspace Edge $\langle A, C\rangle$ pipes return value \texttt{news}; edge $\langle B, C\rangle$ pipes \texttt{data}.\\
     \enspace\enspace Barrier: task $C$ blocks until both promises $A$ \& $B$ resolve.\\[0.6pt]
-    $\bullet$\enspace\textbf{Connection Basis (Input $\leftarrow$ Output Matching):}\\
-    \enspace\enspace Function $C$ links to $A$ \& $B$ because $C$'s parameters require their outputs.\\
-    \enspace\enspace $A$ and $B$ share no edge because neither depends on the other's data.\\[0.6pt]
-    $\bullet$\enspace\textbf{Execution Schedule (Topological Concurrency):}\\
-    \enspace\enspace Tasks with $\text{in-degree} = 0$ ($A, B$) execute \textbf{concurrently in parallel}.\\
-    \enspace\enspace When $A$ \& $B$ complete, $C$'s in-degree drops to $0 \implies C$ runs $\implies D$ runs.%
+    $\bullet$\enspace\textbf{Connection Basis:} $C$ links to $A$ \& $B$ because its inputs require their outputs; $A$ and $B$ are independent.\\[0.6pt]
+    $\bullet$\enspace\textbf{Topological Sorting (Kahn's method):} repeatedly select nodes with $\text{in-degree}=0$, remove outgoing edges, and unlock dependents.\\
+    \enspace\enspace This gives a valid dependency order and exposes independent work for parallel execution.\\[0.6pt]
+    $\bullet$\enspace\textbf{Execution:} $A$ and $B$ run in parallel; after both finish, $C$ unlocks, then $D$ runs.%
   };
 
   % Row 2 Right: Visual Data-Flow Graph
@@ -3184,6 +3273,9 @@ $\bullet$\ \textbf{ReAct Tool Execution:} Workers invoke sandboxed capabilities 
 \end{frame}
 
 % =============================================================================
+% =============================================================================
+\input{slide_topological.tex}
+
 % SLIDE 9: SYSTEM ARCHITECTURE (FIGURE 1.2)
 % =============================================================================
 \section{System Architecture}
@@ -3646,6 +3738,122 @@ $\bullet$\ \textbf{ReAct Tool Execution:} Workers invoke sandboxed capabilities 
 
 % =============================================================================
 % SLIDE 14: DATABASE SCHEMA - PrismDB AI-Agent stores
+% SLIDE 7: PROJECT DATA-FLOW DIAGRAM
+% =============================================================================
+\section{Data Flow}
+
+\begin{frame}[t]{07. PrismSpace Data Flow Diagram}
+\vspace{0.15em}
+\centering
+
+\adjustbox{max width=0.98\linewidth, max height=0.84\textheight, keepaspectratio}{%
+\begin{tikzpicture}[
+  entity/.style={rectangle, draw=lavenderDark!75, line width=0.85pt, rounded corners=2.5pt,
+    align=center, inner sep=4.5pt, font=\fontsize{6.5}{7.5}\selectfont\bfseries,
+    text width=1.75cm, fill=cInput, drop shadow={opacity=0.08, shadow xshift=0.5pt, shadow yshift=-0.5pt}},
+  store/.style={rectangle, draw=lavenderDark!70, line width=0.85pt,
+    align=center, inner sep=4.0pt, font=\fontsize{6.0}{7.0}\selectfont,
+    text width=1.85cm, fill=lavenderLight, drop shadow={opacity=0.08, shadow xshift=0.5pt, shadow yshift=-0.5pt}},
+  proc/.style={circle, draw=lavenderMedium!90, line width=0.85pt,
+    align=center, inner sep=1.5pt, minimum size=1.15cm,
+    font=\fontsize{5.8}{6.8}\selectfont, fill=cStage1, drop shadow={opacity=0.06, shadow xshift=0.5pt, shadow yshift=-0.5pt}},
+  procblue/.style={proc, fill=cStage4},
+  procgold/.style={proc, fill=cStage2},
+  iface/.style={rectangle, rounded corners=5pt, draw=lavenderDark!85, line width=0.95pt,
+    align=center, inner sep=5pt, text width=1.85cm,
+    font=\fontsize{6.5}{7.5}\selectfont\bfseries, fill=cPlanner, drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}},
+  model/.style={entity, text width=1.85cm, fill=cStage2},
+  flow/.style={-{Stealth[scale=0.80]}, line width=0.85pt, draw=lavenderDark!85},
+  dottedflow/.style={-{Stealth[scale=0.75]}, dashed, line width=0.80pt, draw=lavenderDark!75},
+  feedback/.style={-{Stealth[scale=0.80]}, dashed, line width=0.85pt, draw=prismTeal!90!black},
+  label/.style={font=\fontsize{5.2}{6.2}\selectfont\bfseries, text=prismTeal!90!black, inner sep=1.5pt}
+]
+
+% ==================== NODES ====================
+
+% External Entity: User / Workspace (Leftmost)
+\node[entity] (external) at (-6.20, 0.20) {User /\\ Workspace};
+
+% Stores: Top row (y = 2.45)
+\node[store] (accounts) at (-4.20, 2.45) {\textbf{Indexed DB}\\[1pt]\fontsize{5.4}{6.4}\selectfont sessions,\\ messages, files};
+\node[store] (prompts) at (1.50, 2.45) {\textbf{User}\\[1pt]\textbf{Prompts}};
+
+% Model Entity (Top Right, y = 2.45)
+\node[model] (model) at (5.40, 2.45) {Large\\ Language\\ Models};
+
+% Left Process Group (Input ingestion & Session, y = 1.05 and y = -0.45)
+\node[proc] (login) at (-4.20, 1.05) {load\\ context};
+\node[proc] (enter) at (-4.20, -0.45) {enter\\ objective};
+\node[procblue] (validate) at (-2.60, 1.05) {validate\\ session};
+
+% Central Interfaces & Prompt Handling
+\node[iface] (api) at (-1.80, -0.45) {Next.js\\ API\\ proxy};
+\node[procblue] (storeprompt) at (-0.30, 1.05) {store\\ prompt};
+\node[procblue] (pass) at (0.90, 1.05) {pass\\ context};
+\node[procgold] (read) at (2.20, 1.05) {read\\ prompt};
+\node[iface] (llm) at (2.20, -0.45) {LLM\\ interface};
+
+% Execution Output
+\node[proc] (generate) at (5.40, -0.45) {generate\\ response};
+
+% Bottom Row: Validation, Feedback & Adaptation (All on y = -1.95)
+\node[procblue] (display) at (-6.20, -1.95) {display\\ response};
+\node[proc] (correct) at (-1.80, -1.95) {validate\\ result};
+\node[store] (wrong) at (0.40, -1.95) {store\\ failed\\ trace};
+\node[procgold] (train) at (2.40, -1.95) {route /\\ refine};
+\node[procgold] (integrate) at (4.40, -1.95) {update\\ policy};
+
+% ==================== FLOW ARROWS ====================
+
+% 1. Context loading from Indexed DB
+\draw[flow] (accounts.south) -- node[right=1pt, font=\fontsize{4.8}{5.8}\selectfont\color{lavenderDark!70}]{read} (login.north);
+\draw[flow] (login.east) -- (validate.west);
+\draw[flow] (validate.south) to[out=-70,in=140] ([xshift=-0.35cm]api.north);
+
+% 2. User Input flow
+\draw[flow] (external.east) |- (enter.west);
+\draw[flow] (enter.east) -- (api.west);
+
+% 3. Persistence to Indexed DB from API Proxy (runs straight up at X = -1.80 to Y = 2.45, then left into accounts.east)
+\draw[dottedflow] (api.north) -- (-1.80, 2.45) -- node[above, font=\fontsize{4.8}{5.8}\selectfont\color{lavenderDark!80}\itshape]{persist} (accounts.east);
+
+% 4. Prompt Storage in Data Store
+\draw[flow] ([xshift=0.35cm]api.north) |- (storeprompt.west);
+\draw[flow] (storeprompt.north) |- (prompts.west);
+
+% 5. Prompt & Context Retrieval into LLM Interface (Straight parallel vertical drops)
+\draw[flow] ([xshift=-0.60cm]prompts.south) -- (pass.north);
+\draw[flow] ([xshift=0.70cm]prompts.south) -- (read.north);
+\draw[flow] (pass.south) -- ++(0, -0.40) -| ([xshift=-0.45cm]llm.north);
+\draw[flow] (read.south) -- (llm.north);
+
+% 6. LLM Interface <-> Model Inference Cycle
+\draw[flow] (llm.north east) -- (model.south west);
+\draw[flow] (model.south) -- (generate.north);
+\draw[flow] (generate.west) -- (llm.east);
+\draw[flow] (llm.west) -- (api.east);
+
+% 7. Validation Path from API
+\draw[flow] (api.south) -- (correct.north);
+
+% 8. Verified Output Delivery (Pass)
+\draw[feedback] (correct.west) -- node[above, label]{verified output} (display.east);
+\draw[feedback] (display.north) -- (external.south);
+
+% 9. Failure Handling & Adaptive Re-planning Loop
+\draw[flow] (correct.east) -- node[above, font=\fontsize{4.8}{5.8}\selectfont\color{statusFail!90!black}\bfseries]{fail} (wrong.west);
+\draw[flow] (wrong.east) -- (train.west);
+\draw[flow] (train.east) -- (integrate.west);
+% Policy update cleanly loops back to LLM Interface in the open horizontal corridor at Y = -1.15
+\draw[dottedflow] (integrate.north) -- (4.40, -1.15) -- node[above, font=\fontsize{4.8}{5.8}\selectfont\color{lavenderDark}\itshape]{refine / retry} (2.20, -1.15) -- (llm.south);
+
+\end{tikzpicture}%
+}
+
+\end{frame}
+
+% =============================================================================
+% SLIDE 7: AGENT LIFECYCLE, MCP INTEGRATION & RUNTIME FLOW
 % Approach: pure tcolorbox columns - no tabular-in-TikZ, no positioning bugs.
 % =============================================================================
 \section{Database Schema}

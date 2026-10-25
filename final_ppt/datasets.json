@@ -1,0 +1,367 @@
+{
+  "combination_and_training_files": {
+    "primary_dataset_combiner": "model/dataset_loader.py",
+    "supervised_data_preparer": "model/prepare_supervised_datasets.py",
+    "training_orchestrator": "model/train.py",
+    "evaluation_scripts": [
+      "model/evaluate_models.py",
+      "model/evaluate_holdout.py",
+      "model/evaluate.py"
+    ]
+  },
+  "datasets": [
+    {
+      "name": "agent-llm-traces",
+      "split_folder": "training",
+      "usage": ["training"],
+      "file_formats": [".parquet", ".md", ".sample", ".idx"],
+      "primary_format": ".parquet",
+      "contributes": "Agent execution traces, step timings, model invocations, and tool-use telemetry for general agent routing, latency/cost feature extraction, and intent classification.",
+      "target_models": [
+        "IntentClassifier",
+        "AgentRouter",
+        "LatencyPredictor",
+        "CostPredictor"
+      ],
+      "source_origin": "HuggingFace (Exgentic/agent-llm-traces)"
+    },
+    {
+      "name": "AgentInstruct",
+      "split_folder": "training",
+      "usage": ["training"],
+      "file_formats": [".parquet", ".md", ".sample", ".idx"],
+      "primary_format": ".parquet",
+      "contributes": "High-quality agent instruction tuning trajectories, multi-step sub-task decomposition, and tool-use examples.",
+      "target_models": [
+        "IntentClassifier",
+        "AgentRouter",
+        "WorkflowClusterer"
+      ],
+      "source_origin": "GitHub / HuggingFace (THUDM/AgentTuning)"
+    },
+    {
+      "name": "APIBench",
+      "split_folder": "training",
+      "usage": ["training"],
+      "file_formats": [".json", ".jsonl", ".md", ".sample", ".idx"],
+      "primary_format": ".json / .jsonl",
+      "contributes": "APIs and tool documentation/call examples across HuggingFace, TorchHub, and TensorHub to teach tool selection, API parameter identification, and tool-use intent mapping.",
+      "target_models": [
+        "IntentClassifier",
+        "AgentRouter"
+      ],
+      "source_origin": "Gorilla APIBench (ShishirPatil/gorilla)"
+    },
+    {
+      "name": "awesome-harness-engineering",
+      "split_folder": "training",
+      "usage": ["training"],
+      "file_formats": [".md", ".py", ".jpg", ".sample"],
+      "primary_format": ".md / text documents",
+      "contributes": "Agent harness design documents, patterns, schemas, and architectural guidelines that populate the FAISS retrieval corpus and workflow template clustering.",
+      "target_models": [
+        "RetrievalRanker",
+        "WorkflowClusterer"
+      ],
+      "source_origin": "GitHub (ai-boost/awesome-harness-engineering)"
+    },
+    {
+      "name": "beir",
+      "split_folder": "training",
+      "usage": ["training"],
+      "file_formats": [".py", ".md", ".sample"],
+      "primary_format": ".md / text",
+      "contributes": "Information retrieval and semantic search benchmark corpus used for building search/retrieval reference vectors and research intent labels.",
+      "target_models": [
+        "RetrievalRanker",
+        "IntentClassifier"
+      ],
+      "source_origin": "BEIR Benchmark (beir-cellar/beir)"
+    },
+    {
+      "name": "Berkeley-Function-Calling-Leaderboard",
+      "split_folder": "training",
+      "usage": ["training"],
+      "file_formats": [".json", ".yaml", ".md", ".sample"],
+      "primary_format": ".json",
+      "contributes": "Rigorous function calling benchmarks covering single, multiple, parallel, and AST function calls; maps queries to tool_use intents and coding/general agents.",
+      "target_models": [
+        "IntentClassifier",
+        "AgentRouter"
+      ],
+      "source_origin": "BFCL Leaderboard (EnlightenedAI/BFCL)"
+    },
+    {
+      "name": "code_generation_lite",
+      "split_folder": "training",
+      "usage": ["training"],
+      "file_formats": [".jsonl", ".py", ".md", ".sample"],
+      "primary_format": ".jsonl",
+      "contributes": "Code generation tasks, test suites, and programming problems from LiveCodeBench lite; provides strong signals for code_generation intent and coding agent routing.",
+      "target_models": [
+        "IntentClassifier",
+        "AgentRouter"
+      ],
+      "source_origin": "LiveCodeBench (LiveCodeBench/LiveCodeBench)"
+    },
+    {
+      "name": "curated",
+      "split_folder": "training",
+      "usage": ["training"],
+      "file_formats": [".jsonl", ".json"],
+      "primary_format": ".jsonl",
+      "contributes": "Target-specific supervised datasets produced by prepare_supervised_datasets.py: approval (train.jsonl) for safety approvals, success (train.jsonl) for task completion, provider (train.jsonl) for multi-provider routing, and reward (train.jsonl) for preference scoring.",
+      "target_models": [
+        "ApprovalPredictor",
+        "WorkflowSuccessPredictor",
+        "ModelRouter",
+        "RewardModel"
+      ],
+      "source_origin": "Generated internally via model.prepare_supervised_datasets"
+    },
+    {
+      "name": "cx-cmu--agent_trajectories",
+      "split_folder": "training",
+      "usage": ["training"],
+      "file_formats": [".parquet", ".json", ".jsonl", ".md"],
+      "primary_format": ".parquet",
+      "contributes": "End-to-end multi-turn agent interaction traces from SWE-bench, WebArena, and InterCode with ground truth binary reward signals; source for the curated 'success' predictor dataset.",
+      "target_models": [
+        "WorkflowSuccessPredictor",
+        "AgentRouter"
+      ],
+      "source_origin": "HuggingFace (cx-cmu/agent_trajectories)"
+    },
+    {
+      "name": "EnvFactory-RL",
+      "split_folder": "training",
+      "usage": ["training"],
+      "file_formats": [".json", ".md", ".sample", ".idx"],
+      "primary_format": ".json",
+      "contributes": "Reinforcement learning environment interaction traces, rewards, and feedback logs for tool-agent policy learning and reward modeling.",
+      "target_models": [
+        "RewardModel",
+        "AgentRouter"
+      ],
+      "source_origin": "GitHub (LARK-AI-Lab/EnvFactory)"
+    },
+    {
+      "name": "EnvFactory-SFT-FILTERED",
+      "split_folder": "training",
+      "usage": ["training"],
+      "file_formats": [".json", ".md", ".sample", ".idx"],
+      "primary_format": ".json",
+      "contributes": "Supervised fine-tuning tool-use trajectories filtered for quality; directly supplies tool-agent supervision labels and step intent classifications.",
+      "target_models": [
+        "AgentRouter",
+        "IntentClassifier"
+      ],
+      "source_origin": "GitHub (LARK-AI-Lab/EnvFactory)"
+    },
+    {
+      "name": "HuggingFaceH4--ultrafeedback_binarized",
+      "split_folder": "training",
+      "usage": ["training"],
+      "file_formats": [".parquet", ".py", ".md"],
+      "primary_format": ".parquet",
+      "contributes": "Pairwise preference judgments containing prompt, chosen, and rejected responses; extracted by prepare_supervised_datasets.py to train reward scoring and ORPO alignment.",
+      "target_models": [
+        "RewardModel"
+      ],
+      "source_origin": "HuggingFace (HuggingFaceH4/ultrafeedback_binarized)"
+    },
+    {
+      "name": "lmsyschatbot_arena_conversations",
+      "split_folder": "training",
+      "usage": ["training"],
+      "file_formats": [".parquet", ".md"],
+      "primary_format": ".parquet",
+      "contributes": "Real-world user prompts, dual-model conversations, and winner votes; mapped by capability affinity to OpenAI, Anthropic, and Google for ModelRouter training.",
+      "target_models": [
+        "ModelRouter"
+      ],
+      "source_origin": "HuggingFace (lmsys/lmsys-chatbot-arena-conversations)"
+    },
+    {
+      "name": "oasst1",
+      "split_folder": "training",
+      "usage": ["training"],
+      "file_formats": [".parquet", ".jsonl.gz", ".md", ".sample"],
+      "primary_format": ".parquet / .jsonl.gz",
+      "contributes": "Human-annotated conversation trees and quality ranks; contributes conversation and general intent supervision along with semantic text representations.",
+      "target_models": [
+        "IntentClassifier",
+        "RetrievalRanker"
+      ],
+      "source_origin": "HuggingFace (OpenAssistant/oasst1)"
+    },
+    {
+      "name": "Open-M3-Bench",
+      "split_folder": "training",
+      "usage": ["training"],
+      "file_formats": [".json", ".png", ".md", ".sample"],
+      "primary_format": ".json",
+      "contributes": "Multimodal Model Context Protocol (MCP) task workflows and environment states across diverse tooling environments; used to build workflow clusters and templates.",
+      "target_models": [
+        "WorkflowClusterer",
+        "AgentRouter"
+      ],
+      "source_origin": "HuggingFace (EtaYang10th/Open-M3-Bench)"
+    },
+    {
+      "name": "Qwen2.5-1.5B",
+      "split_folder": "training",
+      "usage": ["training"],
+      "file_formats": [".safetensors", ".json", ".txt", ".md"],
+      "primary_format": ".safetensors / .json",
+      "contributes": "Base model weights, configuration, and tokenizer files used as the initialization checkpoint for TRL ORPO reward fine-tuning in train_reward_orpo.py.",
+      "target_models": [
+        "RewardModel (ORPO Adapter)"
+      ],
+      "source_origin": "HuggingFace (Qwen/Qwen2.5-1.5B)"
+    },
+    {
+      "name": "RouteLLM",
+      "split_folder": "training",
+      "usage": ["training"],
+      "file_formats": [".csv", ".jsonl", ".py", ".sample"],
+      "primary_format": ".csv / .jsonl",
+      "contributes": "LLM routing benchmarks, router evaluation datasets, and cost-quality trade-off thresholds.",
+      "target_models": [
+        "ModelRouter",
+        "CostPredictor"
+      ],
+      "source_origin": "GitHub / LMSYS (RouteLLM)"
+    },
+    {
+      "name": "routerbench",
+      "split_folder": "training",
+      "usage": ["training"],
+      "file_formats": [".pkl", ".md", ".sample", ".idx"],
+      "primary_format": ".pkl",
+      "contributes": "Martian RouterBench prompts with oracle_model_to_route_to labels; used by prepare_supervised_datasets.py to train ModelRouter.",
+      "target_models": [
+        "ModelRouter"
+      ],
+      "source_origin": "HuggingFace (withmartian/routerbench)"
+    },
+    {
+      "name": "scientific-agent-skills-main",
+      "split_folder": "training",
+      "usage": ["training"],
+      "file_formats": [".md", ".py", ".xsd", ".csv", ".bed", ".gtf", ".vcf", ".tsv", ".bib", ".tex"],
+      "primary_format": ".md / .xsd / tabular text",
+      "contributes": "Scientific agent skills, XML schemas, domain-specific bioinformatics formats, and CLI tool instructions; heavily contributes to FAISS retrieval, anomaly detection baselines, and research agent classification.",
+      "target_models": [
+        "RetrievalRanker",
+        "AnomalyDetector",
+        "AgentRouter"
+      ],
+      "source_origin": "GitHub (K-Dense-AI/scientific-agent-skills)"
+    },
+    {
+      "name": "tau-bench-synthetic",
+      "split_folder": "training",
+      "usage": ["training"],
+      "file_formats": [".parquet", ".json", ".md", ".sample"],
+      "primary_format": ".parquet",
+      "contributes": "Multi-turn synthetic conversational agent sessions across retail and airline domains; provides communication and tool action sequence signals.",
+      "target_models": [
+        "AgentRouter",
+        "IntentClassifier"
+      ],
+      "source_origin": "HuggingFace (fuvty/tau-bench-synthetic)"
+    },
+    {
+      "name": "wildguardmix",
+      "split_folder": "training",
+      "usage": ["training"],
+      "file_formats": [".parquet", ".md"],
+      "primary_format": ".parquet",
+      "contributes": "Safety evaluation corpus containing prompt_harm_label ('harmful' vs 'unharmful'); converted by prepare_supervised_datasets.py to train ApprovalPredictor.",
+      "target_models": [
+        "ApprovalPredictor"
+      ],
+      "source_origin": "HuggingFace (allenai/wildguardmix)"
+    },
+    {
+      "name": "xlam-function-calling-60k",
+      "split_folder": "training",
+      "usage": ["training"],
+      "file_formats": [".json", ".md"],
+      "primary_format": ".json",
+      "contributes": "60,000 function-calling dialogues with exact tool schemas and API arguments; contributes to tool_use intent classification and coding/general agent routing.",
+      "target_models": [
+        "IntentClassifier",
+        "AgentRouter"
+      ],
+      "source_origin": "HuggingFace (Salesforce/xlam-function-calling-60k)"
+    },
+    {
+      "name": "xRouteBench",
+      "split_folder": "training",
+      "usage": ["training"],
+      "file_formats": [".parquet", ".md", ".sample", ".idx"],
+      "primary_format": ".parquet",
+      "contributes": "Multi-provider LLM candidate execution traces and queries across generic, memory, multimodal, time series, and video domains for model routing evaluation.",
+      "target_models": [
+        "ModelRouter"
+      ],
+      "source_origin": "HuggingFace (ulab-ai/xRouteBench)"
+    },
+    {
+      "name": "GAIA (Validation)",
+      "split_folder": "validation/GAIA",
+      "usage": ["validation"],
+      "file_formats": [".parquet", ".xlsx", ".png", ".pdf", ".mp3"],
+      "primary_format": ".parquet",
+      "contributes": "Validation benchmark for complex, multi-modal, tool-assisted agent reasoning to measure generalisation before test freeze.",
+      "target_models": [
+        "AgentRouter",
+        "IntentClassifier"
+      ],
+      "source_origin": "GAIA Benchmark (gaia-benchmark/GAIA)"
+    },
+    {
+      "name": "curated (Testing)",
+      "split_folder": "testing/curated",
+      "usage": ["evaluation"],
+      "file_formats": [".jsonl"],
+      "primary_format": ".jsonl",
+      "contributes": "Strictly held-out 20% test splits for approval (test.jsonl), success (test.jsonl), provider (test.jsonl), and reward (test.jsonl); evaluated by evaluate_models.py for F1, precision, recall, and calibration.",
+      "target_models": [
+        "ApprovalPredictor",
+        "WorkflowSuccessPredictor",
+        "ModelRouter",
+        "RewardModel"
+      ],
+      "source_origin": "Generated internally via model.prepare_supervised_datasets"
+    },
+    {
+      "name": "GAIA (Testing)",
+      "split_folder": "testing/GAIA",
+      "usage": ["evaluation"],
+      "file_formats": [".parquet", ".xlsx", ".pdf", ".txt", ".png", ".csv"],
+      "primary_format": "metadata.parquet",
+      "contributes": "Held-out test benchmark evaluated by model/evaluate_holdout.py to assess agent and intent routing coverage on real multi-modal agent problems without label leakage.",
+      "target_models": [
+        "AgentRouter",
+        "IntentClassifier"
+      ],
+      "source_origin": "GAIA Benchmark (gaia-benchmark/GAIA)"
+    },
+    {
+      "name": "SWE-bench_Verified (Testing)",
+      "split_folder": "testing/SWE-bench_Verified",
+      "usage": ["evaluation"],
+      "file_formats": [".parquet", ".yaml", ".md", ".sample"],
+      "primary_format": ".parquet (test-*.parquet)",
+      "contributes": "Held-out real-world GitHub software engineering issues and patches; evaluated by model/evaluate_holdout.py for coding agent routing and task classification.",
+      "target_models": [
+        "AgentRouter",
+        "IntentClassifier"
+      ],
+      "source_origin": "SWE-bench Verified (SWE-bench/SWE-bench_Verified)"
+    }
+  ]
+}
