@@ -2000,7 +2000,7 @@ Cloud or temporary in-memory state &
 ]
 
     % Stage 1: Agent Loop (Matching Reference Image)
-    \node [refcard, fill=cPlanner!25, text width=3.10cm, minimum height=4.2cm] (b_loop) at (-5.35, -0.15) {
+    \node [refcard, fill=cPlanner!25, text width=3.10cm, minimum height=4.2cm] (b_loop) at (-5.55, -0.15) {
         \vspace{0.25em}
         {\fontsize{9.2}{11}\selectfont\bfseries\color{lavenderDark}Agent Loop}\\[0.25em]
         {\color{prismTeal}\fontsize{24}{28}\selectfont\faSync}\\[0.35em]
@@ -2016,10 +2016,10 @@ Cloud or temporary in-memory state &
 
     % Branching Dot Node (Matching Reference Image 'Make control explicit')
     \node [circle, fill=lavenderDark, inner sep=2.5pt] (dot) at (-2.45, -0.15) {};
-    \node [above=5pt of dot, xshift=-0.40cm, align=center, font=\fontsize{5.8}{6.8}\selectfont\bfseries\color{lavenderDark}] {
+    \node [above=5pt of dot, xshift=-0.70cm, align=center, font=\fontsize{5.8}{6.8}\selectfont\bfseries\color{lavenderDark}] {
         Make control\\[-1pt]explicit
     };
-    \node [below=5pt of dot, xshift=-0.40cm, align=center, font=\fontsize{5.2}{6.2}\selectfont\bfseries\color{prismTeal}] {
+    \node [below=5pt of dot, xshift=-0.70cm, align=center, font=\fontsize{5.2}{6.2}\selectfont\bfseries\color{prismTeal}] {
         (DAG Planning)
     };
 
@@ -2041,7 +2041,7 @@ Cloud or temporary in-memory state &
     };
 
     % 3. Bottom Card: MCP & Validation Agent
-    \node [refcard, fill=cStage2!30, text width=4.50cm, minimum height=1.55cm] (b_bot) at (0.50, -2.01) {
+    \node [refcard, fill=cStage2!30, text width=4.50cm, minimum height=1.55cm] (b_bot) at (0.50, -2.29) {
         \textbf{\fontsize{7.8}{9.2}\selectfont\color{lavenderDark}{\color{purple!75!black}\faTasks}\; MCP \& Validation Agent}\\[0.18em]
         \begin{minipage}{4.30cm}\raggedright\fontsize{5.8}{7.0}\selectfont
         \hyphenpenalty=10000
@@ -2087,15 +2087,15 @@ Cloud or temporary in-memory state &
     % 1. From Agent Loop to Dot
     \draw [flowarr] (b_loop.east) -- (dot);
 
-    % 2. Branching from Dot to 3 Parallel Cards (Curved Paths like Reference Image)
-    \draw [curvearr] (dot) to[out=28, in=180] (b_top.west);
+    % 2. Branching from Dot to 3 Parallel Cards (clean orthogonal fork)
+    \draw [flowarr, rounded corners=2.5pt] (dot) -- (-2.45, 1.45) -- (b_top.west);
     \draw [flowarr] (dot) -- (b_mid.west);
-    \draw [curvearr] (dot) to[out=-28, in=180] (b_bot.west);
+    \draw [flowarr, rounded corners=2.5pt] (dot) -- (-2.45, -2.29) -- (b_bot.west);
 
     % 3. Merge the three agent result streams into one validation input
     \coordinate (merge) at (3.29, -0.15);
     \draw [merge, rounded corners=2.5pt]
-        (b_top.east) -- (3.29, 1.45) -- (3.29, -2.01) -- (b_bot.east);
+        (b_top.east) -- (3.29, 1.45) -- (3.29, -2.29) -- (b_bot.east);
     \draw [merge] (b_mid.east) -- (3.29, -0.15);
     \draw [flowarr] (merge) -- (b_verify.west);
     \node [inner sep=0.4pt, align=center,
