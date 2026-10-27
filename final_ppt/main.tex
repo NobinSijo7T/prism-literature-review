@@ -1988,9 +1988,6 @@ Cloud or temporary in-memory state &
     flowarr/.style={
         -{Stealth[scale=0.95]}, line width=1.15pt, draw=lavenderDark!90
     },
-    merge/.style={
-        line width=1.15pt, draw=lavenderDark!90
-    },
     curvearr/.style={
         -{Stealth[scale=0.95]}, line width=1.15pt, draw=lavenderDark!90
     },
@@ -2000,7 +1997,7 @@ Cloud or temporary in-memory state &
 ]
 
     % Stage 1: Agent Loop (Matching Reference Image)
-    \node [refcard, fill=cPlanner!25, text width=3.10cm, minimum height=4.2cm] (b_loop) at (-5.35, -0.15) {
+    \node [refcard, fill=cPlanner!25, text width=3.10cm, minimum height=4.2cm] (b_loop) at (-5.50, -0.15) {
         \vspace{0.25em}
         {\fontsize{9.2}{11}\selectfont\bfseries\color{lavenderDark}Agent Loop}\\[0.25em]
         {\color{prismTeal}\fontsize{24}{28}\selectfont\faSync}\\[0.35em]
@@ -2015,7 +2012,7 @@ Cloud or temporary in-memory state &
     };
 
     % Branching Dot Node (Matching Reference Image 'Make control explicit')
-    \node [circle, fill=lavenderDark, inner sep=2.5pt] (dot) at (-2.45, -0.15) {};
+    \node [circle, fill=lavenderDark, inner sep=2.5pt] (dot) at (-2.65, -0.15) {};
     \node [above=5pt of dot, xshift=-0.40cm, align=center, font=\fontsize{5.8}{6.8}\selectfont\bfseries\color{lavenderDark}] {
         Make control\\[-1pt]explicit
     };
@@ -2025,7 +2022,7 @@ Cloud or temporary in-memory state &
 
     % Stage 2: Three Parallel Sub-Tasks / Agents (Matching Reference Image middle 3 cards with gaps)
     % 1. Top Card: Assistant & Docs (Document icon + Gmail & Drive)
-    \node [refcard, fill=cStage1!30, text width=4.25cm, minimum height=1.15cm] (b_top) at (0.80, 1.45) {
+    \node [refcard, fill=cStage1!30, text width=4.50cm, minimum height=1.15cm] (b_top) at (0.80, 1.55) {
         \textbf{\fontsize{7.8}{9.2}\selectfont\color{lavenderDark}{\color{prismBlue}\faFile}\; Assistant \& Documents}\\[0.20em]
         \fontsize{5.8}{7.0}\selectfont
         \includegraphics[height=1.35ex]{logos/gmail.png}\;\textbf{Gmail MCP:} sent emails \& drafts\\[0.1em]
@@ -2033,23 +2030,36 @@ Cloud or temporary in-memory state &
     };
 
     % 2. Middle Card: Coder & Terminal (Code window </> icon + Filesystem & Terminal)
-    \node [refcard, fill=cStage4!30, text width=4.25cm, minimum height=1.15cm] (b_mid) at (0.80, -0.15) {
+    \node [refcard, fill=cStage4!30, text width=4.50cm, minimum height=1.15cm] (b_mid) at (0.80, -0.15) {
         \textbf{\fontsize{7.8}{9.2}\selectfont\color{lavenderDark}{\color{prismTeal}\faCode}\; Coder \& Workspace}\\[0.20em]
         \fontsize{5.8}{7.0}\selectfont
         {\color{prismGold!90!black}\faFolderOpen}\;\textbf{Filesystem MCP:} local code edits\\[0.1em]
         {\color{prismTeal}\faTerminal}\;\textbf{Terminal MCP:} CLI commands \& tools
     };
 
-    % 3. Bottom Card: Tool Mesh & Testing (Checklist + Flask icon + MCP Official Logo)
-    \node [refcard, fill=cStage2!30, text width=4.35cm, minimum height=1.15cm] (b_bot) at (0.80, -1.75) {
-        \textbf{\fontsize{7.8}{9.2}\selectfont\color{lavenderDark}{\color{purple!75!black}\faTasks}\; Tool Mesh \& Testing}\\[0.20em]
-        \fontsize{5.6}{6.8}\selectfont
-        \includegraphics[height=1.35ex]{logos/mcp.png}\;\textbf{MCP Standard:} JSON-RPC tool mesh\\[0.1em]
-        {\color{purple!75!black}\faFlask}\;\textbf{ReAct:}\;Reason $\rightarrow$ Act $\rightarrow$ Observe loop
+    % 3. Bottom Card: MCP & Validation Agent
+    \node [refcard, fill=cStage2!30, text width=4.50cm, minimum height=1.55cm] (b_bot) at (0.80, -1.85) {
+        \textbf{\fontsize{7.8}{9.2}\selectfont\color{lavenderDark}{\color{purple!75!black}\faTasks}\; MCP \& Validation Agent}\\[0.12em]
+        \begin{minipage}{4.18cm}\raggedright\fontsize{4.4}{5.4}\selectfont
+        \setlength{\leftmargini}{1.0em}
+        \setlength{\labelwidth}{0.55em}
+        \setlength{\labelsep}{0.2em}
+        \setlength{\itemindent}{0pt}
+        \setlength{\itemsep}{0.1pt}
+        \setlength{\parsep}{0pt}
+        \setlength{\topsep}{0pt}
+        \setlength{\partopsep}{0pt}
+        \begin{itemize}
+        \item \textbf{Protocol:} MCP (JSON-RPC)
+        \item \textbf{Tools:} Filesystem, Web Search, Terminal
+        \item \textbf{Process:} Tool Selection $\rightarrow$ Execution $\rightarrow$ Result Validation
+        \item \textbf{Example:} Web Search MCP $\rightarrow$ Retrieve results $\rightarrow$ Validate output
+        \end{itemize}
+        \end{minipage}
     };
 
     % Stage 3: Verify Box (Matching Reference Image Shield with checkmark)
-    \node [refcard, fill=cSafety!30, text width=2.1cm, minimum height=4.2cm] (b_verify) at (5.10, -0.15) {
+    \node [refcard, fill=cSafety!30, text width=2.1cm, minimum height=4.2cm] (b_verify) at (5.60, -0.15) {
         \vspace{0.4em}
         {\color{lavenderDark}\fontsize{24}{28}\selectfont\faIcon{shield-alt}}\\[0.3em]
         \textbf{\fontsize{8.6}{10.5}\selectfont\color{lavenderDark}Verify}\\[0.4em]
@@ -2061,7 +2071,7 @@ Cloud or temporary in-memory state &
     };
 
     % Stage 4: Approve Box (Matching Reference Image Person with badge / checkmark)
-    \node [refcard, fill=cDeliverable!40, text width=2.15cm, minimum height=4.2cm] (b_approve) at (8.05, -0.15) {
+    \node [refcard, fill=cDeliverable!40, text width=2.15cm, minimum height=4.2cm] (b_approve) at (8.55, -0.15) {
         \vspace{0.4em}
         {\color{prismTeal}\fontsize{24}{28}\selectfont\faUserCheck}\\[0.3em]
         \textbf{\fontsize{8.6}{10.5}\selectfont\color{lavenderDark}Approve}\\[0.4em]
@@ -2081,15 +2091,19 @@ Cloud or temporary in-memory state &
     \draw [flowarr] (dot) -- (b_mid.west);
     \draw [curvearr] (dot) to[out=-28, in=180] (b_bot.west);
 
-    % 3. Merge the three agent result streams into one validation input
-    \coordinate (merge) at (3.49, -0.15);
-    \draw [merge, rounded corners=2.5pt]
-        (b_top.east) -- (3.49, 1.45) -- (3.49, -1.75) -- (b_bot.east);
-    \draw [merge] (b_mid.east) -- (3.49, -0.15);
-    \draw [flowarr] (merge) -- (b_verify.west);
-    \node [inner sep=0.4pt, align=center,
-           font=\fontsize{5.4}{6.2}\selectfont\bfseries\color{lavenderDark}]
-           at (3.49, 1.78) {agent\\outputs};
+    % 3. Three separate agent output streams into validation
+    \draw [flowarr] (b_top.east) --
+        node[above=2pt, inner sep=0.4pt,
+             font=\fontsize{4.7}{5.6}\selectfont\bfseries\color{prismBlue!90!black}]{email/docs}
+        ([yshift=1.70cm]b_verify.west);
+    \draw [flowarr] (b_mid.east) --
+        node[above=2pt, inner sep=0.4pt,
+             font=\fontsize{4.7}{5.6}\selectfont\bfseries\color{prismTeal!90!black}]{code edits}
+        (b_verify.west);
+    \draw [flowarr] (b_bot.east) --
+        node[above=2pt, inner sep=0.4pt,
+             font=\fontsize{4.7}{5.6}\selectfont\bfseries\color{purple!75!black}]{tool result}
+        ([yshift=-1.70cm]b_verify.west);
 
     % 4. From Verify to Approve
     \draw [flowarr] (b_verify.east) --
