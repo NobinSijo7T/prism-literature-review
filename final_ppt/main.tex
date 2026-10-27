@@ -2046,7 +2046,7 @@ Cloud or temporary in-memory state &
     };
 
     % Stage 3: Verify Box (Matching Reference Image Shield with checkmark)
-    \node [refcard, fill=cSafety!30, text width=2.1cm, minimum height=4.2cm] (b_verify) at (4.30, -0.15) {
+    \node [refcard, fill=cSafety!30, text width=2.1cm, minimum height=4.2cm] (b_verify) at (5.10, -0.15) {
         \vspace{0.4em}
         {\color{lavenderDark}\fontsize{24}{28}\selectfont\faIcon{shield-alt}}\\[0.3em]
         \textbf{\fontsize{8.6}{10.5}\selectfont\color{lavenderDark}Verify}\\[0.4em]
@@ -2058,7 +2058,7 @@ Cloud or temporary in-memory state &
     };
 
     % Stage 4: Approve Box (Matching Reference Image Person with badge / checkmark)
-    \node [refcard, fill=cDeliverable!40, text width=2.15cm, minimum height=4.2cm] (b_approve) at (6.80, -0.15) {
+    \node [refcard, fill=cDeliverable!40, text width=2.15cm, minimum height=4.2cm] (b_approve) at (8.05, -0.15) {
         \vspace{0.4em}
         {\color{prismTeal}\fontsize{24}{28}\selectfont\faUserCheck}\\[0.3em]
         \textbf{\fontsize{8.6}{10.5}\selectfont\color{lavenderDark}Approve}\\[0.4em]
@@ -2078,10 +2078,10 @@ Cloud or temporary in-memory state &
     \draw [flowarr] (dot) -- (b_mid.west);
     \draw [curvearr] (dot) to[out=-28, in=180] (b_bot.west);
 
-    % 3. Merging from 3 Parallel Cards into Verify (Curved Paths like Reference Image)
-    \draw [curvearr] (b_top.east) to[out=0, in=150] ([yshift=0.7cm]b_verify.west);
+    % 3. Straight parallel arrows from the 3 agent cards into Verify
+    \draw [flowarr] (b_top.east) -- ([yshift=1.60cm]b_verify.west);
     \draw [flowarr] (b_mid.east) -- (b_verify.west);
-    \draw [curvearr] (b_bot.east) to[out=0, in=-150] ([yshift=-0.7cm]b_verify.west);
+    \draw [flowarr] (b_bot.east) -- ([yshift=-1.60cm]b_verify.west);
 
     % 4. From Verify to Approve
     \draw [flowarr] (b_verify.east) -- (b_approve.west);
