@@ -190,7 +190,7 @@ Instead of sending every query to a slow, expensive frontier model, PrismSpace d
   };
 
   % 2. Candidate Pool with Real Logos
-  \node[poolnode] (step2) at (3.75, 0) {
+  \node[poolnode] (step2) at (4.10, 0) {
     {\fontsize{4.5}{5.2}\selectfont\textbf{\color{prismTeal!90!black}\faServer\; 2. Candidate Pool (Specialized Backends)}}\\[1.5pt]
     % Groq Card
     \begin{tcolorbox}[
@@ -239,7 +239,7 @@ Instead of sending every query to a slow, expensive frontier model, PrismSpace d
   };
 
   % 3. Filter
-  \node[filternode] (step3) at (7.50, 0) {
+  \node[filternode] (step3) at (8.20, 0) {
     \textbf{\color{prismBlue!90!black}\faFilter\; 3. Hard Filter}\\[1.5pt]
     \fontsize{4.0}{4.7}\selectfont
     \textbf{Drops ineligible models}\\[1.2pt]
@@ -249,7 +249,7 @@ Instead of sending every query to a slow, expensive frontier model, PrismSpace d
   };
 
   % 4. Score
-  \node[scorenode] (step4) at (10.20, 0) {
+  \node[scorenode] (step4) at (11.15, 0) {
     \textbf{\color{prismTeal!90!black}\faBalanceScale\; 4. Smart Scoring}\\[1.5pt]
     \fontsize{4.0}{4.7}\selectfont
     $\bullet$\;\textbf{Evaluates trade-off}\\[1.2pt]
@@ -258,7 +258,7 @@ Instead of sending every query to a slow, expensive frontier model, PrismSpace d
   };
 
   % 5. Dispatch
-  \node[dispatchnode] (step5) at (12.90, 0) {
+  \node[dispatchnode] (step5) at (14.10, 0) {
     \textbf{\color{lavenderDark}\faPaperPlane\; 5. Dispatch \& Fallback}\\[1.5pt]
     \fontsize{4.0}{4.7}\selectfont
     $\bullet$\;\textbf{Execute API}\\
@@ -266,11 +266,14 @@ Instead of sending every query to a slow, expensive frontier model, PrismSpace d
     $\bullet$\;\textbf{Telemetry}
   };
 
-  % Connect arrows
-  \draw[parr] (step1) -- (step2);
-  \draw[parr] (step2) -- (step3);
-  \draw[parr] (step3) -- (step4);
-  \draw[parr] (step4) -- (step5);
+  % Place each hand-off label above its arrow, centered in the gap between boxes.
+  \tikzset{flowlabel/.style={midway, above=1.5pt, fill=white, inner sep=0.6pt,
+    text width=0.58cm, align=center,
+    font=\fontsize{3.8}{4.3}\selectfont\bfseries, text=lavenderDark}}
+  \draw[parr] (step1.east) -- node[flowlabel] {Task\\profile} (step2.west);
+  \draw[parr] (step2.east) -- node[flowlabel] {Model\\candidates} (step3.west);
+  \draw[parr] (step3.east) -- node[flowlabel] {Eligible\\models} (step4.west);
+  \draw[parr] (step4.east) -- node[flowlabel] {Selected\\model} (step5.west);
 
 \end{tikzpicture}%
 }
