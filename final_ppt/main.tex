@@ -1517,21 +1517,6 @@ Cloud or temporary in-memory state &
 % =============================================================================
 \section{Methodology}
 
-\begin{frame}[t]{05. Methodology: Development Approach}
-\vspace{-0.15em}
-\begin{itemize}\footnotesize\setlength{\itemsep}{4pt}
-  \item \textbf{Idea Formulation:} Identify the limitations of single-agent and sequential workflows, then define PrismSpace as a browser-based multi-agent workspace.
-  \item \textbf{Literature and Problem Analysis:} Review multi-agent coordination, RAG, workflow scheduling, preference alignment, and human-in-the-loop methods to establish the research gap.
-  \item \textbf{Requirements and Data Collection:} Gather representative developer tasks, tool-use traces, prompts, workspace states, and successful/failed execution outcomes for design and evaluation.
-  \item \textbf{Data Preparation:} Clean and structure task traces, create preferred/non-preferred action pairs, and extract latency, cost, quality, and safety features.
-  \item \textbf{Architecture Design:} Implement layered React, FastAPI, model, MCP-tool, and local IndexedDB components with observable state transitions.
-  \item \textbf{Task Decomposition Algorithm:} Convert user goals into dependency-aware Directed Acyclic Graphs (DAGs) and execute independent tasks in parallel ($K \le 3$).
-  \item \textbf{Agent and Model Routing:} Use intent classification, capability matching, and cost/latency-aware routing to assign tasks to specialist agents and suitable LLMs.
-  \item \textbf{Execution and Safety Algorithms:} Combine ReAct loops, MCP JSON-RPC tools, Human-in-the-Loop approval, ORPO preference gating, and Isolation Forest anomaly detection.
-  \item \textbf{Implementation and Evaluation:} Integrate the modules, persist runs in \texttt{PrismDB}, and evaluate correctness, faithfulness, latency, token cost, recovery, and safety.
-\end{itemize}
-\end{frame}
-
 % =============================================================================
 % ALGORITHM SECTION (placed before the PrismSpace workflow diagram)
 % =============================================================================
