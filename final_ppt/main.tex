@@ -1988,6 +1988,9 @@ Cloud or temporary in-memory state &
     flowarr/.style={
         -{Stealth[scale=0.95]}, line width=1.15pt, draw=lavenderDark!90
     },
+    merge/.style={
+        line width=1.15pt, draw=lavenderDark!90
+    },
     curvearr/.style={
         -{Stealth[scale=0.95]}, line width=1.15pt, draw=lavenderDark!90
     },
@@ -2078,13 +2081,21 @@ Cloud or temporary in-memory state &
     \draw [flowarr] (dot) -- (b_mid.west);
     \draw [curvearr] (dot) to[out=-28, in=180] (b_bot.west);
 
-    % 3. Straight parallel arrows from the 3 agent cards into Verify
-    \draw [flowarr] (b_top.east) -- ([yshift=1.60cm]b_verify.west);
-    \draw [flowarr] (b_mid.east) -- (b_verify.west);
-    \draw [flowarr] (b_bot.east) -- ([yshift=-1.60cm]b_verify.west);
+    % 3. Merge the three agent result streams into one validation input
+    \coordinate (merge) at (3.49, -0.15);
+    \draw [merge, rounded corners=2.5pt]
+        (b_top.east) -- (3.49, 1.45) -- (3.49, -1.75) -- (b_bot.east);
+    \draw [merge] (b_mid.east) -- (3.49, -0.15);
+    \draw [flowarr] (merge) -- (b_verify.west);
+    \node [inner sep=0.4pt, align=center,
+           font=\fontsize{5.4}{6.2}\selectfont\bfseries\color{lavenderDark}]
+           at (3.49, 1.78) {agent\\outputs};
 
     % 4. From Verify to Approve
-    \draw [flowarr] (b_verify.east) -- (b_approve.west);
+    \draw [flowarr] (b_verify.east) --
+        node[above=2pt, inner sep=0.4pt,
+             font=\fontsize{5.4}{6.2}\selectfont\bfseries\color{prismTeal!90!black}]{pass}
+        (b_approve.west);
 
     % 5. Validation Feedback & Retry Loop (Clean loop entering top of Agent Loop)
     \draw [dashloop, rounded corners=4pt]
