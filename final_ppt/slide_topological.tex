@@ -25,7 +25,7 @@
     boxrule=0.55pt, left=3pt, right=3pt, top=1.2pt, bottom=1.2pt
   ]
   \fontsize{4.6}{5.5}\selectfont
-  $\bullet$\;\textbf{Finds circular dependencies:} Detects when tasks wait for each other in a loop ($A \to B \to A$).\\
+  $\bullet$\;\textbf{Finds circular dependencies:} Detects when tasks wait for each other in a loop ($A\;\longrightarrow\;B\;\longrightarrow\;A$).\\
   $\bullet$\;\textbf{Stops safely:} Reports the problem instead of waiting forever for tasks to finish.
   \end{tcolorbox}
 \end{column}
@@ -63,7 +63,7 @@
 \rowcolor{prismMint!85}
 \textbf{\color{prismTeal!90!black}\faCheckCircle\; Topological Sort} (Kahn's / DFS) &
 Directed Acyclic Graph $\mathcal{G}(V,E)$ &
-\textbf{Causal Precedence} (Partial Order: $u \to v$) &
+\textbf{Causal Precedence} (Partial Order: $u\;\longrightarrow\;v$) &
 $\mathcal{O}(V + E)$ &
 {\color{prismTeal!90!black}\textbf{Yes}} (In-degree) &
 {\color{prismTeal!90!black}\textbf{Yes}} (Fan-out) &
@@ -277,43 +277,21 @@ Instead of sending every query to a slow, expensive frontier model, PrismSpace d
 }
 \end{tcolorbox}
 
-\vspace{-0.46em}
+\vspace{0.38em}
 
-% Bottom Two Columns: Technically Simplified Explanations
-\begin{columns}[T]
-
-% Column 1: Simplified Decision Rule
-\begin{column}{0.49\textwidth}
+% Bottom Full-Width Decision Rule
 \begin{tcolorbox}[
   enhanced, arc=2.5pt, colframe=prismTeal!80!black, colback=prismMint!35,
   title={\scriptsize\bfseries\color{white}\faCalculator\; How the Router Decides (Multi-Objective Optimization)},
-  boxrule=0.52pt, left=3.5pt, right=3.5pt, top=0.7pt, bottom=0.7pt
+  boxrule=0.52pt, left=3.5pt, right=3.5pt, top=0.7pt, bottom=0.7pt,
+  height=1.25cm, valign=center
 ]
 \fontsize{4.3}{5.2}\selectfont
-\centering
-\textbf{Objective:} $\min_m \left( \lambda_c \cdot \widehat{\text{Cost}}_m + \lambda_l \cdot \widehat{\text{Latency}}_m \right) \quad \text{s.t. } \widehat{\text{Quality}}_m \ge \tau$\\[1.2pt]
 \raggedright
-$\bullet$\;\textbf{Speed-Critical Nodes ($\lambda_l \uparrow$):} Fast tool calls prioritize low latency $\rightarrow$ routes to \textbf{Groq LPU} ($<300\text{ms}$).\\
-$\bullet$\;\textbf{High-Complexity Tasks ($\tau \uparrow$):} Architectural synthesis prioritizes IQ $\rightarrow$ routes to \textbf{OpenAI GPT-4o}.\\
+$\bullet$\;\textbf{Speed-Critical Nodes ($\lambda_l \uparrow$):} Fast tool calls prioritize low latency $\rightarrow$ routes to \textbf{Groq LPU} ($<300\text{ms}$).\\[1.6pt]
+$\bullet$\;\textbf{High-Complexity Tasks ($\tau \uparrow$):} Architectural synthesis prioritizes IQ $\rightarrow$ routes to \textbf{OpenAI GPT-4o}.\\[1.6pt]
 $\bullet$\;\textbf{Confidential Workflows:} Data protection requirements lock execution to local \textbf{NVIDIA NIM} microservices.
 \end{tcolorbox}
-\end{column}
-
-% Column 2: Runtime Safeguards & Failover
-\begin{column}{0.49\textwidth}
-\begin{tcolorbox}[
-  enhanced, arc=2.5pt, colframe=lavenderDark!80, colback=lavenderLight!35,
-  title={\scriptsize\bfseries\color{white}\faShieldAlt\; Runtime Safeguards \& Zero-Downtime Fallback},
-  boxrule=0.52pt, left=3.5pt, right=3.5pt, top=0.7pt, bottom=0.7pt
-]
-\fontsize{4.3}{5.2}\selectfont
-$\bullet$\;\textbf{Pre-Flight Verification:} Validates endpoint health, remaining quota, and network jitter before dispatching tokens.\\
-$\bullet$\;\textbf{Dynamic Circuit Breaker:} If the primary provider times out ($>2000\text{ms}$) or hits HTTP 429/503 rate limits, execution instantly cascades to the \#2 ranked model ($<150\text{ms}$ failover).\\
-$\bullet$\;\textbf{Closed-Loop Feedback:} Logs observed token speed, dollar cost, and quality scores to continuously calibrate future routing models.
-\end{tcolorbox}
-\end{column}
-
-\end{columns}
 \end{frame}
 
 % =============================================================================
