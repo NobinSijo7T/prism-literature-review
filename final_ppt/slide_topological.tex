@@ -175,7 +175,8 @@ Instead of sending every query to a slow, expensive frontier model, PrismSpace d
     minimum height=1.54cm, text width=2.20cm, align=center, inner sep=2.5pt,
     font=\fontsize{4.4}{5.2}\selectfont
   },
-  parr/.style={-{Stealth[scale=0.75]}, line width=0.85pt, draw=lavenderDark!90!black}
+  parr/.style={-{Stealth[scale=0.70]}, line width=0.90pt, draw=lavenderDark!90!black,
+    shorten <=0.02cm, shorten >=0.02cm}
 ]
 
   % 1. Task Profile
@@ -189,7 +190,7 @@ Instead of sending every query to a slow, expensive frontier model, PrismSpace d
   };
 
   % 2. Candidate Pool with Real Logos
-  \node[poolnode] (step2) at (3.55, 0) {
+  \node[poolnode] (step2) at (3.75, 0) {
     {\fontsize{4.5}{5.2}\selectfont\textbf{\color{prismTeal!90!black}\faServer\; 2. Candidate Pool (Specialized Backends)}}\\[1.5pt]
     % Groq Card
     \begin{tcolorbox}[
@@ -238,33 +239,31 @@ Instead of sending every query to a slow, expensive frontier model, PrismSpace d
   };
 
   % 3. Filter
-  \node[filternode] (step3) at (7.10, 0) {
+  \node[filternode] (step3) at (7.50, 0) {
     \textbf{\color{prismBlue!90!black}\faFilter\; 3. Hard Filter}\\[1.5pt]
     \fontsize{4.0}{4.7}\selectfont
-    \textbf{Drops ineligible models:}\\
-    $\bullet$\;\textbf{Context limit:} Drop if tokens > window\\
-    $\bullet$\;\textbf{Rate limits:} Skip if 429 / offline\\
-    $\bullet$\;\textbf{Privacy policy:} Disallow public cloud if private
+    \textbf{Drops ineligible models}\\[1.2pt]
+    $\bullet$\;\textbf{Context limit}\\
+    $\bullet$\;\textbf{Rate limits}\\
+    $\bullet$\;\textbf{Privacy policy}
   };
 
   % 4. Score
-  \node[scorenode] (step4) at (9.55, 0) {
+  \node[scorenode] (step4) at (10.20, 0) {
     \textbf{\color{prismTeal!90!black}\faBalanceScale\; 4. Smart Scoring}\\[1.5pt]
     \fontsize{4.0}{4.7}\selectfont
-    \textbf{Evaluates trade-off:}\\[1.2pt]
-    $\text{Cost} + \text{Latency}$\\[1pt]
-    \textit{subject to}\\[1pt]
-    $\textbf{Quality} \ge \tau$\\[1.5pt]
-    Selects cheapest and fastest model that clears the hurdle $\tau$.
+    $\bullet$\;\textbf{Evaluates trade-off}\\[1.2pt]
+    $\bullet$\;\textbf{Cost + Latency}\\[1.2pt]
+    $\bullet$\;\textbf{Quality $\ge \tau$}
   };
 
   % 5. Dispatch
-  \node[dispatchnode] (step5) at (12.00, 0) {
+  \node[dispatchnode] (step5) at (12.90, 0) {
     \textbf{\color{lavenderDark}\faPaperPlane\; 5. Dispatch \& Fallback}\\[1.5pt]
     \fontsize{4.0}{4.7}\selectfont
-    $\bullet$\;\textbf{Execute API:} Stream tokens to agent\\
-    $\bullet$\;\textbf{Auto-Failover:} If timeout ($>2\text{s}$), call \#2 backup model\\
-    $\bullet$\;\textbf{Telemetry:} Log real cost \& latency to \texttt{PrismDB}
+    $\bullet$\;\textbf{Execute API}\\
+    $\bullet$\;\textbf{Auto-Failover}\\
+    $\bullet$\;\textbf{Telemetry}
   };
 
   % Connect arrows
