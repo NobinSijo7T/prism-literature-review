@@ -2041,9 +2041,9 @@ Cloud or temporary in-memory state &
     };
 
     % 3. Bottom Card: MCP & Validation Agent
-    \node [refcard, fill=cStage2!30, text width=4.50cm, minimum height=1.55cm] (b_bot) at (0.80, -1.88) {
-        \textbf{\fontsize{7.8}{9.2}\selectfont\color{lavenderDark}{\color{purple!75!black}\faTasks}\; MCP \& Validation Agent}\\[0.12em]
-        \begin{minipage}{4.18cm}\raggedright\fontsize{4.4}{5.4}\selectfont
+    \node [refcard, fill=cStage2!30, text width=4.50cm, minimum height=1.55cm] (b_bot) at (0.80, -2.15) {
+        \textbf{\fontsize{7.8}{9.2}\selectfont\color{lavenderDark}{\color{purple!75!black}\faTasks}\; MCP \& Validation Agent}\\[0.18em]
+        \begin{minipage}{4.30cm}\raggedright\fontsize{5.8}{7.0}\selectfont
         \setlength{\leftmargini}{1.0em}
         \setlength{\labelwidth}{0.55em}
         \setlength{\labelsep}{0.2em}
@@ -2056,9 +2056,9 @@ Cloud or temporary in-memory state &
         \item \textbf{Protocol:} MCP (JSON-RPC)
         \item \textbf{Tools:} Filesystem, Web Search, Terminal
         \item \textbf{Process:} Tool Selection $\rightarrow$ Execution\\
-              \hspace*{0.55cm}$\rightarrow$ Result~Validation
-        \item \textbf{Example:} Web Search MCP $\rightarrow$ Retrieve results\\
-              \hspace*{0.55cm}$\rightarrow$ Validate~output
+              \hspace*{0.30cm}$\rightarrow$ Result~Validation
+        \item \textbf{Example:} Web Search MCP\\
+              \hspace*{0.30cm}$\rightarrow$ Retrieve results $\rightarrow$ Validate~output
         \end{itemize}
         \end{minipage}
     };
@@ -2099,7 +2099,7 @@ Cloud or temporary in-memory state &
     % 3. Merge the three agent result streams into one validation input
     \coordinate (merge) at (3.49, -0.15);
     \draw [merge, rounded corners=2.5pt]
-        (b_top.east) -- (3.49, 1.45) -- (3.49, -1.88) -- (b_bot.east);
+        (b_top.east) -- (3.49, 1.45) -- (3.49, -2.15) -- (b_bot.east);
     \draw [merge] (b_mid.east) -- (3.49, -0.15);
     \draw [flowarr] (merge) -- (b_verify.west);
     \node [inner sep=0.4pt, align=center,
