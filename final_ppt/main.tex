@@ -2184,10 +2184,10 @@ Raw multi-source datasets flow through normalization and curation into four supe
 };
 % Keep connector labels in dedicated lanes so they cannot cross table content.
 \draw[flow, line width=1.35pt] (raw.east |- 0,1.05) --
-  node[above, fill=prismLight, inner sep=1pt, font=\fontsize{5.0}{5.8}\selectfont\bfseries]{normalize + curate}
+  node[above=2pt, fill=prismLight, inner sep=0.6pt, align=center, font=\fontsize{4.6}{5.4}\selectfont\bfseries]{normalize\\+ curate}
   (tables.west |- 0,1.05);
 \draw[flow, line width=1.35pt] (tables.east |- 0,-1.05) --
-  node[below, fill=prismLight, inner sep=1pt, font=\fontsize{5.0}{5.8}\selectfont\bfseries]{train + deploy}
+  node[below=2pt, fill=prismLight, inner sep=0.6pt, align=center, font=\fontsize{4.6}{5.4}\selectfont\bfseries]{train\\+ deploy}
   (models.west |- 0,-1.05);
 \end{tikzpicture}%
 }
