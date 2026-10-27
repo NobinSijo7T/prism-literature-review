@@ -2215,10 +2215,10 @@ The held-out 20\% is divided equally for validation and final testing.
 ]
 \centering
 \adjustbox{max width=0.99\linewidth, max totalheight=0.72\textheight, keepaspectratio}{%
-\fontsize{4.7}{5.5}\selectfont
-\renewcommand{\arraystretch}{1.13}
-\setlength{\tabcolsep}{2.2pt}
-\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}m{3.05cm} >{\centering\arraybackslash}m{1.65cm} >{\raggedright\arraybackslash}m{3.35cm} >{\raggedright\arraybackslash}X}
+\fontsize{6.8}{8.0}\selectfont
+\renewcommand{\arraystretch}{1.72}
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}m{3.00cm} >{\centering\arraybackslash}m{1.60cm} >{\raggedright\arraybackslash}m{3.75cm} >{\raggedright\arraybackslash}X}
 \rowcolor{lavenderLight!90}
 \textbf{Model} & \textbf{Type} & \textbf{ML algorithm for training} & \textbf{Why choose this algorithm?}\\
 \hline
@@ -2227,23 +2227,13 @@ The held-out 20\% is divided equally for validation and final testing.
 \hline
 \textbf{Agent Router} & Multilabel & Binary-relevance XGBoost & Predicts several specialist agents independently while preserving strong tabular/text-feature performance.\\
 \hline
-\textbf{Approval Predictor} & Classification & Calibrated XGBoost & Models nonlinear safety signals and produces probabilities that can be thresholded for HITL approval.\\
-\hline
-\textbf{Workflow Success Predictor} & Classification & XGBoost classifier & Learns interactions among task features, history, and plan shape; effective for structured trace data.\\
-\hline
 \textbf{Provider Router} & Classification & XGBoost ranking/classifier & Combines capability, quality, cost, and availability signals to choose the best provider/model.\\
-\hline
-\textbf{Latency Predictor} & Regression & XGBoost regressor & Captures nonlinear effects of provider load, prompt size, model, and tool complexity.\\
-\hline
-\textbf{Cost Predictor} & Regression & XGBoost regressor & Handles token-based and provider-specific cost interactions without requiring a linear cost assumption.\\
 \hline
 \textbf{Anomaly Detector} & Anomaly & Isolation Forest & Works with few or no anomaly labels and isolates rare, unusual execution patterns efficiently.\\
 \hline
 \textbf{Reward ORPO Adapter} & ORPO & ORPO + Reinforcement Learning & Learns from chosen-versus-rejected preference feedback to improve response quality and alignment.\\
 \hline
 \textbf{FAISS Retrieval Index} & Unsupervised & Sentence embeddings + FAISS & Requires no class labels; semantic vectors support fast nearest-neighbor retrieval over workspace context.\\
-\hline
-\textbf{Workflow Clusters} & Unsupervised & K-Means clustering & Groups similar execution traces to discover reusable workflow templates without labeled outcomes.\\
 \hline
 \end{tabularx}%
 }
