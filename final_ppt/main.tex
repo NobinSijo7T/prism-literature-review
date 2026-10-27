@@ -2086,10 +2086,13 @@ Cloud or temporary in-memory state &
     % 4. From Verify to Approve
     \draw [flowarr] (b_verify.east) -- (b_approve.west);
 
-    % 5. Validation Feedback & Retry Loop (Clean loop entering left side of Agent Loop)
-    \draw [dashloop] (b_verify.north) -- ([yshift=0.45cm]b_verify.north |- 0, 2.45) 
-        -- node[pos=0.5, above=2pt, font=\fontsize{6.5}{7.8}\selectfont\bfseries\color{prismGold!95!black}]{\faRedo\ Validation Feedback \& Retry Loop} 
-        ([xshift=-0.85cm]b_loop.north |- 0, 2.45) -- ([xshift=-0.85cm]b_loop.north);
+    % 5. Validation Feedback & Retry Loop (Clean loop entering top of Agent Loop)
+    \draw [dashloop, rounded corners=4pt]
+        (b_verify.north) --
+        ($(b_verify.north)+(0,0.55)$) --
+        node[pos=0.5, above=3pt, font=\fontsize{6.5}{7.8}\selectfont\bfseries\color{prismGold!95!black}]{\faRedo\ Validation Feedback \& Retry Loop}
+        ($(b_loop.north)+(-0.85,0.55)$) --
+        ($(b_loop.north)+(-0.85,0)$);
 
 \end{tikzpicture}%
 }
