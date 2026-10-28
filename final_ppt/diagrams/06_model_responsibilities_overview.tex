@@ -1,0 +1,69 @@
+% Extracted diagram: 06_model_responsibilities_overview
+% Source: main.tex, lines 2369-2432
+% This fragment uses the presentation preamble, colors, styles, and macros from main.tex.
+
+\begin{tikzpicture}[
+    x=1cm, y=0.94cm, font=\sffamily,
+    modelrow/.style={rectangle, rounded corners=3pt, draw=lavenderDark!40,
+      line width=0.55pt, minimum height=0.74cm, inner sep=2.5pt},
+    arrow/.style={-{Stealth[scale=0.65]}, line width=0.7pt, draw=lavenderDark!80}
+]
+  % Stage 1: intent
+  \node[modelrow, fill=lavenderLight!85!white, text width=2.00cm, align=center] (m1l) at (-5.70,2.65)
+    {{\fontsize{7.2}{8.2}\selectfont\faBrain\ \textbf{1. Intent}}\\[1pt]
+     {\fontsize{7.2}{8.2}\selectfont\bfseries Classifier}};
+  \node[modelrow, fill=lavenderLight!85!white, text width=7.40cm, align=left] (m1p) at (-0.60,2.65)
+    {\fontsize{6.5}{8.0}\selectfont \textbf{Prompt} $\rightarrow$ \textbf{Extracted features} $\rightarrow$ \textbf{classify intent}\\[1pt](research, tool use, coding, everyday synthesis)};
+  \node[modelrow, fill=lavenderLight!85!white, text width=3.35cm, align=left] (m1r) at (5.18,2.65)
+    {\fontsize{6.2}{7.2}\selectfont \textbf{Task type}\\[1pt]{\fontsize{5.2}{6.2}\selectfont\texttt{intent\_classifier.joblib}}};
+
+  % Stage 2: agent routing
+  \node[modelrow, fill=lavenderLight!65!prismTeal, text width=2.00cm, align=center] (m2l) at (-5.70,1.50)
+    {{\fontsize{7.2}{8.2}\selectfont\faUsers\ \textbf{2. Agent}}\\[1pt]
+     {\fontsize{7.2}{8.2}\selectfont\bfseries Router}};
+  \node[modelrow, fill=lavenderLight!65!prismTeal, text width=7.40cm, align=left] (m2p) at (-0.60,1.50)
+    {\fontsize{6.5}{8.0}\selectfont \textbf{Intent + task features} $\rightarrow$ predict \textbf{multiple agent labels}\\[1pt]$\rightarrow$ form the \textbf{specialist team}};
+  \node[modelrow, fill=lavenderLight!65!prismTeal, text width=3.35cm, align=left] (m2r) at (5.18,1.50)
+    {\fontsize{6.2}{7.2}\selectfont \textbf{Agent selection}\\[1pt]{\fontsize{5.2}{6.2}\selectfont\texttt{agent\_router.joblib}}};
+
+  % Stage 3: workflow planning
+  \node[modelrow, fill=lavenderLight!65!prismGold, text width=2.00cm, align=center] (m3l) at (-5.70,0.35)
+    {{\fontsize{7.2}{8.2}\selectfont\faProjectDiagram\ \textbf{3. Workflow}}\\[1pt]
+     {\fontsize{7.2}{8.2}\selectfont\bfseries Planner}};
+  \node[modelrow, fill=lavenderLight!65!prismGold, text width=7.40cm, align=left] (m3p) at (-0.60,0.35)
+    {\fontsize{6.5}{8.0}\selectfont \textbf{Workflow templates} $\rightarrow$ estimate \textbf{completion probability}\\[1pt]$\rightarrow$ choose a \textbf{dependency-safe DAG plan}};
+  \node[modelrow, fill=lavenderLight!65!prismGold, text width=3.35cm, align=left] (m3r) at (5.18,0.35)
+    {\fontsize{6.0}{7.0}\selectfont \textbf{Plan reuse + success}\\[1pt]{\fontsize{5.0}{5.9}\selectfont\texttt{workflow\_templates.pkl}\\\texttt{workflow\_success\_predictor.joblib}}};
+
+  % Stage 4: provider and performance routing
+  \node[modelrow, fill=lavenderLight!65!prismBlue, text width=2.00cm, align=center] (m4l) at (-5.70,-0.80)
+    {{\fontsize{7.2}{8.2}\selectfont\faRandom\ \textbf{4. Provider}}\\[1pt]
+     {\fontsize{7.2}{8.2}\selectfont\bfseries Routing}};
+  \node[modelrow, fill=lavenderLight!65!prismBlue, text width=7.40cm, align=left] (m4p) at (-0.60,-0.80)
+    {\fontsize{6.5}{8.0}\selectfont \textbf{Candidate task} $\rightarrow$ choose \textbf{provider/model}\\[1pt]$\rightarrow$ compare \textbf{predicted latency} and \textbf{token cost}};
+  \node[modelrow, fill=lavenderLight!65!prismBlue, text width=3.35cm, align=left] (m4r) at (5.18,-0.80)
+    {\fontsize{6.0}{7.0}\selectfont \textbf{Provider + cost balance}\\[1pt]{\fontsize{4.8}{5.7}\selectfont\texttt{model\_router.joblib}\\\texttt{latency\_predictor.joblib}\\\texttt{cost\_predictor.joblib}}};
+
+  % Stage 5: safety and reliability
+  \node[modelrow, fill=lavenderLight!70!cSafety, text width=2.00cm, align=center] (m5l) at (-5.70,-1.95)
+    {{\fontsize{7.2}{8.2}\selectfont\faLock\ \textbf{5. Safety}}\\[1pt]
+     {\fontsize{7.2}{8.2}\selectfont\bfseries Gate}};
+  \node[modelrow, fill=lavenderLight!70!cSafety, text width=7.40cm, align=left] (m5p) at (-0.60,-1.95)
+    {\fontsize{6.5}{8.0}\selectfont \textbf{Planned action} $\rightarrow$ score \textbf{approval risk} + \textbf{detect anomalies}\\[1pt]$\rightarrow$ \textbf{approve, pause, or block} execution};
+  \node[modelrow, fill=lavenderLight!70!cSafety, text width=3.35cm, align=left] (m5r) at (5.18,-1.95)
+    {\fontsize{6.0}{7.0}\selectfont \textbf{Risk approval \& safety}\\[1pt]{\fontsize{5.0}{5.9}\selectfont\texttt{approval\_predictor.joblib}\\\texttt{anomaly\_detector.joblib}}};
+
+  % Stage 6: retrieval and output quality
+  \node[modelrow, fill=lavenderLight!75!cHead, text width=2.00cm, align=center] (m6l) at (-5.70,-3.10)
+    {{\fontsize{7.2}{8.2}\selectfont\faSearch\ \textbf{6. Context}}\\[1pt]
+     {\fontsize{7.2}{8.2}\selectfont\bfseries \& Quality}};
+  \node[modelrow, fill=lavenderLight!75!cHead, text width=7.40cm, align=left] (m6p) at (-0.60,-3.10)
+    {\fontsize{6.5}{8.0}\selectfont \textbf{Query} $\rightarrow$ \textbf{FAISS semantic retrieval} $\rightarrow$ add \textbf{context}\\[1pt]$\rightarrow$ generate \& \textbf{ORPO-align response}};
+  \node[modelrow, fill=lavenderLight!75!cHead, text width=3.35cm, align=left] (m6r) at (5.18,-3.10)
+    {\fontsize{5.8}{6.8}\selectfont \textbf{Evidence + output quality}\\[1pt]{\fontsize{4.5}{5.4}\selectfont\texttt{faiss.index} $\cdot$ \texttt{faiss.vectorizer.joblib}\\\texttt{reward\_orpo\_v2/adapter\_model.safetensors}}};
+
+  % Flow arrows between the model stages
+  \foreach \a/\b in {m1l/m2l,m2l/m3l,m3l/m4l,m4l/m5l,m5l/m6l}
+    {\draw[arrow] (\a.south) -- (\b.north);}
+\end{tikzpicture}
+

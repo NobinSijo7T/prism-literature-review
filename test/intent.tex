@@ -1,0 +1,358 @@
+
+\documentclass[aspectratio=169]{beamer}
+
+\usepackage[T1]{fontenc}
+
+\usepackage{tikz}
+
+\usetikzlibrary{arrows.meta}
+
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage[scaled=0.95]{helvet}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+\usefonttheme{professionalfonts}
+
+\hyphenpenalty=10000 \exhyphenpenalty=10000
+
+
+
+\definecolor{cUser}{RGB}{0,150,205}
+
+\definecolor{cTok}{RGB}{75,40,170}
+
+\definecolor{cInt}{RGB}{0,150,110}
+
+\definecolor{cRpc}{RGB}{235,150,0}
+
+\definecolor{cDec}{RGB}{20,130,230}
+
+\definecolor{cDis}{RGB}{225,30,120}
+
+\definecolor{cDet}{RGB}{110,70,200}
+
+
+
+% Streamlined badge macro with tight padding to save vertical space
+
+\newcommand{\tg}[2]{%
+
+  \begingroup\setlength{\fboxsep}{1.4pt}%
+
+  \colorbox{#1!18}{\strut\textcolor{#1!80!black}{\bfseries #2}}%
+
+  \endgroup\par\vspace{1.5pt}}
+
+
+
+% Five columns, aligned with the five detail boxes below (x = 0.3, 3.44, 6.58, 9.72, 12.86; width 2.84)
+
+% Clean text-first agent card: NO logos, optimal typography and margins
+
+\newcommand{\col}[6]{%
+
+  \pgfmathsetmacro{\xo}{0.3+(#1-1)*3.14}
+
+  \draw[rounded corners=4pt, line width=0.85pt, draw=#2, fill=#2!6] (\xo,3.15) rectangle ++(2.84,5.70);
+
+  % Step number badge
+
+  \node[circle,fill=#2,text=white,font=\bfseries\footnotesize,inner sep=2pt] at (\xo+0.32,8.55) {#1};
+
+  % Column header title
+
+  \node[anchor=west,text width=2.15cm,align=left,inner sep=0,font=\bfseries\fontsize{6.2}{7}\selectfont,text=#2!80!black] at (\xo+0.58,8.55) {#3};
+
+  % Agent info card (clean typography, no logo, generous margins)
+
+  \draw[draw=#2!60,fill=white,rounded corners=3pt] (\xo+0.11,7.58) rectangle ++(2.62,0.62);
+
+  \node[anchor=west,text width=2.42cm,align=left,inner sep=0,font=\fontsize{5.0}{6.0}\selectfont] at (\xo+0.22,7.89) {\textbf{#4}\\\\#5};
+
+  % Body text
+
+  \node[anchor=north west,text width=2.60cm,align=left,inner sep=0,font=\fontsize{4.8}{5.7}\selectfont] at (\xo+0.12,7.44) {#6};
+
+}
+
+
+
+% Bottom detail boxes (height 2.30cm to prevent any text clipping)
+
+\newcommand{\dbox}[4]{%
+
+  \draw[draw=cDet!50,fill=white,rounded corners=3pt] (#4,0.18) rectangle ++(2.84,2.30);
+
+  \node[anchor=north west,text width=2.64cm,align=left,inner sep=0,font=\fontsize{4.8}{5.7}\selectfont] at (#4+0.10,2.40) {%
+
+    {\fontsize{5.2}{6.2}\selectfont\textbf{#1.\ \ #2}}\par\vspace{2pt}#3};
+
+}
+
+
+
+\begin{document}
+
+\begin{frame}[plain]\centering\vspace*{-0.35cm}\hspace*{-0.45cm}
+
+\begin{tikzpicture}[x=1cm,y=1cm]\path[use as bounding box] (0,0) rectangle (16,9);
+
+
+
+% --- COLUMN 1: User Input ---
+
+\col{1}{cUser}{User Input}{User}{(Human)}{%
+
+  \textit{``Find the latest API changes, summarize them, and update my notes.''}\par\vspace{3pt}
+
+  \tg{cUser}{Function}
+
+  Receive the user request and prepare it for processing.\par\vspace{2.5pt}
+
+  \tg{cUser}{Input}
+
+  Natural language prompt (from user).\par\vspace{2.5pt}
+
+  \tg{cUser}{Output}
+
+  Raw prompt text.}
+
+
+
+% --- COLUMN 2: Tokenize / Encode ---
+
+\col{2}{cTok}{Tokenize / Encode}{Tokenizer Agent}{(Tokenizer Service)}{%
+
+  \tg{cTok}{Function}
+
+  Tokenize prompt into IDs and compute dense embeddings.\par\vspace{2.5pt}
+
+  \tg{cTok}{Input}
+
+  Raw prompt text.\par\vspace{2.5pt}
+
+  \tg{cTok}{Output}
+
+  Token IDs + embedding vectors.}
+
+
+
+% --- COLUMN 3: Intent Classifier (Detailed Function) ---
+
+\col{3}{cInt}{Intent Classifier}{Intent Classifier Agent}{(LLM / Classifier)}{%
+
+  \tg{cInt}{Function}
+
+  Analyze contextual embeddings to classify user intent, extract domain entities (target API, destination notes), resolve dependencies, and evaluate confidence thresholds for task routing.\par\vspace{2.5pt}
+
+  \tg{cInt}{Input}
+
+  Token embeddings + prompt context.\par\vspace{2.5pt}
+
+  \tg{cInt}{Output}
+
+  Intent label(s) with confidence (research: 0.98, summarize: 0.95, write: 0.92) + entity slots.}
+
+
+
+% --- COLUMN 4: Semantic Decomposer (Step 4: Planning & Decomposition) ---
+
+\col{4}{cRpc}{Semantic Decomposer}{Decomposer Agent}{(Planning Agent)}{%
+
+  \tg{cRpc}{Function}
+
+  Break the classified intent into modular sub-tasks, establish execution ordering, and detect dependencies.\par\vspace{2.5pt}
+
+  \tg{cRpc}{Input}
+
+  Intent labels + context from Step 3.\par\vspace{2.5pt}
+
+  \tg{cRpc}{Output}
+
+  JSON-RPC object with approval gate:}
+
+
+
+% --- COLUMN 5: Task DAG Output (Step 5: Output of DAG with visual graph) ---
+
+\col{5}{cDec}{Task DAG Output}{Tool Executor Agent}{(Tooling Agent)}{%
+
+  \tg{cDec}{Function}
+
+  Construct, validate, and execute the Directed Acyclic Graph (DAG) for dependency-ordered tool execution.\par\vspace{2.5pt}
+
+  \tg{cDec}{Input}
+
+  Serialized task packet + tool bindings.\par\vspace{2.5pt}
+
+  \tg{cDec}{Output}}
+
+
+
+% Arrows between the five columns
+
+\foreach \x in {3.14,6.28,9.42,12.56}{
+
+  \draw[-{Stealth[length=2mm]},thick,cDet!80] (\x+0.01,7.89) -- ++(0.28,0);
+
+}
+
+
+
+% Column 4: JSON Code Snippet (Semantic Decomposer output)
+
+\node[draw=cRpc!60,fill=white,rounded corners=2pt,anchor=north west,
+
+      text width=2.46cm,align=left,inner sep=2.5pt,font=\fontsize{4.1}{4.9}\selectfont\ttfamily]
+
+      at (0.3+3*3.14+0.12, 4.35) {\\{"tasks": ["research",\\ \ "extract", "summarize",\\ \ "write"],\\ "approval\\\_gate": true\\ \\}};
+
+
+
+% Column 5: Simple Visual Graph of the DAG (cleanly placed with ample clearance)
+
+\begin{scope}[shift={(0.3+4*3.14+0.12, 3.24)}]
+
+  \draw[draw=cDec!40,fill=white,rounded corners=3pt] (0,0) rectangle (2.60, 1.88);
+
+  \node[font=\bfseries\fontsize{4.5}{5.2}\selectfont,text=cDec!90!black] at (1.30, 1.72) {Dependency Task Graph};
+
+  % Nodes
+
+  \node[draw=cDec!70,fill=cDec!8,rounded corners=2pt,inner sep=1.7pt,font=\fontsize{4.0}{4.6}\selectfont] (t1) at (0.62, 1.34) {1. Research};
+
+  \node[draw=cDec!70,fill=cDec!8,rounded corners=2pt,inner sep=1.7pt,font=\fontsize{4.0}{4.6}\selectfont] (t2) at (1.98, 1.34) {2. Extract};
+
+  \node[draw=cDec!70,fill=cDec!8,rounded corners=2pt,inner sep=1.7pt,font=\fontsize{4.0}{4.6}\selectfont] (t3) at (1.30, 0.82) {3. Summarize};
+
+  \node[draw=cDec!70,fill=cDec!8,rounded corners=2pt,inner sep=1.7pt,font=\fontsize{4.0}{4.6}\selectfont] (t4) at (1.30, 0.26) {4. Write Note};
+
+  % Edges
+
+  \draw[-{Stealth[length=1.3mm,width=1.0mm]},cDec!85,thick] (t1) -- (t2);
+
+  \draw[-{Stealth[length=1.3mm,width=1.0mm]},cDec!85,thick] (t1.south) to[out=270,in=160] (t3.west);
+
+  \draw[-{Stealth[length=1.3mm,width=1.0mm]},cDec!85,thick] (t2.south) to[out=270,in=20] (t3.east);
+
+  \draw[-{Stealth[length=1.3mm,width=1.0mm]},cDec!85,thick] (t3) -- (t4);
+
+  % Approval gate indicator
+
+  \node[fill=orange!20,draw=orange!80,rounded corners=1.5pt,inner sep=1pt,font=\fontsize{3.5}{4.0}\selectfont\bfseries,text=orange!90!black] at (2.12, 0.26) {Gate: OK};
+
+\end{scope}
+
+
+
+% Tokenization mini-illustration (cleanly contained: x in [3.58, 6.14], y in [3.30, 4.90])
+
+\draw[dashed,cTok!70,rounded corners=3pt,fill=white] (3.58,3.30) rectangle (6.14,4.90);
+
+\node[font=\bfseries\fontsize{4.8}{5.5}\selectfont,text=cTok!85!black] at (4.86,4.76) {Tokenization Process (in detail)};
+
+\node[draw=cTok!40,fill=cTok!4,font=\ttfamily\fontsize{4.1}{4.8}\selectfont,inner sep=1.2pt] at (4.86,4.50) {"Find the latest API..."};
+
+\draw[-{Stealth[length=1.1mm]},cTok!80] (4.86,4.42) -- (4.86,4.29);
+
+% Tokens row
+
+\foreach \t/\x in {Find/3.88,the/4.33,latest/4.86,API/5.38,\ldots/5.78}{
+
+  \node[draw=cTok!40,fill=cTok!6,font=\ttfamily\fontsize{3.8}{4.4}\selectfont,inner sep=1.1pt] at (\x,4.20) {\t};}
+
+\node[font=\fontsize{3.6}{4.2}\selectfont,text=cTok!75!black] at (4.86,4.01) {(tokens)};
+
+% Token IDs row (fits perfectly without overflow)
+
+\node[draw=cTok!40,fill=cTok!4,font=\ttfamily\fontsize{4.1}{4.8}\selectfont,inner sep=1.2pt] at (4.86,3.83) {[4821, 199, 3087, \ldots]};
+
+\node[font=\fontsize{3.6}{4.2}\selectfont,text=cTok!75!black] at (4.86,3.66) {(token IDs)};
+
+% Embedding swatches (centered)
+
+\foreach \c [count=\k from 0] in {cyan,blue,teal,green,yellow,orange,red,magenta}{
+
+  \fill[\c!70] (3.90+\k*0.24,3.48) rectangle ++(0.24,0.14);}
+
+\node[font=\fontsize{3.6}{4.2}\selectfont,text=cTok!75!black] at (4.86,3.38) {(embeddings)};
+
+
+
+% --- BOTTOM DETAIL DRAWER CONTAINER (THE 5-CELL TABLE) ---
+
+\draw[rounded corners=5pt,draw=cDet!70,fill=cDet!5,line width=0.7pt] (0.15,0.10) rectangle (15.85,3.04);
+
+% Clean text-only title: aligned with Box 1, no logos or circular icons
+
+\node[anchor=west,font=\bfseries\fontsize{8.5}{9.5}\selectfont,text=cDet!85!black] at (0.35,2.74) {Tokenization Process\ \ {\normalfont\footnotesize\textcolor{cDet!75!black}{(Step 2 -- Detailed)}}};
+
+
+
+% Detail Box 1
+
+\dbox{1}{Raw Prompt}{\tg{cDet}{Input}
+
+  ``Find the latest API changes, summarize them, and update my notes.''\par\vspace{2pt}\textit{(string)}}{0.3}
+
+
+
+% Detail Box 2
+
+\dbox{2}{Tokenization}{\tg{cDet}{Function}
+
+  Split text into tokens (using BPE / WordPiece).\par\vspace{2pt}\tg{cDet}{Output}
+
+  {\fontsize{4.1}{5}\selectfont\ttfamily ["Find", "the", "latest",\\ "API", "changes", \ldots]}\par\vspace{1pt}\textit{(tokens)}}{3.44}
+
+
+
+% Detail Box 3
+
+\dbox{3}{Convert to IDs}{\tg{cDet}{Function}
+
+  Map tokens to unique integers from vocabulary.\par\vspace{2pt}\tg{cDet}{Output}
+
+  {\fontsize{4.1}{5}\selectfont\ttfamily [4821, 199, 3087, 421, \ldots]}\par\vspace{1pt}\textit{(token IDs)}}{6.58}
+
+
+
+% Detail Box 4
+
+\dbox{4}{Create Embeddings}{\tg{cDet}{Function}
+
+  Convert IDs to vector representations (e.g., 768-d).\par\vspace{2pt}\tg{cDet}{Output}
+
+  \textcolor{cyan!60}{\rule{0.28cm}{2.8pt}}\\,\textcolor{magenta!50}{\rule{0.28cm}{2.8pt}}\\,\textcolor{violet!70}{\rule{0.28cm}{2.8pt}}\\,\textcolor{teal!60}{\rule{0.28cm}{2.8pt}}\\,\textcolor{yellow!80}{\rule{0.28cm}{2.8pt}}\\,\textcolor{green!60}{\rule{0.28cm}{2.8pt}}\par\vspace{1.5pt}
+
+  {\fontsize{4.1}{5}\selectfont\ttfamily [0.12, 0.45, -0.03, \ldots]}\par\vspace{1pt}\textit{(embedding vectors)}}{9.72}
+
+
+
+% Detail Box 5
+
+\dbox{5}{Pass to Intent Classifier}{\tg{cDet}{Function}
+
+  Embeddings + context $\rightarrow$ intent classification.\par\vspace{2pt}\tg{cDet}{Output}
+
+  Intent label(s) + entities (``research'', ``summarize'', \ldots).}{12.86}
+
+
+
+% Arrows between the five detail boxes (vertically centered at y = 1.33)
+
+\foreach \x in {3.14,6.28,9.42,12.56}{
+
+  \draw[-{Stealth[length=2mm]},thick,cDet!80] (\x+0.01,1.33) -- ++(0.28,0);
+
+}
+
+
+
+\end{tikzpicture}
+
+\end{frame}
+
+\end{document}

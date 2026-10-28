@@ -1,0 +1,19 @@
+% Extracted diagram: 01_page_overlay
+% Source: main.tex, lines 266-279
+% This fragment uses the presentation preamble, colors, styles, and macros from main.tex.
+
+\begin{tikzpicture}[remember picture,overlay]
+  \node[rounded corners=4pt,fill=blue!65!black,drop shadow={shadow xshift=2pt,shadow yshift=-2pt,opacity=.45},minimum width=15.25cm,minimum height=1.05cm] at ([yshift=-.95cm]current page.north) {};
+  \node[text=white,font=\fontsize{25}{28}\selectfont] at ([yshift=-.95cm]current page.north) {PRISMSPACE};
+  \fill[prismNavy] (current page.south west) rectangle ([yshift=.45cm]current page.south east);
+  \fill[blue!65!black] ([xshift=5.33cm]current page.south west) rectangle ([xshift=10.66cm,yshift=.45cm]current page.south west);
+  \node[anchor=center,text=white,font=\scriptsize] at ([xshift=2.66cm,yshift=.22cm]current page.south west) {Group 01 (CEK)};
+  \node[anchor=center,text=white,font=\scriptsize] at ([xshift=8cm,yshift=.22cm]current page.south west) {BTech Project};
+  \node[anchor=center,text=white,font=\scriptsize] at ([xshift=13.2cm,yshift=.22cm]current page.south west) {September 3, 2026\hspace{1.3cm}1 / \inserttotalframenumber};
+  \node[font=\Large\bfseries] at ([yshift=7.20cm]current page.south) {Project Group 01};
+  \node[font=\normalsize] at ([yshift=5.90cm]current page.south) {\begin{tabular}{r@{\quad}l}\textbf{NOBIN SIJO} & \textbf{(KNP23CS082)} \\ \textbf{PRANAV P} & \textbf{(KNP23CS085)} \\ \textbf{PRASANTH P} & \textbf{(KNP23CS086)} \\ \textbf{SANKAR NARAYAN S} & \textbf{(KNP23CS094)}\end{tabular}};
+  \node[font=\normalsize,align=center] at ([yshift=4.00cm]current page.south) {Under the Guidance of\\[.08cm]Dr. Leena Silvoster M\\ Professor\\College of Engineering, Karunagappally};
+  \node at ([yshift=2.25cm]current page.south) {\includegraphics[height=0.95cm]{cek-logo.png}};
+  \node[font=\small,align=center] at ([yshift=1.05cm]current page.south) {Dept. of Computer Science \& Engineering\\College of Engineering, Karunagappally};
+\end{tikzpicture}
+

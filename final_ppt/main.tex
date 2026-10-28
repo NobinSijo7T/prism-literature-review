@@ -125,58 +125,34 @@
 % SLIDE 1: TITLE SLIDE
 % =============================================================================
 \begin{frame}[plain]
-\begin{tikzpicture}[remember picture,overlay]
-  % 1. Top Lavender Banner
-  \node[
-    rounded corners=5pt,
-    fill=lavenderDark,
-    drop shadow={shadow xshift=1.5pt, shadow yshift=-2.0pt, opacity=0.35},
-    minimum width=15.2cm,
-    minimum height=0.98cm,
-    inner sep=0pt
-  ] at ([yshift=-0.78cm]current page.north) {};
-
-  \node[text=white, font=\bfseries\fontsize{13.5}{16}\selectfont] at ([yshift=-0.78cm]current page.north) {
-    PRISMSPACE - INTELLIGENT MULTI-AGENT PLATFORM
-  };
-
-  % 2. College Emblem
-  \node at ([yshift=-1.95cm]current page.north) {
-    \includegraphics[height=0.95cm]{cek-logo.png}
-  };
-
-  % 3. Department & College Text
-  \node[font=\footnotesize, align=center] at ([yshift=-2.82cm]current page.north) {
-    \textbf{Dept. of Computer Science \& Engineering}\\[0.12em]
-    College of Engineering, Karunagappally
-  };
-
-  % 4. Project Group Header
-  \node[font=\large\bfseries, text=lavenderDark] at ([yshift=-3.55cm]current page.north) {
-    Project Group 01
-  };
-
-  % 5. Students & Register Numbers Table
-  \node[font=\small] at ([yshift=-4.60cm]current page.north) {
-    \begin{tabular}{l@{\hspace{3.4cm}}l}
-      \textbf{NOBIN SIJO}        & KNP23CS082 \\
-      \textbf{PRANAV P}          & KNP23CS085 \\
-      \textbf{PRASANTH P}        & KNP23CS086 \\
-      \textbf{SANKAR NARAYAN S}  & KNP23CS094
-    \end{tabular}
-  };
-
-  % 6. Horizontal Lavender Accent Line
-  \draw[lavenderDark, line width=0.9pt] ([xshift=1.6cm, yshift=-5.58cm]current page.north west) -- ([xshift=-1.6cm, yshift=-5.58cm]current page.north east);
-
-  % 7. Project Coordinator & Guide Details
-  \node[align=center, font=\footnotesize] at ([yshift=-6.70cm]current page.north) {
-    {\color{lavenderDark}\textit{Project Coordinator \& Guide}}\\[0.25em]
-    \textbf{\small Dr. Leena Silvoster}\\[0.12em]
-    Associate Professor\\[0.08em]
-    College of Engineering, Karunagappally
-  };
-\end{tikzpicture}
+\centering
+\vspace*{0.15cm}
+\begin{tcolorbox}[
+  enhanced, width=0.94\linewidth, colback=lavenderDark, colframe=lavenderDark,
+  arc=5pt, boxrule=0pt, top=5pt, bottom=5pt
+]
+\centering\color{white}\bfseries\fontsize{13.5}{16}\selectfont
+PRISMSPACE -- INTELLIGENT MULTI-AGENT PLATFORM
+\end{tcolorbox}
+\vspace{0.15cm}
+\includegraphics[height=0.90cm]{cek-logo.png}\\[0.05cm]
+{\footnotesize\bfseries Dept. of Computer Science \& Engineering}\\[-1pt]
+{\footnotesize College of Engineering, Karunagappally}\\[0.18cm]
+{\large\bfseries\color{lavenderDark} Project Group 01}\\[0.15cm]
+\begin{tabular}{l@{\hspace{3.4cm}}l}
+  \textbf{NOBIN SIJO}        & KNP23CS082 \\
+  \textbf{PRANAV P}          & KNP23CS085 \\
+  \textbf{PRASANTH P}        & KNP23CS086 \\
+  \textbf{SANKAR NARAYAN S}  & KNP23CS094
+\end{tabular}
+\vspace{0.10cm}
+\par\noindent\textcolor{lavenderDark}{\rule{0.80\linewidth}{0.9pt}}\par
+\vspace{0.08cm}
+{\footnotesize\color{lavenderDark}\textit{Project Coordinator \& Guide}}\\[0.16em]
+{\small\bfseries Dr. Leena Silvoster}\\[-1pt]
+{\footnotesize Associate Professor}\\[-1pt]
+{\footnotesize College of Engineering, Karunagappally}
+\vfill
 \end{frame}
 
 % =============================================================================
@@ -193,7 +169,13 @@
   left=14pt, right=14pt, top=12pt, bottom=12pt
 ]
 \fontsize{8.6}{12.6}\selectfont\sffamily\color{lavenderDeep}
-  \textbf{\fontsize{10.2}{13.0}\selectfont\color{lavenderDark}PrismSpace} is an interactive, \textbf{web-based multi-agent intelligence platform} and workspace website that allows users to orchestrate autonomous AI swarms directly from modern web browsers. It converts natural-language user goals into dependency-aware \textbf{Directed Acyclic Graphs (DAGs)} for parallel sub-task execution. Built as a responsive web application (Next.js 15, React 19) accessible from any browser with zero local setup, it features an interactive visual DAG swarm visualizer with real-time token and step streaming. The platform pairs Groq, OpenAI, and NVIDIA NIM with standardized tool connectivity via Model Context Protocol (MCP), while storing all session state locally in client-side IndexedDB (\texttt{PrismDB}) with human-in-the-loop approval gates for privacy and safety.
+  \begin{itemize}
+    \setlength{\itemsep}{10pt}
+    \item A multi-agent system breaks complex goals into smaller tasks, assigns them to suitable agents, runs independent tasks in parallel, and combines their results.
+    \item \textbf{PrismSpace} is a web-based multi-agent intelligence platform designed to coordinate AI agents and manage complex workflows.
+    \item It converts natural-language goals into \textbf{Directed Acyclic Graphs (DAGs)} to manage task dependencies and enable parallel execution.
+    \item It provides real-time workflow visualization, local session storage, and human approval controls for sensitive actions.
+  \end{itemize}
 \end{tcolorbox}
 \end{minipage}
 \end{frame}
@@ -217,8 +199,15 @@
 \vfill
 \begin{center}
 \begin{minipage}{0.88\linewidth}
-\centering\normalsize
-Current AI-agent systems suffer from monolithic model bottlenecks, rigid sequential execution, fragmented tool integrations, limited observability, hallucinated tool calls, and unsafe or privacy-sensitive actions. \textbf{PrismSpace} takes developer task prompts, workspace and session state, uploaded files, and MCP/HITL configurations as \textbf{inputs}; applies intent classification, supervised model/provider routing, DAG decomposition with topological scheduling, MCP-enabled ReAct execution, ORPO preference alignment, and human approval as its \textbf{method}; and produces \textbf{outputs} including verified artifacts, tool results, execution traces, quality and cost telemetry, and persistent session records.
+\large
+\begin{itemize}
+  \setlength{\itemsep}{12pt}
+  \setlength{\leftmargin}{1.5em}
+  \item \textbf{Problem:} Coordinating multiple AI agents and complex tasks requires efficient task orchestration, seamless tool integration, clear workflow visibility, and secure execution.
+  \item \textbf{Input:} Developer task prompts, workspace and session state, uploaded files, and MCP and human approval configurations.
+  \item \textbf{Method:} PrismSpace applies intent classification, supervised model routing, DAG decomposition with topological scheduling, MCP-based tool execution, ORPO preference alignment, and human approval for sensitive actions.
+  \item \textbf{Output:} Task results, tool outputs, validation results, and workflow status summaries.
+\end{itemize}
 \end{minipage}
 \end{center}
 \vfill
@@ -235,11 +224,12 @@ Current AI-agent systems suffer from monolithic model bottlenecks, rigid sequent
 \begin{minipage}{0.86\linewidth}
 \normalsize
 \begin{enumerate}\setlength{\itemsep}{8pt}\setlength{\leftmargin}{0.28in}
-  \item Decompose complex user goals into dependency-aware \textbf{DAGs} for structured and parallel task execution.
-  \item Orchestrate specialist agents and approved tools through \textbf{MCP} and bounded \textbf{ReAct} loops.
-  \item Align generated responses using \textbf{ORPO} preference optimization for quality, faithfulness, and safety.
-  \item Route tasks to suitable models and providers using supervised capability, cost, and latency signals.
-  \item Validate risky actions with \textbf{HITL} approval and preserve verified outputs with execution telemetry.
+  \item \textbf{Intent Classification Module:} Identifies user intent and classifies incoming prompts.
+  \item \textbf{DAG Generation Module:} Decomposes user goals into dependency-aware subtasks and schedules their execution.
+  \item \textbf{Agent Routing Module:} Assigns tasks to suitable agents based on task requirements.
+  \item \textbf{MCP Tool Integration Module:} Connects approved external tools and manages tool execution.
+  \item \textbf{Validation and Human Approval Module:} Validates outputs and requests human approval for sensitive actions.
+  \item \textbf{Workflow Visualization and Session Management Module:} Displays real-time task progress and stores session data locally.
 \end{enumerate}
 \end{minipage}
 \end{center}
@@ -1501,15 +1491,6 @@ Cloud or temporary in-memory state &
 \end{tabularx}
 \end{tcolorbox}
 
-\vspace{-0.40em}
-\begin{tcolorbox}[
-  enhanced, arc=2.5pt, colframe=prismTeal!75!black, colback=prismMint!50,
-  boxrule=0.5pt, left=4pt, right=4pt, top=1.0pt, bottom=1.0pt, width=0.98\linewidth
-]
-\fontsize{4.8}{5.8}\selectfont\color{prismDark}
-\textbf{PrismSpace summary:} It combines dependency-aware task planning, shared tool connections, provider selection, visible progress, and local browser storage in one workspace.
-\end{tcolorbox}
-
 \end{frame}
 
 % =============================================================================
@@ -1518,8 +1499,9 @@ Cloud or temporary in-memory state &
 \section{Methodology}
 
 % =============================================================================
-% ALGORITHM SECTION (placed before the PrismSpace workflow diagram)
+% ALGORITHM SECTION (rendered after the ORPO slide)
 % =============================================================================
+\iffalse
 \def\algorithminmain{}
 \begin{frame}[plain]
 \vfill
@@ -1956,6 +1938,7 @@ Cloud or temporary in-memory state &
 \fi
 
 % --- END scratch/test_algorithm_section.tex ---
+\fi
 
 
 % =============================================================================
@@ -2065,8 +2048,6 @@ Cloud or temporary in-memory state &
         {\color{lavenderDark}\fontsize{24}{28}\selectfont\faIcon{shield-alt}}\\[0.3em]
         \textbf{\fontsize{8.6}{10.5}\selectfont\color{lavenderDark}Verify}\\[0.4em]
         \fontsize{6.0}{7.3}\selectfont
-        $\bullet$ Policy check\\
-        $\bullet$ Anomaly filter\\
         $\bullet$ ORPO score
         \vspace{0.4em}
     };
@@ -2137,13 +2118,13 @@ Cloud or temporary in-memory state &
 % =============================================================================
 
 % Dataset pipeline belongs immediately after the workflow figure.
-\begin{frame}[t]{10. Unified Dataset Preparation \& Multi-Model Training Pipeline}
+\begin{frame}[t]{10. Dataset Preparation \& Multi-Model Training Pipeline}
 \vspace{-0.2em}
 \centering
 \begin{tcolorbox}[enhanced, colback=lavenderDark!95, colframe=lavenderDark, arc=3pt,
   boxrule=0.5pt, width=0.99\linewidth, top=2pt, bottom=2pt, left=8pt, right=8pt]
 \centering\textcolor{white}{\fontsize{7}{8.4}\selectfont\bfseries
-Raw multi-source datasets flow through normalization and curation into four supervised tables, then train eleven production models.}
+Raw multi-source datasets flow through normalization and curation into three supervised tables, then train production models.}
 \end{tcolorbox}
 \vspace{0.35em}
 \resizebox{0.98\linewidth}{!}{%
@@ -2156,61 +2137,61 @@ Raw multi-source datasets flow through normalization and curation into four supe
   \centering{\fontsize{12}{12}\selectfont\color{lavenderDark}\faDatabase}\\[2pt]
   \centering\textbf{1. Raw Datasets}\\[3pt]
   \raggedright\fontsize{4.6}{5.5}\selectfont
-  \textbullet\ \textbf{WildGuardMix}\\
-  \textbullet\ \textbf{Agent trajectories}\\
-  \textbullet\ \textbf{RouterBench}\\
-  \textbullet\ \textbf{UltraFeedback}\\[3pt]
+  \textbullet\ \textbf{BEIR} -- information retrieval,\\
+  \hspace{1.0em}semantic search, research intent labels\\
+  \textbullet\ \textbf{Agent Router datasets} -- agent/tool routing\\
+  \hspace{1.0em}{\fontsize{3.8}{4.4}\selectfont\comp{agent-llm-traces, AgentInstruct, APIBench, xlam-function-calling-60k}}\\
+  \textbullet\ \textbf{RouterBench} -- provider choice\\
+  \textbullet\ \textbf{UltraFeedback} -- preference pairs\\[3pt]
   \centering\texttt{\fontsize{4.2}{5.0}\selectfont .parquet, .json, .jsonl}
 };
 \node[stage, fill=prismTeal!14, minimum width=6.25cm, text width=5.90cm] (tables) at (5.35,0) {
   \centering{\fontsize{12}{12}\selectfont\color{prismTeal!85!black}\faTable}\\[1.5pt]
   \centering\textbf{2. Supervised Tables: Fields \& Training Roles}\\[2.5pt]
-  \fontsize{3.9}{4.75}\selectfont
-  \setlength{\tabcolsep}{1.8pt}
-  \renewcommand{\arraystretch}{1.18}
-  \begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}m{1.50cm}|>{\raggedright\arraybackslash\ttfamily}m{1.55cm}|>{\raggedright\arraybackslash}X|}
+  \fontsize{3.55}{4.25}\selectfont
+  \setlength{\tabcolsep}{1.4pt}
+  \renewcommand{\arraystretch}{1.12}
+  \begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}m{1.28cm}|>{\raggedright\arraybackslash\ttfamily}m{1.65cm}|>{\raggedright\arraybackslash}m{1.82cm}|>{\raggedright\arraybackslash}X|}
   \hline
   \rowcolor{prismTeal!25}
-  \textrm{\textbf{Dataset $\to$ Table}} & \textrm{\textbf{Training Fields}} & \textrm{\textbf{How Fields Are Used in Training}} \\\hline
-  \textbf{WildGuardMix}\newline\comp{approval.jsonl} & 
-  prompt,\newline label (harm) & 
-  Trains \textbf{ApprovalPredictor} \& anomaly filter to block harmful/adversarial prompts. \\\hline
-  \textbf{Trajectories}\newline\comp{success.jsonl} & 
-  prompt,\newline reward (0/1) & 
-  Trains \textbf{SuccessPredictor} to estimate DAG task completion probability. \\\hline
+  \textrm{\textbf{Dataset $\to$ Table}} & \textrm{\textbf{Training fields}} & \textrm{\textbf{Algorithm}} & \textrm{\textbf{Resultant model}} \\\hline
+  \textbf{BEIR}\newline\comp{intent.jsonl} & 
+  query; document;\newline relevance score;\newline research intent label & 
+  TF--IDF / embeddings + XGBoost classifier. &
+  \textbf{IntentClassifier}\\\hline
+  \textbf{Agent Router datasets}\newline\comp{router.jsonl} & 
+  task prompt;\newline capabilities; tool / API cues;\newline agent or route target &
+  Binary-relevance XGBoost. &
+  \textbf{AgentRouter}\\\hline
   \textbf{RouterBench}\newline\comp{provider.jsonl} & 
-  prompt, winner,\newline vote\_score & 
-  Trains \textbf{ModelRouter} to select optimal provider (Groq vs OpenAI vs NIM). \\\hline
+  prompt;\newline winner / provider target;\newline vote\_score & 
+  XGBoost ranking/classifier. &
+  \textbf{ProviderRouter}\\\hline
   \textbf{UltraFeedback}\newline\comp{reward.jsonl} & 
-  prompt, chosen,\newline rejected & 
-  Trains \textbf{ORPO RewardModel} (Qwen2.5-1.5B) via preference ranking loss. \\\hline
+  prompt;\newline chosen response;\newline rejected response; preference pair & 
+  ORPO (Odds Ratio Preference Optimization). &
+  \textbf{RewardModel}\\\hline
   \end{tabularx}
 };
 \node[stage, fill=lavenderMedium!22, minimum width=4.45cm, text width=4.05cm] (models) at (11.45,0) {
   \centering{\fontsize{13}{13}\selectfont\color{lavenderMedium!85!black}\faCogs}\\[2pt]
-  \centering\textbf{3. Production Models (11)}\\[3pt]
-  \begin{minipage}{4.05cm}\centering\fontsize{3.9}{4.45}\selectfont
-  \fcolorbox{lavenderDark!75}{lavenderLight!55}{\parbox{3.82cm}{\raggedright\textbf{\color{lavenderDark}Routing \& Intent Models (3)}\\[-1pt]
-  \textbullet\ IntentClassifier\\
-  \textbullet\ AgentRouter\\
-  \textbullet\ ModelRouter: Groq / OpenAI / NIM}}\\[2pt]
-  \fcolorbox{prismTeal!80!black}{prismMint!55}{\parbox{3.82cm}{\raggedright\textbf{\color{prismTeal!90!black}Workflow Intelligence \& Performance (3)}\\[-1pt]
-  \textbullet\ WorkflowClusterer\\
-  \textbullet\ SuccessPredictor\\
-  \textbullet\ LatencyPredictor}}\\[2pt]
-  \fcolorbox{red!70!black}{red!08}{\parbox{3.82cm}{\raggedright\textbf{\color{red!75!black}Safety, Alignment \& Context (5)}\\[-1pt]
-  \textbullet\ ApprovalPredictor; AnomalyDetector\\
-  \textbullet\ FAISS Vector Retriever\\
-  \textbullet\ RewardModel + Qwen2.5-1.5B ORPO}}
+  \centering\textbf{3. Resultant Production Models}\\[3pt]
+  \begin{minipage}{4.05cm}\centering\fontsize{5.2}{6.4}\selectfont
+  \fcolorbox{lavenderDark!75}{lavenderLight!55}{\parbox{3.82cm}{\centering
+  \textbf{IntentClassifier}\\[4pt]
+  \textbf{AgentRouter}\\[4pt]
+  \textbf{ProviderRouter}\\[4pt]
+  \textbf{RewardModel}}}
   \end{minipage}
 };
-% Keep connector labels in dedicated lanes so they cannot cross table content.
+% Source normalization remains a single intake step.
 \draw[flow, line width=1.35pt] (raw.east |- 0,1.05) --
-  node[above=2pt, fill=prismLight, inner sep=0.6pt, align=center, font=\fontsize{4.6}{5.4}\selectfont\bfseries]{normalize\\+ curate}
   (tables.west |- 0,1.05);
-\draw[flow, line width=1.35pt] (tables.east |- 0,-1.05) --
-  node[below=2pt, fill=prismLight, inner sep=0.6pt, align=center, font=\fontsize{4.6}{5.4}\selectfont\bfseries]{train\\+ deploy}
-  (models.west |- 0,-1.05);
+% Row-level training paths: each supervised table points to its resultant model.
+\draw[flow, line width=0.8pt] (tables.east |- 0,0.78) -- node[above, font=\fontsize{3.25}{3.65}\selectfont\bfseries, fill=prismLight, inner sep=0.35pt]{IntentClassifier} (models.west |- 0,0.78);
+\draw[flow, line width=0.8pt] (tables.east |- 0,0.24) -- node[above, font=\fontsize{3.25}{3.65}\selectfont\bfseries, fill=prismLight, inner sep=0.35pt]{AgentRouter} (models.west |- 0,0.24);
+\draw[flow, line width=0.8pt] (tables.east |- 0,-0.30) -- node[above, font=\fontsize{3.25}{3.65}\selectfont\bfseries, fill=prismLight, inner sep=0.35pt]{ProviderRouter} (models.west |- 0,-0.30);
+\draw[flow, line width=0.8pt] (tables.east |- 0,-0.84) -- node[below, font=\fontsize{3.25}{3.65}\selectfont\bfseries, fill=prismLight, inner sep=0.35pt]{RewardModel} (models.west |- 0,-0.84);
 \end{tikzpicture}%
 }
 \vspace{-0.10cm}
@@ -2225,10 +2206,36 @@ The held-out 20\% is divided equally for validation and final testing.
 \vspace{-0.35cm}
 \end{frame}
 
+% Dataset source screenshots: one slide per file from the datasets folder.
+\begin{frame}[t]{Dataset screenshot: agent instruct.png}
+\centering\vspace{-0.15em}
+\includegraphics[width=0.98\linewidth,height=0.80\textheight,keepaspectratio]{datasets/agent instruct.png}
+\end{frame}
+
+\begin{frame}[t]{Dataset screenshot: bier1.png}
+\centering\vspace{-0.15em}
+\includegraphics[width=0.98\linewidth,height=0.80\textheight,keepaspectratio]{datasets/bier1.png}
+\end{frame}
+
+\begin{frame}[t]{Dataset screenshot: bier2.png}
+\centering\vspace{-0.15em}
+\includegraphics[width=0.98\linewidth,height=0.80\textheight,keepaspectratio]{datasets/bier2.png}
+\end{frame}
+
+\begin{frame}[t]{Dataset screenshot: routerbench.png}
+\centering\vspace{-0.15em}
+\includegraphics[width=0.98\linewidth,height=0.80\textheight,keepaspectratio]{datasets/routerbench.png}
+\end{frame}
+
+\begin{frame}[t]{Dataset screenshot: ultrafeedback.png}
+\centering\vspace{-0.15em}
+\includegraphics[width=0.98\linewidth,height=0.80\textheight,keepaspectratio]{datasets/ultrafeedback.png}
+\end{frame}
+
 % =============================================================================
 % SLIDE 10: MODEL TRAINING MAP
 % =============================================================================
-\begin{frame}[t]{10. Model Training Map: Algorithm Choice by Responsibility}
+\begin{frame}[t]{10. Model Training Map}
 \vspace{-0.38em}
 \begin{tcolorbox}[
   enhanced, arc=3pt, colframe=lavenderDark!75, colback=white,
@@ -2245,17 +2252,22 @@ The held-out 20\% is divided equally for validation and final testing.
 \textbf{Model} & \textbf{Type} & \textbf{ML algorithm for training} & \textbf{Why choose this algorithm?}\\
 \hline
 \rowcolor{prismMint!45}
-\textbf{Intent Classifier} & Classification & TF--IDF + XGBoost classifier & Fast and strong on sparse text features; captures nonlinear boundaries across the 12 intent classes.\\
+\textbf{Intent Classifier + FAISS Retrieval Index} &
+Classification + unsupervised retrieval &
+XGBoost classifier + sentence embeddings / FAISS &
+Classifies the user’s intent and retrieves semantically relevant research or tool context for the request.\\
 \hline
-\textbf{Agent Router} & Multilabel & Binary-relevance XGBoost & Predicts several specialist agents independently while preserving strong tabular/text-feature performance.\\
+\textbf{Agent Router} &
+Multilabel routing &
+Binary-relevance XGBoost &
+Assigns one or more specialist agents independently from task, capability, and tool-use features.\\
 \hline
-\textbf{Provider Router} & Classification & XGBoost ranking/classifier & Combines capability, quality, cost, and availability signals to choose the best provider/model.\\
+\textbf{Provider Router} &
+Classification / ranking &
+XGBoost classifier + ranking &
+Filters eligible providers and ranks the best model using capability, quality, latency, cost, and availability.\\
 \hline
-\textbf{Anomaly Detector} & Anomaly & Isolation Forest & Works with few or no anomaly labels and isolates rare, unusual execution patterns efficiently.\\
-\hline
-\textbf{Reward ORPO Adapter} & ORPO & ORPO + Reinforcement Learning & Learns from chosen-versus-rejected preference feedback to improve response quality and alignment.\\
-\hline
-\textbf{FAISS Retrieval Index} & Unsupervised & Sentence embeddings + FAISS & Requires no class labels; semantic vectors support fast nearest-neighbor retrieval over workspace context.\\
+\textbf{Reward ORPO Adapter} & ORPO & ORPO + Reinforcement Learning & \textbf{ORPO (Odds Ratio Preference Optimization):} aligns language models using preference data. It is a reward-model-free alternative that eliminates the need for a separate reward model or reference model.\\
 \hline
 \end{tabularx}%
 }
@@ -2331,6 +2343,7 @@ The held-out 20\% is divided equally for validation and final testing.
 % =============================================================================
 \section{Model Responsibilities}
 
+\iffalse
 \begin{frame}[t]{09. Model Responsibilities \& Inference Flow}
 \vspace{-0.30em}
 
@@ -2418,6 +2431,109 @@ The held-out 20\% is divided equally for validation and final testing.
     {\draw[arrow] (\a.south) -- (\b.north);}
 \end{tikzpicture}
 \end{center}
+\end{frame}
+\fi
+
+% Revised beginner-friendly model inference flow (4 models + final output).
+\begin{frame}[t]{09. Model Responsibilities \& Inference Flow}
+\vspace*{-0.40em}
+\noindent\makebox[\linewidth][c]{%
+\begin{adjustbox}{width=0.96\paperwidth, max height=0.86\textheight, keepaspectratio}
+\begin{tikzpicture}[
+  x=1cm, y=1.22cm, font=\sffamily,
+  stage/.style={rectangle, rounded corners=4pt, draw=lavenderDark!65,
+    line width=0.75pt, text width=3.00cm, align=center,
+    inner sep=4.5pt, minimum height=1.00cm},
+  state/.style={rectangle, rounded corners=3.5pt, draw=prismTeal!80!black,
+    fill=white, line width=0.70pt, text width=4.15cm, align=left,
+    inner sep=4.5pt, font=\fontsize{5.6}{6.8}\selectfont},
+  process/.style={rectangle, rounded corners=4pt, draw=lavenderDark!55,
+    fill=lavenderLight!40, text width=7.80cm, align=left,
+    inner sep=4.8pt, font=\fontsize{5.8}{7.0}\selectfont},
+  flow/.style={-{Stealth[scale=0.75]}, line width=0.85pt, draw=prismTeal!85!black}
+]
+
+% Row 1: Stage 1 - Intent Classifier (Predicts Intent & Generates Task DAG)
+\node[stage, fill=lavenderLight!85] (s1) at (-6.00, 2.15) {
+  {\fontsize{7.2}{8.2}\selectfont\faBrain\ \textbf{1. Intent Classifier}}\\[2pt]
+  {\fontsize{5.4}{6.4}\selectfont Intent \& Dependency Task DAG}\\[1pt]
+  {\fontsize{4.8}{5.8}\selectfont\color{lavenderDark!90}\textit{(Trained on Intent Dataset)}}
+};
+\node[process] (p1) at (0.00, 2.15) {
+  \textbf{Input:} tokenized prompt + task context \textit{(intent dataset)}\quad $\rightarrow$\quad
+  \textbf{Process:} extract user goal \& construct dependency DAG\quad $\rightarrow$\quad
+  \textbf{Output:} intent labels + task DAG
+};
+\node[state] (o1) at (6.50, 2.15) {
+  \textbf{\fontsize{6.2}{7.2}\selectfont Output state 1: Task DAG created}\\[1.5pt]
+  \texttt{intent=research; research $\to$ extract $\to$ write}
+};
+
+% Row 2: Stage 2 - Agent Router
+\node[stage, fill=prismMint!65] (s2) at (-6.00, 0.70) {
+  {\fontsize{7.2}{8.2}\selectfont\faUsers\ \textbf{2. Agent Router}}\\[2pt]
+  {\fontsize{5.4}{6.4}\selectfont Specialist Agent Team}
+};
+\node[process] (p2) at (0.00, 0.70) {
+  \textbf{Input:} task DAG + intent\quad $\rightarrow$\quad
+  \textbf{Process:} map requirements to agent skills\quad $\rightarrow$\quad
+  \textbf{Output:} selected specialist agents
+};
+\node[state] (o2) at (6.50, 0.70) {
+  \textbf{\fontsize{6.2}{7.2}\selectfont Output state 2: Team selected}\\[1.5pt]
+  \texttt{agents=[Researcher, Writer]}
+};
+
+% Row 3: Stage 3 - Provider Router
+\node[stage, fill=lavenderLight!65!prismBlue] (s3) at (-6.00, -0.75) {
+  {\fontsize{7.2}{8.2}\selectfont\faRandom\ \textbf{3. Provider Router}}\\[2pt]
+  {\fontsize{5.4}{6.4}\selectfont Provider, Model \& Cost Routing}
+};
+\node[process] (p3) at (0.00, -0.75) {
+  \textbf{Input:} task DAG + selected agents\quad $\rightarrow$\quad
+  \textbf{Process:} compare model capabilities and availability\quad $\rightarrow$\quad
+  \textbf{Output:} provider/model assignment
+};
+\node[state] (o3) at (6.50, -0.75) {
+  \textbf{\fontsize{6.2}{7.2}\selectfont Output state 3: Model assigned}\\[1.5pt]
+  \texttt{task=v1, provider=OpenAI, model=GPT-4o}
+};
+
+% Row 4: Stage 4 - ORPO Model
+\node[stage, fill=lavenderLight!75!cHead] (s4) at (-6.00, -2.20) {
+  {\fontsize{7.2}{8.2}\selectfont\faBalanceScale\ \textbf{4. ORPO Model}}\\[2pt]
+  {\fontsize{5.4}{6.4}\selectfont Preference Alignment \& Quality}
+};
+\node[process] (p4) at (0.00, -2.20) {
+  \textbf{Input:} model output + preference data\quad $\rightarrow$\quad
+  \textbf{Process:} apply \textbf{ORPO Preference Optimization}\quad $\rightarrow$\quad
+  \textbf{Output:} aligned response
+};
+\node[state, fill=prismMint!45] (o4) at (6.50, -2.20) {
+  \textbf{\fontsize{6.0}{7.0}\selectfont Output state 4: ORPO-aligned response}\\[1.5pt]
+  Preferred answer + tool output + quality score
+};
+
+% Row 5: Final User-Facing Output Banner
+\node[state, fill=prismMint!65, text width=16.15cm, align=left] (finalout) at (0.54, -3.55) {
+  \textbf{\fontsize{6.6}{7.6}\selectfont Final output to the user:}\quad
+  {\fontsize{6.0}{7.0}\selectfont Completed task result + validated tool outputs + execution status + saved session record}
+};
+
+% Left model-to-model progression arrows
+\draw[-{Stealth[scale=0.70]}, line width=0.75pt, lavenderDark!60] (s1.south) -- (s2.north);
+\draw[-{Stealth[scale=0.70]}, line width=0.75pt, lavenderDark!60] (s2.south) -- (s3.north);
+\draw[-{Stealth[scale=0.70]}, line width=0.75pt, lavenderDark!60] (s3.south) -- (s4.north);
+
+% Right state-to-state vertical dataflow arrows
+\draw[flow] (o1.south) -- node[right=3pt, font=\fontsize{4.8}{5.6}\selectfont\bfseries, text=prismTeal!85!black] {task DAG + intent $\rightarrow$ Agent Router input} (o2.north);
+\draw[flow] (o2.south) -- node[right=3pt, font=\fontsize{4.8}{5.6}\selectfont\bfseries, text=prismTeal!85!black] {agent team $\rightarrow$ Provider Router input} (o3.north);
+\draw[flow] (o3.south) -- node[right=3pt, font=\fontsize{4.8}{5.6}\selectfont\bfseries, text=prismTeal!85!black] {model assignment $\rightarrow$ ORPO input} (o4.north);
+\draw[flow] (o4.south) -- node[right=3pt, font=\fontsize{4.8}{5.6}\selectfont\bfseries, text=prismTeal!85!black] {aligned response $\rightarrow$ final output} (finalout.north -| o4.south);
+
+\end{tikzpicture}
+\end{adjustbox}%
+}
 \end{frame}
 
 \input{intent_classifier_frame.tex}
@@ -2681,7 +2797,7 @@ The held-out 20\% is divided equally for validation and final testing.
 \node[comm, fill=prismMint!55] (tool) at (9.6,0) {Tool\\\scriptsize browser / DB / CLI};
 \draw[req] (agent) -- node[above=2pt, fill=white, inner sep=0.8pt, font=\fontsize{4.8}{5.6}\selectfont]{request} (client);
 \draw[req] (client) -- (server);
-\draw[req] (server) -- node[above=2pt, fill=white, inner sep=0.8pt, font=\fontsize{4.8}{5.6}\selectfont]{tools/call} (tool);
+\draw[req] (server) -- (tool);
 \coordinate (returnStart) at ([yshift=-0.48cm]tool.south);
 \coordinate (returnEnd) at ([yshift=-0.48cm]agent.south);
 \draw[resp] (tool.south) -- (returnStart) -- node[below=1pt, fill=white, inner sep=0.8pt, font=\fontsize{4.8}{5.6}\selectfont]{tool result} (returnEnd) -- (agent.south);
@@ -2691,7 +2807,7 @@ The held-out 20\% is divided equally for validation and final testing.
 \begin{minipage}{0.98\linewidth}
 \centering
 \colorbox{lavenderLight!35}{\parbox{0.96\linewidth}{\fontsize{4.8}{5.8}\selectfont\ttfamily
-\detokenize{--> request: {"jsonrpc":"2.0","id":7,"method":"tools/call","params":{"name":"search","arguments":{"q":"MCP"}}}}\\
+\detokenize{--> request: {"jsonrpc":"2.0","id":7,"method":"request","params":{"name":"search","arguments":{"q":"MCP"}}}}\\
 \detokenize{<-- response: {"jsonrpc":"2.0","id":7,"result":{"content":[{"type":"text","text":"3 matches"}]}}}
 }}
 \end{minipage}
@@ -2708,9 +2824,9 @@ The held-out 20\% is divided equally for validation and final testing.
 
 \iffalse
 % --- BEGIN section10_frame.tex ---
-% Section 10: Unified Dataset Preparation & Training Pipeline
+% Section 10: Dataset Preparation & Training Pipeline
 % Spacious, un-cramped 4-stage pipeline diagram with generous breathing room
-\begin{frame}[t]{10. Unified Dataset Preparation \& Multi-Model Training Pipeline}
+\begin{frame}[t]{10. Dataset Preparation \& Multi-Model Training Pipeline}
 \vspace{-0.35em}
 
 \centering
@@ -3270,13 +3386,446 @@ The held-out 20\% is divided equally for validation and final testing.
 \end{tikzpicture}%
 }
 \end{tcolorbox}
-\end{frame}
+ \end{frame}
 
 % =============================================================================
 % =============================================================================
+% SLIDE 9: SYSTEM ARCHITECTURE (FIGURE 1.2)
 \input{slide_topological.tex}
 
-% SLIDE 9: SYSTEM ARCHITECTURE (FIGURE 1.2)
+\section{Swarm Algorithm}
+
+% The algorithm pages follow the provider-routing and ORPO slides.
+\begin{frame}[plain]
+\vfill
+\begin{center}
+  {\color{lavenderDark}\fontsize{25}{30}\selectfont\bfseries Algorithm\par}
+  \vspace{0.45em}
+  {\color{prismTeal!85!black}\large Step-by-step execution of the PrismSpace multi-agent workflow}
+\end{center}
+\vfill
+\end{frame}
+
+\iftrue
+
+% Hierarchical Algorithm List Environments matching Screenshot 2 structure
+\newenvironment{algolist}{%
+  \begin{list}{}{%
+    \setlength{\labelwidth}{1.9em}%
+    \setlength{\leftmargin}{2.1em}%
+    \setlength{\itemindent}{0pt}%
+    \setlength{\labelsep}{0.45em}%
+    \setlength{\itemsep}{0.28em}%
+    \setlength{\parsep}{0pt}%
+    \setlength{\topsep}{0.1em}%
+    \renewcommand{\makelabel}[1]{\textbf{\color{lavenderDark}##1}}%
+  }\small%
+}{\end{list}}
+
+\newenvironment{algosublist}{%
+  \begin{list}{}{%
+    \setlength{\labelwidth}{2.4em}%
+    \setlength{\leftmargin}{2.8em}%
+    \setlength{\itemindent}{0pt}%
+    \setlength{\labelsep}{0.4em}%
+    \setlength{\itemsep}{0.14em}%
+    \setlength{\parsep}{0pt}%
+    \setlength{\topsep}{0.1em}%
+    \renewcommand{\makelabel}[1]{\textbf{\color{lavenderMedium}##1}}%
+  }\small%
+}{\end{list}}
+
+% -----------------------------------------------------------------------------
+% STEP 1: PROMPT PARSING & TASK REPRESENTATION
+% -----------------------------------------------------------------------------
+\begin{frame}[t]{Algorithm: Step 1 -- Understand the User Prompt}
+\vspace{-0.15em}
+{\large\bfseries\color{lavenderDark}Step 1: Prompt Parsing and Structured Representation}
+\vspace{0.15em}
+
+\begin{algolist}
+  \item[1.1] Ingest raw natural language prompt $\mathcal{T}_{\text{user}}$ via client interface and extract core objective.
+  \item[1.2] Retrieve persistent session context and workspace history from browser IndexedDB (\texttt{PrismDB}):
+    \begin{algosublist}
+      \item[1.2.1] Load prior interaction turns, agent memory checkpoints, and active user configurations.
+      \item[1.2.2] Resolve local file system references, target project repositories, and access tokens.
+    \end{algosublist}
+  \item[1.3] Construct strongly-typed operational execution tuple:
+    \vspace{-0.2em}
+    $$T = \langle \text{Goal}, \, \text{Constraints}, \, \text{Context}, \, \mathcal{M}_{\text{tools}}, \, \Phi_{\text{out}} \rangle$$
+    \vspace{-0.2em}
+    {\footnotesize\color{prismDark}%
+      \textbf{\color{lavenderDark}Where:}\enspace \text{Goal}: Target objective $\;\vert\;$ \text{Constraints}: Safety \& SLA bounds $\;\vert\;$ \text{Context}: Session state in \texttt{PrismDB} $\;\vert\;$ $\mathcal{M}_{\text{tools}}$: Authorized MCP tools $\;\vert\;$ $\Phi_{\text{out}}$: Deliverable schema contract.}
+    \vspace{0.15em}
+    \begin{algosublist}
+      \item[1.3.1] Parse explicit operational constraints (deadlines, schema specifications, output formats).
+      \item[1.3.2] Bind authorized Model Context Protocol (MCP) tool capabilities and environment permissions.
+    \end{algosublist}
+  \item[1.4] Perform input boundary and security screening:
+    \begin{algosublist}
+      \item[1.4.1] Evaluate prompt against token limits and scan for prompt injection patterns.
+      \item[1.4.2] Flag state-mutating actions requiring mandatory human-in-the-loop authorization.
+    \end{algosublist}
+\end{algolist}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% STEP 2: INTENT CLASSIFICATION & CAPABILITY PROFILING
+% -----------------------------------------------------------------------------
+\begin{frame}[t]{Algorithm: Step 2 -- Classify the Request}
+\vspace{-0.15em}
+{\large\bfseries\color{lavenderDark}Step 2: Intent Classification and Capability Check}
+\vspace{0.15em}
+
+\begin{algolist}
+  \item[2.1] Categorize user prompt into functional operational domains:
+    \vspace{-0.2em}
+    $$\text{Domain} \in \{\text{Productivity/Automation}, \, \text{Document Synthesis}, \, \text{Web Research}, \, \text{Code Engineering}\}$$
+    \vspace{-0.2em}
+    {\footnotesize\color{prismDark}%
+      \textbf{\color{lavenderDark}Where:}\enspace \text{Productivity}: Communication \& planning $\;\vert\;$ \text{Synthesis}: Summarization $\;\vert\;$ \text{Research}: Web search \& scraping $\;\vert\;$ \text{Coding}: CLI \& code synthesis.}
+    \vspace{0.15em}
+    \begin{algosublist}
+      \item[2.1.1] Compute dense semantic embeddings and syntactic keyword vectors for input prompt.
+      \item[2.1.2] Route through multi-class classifier head $\hat{\mathbf{y}}_{\text{intent}}$ to determine target capability domain.
+    \end{algosublist}
+  \item[2.2] Profile required system capabilities and operational risk levels:
+    \begin{algosublist}
+      \item[2.2.1] Determine required subsystem resources (live web search, local filesystem I/O, terminal execution).
+      \item[2.2.2] Enforce safety categorization: Read-Only (autonomous execution) vs. State-Mutating (approval-gated).
+    \end{algosublist}
+  \item[2.3] Select optimal execution pathway:
+    \begin{algosublist}
+      \item[2.3.1] Route single-step queries to direct, low-latency single-model inference pipeline.
+      \item[2.3.2] Dispatch multi-step complex requests to DAG Planner agent for task decomposition.
+    \end{algosublist}
+\end{algolist}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% STEP 3: DAG DECOMPOSITION & MODEL ROUTING
+% -----------------------------------------------------------------------------
+\begin{frame}[t]{Algorithm: Step 3 -- Plan and Route the Task}
+\vspace{-0.15em}
+{\large\bfseries\color{lavenderDark}Step 3: DAG Decomposition and Model Routing}
+\vspace{0.15em}
+
+\begin{algolist}
+  \item[3.1] Deconstruct objective into Directed Acyclic Graph $\mathcal{G} = (V, E)$:
+    \begin{algosublist}
+      \item[3.1.1] Instantiate discrete task vertices $v_i \in V$ with atomic execution contracts and output targets.
+      \item[3.1.2] \textbf{Data Dependencies as Directed Edges} ($e = \langle v_i, v_j \rangle \in E \iff \mathcal{O}_i \cap \mathcal{I}_j \neq \emptyset$): Task $v_j$ requires input artifacts produced by $v_i$ (e.g., synthesis requires scraped research).
+      \item[3.1.3] \textbf{Execution Barrier:} Consumer $v_j$ remains blocked until producer $v_i$ delivers $\mathcal{O}_i$, guaranteeing tasks never run on missing or partial data.
+    \end{algosublist}
+  \item[3.2] Compute topological task execution schedule $\pi = \mathrm{TopologicalSort}(\mathcal{G})$:
+    \begin{algosublist}
+      \item[3.2.1] Identify independent vertices ($\text{in-degree} = 0$) for concurrent parallel dispatch ($K \le 3$).
+      \item[3.2.2] Schedule downstream vertices dynamically upon upstream output event emission.
+    \end{algosublist}
+  \item[3.3] Solve multi-objective provider routing optimization for each sub-task $v_i$:
+    \vspace{-0.2em}
+    $$\text{Provider}^* = \arg\min_m \Big(\lambda_{\text{cost}} \, \text{Cost}_m + \lambda_{\text{latency}} \, \text{Latency}_m\Big) \quad \text{s.t. } \text{Quality}_m \ge \tau$$
+    \vspace{-0.2em}
+    {\footnotesize\color{prismDark}%
+      \textbf{\color{lavenderDark}Where:}\enspace $\text{Provider}^*$: Optimal LLM backend $\;\vert\;$ $m$: Candidate model $\;\vert\;$ $\text{Cost}_m, \text{Latency}_m$: Normalized price \& delay $\;\vert\;$ $\lambda_{\text{cost}}, \lambda_{\text{latency}}$: Balancing weights $\;\vert\;$ $\tau$: Quality barrier.}
+    \vspace{0.15em}
+    \begin{algosublist}
+      \item[3.3.1] Route high-throughput, latency-critical nodes to LPU backends (Groq / Llama-3).
+      \item[3.3.2] Route deep reasoning and code generation tasks to frontier backends (OpenAI GPT-4o, Claude 3.5).
+    \end{algosublist}
+\end{algolist}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% STEP 4: TASK ASSIGNMENT & AGENT SELECTION
+% -----------------------------------------------------------------------------
+\begin{frame}[t]{Algorithm: Step 4 -- Task Assignment and Agent Selection}
+\vspace{-0.15em}
+{\large\bfseries\color{lavenderDark}Step 4: Role-Based Task Assignment and Dispatching}
+\vspace{0.15em}
+
+\begin{algolist}
+  \item[4.1] Query specialist agent registry and capability profiles:
+    \vspace{-0.2em}
+    $$\mathcal{A} = \{\text{Planner}, \, \text{Assistant}, \, \text{Researcher}, \, \text{Coder}, \, \text{Validator}\}$$
+    \vspace{-0.2em}
+    \begin{algosublist}
+      \item[4.1.1] Evaluate persona system prompts, specialized instruction boundaries, and assigned MCP tools.
+      \item[4.1.2] Verify agent worker availability and monitor concurrent thread utilization.
+    \end{algosublist}
+  \item[4.2] Execute capability matching algorithm for each sub-task node $v_i$:
+    \vspace{-0.2em}
+    $$\text{Agent}^* = \arg\max_{a \in \mathcal{A}} \; \mathrm{CosineSimilarity}\big(\mathbf{Req}(v_i), \, \mathbf{Cap}(a)\big)$$
+    \vspace{-0.2em}
+    {\footnotesize\color{prismDark}%
+      \textbf{\color{lavenderDark}Where:}\enspace $\text{Agent}^*$: Assigned specialist persona $\;\vert\;$ $\mathcal{A}$: Swarm agent registry $\;\vert\;$ $\mathbf{Req}(v_i)$: Task requirement vector $\;\vert\;$ $\mathbf{Cap}(a)$: Agent capability embedding $\;\vert\;$ $\mathrm{CosineSimilarity}$: Semantic alignment.}
+    \vspace{0.15em}
+    \begin{algosublist}
+      \item[4.2.1] Match information gathering requirements ($\text{Tag} \ni \texttt{web\_search}$) to Researcher agent.
+      \item[4.2.2] Match software synthesis and execution ($\text{Tag} \ni \texttt{python, cli}$) to Coder agent.
+      \item[4.2.3] Match quality assurance and policy compliance ($\text{Tag} \ni \texttt{audit, verify}$) to Validator agent.
+    \end{algosublist}
+  \item[4.3] Manage task lifecycle states in dispatcher queue:
+    \begin{algosublist}
+      \item[4.3.1] Place sub-tasks in \texttt{PENDING} state until all parent dependency inputs resolve.
+      \item[4.3.2] Transition verified nodes to \texttt{READY} and dispatch execution payloads to assigned agents.
+    \end{algosublist}
+\end{algolist}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% STEP 5: AGENT COMMUNICATION & DECISION MAKING
+% -----------------------------------------------------------------------------
+\begin{frame}[t]{Algorithm: Step 5 -- Agent Communication and Decision Cycle}
+\vspace{-0.15em}
+{\large\bfseries\color{lavenderDark}Step 5: Agent Decision Cycle and Inter-Agent Communication}
+\vspace{0.15em}
+
+\begin{algolist}
+  \item[5.1] Execute autonomous Reasoning-Action (ReAct) cycle for each dispatched agent:
+    \vspace{-0.2em}
+    $$\text{State } s_t \;\longrightarrow\; \text{\textbf{Observe}} \;\longrightarrow\; \text{\textbf{Reason}} \;\longrightarrow\; \text{\textbf{Act}} \;\longrightarrow\; \text{\textbf{Reflect}}$$
+    \vspace{-0.2em}
+    {\footnotesize\color{prismDark}%
+      \textbf{\color{lavenderDark}Where:}\enspace $s_t$: Current execution state at turn $t$ $\;\vert\;$ \textbf{Observe}: Ingest context \& parent outputs $\mathcal{O}_i$ $\;\vert\;$ \textbf{Reason}: Plan via CoT $\;\vert\;$ \textbf{Act}: Invoke MCP tools $\;\vert\;$ \textbf{Reflect}: Self-correct on error.}
+    \vspace{0.15em}
+    \begin{algosublist}
+      \item[5.1.1] \textbf{Observe:} Ingest assigned sub-task description, operational constraints, and parent inputs.
+      \item[5.1.2] \textbf{Reason:} Formulate intermediate chain-of-thought rationale to plan next tool invocation.
+      \item[5.1.3] \textbf{Act:} Dispatch structured JSON-RPC tool calls to external MCP servers or formulate text.
+      \item[5.1.4] \textbf{Reflect:} Inspect execution exit codes and output schemas; initiate local correction on errors.
+    \end{algosublist}
+  \item[5.2] Transmit intermediate artifacts via DAG edge message passing:
+    \begin{algosublist}
+      \item[5.2.1] Route validated producer artifact $\mathcal{O}_i$ directly into consumer input buffer $\mathcal{I}_j$.
+      \item[5.2.2] Enforce strict artifact isolation to prevent cross-task context contamination and token inflation.
+    \end{algosublist}
+  \item[5.3] Synchronize shared state via local blackboard memory:
+    \begin{algosublist}
+      \item[5.3.1] Commit global project state, conversation turns, and file handles to IndexedDB (\texttt{PrismDB}).
+      \item[5.3.2] Dispatch event-driven signals upon node resolution to awaken dependent downstream workers.
+    \end{algosublist}
+\end{algolist}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% STEP 6: SPECIALIST WORKFLOWS: PLANNER & ASSISTANT
+% -----------------------------------------------------------------------------
+\begin{frame}[t]{Algorithm: Step 6 -- Specialist Workflows: Planner \& Assistant}
+\vspace{-0.15em}
+{\large\bfseries\color{lavenderDark}Step 6: Specialist Execution Workflows -- Planner \& Assistant}
+\vspace{0.15em}
+
+\begin{algolist}
+  \item[6.1] Execute Planner Agent workflow (System Architect \& Coordinator):
+    \begin{algosublist}
+      \item[6.1.1] Ingest user objective string and conversation context from \texttt{PrismDB}.
+      \item[6.1.2] Decompose objective into atomic independent and dependent sub-goals.
+      \item[6.1.3] Construct DAG graph vertices $V$, dependency edges $E$, and capability tags.
+      \item[6.1.4] Solve provider routing optimization and enqueue topological schedule into Dispatcher.
+    \end{algosublist}
+  \item[6.2] Execute Assistant Agent workflow (Productivity \& Communication):
+    \begin{algosublist}
+      \item[6.2.1] Retrieve user communication preferences, profiles, and reference documents from storage.
+      \item[6.2.2] Formulate structured response drafts, templates, or executive summaries.
+      \item[6.2.3] Interface with Google Workspace MCP tools (Gmail draft creation, Drive document retrieval).
+      \item[6.2.4] Emit verified communication draft; enforce approval gate prior to external message transmission.
+    \end{algosublist}
+\end{algolist}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% STEP 7: SPECIALIST WORKFLOWS: RESEARCHER, CODER & VALIDATOR
+% -----------------------------------------------------------------------------
+\begin{frame}[t]{Algorithm: Step 7 -- Specialist Workflows: Researcher, Coder \& Validator}
+\vspace{-0.15em}
+{\large\bfseries\color{lavenderDark}Step 7: Specialist Execution Workflows -- Researcher, Coder \& Validator}
+\vspace{0.15em}
+
+\begin{algolist}
+  \item[7.1] Execute Researcher Agent workflow (Information Retrieval \& Synthesis):
+    \begin{algosublist}
+      \item[7.1.1] Formulate optimized web search queries and invoke Browser MCP server endpoints.
+      \item[7.1.2] Scrape target web documents, parse DOM trees, and extract relevant contextual passages.
+      \item[7.1.3] Deduplicate findings and compile structured Markdown report with verified source citations.
+    \end{algosublist}
+  \item[7.2] Execute Coder Agent workflow (Software Synthesis \& Execution):
+    \begin{algosublist}
+      \item[7.2.1] Inspect local repository tree via Filesystem MCP and synthesize target source code files.
+      \item[7.2.2] Execute scripts inside Sandboxed Terminal CLI and inspect exit codes and error streams.
+      \item[7.2.3] Analyze stack traces and compiler lints to autonomously self-correct syntax and runtime bugs.
+    \end{algosublist}
+  \item[7.3] Execute Validator Agent workflow (Quality Auditing \& Safety Gate):
+    \begin{algosublist}
+      \item[7.3.1] Scan candidate outputs against safety policies, token invariants, and functional constraints.
+      \item[7.3.2] Emit binary verification signal: \textbf{PASS} to release artifact, or \textbf{FAIL} with error diagnostics.
+    \end{algosublist}
+\end{algolist}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% STEP 8: EXECUTE WITH MCP TOOLS
+% -----------------------------------------------------------------------------
+\begin{frame}[t]{Algorithm: Step 8 -- Standardized Tool Execution via MCP}
+\vspace{-0.15em}
+{\large\bfseries\color{lavenderDark}Step 8: Standardized Tool Execution via Model Context Protocol}
+\vspace{0.15em}
+
+\begin{algolist}
+  \item[8.1] Interface agents to external tools via Model Context Protocol (MCP):
+    \begin{algosublist}
+      \item[8.1.1] Standardize client-server communication using JSON-RPC protocol specifications.
+      \item[8.1.2] Enable dynamic tool discovery: inspect exposed tool schemas, input parameters, and return types.
+      \item[8.1.3] Decouple agent reasoning logic from external tool implementation details.
+    \end{algosublist}
+  \item[8.2] Orchestrate multi-domain tool execution ecosystem:
+    \begin{algosublist}
+      \item[8.2.1] \textbf{System \& Dev Tools:} Local Filesystem (file I/O), Sandboxed CLI (isolated shell), GitHub API.
+      \item[8.2.2] \textbf{Productivity Tools:} Google Workspace MCP (Gmail messaging, Google Drive document access).
+      \item[8.2.3] \textbf{Web Intelligence:} Browser MCP for real-time document search, retrieval, and scraping.
+    \end{algosublist}
+  \item[8.3] Enforce Human-in-the-Loop (HITL) authorization policy:
+    \begin{algosublist}
+      \item[8.3.1] Permit autonomous execution for non-destructive, read-only tool queries.
+      \item[8.3.2] Intercept state-mutating actions (file modification, email dispatch, CLI execution) for user approval.
+    \end{algosublist}
+\end{algolist}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% STEP 9: CONTEXT COMPACTION & SHARED MEMORY
+% -----------------------------------------------------------------------------
+\begin{frame}[t]{Algorithm: Step 9 -- Context Compaction and Shared Memory}
+\vspace{-0.15em}
+{\large\bfseries\color{lavenderDark}Step 9: Context Compaction and Shared Memory Management}
+\vspace{0.15em}
+
+\begin{algolist}
+  \item[9.1] Address context window constraints and token consumption limits:
+    \begin{algosublist}
+      \item[9.1.1] Mitigate fixed LLM context window boundaries to eliminate token overflow and latency degradation.
+      \item[9.1.2] Prevent quadratic attention computation overhead across long multi-agent interaction sessions.
+    \end{algosublist}
+  \item[9.2] Execute dynamic context compaction and artifact pruning:
+    \vspace{-0.2em}
+    $$C_{t+1} = \mathrm{Prune}\big(C_t \cup \Delta \text{Artifacts} \setminus \text{Stale Tokens}\big)$$
+    \vspace{-0.2em}
+    {\footnotesize\color{prismDark}%
+      \textbf{\color{lavenderDark}Where:}\enspace $C_{t+1}, C_t$: Next and current context buffers $\;\vert\;$ $\Delta\text{Artifacts}$: Verified upstream deliverables $\mathcal{O}_i$ $\;\vert\;$ $\text{Stale Tokens}$: Discarded scratchpad tokens \& raw tool logs $\;\vert\;$ $\mathrm{Prune}(\cdot)$: Heuristic eviction filter.}
+    \vspace{0.15em}
+    \begin{algosublist}
+      \item[9.2.1] Forward only verified parent output artifacts $\mathcal{O}_i$ to dependent downstream child nodes.
+      \item[9.2.2] Evict intermediate reasoning scratchpads, redundant tool telemetry, and discarded draft tokens.
+    \end{algosublist}
+  \item[9.3] Persist global execution state using client-side database (\texttt{PrismDB}):
+    \begin{algosublist}
+      \item[9.3.1] Commit session turns, task graphs, and tool execution logs to browser IndexedDB via Dexie.js.
+      \item[9.3.2] Ensure client data privacy, full offline execution persistence, and instant crash recovery.
+    \end{algosublist}
+\end{algolist}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% STEP 10: VALIDATE AND RETRY
+% -----------------------------------------------------------------------------
+% STEP 10: ORPO PREFERENCE MODEL & QUALITY ASSERTION
+% -----------------------------------------------------------------------------
+\begin{frame}[t]{Algorithm: Step 10 -- ORPO Preference Model \& Verification}
+\vspace{-0.15em}
+{\large\bfseries\color{lavenderDark}Step 10: Single-Stage Preference Alignment (ORPO) and Verification}
+\vspace{0.15em}
+
+\begin{algolist}
+  \item[10.1] Single-stage reference-free preference alignment formulation (ORPO):
+    \vspace{-0.25em}
+    $$\mathcal{L}_{\mathrm{ORPO}} = \mathcal{L}_{\mathrm{SFT}} + \lambda_{\mathrm{OR}} \cdot \mathcal{L}_{\mathrm{OR}} \quad \text{where} \quad \mathcal{L}_{\mathrm{OR}} = -\log \sigma \left( \log \left[ \frac{\mathrm{odds}_\theta(y_w \mid x)}{\mathrm{odds}_\theta(y_l \mid x)} \right] \right)$$
+    \vspace{-0.2em}
+    {\footnotesize\color{prismDark}%
+      \textbf{\color{lavenderDark}Where:}\enspace $\mathcal{L}_{\mathrm{ORPO}}$: Total loss $\;\vert\;$ $\mathcal{L}_{\mathrm{SFT}}$: SFT cross-entropy loss $\;\vert\;$ $\lambda_{\mathrm{OR}}$: Odds weight $\;\vert\;$ $\mathcal{L}_{\mathrm{OR}}$: Odds ratio penalty $\;\vert\;$ $\mathrm{odds}_\theta(y \mid x) = \frac{P_\theta(y \mid x)}{1 - P_\theta(y \mid x)}$: Output sequence odds $\;\vert\;$ $y_w, y_l$: Chosen / rejected responses for prompt $x$.}
+    \vspace{0.15em}
+    \begin{algosublist}
+      \item[10.1.1] Jointly maximize chosen likelihood while penalizing rejected tokens ($2\times$ memory savings).
+      \item[10.1.2] Supervise via UltraFeedback pairs $\mathcal{D} = \{(x, y_w, y_l)\}$, bypassing unstable RLHF loops.
+    \end{algosublist}
+  \item[10.2] Enforce runtime quality gating via preference score barrier $\mathcal{S}_{\mathrm{ORPO}}(x, y) \ge \tau_{\mathrm{approval}}$:
+    \begin{algosublist}
+      \item[10.2.1] Audit deliverables using fine-tuned model (\texttt{reward\_orpo\_v2}, Qwen2.5-1.5B LoRA).
+      \item[10.2.2] Score candidate outputs on instruction adherence, structural constraints, and safety guardrails.
+    \end{algosublist}
+  \item[10.3] Handle quality failures via targeted DAG re-planning:
+    \begin{algosublist}
+      \item[10.3.1] Capture diagnostic error traces and schema deviations when output falls below $\tau_{\mathrm{approval}}$.
+      \item[10.3.2] Dispatch error logs to DAG Planner for targeted branch re-planning without system abort.
+    \end{algosublist}
+\end{algolist}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% STEP 11: FINAL DELIVERABLE SYNTHESIS & COMMIT
+% -----------------------------------------------------------------------------
+\begin{frame}[t]{Algorithm: Step 11 -- Final Deliverable Synthesis and Commit}
+\vspace{-0.15em}
+{\large\bfseries\color{lavenderDark}Step 11: Artifact Assembly and Global State Commit}
+\vspace{0.15em}
+
+\begin{algolist}
+  \item[11.1] Aggregate and assemble multi-agent deliverables:
+    \begin{algosublist}
+      \item[11.1.1] Harvest verified partial output artifacts $\mathcal{O}_i$ from all terminal nodes in the completed DAG.
+      \item[11.1.2] Coalesce research summaries, verified code diffs, and formatted text into unified final deliverable.
+    \end{algosublist}
+  \item[11.2] Calculate end-to-end composite delivery quality metric:
+    \vspace{-0.2em}
+    $$\text{Delivery Quality } D = \text{Correctness} \times \text{Completeness} \times \text{Timeliness}$$
+    \vspace{-0.2em}
+    {\footnotesize\color{prismDark}%
+      \textbf{\color{lavenderDark}Where:}\enspace $D \in [0, 1]$: Composite quality metric $\;\vert\;$ \text{Correctness}: Schema conformance \& execution pass rate $\;\vert\;$ \text{Completeness}: Fulfillment of goal constraints $\;\vert\;$ \text{Timeliness}: Latency penalty score.}
+    \vspace{0.15em}
+    \begin{algosublist}
+      \item[11.2.1] Apply multiplicative scoring penalty: failure in any single dimension sharply penalizes overall quality.
+      \item[11.2.2] Log quality vector to persistent performance ledger to calibrate future provider routing models.
+    \end{algosublist}
+  \item[11.3] Commit finalized session state with ACID guarantees:
+    \begin{algosublist}
+      \item[11.3.1] Atomically write completed conversation records, DAG execution graphs, and tool receipts to \texttt{PrismDB}.
+      \item[11.3.2] Record end-to-end telemetry: aggregate latency, per-agent token consumption, and audit receipts.
+    \end{algosublist}
+\end{algolist}
+\end{frame}
+
+% -----------------------------------------------------------------------------
+% STEP 12: OUTPUT DELIVERY & REACTIVE WORKSPACE UI
+% -----------------------------------------------------------------------------
+\begin{frame}[t]{Algorithm: Step 12 -- Output Delivery and User Display}
+\vspace{-0.15em}
+{\large\bfseries\color{lavenderDark}Step 12: Output Delivery and Reactive Workspace Presentation}
+\vspace{0.15em}
+
+\begin{algolist}
+  \item[12.1] Synthesize and package final deliverable artifacts:
+    \begin{algosublist}
+      \item[12.1.1] Compile structured digital artifacts (Markdown reports, verified code patches, email/document drafts).
+      \item[12.1.2] Generate comprehensive audit receipt containing agent provenance, execution duration, and tool logs.
+    \end{algosublist}
+  \item[12.2] Render presentation layer via multi-pane workspace interface:
+    \begin{algosublist}
+      \item[12.2.1] Update interactive DAG HUD with real-time node states (\texttt{Queued} $\to$ \texttt{Running} $\to$ \texttt{Success} / \texttt{Failed}).
+      \item[12.2.2] Mount Artifact Viewer canvas providing rich Markdown rendering, syntax highlighting, and export controls.
+      \item[12.2.3] Present interactive approval cards for pending external actions with explicit authorization controls.
+    \end{algosublist}
+  \item[12.3] Synchronize client state reactively via local database transactions:
+    \begin{algosublist}
+      \item[12.3.1] Commit verified state transitions and output artifacts directly into browser IndexedDB (\texttt{PrismDB}).
+      \item[12.3.2] Trigger Dexie \texttt{useLiveQuery()} observers to update UI components reactively upon local database commits.
+    \end{algosublist}
+\end{algolist}
+\end{frame}
+\fi
+
+% =============================================================================
+% REFERENCES (placed after the complete swarm algorithm)
+% =============================================================================
+\section{Conclusion}
 % =============================================================================
 \section{System Architecture}
 
@@ -3323,24 +3872,18 @@ The held-out 20\% is divided equally for validation and final testing.
     {\fontsize{4.1}{5.0}\selectfont Natural Language Prompt\\[0.5pt]Scope Bounds ($K \le 3$)}%
   };
 
-  \node[colbox, text width=2.45cm, fill=cStem, draw=prismIndigo!70] (g1_ui) at (1.38, 4.20) {%
+  \node[colbox, text width=2.45cm, fill=cStem, draw=prismIndigo!70] (g1_ui) at (1.38, 3.80) {%
     \faDesktop\ \textbf{Next.js 15 Client UI}\\[1.5pt]
     {\fontsize{4.1}{5.0}\selectfont React 19 Dashboard\\[0.5pt]Swarm Visualizer}%
   };
 
-  \node[colbox, text width=2.45cm, fill=cPlanner, draw=prismBlue!80] (g1_gw) at (1.38, 2.75) {%
+  \node[colbox, text width=2.45cm, fill=cPlanner, draw=prismBlue!80] (g1_gw) at (1.38, 2.00) {%
     \faServer\ \textbf{FastAPI Hive Gateway}\\[1.5pt]
     {\fontsize{4.1}{5.0}\selectfont REST API $\cdot$ Tool Registry\\[0.5pt]Real-Time Token Streaming}%
   };
 
-  \node[colbox, text width=2.45cm, fill=cInput!60, draw=prismSlate!60] (g1_telemetry) at (1.38, 1.25) {%
-    \faChartBar\ \textbf{Telemetry \& Observability}\\[1.5pt]
-    {\fontsize{4.1}{5.0}\selectfont Event Logging\\[0.5pt]Metrics Monitoring}%
-  };
-
   \draw[arrow] (g1_user) -- (g1_ui);
   \draw[arrow] (g1_ui) -- (g1_gw);
-  \draw[arrow] (g1_gw) -- (g1_telemetry);
 
   % =========================================================================
   % COLUMN 2: ML ROUTING & HYBRID RETRIEVAL
@@ -3355,23 +3898,17 @@ The held-out 20\% is divided equally for validation and final testing.
     {\fontsize{4.1}{5.0}\selectfont Convert text to numbers + Statistical word patterns\\[0.5pt]Multi-Source Training Corpora}%
   };
 
-  % 2x2 Model Grid
-  \node[modelbox, text width=2.00cm, fill=cHead!45] (m_intent) at (4.80, 4.35) {%
-    \faBrain\ \textbf{Intent Classifier}\\[1.5pt]
-    {\fontsize{4.0}{4.8}\selectfont 12 Calibrated Domains}\\[0.5pt]
-    {\fontsize{3.6}{4.4}\selectfont\itshape (code, data, web, etc.)}%
+  % ML Model Grid (Intent, Agent Router, Provider Router)
+  \node[modelbox, text width=2.00cm, minimum height=0.65cm, fill=cHead!45] (m_intent) at (4.80, 4.35) {%
+    \faBrain\ \textbf{Intent Classifier}%
   };
-  \node[modelbox, text width=2.00cm, fill=cStage1!45] (m_agent) at (7.10, 4.35) {%
+  \node[modelbox, text width=2.00cm, minimum height=0.65cm, fill=cStage1!45] (m_agent) at (7.10, 4.35) {%
     \faUsers\ \textbf{Swarm Agent Router}\\[1.5pt]
     {\fontsize{4.0}{4.8}\selectfont Specialist Dispatch ($K \le 3$)}%
   };
-  \node[modelbox, text width=2.00cm, fill=cStage4!45] (m_model) at (4.80, 3.05) {%
+  \node[modelbox, text width=2.50cm, minimum height=0.65cm, fill=cStage4!45] (m_model) at (5.95, 3.05) {%
     \faRandom\ \textbf{Provider Router}\\[1.5pt]
     {\fontsize{4.0}{4.8}\selectfont Groq, OpenAI, Anthropic, NIM}%
-  };
-  \node[modelbox, text width=2.00cm, fill=cTool!45] (m_cost) at (7.10, 3.05) {%
-    \faChartLine\ \textbf{Cost \& Latency}\\[1.5pt]
-    {\fontsize{4.0}{4.8}\selectfont Predictive Execution Bounds}%
   };
 
   \node[colbox, text width=4.30cm, fill=cMemory, draw=purple!60!black] (g2_rank) at (5.95, 1.35) {%
@@ -3383,11 +3920,10 @@ The held-out 20\% is divided equally for validation and final testing.
   % Connectors inside Col 2
   \draw[modelarrow] (g2_feat.south) -- (5.95, 5.00) -| (m_intent.north);
   \draw[modelarrow] (g2_feat.south) -- (5.95, 5.00) -| (m_agent.north);
-  \draw[modelarrow] (m_intent.south) -- (m_model.north);
-  \draw[modelarrow] (m_agent.south) -- (m_cost.north);
-  \draw[modelarrow] (m_model.south) -- (4.80, 2.25) -- (5.95, 2.25) -- (g2_rank.north);
-  \draw[modelarrow] (m_cost.south) -- (7.10, 2.25) -- (5.95, 2.25);
-
+  \draw[-] (m_intent.south) -- (4.80, 3.65) -- (5.95, 3.65);
+  \draw[-] (m_agent.south) -- (7.10, 3.65) -- (5.95, 3.65);
+  \draw[modelarrow] (5.95, 3.65) -- (m_model.north);
+  \draw[modelarrow] (m_model.south) -- (g2_rank.north);
   % =========================================================================
   % COLUMN 3: SWARM DAG, SEPARATE AGENT BOXES, SAFETY & SEPARATE OUTPUTS
   % Center: 11.90, width: 5.80cm, height: 6.30cm, Center Y = 3.30
@@ -3478,8 +4014,8 @@ The held-out 20\% is divided equally for validation and final testing.
   % INTER-COLUMN PIPELINE ROUTING
   % =========================================================================
   % Gateway -> Feature Extraction (Channel 1: mid = 3.14)
-  \draw[arrow, draw=lavenderDark!90, line width=0.75pt] (g1_gw.east) -- (3.14, 2.75) -- (3.14, 5.60) -- (g2_feat.west);
-  \node[badge, text=lavenderDark] at (3.14, 3.45) {REST / Stream};
+  \draw[arrow, draw=lavenderDark!90, line width=0.75pt] (g1_gw.east) -- (3.14, 2.00) -- (3.14, 5.60) -- (g2_feat.west);
+  \node[badge, text=lavenderDark] at (3.14, 3.80) {REST / Stream};
 
   % Channel 2: Routing Spec -> DAG Planner (mid = 8.62)
   \draw[arrow, draw=lavenderDark!90, line width=0.75pt] (m_agent.east) -- (8.62, 4.35) -- (8.62, 5.60) -- (g3_dag.west);
@@ -3616,7 +4152,7 @@ The held-out 20\% is divided equally for validation and final testing.
   \textbf{\faGlobe\ Browser MCP / Docs:}\\[0.06em]
   {\fontsize{5.8}{6.8}\selectfont $\bullet$ Web scraper \quad $\bullet$ Specs}
 };
-\draw[dasharr] (workera) -- node[fill=orange!08, inner sep=1.5pt, font=\fontsize{5.2}{6.2}\selectfont\color{lavenderDark}]{ReAct} (toola);
+\draw[dasharr] (workera) -- (toola);
 
 % Worker B: Code & Terminal (X = 7.75)
 \node[agentbox, text width=3.40cm] (workerb) at (7.75, 1.85) {
@@ -3627,7 +4163,7 @@ The held-out 20\% is divided equally for validation and final testing.
   \textbf{\faTerminal\ Terminal / FS MCP:}\\[0.06em]
   {\fontsize{5.8}{6.8}\selectfont $\bullet$ Shell CLI \quad $\bullet$ File edit}
 };
-\draw[dasharr] (workerb) -- node[fill=orange!08, inner sep=1.5pt, font=\fontsize{5.2}{6.2}\selectfont\color{lavenderDark}]{ReAct} (toolb);
+\draw[dasharr] (workerb) -- (toolb);
 
 % Worker C: Validation & Database (X = 12.50)
 \node[agentbox, text width=3.40cm] (workerc) at (12.50, 1.85) {
@@ -3638,7 +4174,7 @@ The held-out 20\% is divided equally for validation and final testing.
   \textbf{\faDatabase\ Database MCP:}\\[0.06em]
   {\fontsize{5.8}{6.8}\selectfont $\bullet$ SQL query \quad $\bullet$ IndexedDB}
 };
-\draw[dasharr] (workerc) -- node[fill=orange!08, inner sep=1.5pt, font=\fontsize{5.2}{6.2}\selectfont\color{lavenderDark}]{ReAct} (toolc);
+\draw[dasharr] (workerc) -- (toolc);
 
 % Symmetrical Dispatch Tree routing INSIDE Stage 3 BELOW the header banner (y = 2.45)
 % Drops from Planner south (x = 7.75) down to y = 2.45, then branches cleanly below header
@@ -4257,429 +4793,6 @@ The held-out 20\% is divided equally for validation and final testing.
 % =============================================================================
 % SLIDE 14+: SIMPLIFIED PROJECT WORKFLOW ALGORITHM
 % =============================================================================
-\section{Swarm Algorithm}
-
-% The algorithm pages are rendered before the workflow diagram above.
-\iffalse
-
-% Hierarchical Algorithm List Environments matching Screenshot 2 structure
-\newenvironment{algolist}{%
-  \begin{list}{}{%
-    \setlength{\labelwidth}{1.9em}%
-    \setlength{\leftmargin}{2.1em}%
-    \setlength{\itemindent}{0pt}%
-    \setlength{\labelsep}{0.45em}%
-    \setlength{\itemsep}{0.28em}%
-    \setlength{\parsep}{0pt}%
-    \setlength{\topsep}{0.1em}%
-    \renewcommand{\makelabel}[1]{\textbf{\color{lavenderDark}##1}}%
-  }\small%
-}{\end{list}}
-
-\newenvironment{algosublist}{%
-  \begin{list}{}{%
-    \setlength{\labelwidth}{2.4em}%
-    \setlength{\leftmargin}{2.8em}%
-    \setlength{\itemindent}{0pt}%
-    \setlength{\labelsep}{0.4em}%
-    \setlength{\itemsep}{0.14em}%
-    \setlength{\parsep}{0pt}%
-    \setlength{\topsep}{0.1em}%
-    \renewcommand{\makelabel}[1]{\textbf{\color{lavenderMedium}##1}}%
-  }\small%
-}{\end{list}}
-
-% -----------------------------------------------------------------------------
-% STEP 1: PROMPT PARSING & TASK REPRESENTATION
-% -----------------------------------------------------------------------------
-\begin{frame}[t]{Algorithm: Step 1 -- Understand the User Prompt}
-\vspace{-0.15em}
-{\large\bfseries\color{lavenderDark}Step 1: Prompt Parsing and Structured Representation}
-\vspace{0.15em}
-
-\begin{algolist}
-  \item[1.1] Ingest raw natural language prompt $\mathcal{T}_{\text{user}}$ via client interface and extract core objective.
-  \item[1.2] Retrieve persistent session context and workspace history from browser IndexedDB (\texttt{PrismDB}):
-    \begin{algosublist}
-      \item[1.2.1] Load prior interaction turns, agent memory checkpoints, and active user configurations.
-      \item[1.2.2] Resolve local file system references, target project repositories, and access tokens.
-    \end{algosublist}
-  \item[1.3] Construct strongly-typed operational execution tuple:
-    \vspace{-0.2em}
-    $$T = \langle \text{Goal}, \, \text{Constraints}, \, \text{Context}, \, \mathcal{M}_{\text{tools}}, \, \Phi_{\text{out}} \rangle$$
-    \vspace{-0.2em}
-    {\footnotesize\color{prismDark}%
-      \textbf{\color{lavenderDark}Where:}\enspace \text{Goal}: Target objective $\;\vert\;$ \text{Constraints}: Safety \& SLA bounds $\;\vert\;$ \text{Context}: Session state in \texttt{PrismDB} $\;\vert\;$ $\mathcal{M}_{\text{tools}}$: Authorized MCP tools $\;\vert\;$ $\Phi_{\text{out}}$: Deliverable schema contract.}
-    \vspace{0.15em}
-    \begin{algosublist}
-      \item[1.3.1] Parse explicit operational constraints (deadlines, schema specifications, output formats).
-      \item[1.3.2] Bind authorized Model Context Protocol (MCP) tool capabilities and environment permissions.
-    \end{algosublist}
-  \item[1.4] Perform input boundary and security screening:
-    \begin{algosublist}
-      \item[1.4.1] Evaluate prompt against token limits and scan for prompt injection patterns.
-      \item[1.4.2] Flag state-mutating actions requiring mandatory human-in-the-loop authorization.
-    \end{algosublist}
-\end{algolist}
-\end{frame}
-
-% -----------------------------------------------------------------------------
-% STEP 2: INTENT CLASSIFICATION & CAPABILITY PROFILING
-% -----------------------------------------------------------------------------
-\begin{frame}[t]{Algorithm: Step 2 -- Classify the Request}
-\vspace{-0.15em}
-{\large\bfseries\color{lavenderDark}Step 2: Intent Classification and Capability Check}
-\vspace{0.15em}
-
-\begin{algolist}
-  \item[2.1] Categorize user prompt into functional operational domains:
-    \vspace{-0.2em}
-    $$\text{Domain} \in \{\text{Productivity/Automation}, \, \text{Document Synthesis}, \, \text{Web Research}, \, \text{Code Engineering}\}$$
-    \vspace{-0.2em}
-    {\footnotesize\color{prismDark}%
-      \textbf{\color{lavenderDark}Where:}\enspace \text{Productivity}: Communication \& planning $\;\vert\;$ \text{Synthesis}: Summarization $\;\vert\;$ \text{Research}: Web search \& scraping $\;\vert\;$ \text{Coding}: CLI \& code synthesis.}
-    \vspace{0.15em}
-    \begin{algosublist}
-      \item[2.1.1] Compute dense semantic embeddings and syntactic keyword vectors for input prompt.
-      \item[2.1.2] Route through multi-class classifier head $\hat{\mathbf{y}}_{\text{intent}}$ to determine target capability domain.
-    \end{algosublist}
-  \item[2.2] Profile required system capabilities and operational risk levels:
-    \begin{algosublist}
-      \item[2.2.1] Determine required subsystem resources (live web search, local filesystem I/O, terminal execution).
-      \item[2.2.2] Enforce safety categorization: Read-Only (autonomous execution) vs. State-Mutating (approval-gated).
-    \end{algosublist}
-  \item[2.3] Select optimal execution pathway:
-    \begin{algosublist}
-      \item[2.3.1] Route single-step queries to direct, low-latency single-model inference pipeline.
-      \item[2.3.2] Dispatch multi-step complex requests to DAG Planner agent for task decomposition.
-    \end{algosublist}
-\end{algolist}
-\end{frame}
-
-% -----------------------------------------------------------------------------
-% STEP 3: DAG DECOMPOSITION & MODEL ROUTING
-% -----------------------------------------------------------------------------
-\begin{frame}[t]{Algorithm: Step 3 -- Plan and Route the Task}
-\vspace{-0.15em}
-{\large\bfseries\color{lavenderDark}Step 3: DAG Decomposition and Model Routing}
-\vspace{0.15em}
-
-\begin{algolist}
-  \item[3.1] Deconstruct objective into Directed Acyclic Graph $\mathcal{G} = (V, E)$:
-    \begin{algosublist}
-      \item[3.1.1] Instantiate discrete task vertices $v_i \in V$ with atomic execution contracts and output targets.
-      \item[3.1.2] \textbf{Data Dependencies as Directed Edges} ($e = \langle v_i, v_j \rangle \in E \iff \mathcal{O}_i \cap \mathcal{I}_j \neq \emptyset$): Task $v_j$ requires input artifacts produced by $v_i$ (e.g., synthesis requires scraped research).
-      \item[3.1.3] \textbf{Execution Barrier:} Consumer $v_j$ remains blocked until producer $v_i$ delivers $\mathcal{O}_i$, guaranteeing tasks never run on missing or partial data.
-    \end{algosublist}
-  \item[3.2] Compute topological task execution schedule $\pi = \mathrm{TopologicalSort}(\mathcal{G})$:
-    \begin{algosublist}
-      \item[3.2.1] Identify independent vertices ($\text{in-degree} = 0$) for concurrent parallel dispatch ($K \le 3$).
-      \item[3.2.2] Schedule downstream vertices dynamically upon upstream output event emission.
-    \end{algosublist}
-  \item[3.3] Solve multi-objective provider routing optimization for each sub-task $v_i$:
-    \vspace{-0.2em}
-    $$\text{Provider}^* = \arg\min_m \Big(\lambda_{\text{cost}} \, \text{Cost}_m + \lambda_{\text{latency}} \, \text{Latency}_m\Big) \quad \text{s.t. } \text{Quality}_m \ge \tau$$
-    \vspace{-0.2em}
-    {\footnotesize\color{prismDark}%
-      \textbf{\color{lavenderDark}Where:}\enspace $\text{Provider}^*$: Optimal LLM backend $\;\vert\;$ $m$: Candidate model $\;\vert\;$ $\text{Cost}_m, \text{Latency}_m$: Normalized price \& delay $\;\vert\;$ $\lambda_{\text{cost}}, \lambda_{\text{latency}}$: Balancing weights $\;\vert\;$ $\tau$: Quality barrier.}
-    \vspace{0.15em}
-    \begin{algosublist}
-      \item[3.3.1] Route high-throughput, latency-critical nodes to LPU backends (Groq / Llama-3).
-      \item[3.3.2] Route deep reasoning and code generation tasks to frontier backends (OpenAI GPT-4o, Claude 3.5).
-    \end{algosublist}
-\end{algolist}
-\end{frame}
-
-% -----------------------------------------------------------------------------
-% STEP 4: TASK ASSIGNMENT & AGENT SELECTION
-% -----------------------------------------------------------------------------
-\begin{frame}[t]{Algorithm: Step 4 -- Task Assignment and Agent Selection}
-\vspace{-0.15em}
-{\large\bfseries\color{lavenderDark}Step 4: Role-Based Task Assignment and Dispatching}
-\vspace{0.15em}
-
-\begin{algolist}
-  \item[4.1] Query specialist agent registry and capability profiles:
-    \vspace{-0.2em}
-    $$\mathcal{A} = \{\text{Planner}, \, \text{Assistant}, \, \text{Researcher}, \, \text{Coder}, \, \text{Validator}\}$$
-    \vspace{-0.2em}
-    \begin{algosublist}
-      \item[4.1.1] Evaluate persona system prompts, specialized instruction boundaries, and assigned MCP tools.
-      \item[4.1.2] Verify agent worker availability and monitor concurrent thread utilization.
-    \end{algosublist}
-  \item[4.2] Execute capability matching algorithm for each sub-task node $v_i$:
-    \vspace{-0.2em}
-    $$\text{Agent}^* = \arg\max_{a \in \mathcal{A}} \; \mathrm{CosineSimilarity}\big(\mathbf{Req}(v_i), \, \mathbf{Cap}(a)\big)$$
-    \vspace{-0.2em}
-    {\footnotesize\color{prismDark}%
-      \textbf{\color{lavenderDark}Where:}\enspace $\text{Agent}^*$: Assigned specialist persona $\;\vert\;$ $\mathcal{A}$: Swarm agent registry $\;\vert\;$ $\mathbf{Req}(v_i)$: Task requirement vector $\;\vert\;$ $\mathbf{Cap}(a)$: Agent capability embedding $\;\vert\;$ $\mathrm{CosineSimilarity}$: Semantic alignment.}
-    \vspace{0.15em}
-    \begin{algosublist}
-      \item[4.2.1] Match information gathering requirements ($\text{Tag} \ni \texttt{web\_search}$) to Researcher agent.
-      \item[4.2.2] Match software synthesis and execution ($\text{Tag} \ni \texttt{python, cli}$) to Coder agent.
-      \item[4.2.3] Match quality assurance and policy compliance ($\text{Tag} \ni \texttt{audit, verify}$) to Validator agent.
-    \end{algosublist}
-  \item[4.3] Manage task lifecycle states in dispatcher queue:
-    \begin{algosublist}
-      \item[4.3.1] Place sub-tasks in \texttt{PENDING} state until all parent dependency inputs resolve.
-      \item[4.3.2] Transition verified nodes to \texttt{READY} and dispatch execution payloads to assigned agents.
-    \end{algosublist}
-\end{algolist}
-\end{frame}
-
-% -----------------------------------------------------------------------------
-% STEP 5: AGENT COMMUNICATION & DECISION MAKING
-% -----------------------------------------------------------------------------
-\begin{frame}[t]{Algorithm: Step 5 -- Agent Communication and Decision Cycle}
-\vspace{-0.15em}
-{\large\bfseries\color{lavenderDark}Step 5: Agent Decision Cycle and Inter-Agent Communication}
-\vspace{0.15em}
-
-\begin{algolist}
-  \item[5.1] Execute autonomous Reasoning-Action (ReAct) cycle for each dispatched agent:
-    \vspace{-0.2em}
-    $$\text{State } s_t \;\longrightarrow\; \text{\textbf{Observe}} \;\longrightarrow\; \text{\textbf{Reason}} \;\longrightarrow\; \text{\textbf{Act}} \;\longrightarrow\; \text{\textbf{Reflect}}$$
-    \vspace{-0.2em}
-    {\footnotesize\color{prismDark}%
-      \textbf{\color{lavenderDark}Where:}\enspace $s_t$: Current execution state at turn $t$ $\;\vert\;$ \textbf{Observe}: Ingest context \& parent outputs $\mathcal{O}_i$ $\;\vert\;$ \textbf{Reason}: Plan via CoT $\;\vert\;$ \textbf{Act}: Invoke MCP tools $\;\vert\;$ \textbf{Reflect}: Self-correct on error.}
-    \vspace{0.15em}
-    \begin{algosublist}
-      \item[5.1.1] \textbf{Observe:} Ingest assigned sub-task description, operational constraints, and parent inputs.
-      \item[5.1.2] \textbf{Reason:} Formulate intermediate chain-of-thought rationale to plan next tool invocation.
-      \item[5.1.3] \textbf{Act:} Dispatch structured JSON-RPC tool calls to external MCP servers or formulate text.
-      \item[5.1.4] \textbf{Reflect:} Inspect execution exit codes and output schemas; initiate local correction on errors.
-    \end{algosublist}
-  \item[5.2] Transmit intermediate artifacts via DAG edge message passing:
-    \begin{algosublist}
-      \item[5.2.1] Route validated producer artifact $\mathcal{O}_i$ directly into consumer input buffer $\mathcal{I}_j$.
-      \item[5.2.2] Enforce strict artifact isolation to prevent cross-task context contamination and token inflation.
-    \end{algosublist}
-  \item[5.3] Synchronize shared state via local blackboard memory:
-    \begin{algosublist}
-      \item[5.3.1] Commit global project state, conversation turns, and file handles to IndexedDB (\texttt{PrismDB}).
-      \item[5.3.2] Dispatch event-driven signals upon node resolution to awaken dependent downstream workers.
-    \end{algosublist}
-\end{algolist}
-\end{frame}
-
-% -----------------------------------------------------------------------------
-% STEP 6: SPECIALIST WORKFLOWS: PLANNER & ASSISTANT
-% -----------------------------------------------------------------------------
-\begin{frame}[t]{Algorithm: Step 6 -- Specialist Workflows: Planner \& Assistant}
-\vspace{-0.15em}
-{\large\bfseries\color{lavenderDark}Step 6: Specialist Execution Workflows -- Planner \& Assistant}
-\vspace{0.15em}
-
-\begin{algolist}
-  \item[6.1] Execute Planner Agent workflow (System Architect \& Coordinator):
-    \begin{algosublist}
-      \item[6.1.1] Ingest user objective string and conversation context from \texttt{PrismDB}.
-      \item[6.1.2] Decompose objective into atomic independent and dependent sub-goals.
-      \item[6.1.3] Construct DAG graph vertices $V$, dependency edges $E$, and capability tags.
-      \item[6.1.4] Solve provider routing optimization and enqueue topological schedule into Dispatcher.
-    \end{algosublist}
-  \item[6.2] Execute Assistant Agent workflow (Productivity \& Communication):
-    \begin{algosublist}
-      \item[6.2.1] Retrieve user communication preferences, profiles, and reference documents from storage.
-      \item[6.2.2] Formulate structured response drafts, templates, or executive summaries.
-      \item[6.2.3] Interface with Google Workspace MCP tools (Gmail draft creation, Drive document retrieval).
-      \item[6.2.4] Emit verified communication draft; enforce approval gate prior to external message transmission.
-    \end{algosublist}
-\end{algolist}
-\end{frame}
-
-% -----------------------------------------------------------------------------
-% STEP 7: SPECIALIST WORKFLOWS: RESEARCHER, CODER & VALIDATOR
-% -----------------------------------------------------------------------------
-\begin{frame}[t]{Algorithm: Step 7 -- Specialist Workflows: Researcher, Coder \& Validator}
-\vspace{-0.15em}
-{\large\bfseries\color{lavenderDark}Step 7: Specialist Execution Workflows -- Researcher, Coder \& Validator}
-\vspace{0.15em}
-
-\begin{algolist}
-  \item[7.1] Execute Researcher Agent workflow (Information Retrieval \& Synthesis):
-    \begin{algosublist}
-      \item[7.1.1] Formulate optimized web search queries and invoke Browser MCP server endpoints.
-      \item[7.1.2] Scrape target web documents, parse DOM trees, and extract relevant contextual passages.
-      \item[7.1.3] Deduplicate findings and compile structured Markdown report with verified source citations.
-    \end{algosublist}
-  \item[7.2] Execute Coder Agent workflow (Software Synthesis \& Execution):
-    \begin{algosublist}
-      \item[7.2.1] Inspect local repository tree via Filesystem MCP and synthesize target source code files.
-      \item[7.2.2] Execute scripts inside Sandboxed Terminal CLI and inspect exit codes and error streams.
-      \item[7.2.3] Analyze stack traces and compiler lints to autonomously self-correct syntax and runtime bugs.
-    \end{algosublist}
-  \item[7.3] Execute Validator Agent workflow (Quality Auditing \& Safety Gate):
-    \begin{algosublist}
-      \item[7.3.1] Scan candidate outputs against safety policies, token invariants, and functional constraints.
-      \item[7.3.2] Emit binary verification signal: \textbf{PASS} to release artifact, or \textbf{FAIL} with error diagnostics.
-    \end{algosublist}
-\end{algolist}
-\end{frame}
-
-% -----------------------------------------------------------------------------
-% STEP 8: EXECUTE WITH MCP TOOLS
-% -----------------------------------------------------------------------------
-\begin{frame}[t]{Algorithm: Step 8 -- Standardized Tool Execution via MCP}
-\vspace{-0.15em}
-{\large\bfseries\color{lavenderDark}Step 8: Standardized Tool Execution via Model Context Protocol}
-\vspace{0.15em}
-
-\begin{algolist}
-  \item[8.1] Interface agents to external tools via Model Context Protocol (MCP):
-    \begin{algosublist}
-      \item[8.1.1] Standardize client-server communication using JSON-RPC protocol specifications.
-      \item[8.1.2] Enable dynamic tool discovery: inspect exposed tool schemas, input parameters, and return types.
-      \item[8.1.3] Decouple agent reasoning logic from external tool implementation details.
-    \end{algosublist}
-  \item[8.2] Orchestrate multi-domain tool execution ecosystem:
-    \begin{algosublist}
-      \item[8.2.1] \textbf{System \& Dev Tools:} Local Filesystem (file I/O), Sandboxed CLI (isolated shell), GitHub API.
-      \item[8.2.2] \textbf{Productivity Tools:} Google Workspace MCP (Gmail messaging, Google Drive document access).
-      \item[8.2.3] \textbf{Web Intelligence:} Browser MCP for real-time document search, retrieval, and scraping.
-    \end{algosublist}
-  \item[8.3] Enforce Human-in-the-Loop (HITL) authorization policy:
-    \begin{algosublist}
-      \item[8.3.1] Permit autonomous execution for non-destructive, read-only tool queries.
-      \item[8.3.2] Intercept state-mutating actions (file modification, email dispatch, CLI execution) for user approval.
-    \end{algosublist}
-\end{algolist}
-\end{frame}
-
-% -----------------------------------------------------------------------------
-% STEP 9: CONTEXT COMPACTION & SHARED MEMORY
-% -----------------------------------------------------------------------------
-\begin{frame}[t]{Algorithm: Step 9 -- Context Compaction and Shared Memory}
-\vspace{-0.15em}
-{\large\bfseries\color{lavenderDark}Step 9: Context Compaction and Shared Memory Management}
-\vspace{0.15em}
-
-\begin{algolist}
-  \item[9.1] Address context window constraints and token consumption limits:
-    \begin{algosublist}
-      \item[9.1.1] Mitigate fixed LLM context window boundaries to eliminate token overflow and latency degradation.
-      \item[9.1.2] Prevent quadratic attention computation overhead across long multi-agent interaction sessions.
-    \end{algosublist}
-  \item[9.2] Execute dynamic context compaction and artifact pruning:
-    \vspace{-0.2em}
-    $$C_{t+1} = \mathrm{Prune}\big(C_t \cup \Delta \text{Artifacts} \setminus \text{Stale Tokens}\big)$$
-    \vspace{-0.2em}
-    {\footnotesize\color{prismDark}%
-      \textbf{\color{lavenderDark}Where:}\enspace $C_{t+1}, C_t$: Next and current context buffers $\;\vert\;$ $\Delta\text{Artifacts}$: Verified upstream deliverables $\mathcal{O}_i$ $\;\vert\;$ $\text{Stale Tokens}$: Discarded scratchpad tokens \& raw tool logs $\;\vert\;$ $\mathrm{Prune}(\cdot)$: Heuristic eviction filter.}
-    \vspace{0.15em}
-    \begin{algosublist}
-      \item[9.2.1] Forward only verified parent output artifacts $\mathcal{O}_i$ to dependent downstream child nodes.
-      \item[9.2.2] Evict intermediate reasoning scratchpads, redundant tool telemetry, and discarded draft tokens.
-    \end{algosublist}
-  \item[9.3] Persist global execution state using client-side database (\texttt{PrismDB}):
-    \begin{algosublist}
-      \item[9.3.1] Commit session turns, task graphs, and tool execution logs to browser IndexedDB via Dexie.js.
-      \item[9.3.2] Ensure client data privacy, full offline execution persistence, and instant crash recovery.
-    \end{algosublist}
-\end{algolist}
-\end{frame}
-
-% -----------------------------------------------------------------------------
-% STEP 10: VALIDATE AND RETRY
-% -----------------------------------------------------------------------------
-% STEP 10: ORPO PREFERENCE MODEL & QUALITY ASSERTION
-% -----------------------------------------------------------------------------
-\begin{frame}[t]{Algorithm: Step 10 -- ORPO Preference Model \& Verification}
-\vspace{-0.15em}
-{\large\bfseries\color{lavenderDark}Step 10: Single-Stage Preference Alignment (ORPO) and Verification}
-\vspace{0.15em}
-
-\begin{algolist}
-  \item[10.1] Single-stage reference-free preference alignment formulation (ORPO):
-    \vspace{-0.25em}
-    $$\mathcal{L}_{\mathrm{ORPO}} = \mathcal{L}_{\mathrm{SFT}} + \lambda_{\mathrm{OR}} \cdot \mathcal{L}_{\mathrm{OR}} \quad \text{where} \quad \mathcal{L}_{\mathrm{OR}} = -\log \sigma \left( \log \left[ \frac{\mathrm{odds}_\theta(y_w \mid x)}{\mathrm{odds}_\theta(y_l \mid x)} \right] \right)$$
-    \vspace{-0.2em}
-    {\footnotesize\color{prismDark}%
-      \textbf{\color{lavenderDark}Where:}\enspace $\mathcal{L}_{\mathrm{ORPO}}$: Total loss $\;\vert\;$ $\mathcal{L}_{\mathrm{SFT}}$: SFT cross-entropy loss $\;\vert\;$ $\lambda_{\mathrm{OR}}$: Odds weight $\;\vert\;$ $\mathcal{L}_{\mathrm{OR}}$: Odds ratio penalty $\;\vert\;$ $\mathrm{odds}_\theta(y \mid x) = \frac{P_\theta(y \mid x)}{1 - P_\theta(y \mid x)}$: Output sequence odds $\;\vert\;$ $y_w, y_l$: Chosen / rejected responses for prompt $x$.}
-    \vspace{0.15em}
-    \begin{algosublist}
-      \item[10.1.1] Jointly maximize chosen likelihood while penalizing rejected tokens ($2\times$ memory savings).
-      \item[10.1.2] Supervise via UltraFeedback pairs $\mathcal{D} = \{(x, y_w, y_l)\}$, bypassing unstable RLHF loops.
-    \end{algosublist}
-  \item[10.2] Enforce runtime quality gating via preference score barrier $\mathcal{S}_{\mathrm{ORPO}}(x, y) \ge \tau_{\mathrm{approval}}$:
-    \begin{algosublist}
-      \item[10.2.1] Audit deliverables using fine-tuned model (\texttt{reward\_orpo\_v2}, Qwen2.5-1.5B LoRA).
-      \item[10.2.2] Score candidate outputs on instruction adherence, structural constraints, and safety guardrails.
-    \end{algosublist}
-  \item[10.3] Handle quality failures via targeted DAG re-planning:
-    \begin{algosublist}
-      \item[10.3.1] Capture diagnostic error traces and schema deviations when output falls below $\tau_{\mathrm{approval}}$.
-      \item[10.3.2] Dispatch error logs to DAG Planner for targeted branch re-planning without system abort.
-    \end{algosublist}
-\end{algolist}
-\end{frame}
-
-% -----------------------------------------------------------------------------
-% STEP 11: FINAL DELIVERABLE SYNTHESIS & COMMIT
-% -----------------------------------------------------------------------------
-\begin{frame}[t]{Algorithm: Step 11 -- Final Deliverable Synthesis and Commit}
-\vspace{-0.15em}
-{\large\bfseries\color{lavenderDark}Step 11: Artifact Assembly and Global State Commit}
-\vspace{0.15em}
-
-\begin{algolist}
-  \item[11.1] Aggregate and assemble multi-agent deliverables:
-    \begin{algosublist}
-      \item[11.1.1] Harvest verified partial output artifacts $\mathcal{O}_i$ from all terminal nodes in the completed DAG.
-      \item[11.1.2] Coalesce research summaries, verified code diffs, and formatted text into unified final deliverable.
-    \end{algosublist}
-  \item[11.2] Calculate end-to-end composite delivery quality metric:
-    \vspace{-0.2em}
-    $$\text{Delivery Quality } D = \text{Correctness} \times \text{Completeness} \times \text{Timeliness}$$
-    \vspace{-0.2em}
-    {\footnotesize\color{prismDark}%
-      \textbf{\color{lavenderDark}Where:}\enspace $D \in [0, 1]$: Composite quality metric $\;\vert\;$ \text{Correctness}: Schema conformance \& execution pass rate $\;\vert\;$ \text{Completeness}: Fulfillment of goal constraints $\;\vert\;$ \text{Timeliness}: Latency penalty score.}
-    \vspace{0.15em}
-    \begin{algosublist}
-      \item[11.2.1] Apply multiplicative scoring penalty: failure in any single dimension sharply penalizes overall quality.
-      \item[11.2.2] Log quality vector to persistent performance ledger to calibrate future provider routing models.
-    \end{algosublist}
-  \item[11.3] Commit finalized session state with ACID guarantees:
-    \begin{algosublist}
-      \item[11.3.1] Atomically write completed conversation records, DAG execution graphs, and tool receipts to \texttt{PrismDB}.
-      \item[11.3.2] Record end-to-end telemetry: aggregate latency, per-agent token consumption, and audit receipts.
-    \end{algosublist}
-\end{algolist}
-\end{frame}
-
-% -----------------------------------------------------------------------------
-% STEP 12: OUTPUT DELIVERY & REACTIVE WORKSPACE UI
-% -----------------------------------------------------------------------------
-\begin{frame}[t]{Algorithm: Step 12 -- Output Delivery and User Display}
-\vspace{-0.15em}
-{\large\bfseries\color{lavenderDark}Step 12: Output Delivery and Reactive Workspace Presentation}
-\vspace{0.15em}
-
-\begin{algolist}
-  \item[12.1] Synthesize and package final deliverable artifacts:
-    \begin{algosublist}
-      \item[12.1.1] Compile structured digital artifacts (Markdown reports, verified code patches, email/document drafts).
-      \item[12.1.2] Generate comprehensive audit receipt containing agent provenance, execution duration, and tool logs.
-    \end{algosublist}
-  \item[12.2] Render presentation layer via multi-pane workspace interface:
-    \begin{algosublist}
-      \item[12.2.1] Update interactive DAG HUD with real-time node states (\texttt{Queued} $\to$ \texttt{Running} $\to$ \texttt{Success} / \texttt{Failed}).
-      \item[12.2.2] Mount Artifact Viewer canvas providing rich Markdown rendering, syntax highlighting, and export controls.
-      \item[12.2.3] Present interactive approval cards for pending external actions with explicit authorization controls.
-    \end{algosublist}
-  \item[12.3] Synchronize client state reactively via local database transactions:
-    \begin{algosublist}
-      \item[12.3.1] Commit verified state transitions and output artifacts directly into browser IndexedDB (\texttt{PrismDB}).
-      \item[12.3.2] Trigger Dexie \texttt{useLiveQuery()} observers to update UI components reactively upon local database commits.
-    \end{algosublist}
-\end{algolist}
-\end{frame}
-\fi
-
-% =============================================================================
-% REFERENCES (placed after the complete swarm algorithm)
-% =============================================================================
-\section{Conclusion}
 \begin{frame}[t]{22. Conclusion}
 \vspace{0.35cm}
 \begin{itemize}\setlength{\itemsep}{12pt}\large

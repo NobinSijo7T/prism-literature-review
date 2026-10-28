@@ -1,0 +1,98 @@
+% Extracted diagram: 07_model_responsibilities_flow
+% Source: main.tex, lines 2442-2534
+% This fragment uses the presentation preamble, colors, styles, and macros from main.tex.
+
+\begin{tikzpicture}[
+  x=1cm, y=1.22cm, font=\sffamily,
+  stage/.style={rectangle, rounded corners=4pt, draw=lavenderDark!65,
+    line width=0.75pt, text width=3.00cm, align=center,
+    inner sep=4.5pt, minimum height=1.00cm},
+  state/.style={rectangle, rounded corners=3.5pt, draw=prismTeal!80!black,
+    fill=white, line width=0.70pt, text width=4.15cm, align=left,
+    inner sep=4.5pt, font=\fontsize{5.6}{6.8}\selectfont},
+  process/.style={rectangle, rounded corners=4pt, draw=lavenderDark!55,
+    fill=lavenderLight!40, text width=7.80cm, align=left,
+    inner sep=4.8pt, font=\fontsize{5.8}{7.0}\selectfont},
+  flow/.style={-{Stealth[scale=0.75]}, line width=0.85pt, draw=prismTeal!85!black}
+]
+
+% Row 1: Stage 1 - Intent Classifier (Predicts Intent & Generates Task DAG)
+\node[stage, fill=lavenderLight!85] (s1) at (-6.00, 2.15) {
+  {\fontsize{7.2}{8.2}\selectfont\faBrain\ \textbf{1. Intent Classifier}}\\[2pt]
+  {\fontsize{5.4}{6.4}\selectfont Intent \& Dependency Task DAG}\\[1pt]
+  {\fontsize{4.8}{5.8}\selectfont\color{lavenderDark!90}\textit{(Trained on Intent Dataset)}}
+};
+\node[process] (p1) at (0.00, 2.15) {
+  \textbf{Input:} tokenized prompt + task context \textit{(intent dataset)}\quad $\rightarrow$\quad
+  \textbf{Process:} extract user goal \& construct dependency DAG\quad $\rightarrow$\quad
+  \textbf{Output:} intent labels + task DAG
+};
+\node[state] (o1) at (6.50, 2.15) {
+  \textbf{\fontsize{6.2}{7.2}\selectfont Output state 1: Task DAG created}\\[1.5pt]
+  \texttt{intent=research; research $\to$ extract $\to$ write}
+};
+
+% Row 2: Stage 2 - Agent Router
+\node[stage, fill=prismMint!65] (s2) at (-6.00, 0.70) {
+  {\fontsize{7.2}{8.2}\selectfont\faUsers\ \textbf{2. Agent Router}}\\[2pt]
+  {\fontsize{5.4}{6.4}\selectfont Specialist Agent Team}
+};
+\node[process] (p2) at (0.00, 0.70) {
+  \textbf{Input:} task DAG + intent\quad $\rightarrow$\quad
+  \textbf{Process:} map requirements to agent skills\quad $\rightarrow$\quad
+  \textbf{Output:} selected specialist agents
+};
+\node[state] (o2) at (6.50, 0.70) {
+  \textbf{\fontsize{6.2}{7.2}\selectfont Output state 2: Team selected}\\[1.5pt]
+  \texttt{agents=[Researcher, Writer]}
+};
+
+% Row 3: Stage 3 - Provider Router
+\node[stage, fill=lavenderLight!65!prismBlue] (s3) at (-6.00, -0.75) {
+  {\fontsize{7.2}{8.2}\selectfont\faRandom\ \textbf{3. Provider Router}}\\[2pt]
+  {\fontsize{5.4}{6.4}\selectfont Provider, Model \& Cost Routing}
+};
+\node[process] (p3) at (0.00, -0.75) {
+  \textbf{Input:} task DAG + selected agents\quad $\rightarrow$\quad
+  \textbf{Process:} compare model capabilities and availability\quad $\rightarrow$\quad
+  \textbf{Output:} provider/model assignment
+};
+\node[state] (o3) at (6.50, -0.75) {
+  \textbf{\fontsize{6.2}{7.2}\selectfont Output state 3: Model assigned}\\[1.5pt]
+  \texttt{task=v1, provider=OpenAI, model=GPT-4o}
+};
+
+% Row 4: Stage 4 - ORPO Model
+\node[stage, fill=lavenderLight!75!cHead] (s4) at (-6.00, -2.20) {
+  {\fontsize{7.2}{8.2}\selectfont\faBalanceScale\ \textbf{4. ORPO Model}}\\[2pt]
+  {\fontsize{5.4}{6.4}\selectfont Preference Alignment \& Quality}
+};
+\node[process] (p4) at (0.00, -2.20) {
+  \textbf{Input:} model output + preference data\quad $\rightarrow$\quad
+  \textbf{Process:} apply \textbf{ORPO Preference Optimization}\quad $\rightarrow$\quad
+  \textbf{Output:} aligned response
+};
+\node[state, fill=prismMint!45] (o4) at (6.50, -2.20) {
+  \textbf{\fontsize{6.0}{7.0}\selectfont Output state 4: ORPO-aligned response}\\[1.5pt]
+  Preferred answer + tool output + quality score
+};
+
+% Row 5: Final User-Facing Output Banner
+\node[state, fill=prismMint!65, text width=16.15cm, align=left] (finalout) at (0.54, -3.55) {
+  \textbf{\fontsize{6.6}{7.6}\selectfont Final output to the user:}\quad
+  {\fontsize{6.0}{7.0}\selectfont Completed task result + validated tool outputs + execution status + saved session record}
+};
+
+% Left model-to-model progression arrows
+\draw[-{Stealth[scale=0.70]}, line width=0.75pt, lavenderDark!60] (s1.south) -- (s2.north);
+\draw[-{Stealth[scale=0.70]}, line width=0.75pt, lavenderDark!60] (s2.south) -- (s3.north);
+\draw[-{Stealth[scale=0.70]}, line width=0.75pt, lavenderDark!60] (s3.south) -- (s4.north);
+
+% Right state-to-state vertical dataflow arrows
+\draw[flow] (o1.south) -- node[right=3pt, font=\fontsize{4.8}{5.6}\selectfont\bfseries, text=prismTeal!85!black] {task DAG + intent $\rightarrow$ Agent Router input} (o2.north);
+\draw[flow] (o2.south) -- node[right=3pt, font=\fontsize{4.8}{5.6}\selectfont\bfseries, text=prismTeal!85!black] {agent team $\rightarrow$ Provider Router input} (o3.north);
+\draw[flow] (o3.south) -- node[right=3pt, font=\fontsize{4.8}{5.6}\selectfont\bfseries, text=prismTeal!85!black] {model assignment $\rightarrow$ ORPO input} (o4.north);
+\draw[flow] (o4.south) -- node[right=3pt, font=\fontsize{4.8}{5.6}\selectfont\bfseries, text=prismTeal!85!black] {aligned response $\rightarrow$ final output} (finalout.north -| o4.south);
+
+\end{tikzpicture}
+

@@ -1,0 +1,28 @@
+% Extracted diagram: 18_database_schema_connectors
+% Source: main.tex, lines 4538-4560
+% This fragment uses the presentation preamble, colors, styles, and macros from main.tex.
+
+\begin{tikzpicture}[remember picture,overlay]
+  % agent_chat_sessions.id -> agent_chat_messages.sessionId
+  \draw[-{Latex[length=1.5mm]}, line width=0.55pt, lavenderDark!85!black]
+    ([xshift=3.90cm,yshift=6.28cm]current page.south west) --
+    node[above, pos=.50, yshift=2pt, fill=white, inner sep=1pt,
+      font=\fontsize{4.2}{4.8}\selectfont\color{lavenderDark!85!black}]{1:N}
+    ([xshift=4.35cm,yshift=6.28cm]current page.south west);
+
+  % agent_chat_sessions.id -> ai_tool_history.sessionId
+  \draw[-{Latex[length=1.5mm]}, dashed, line width=0.55pt, lavenderMedium!90!black]
+    ([xshift=3.90cm,yshift=6.10cm]current page.south west) --
+    ([xshift=3.90cm,yshift=4.05cm]current page.south west) --
+    node[above, pos=.50, fill=white, inner sep=1pt,
+      font=\fontsize{4.2}{4.8}\selectfont\color{lavenderMedium!90!black}]{sessionId FK, 1:N}
+    ([xshift=10.15cm,yshift=4.05cm]current page.south west) --
+    ([xshift=10.15cm,yshift=6.10cm]current page.south west) --
+    ([xshift=10.35cm,yshift=6.10cm]current page.south west);
+
+  % ai_tool_history -> Agent Key-Value Stores
+  \draw[-{Latex[length=1.5mm]}, dashed, line width=0.55pt, lavenderMedium!90!black]
+    ([xshift=15.45cm,yshift=5.05cm]current page.south west) --
+    ([xshift=15.45cm,yshift=3.90cm]current page.south west);
+\end{tikzpicture}
+

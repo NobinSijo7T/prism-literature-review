@@ -1,0 +1,84 @@
+% Extracted diagram: 19_database_er_diagram
+% Source: main.tex, lines 4587-4665
+% This fragment uses the presentation preamble, colors, styles, and macros from main.tex.
+
+\begin{tikzpicture}[
+  font=\sffamily,
+  entity/.style={rectangle, draw=lavenderDark!90, fill=lavenderLight,
+    line width=0.95pt, inner xsep=5pt, inner ysep=4.5pt,
+    align=center, font=\fontsize{6.3}{7.3}\selectfont\bfseries,
+    rounded corners=2pt},
+  relation/.style={diamond, aspect=2.0, draw=prismTeal!90!black, fill=prismMint,
+    line width=0.85pt, minimum width=1.05cm, minimum height=0.50cm,
+    align=center, inner sep=1pt, font=\fontsize{4.8}{5.8}\selectfont\bfseries},
+  attr/.style={ellipse, draw=lavenderMedium!90, fill=white, line width=0.75pt,
+    minimum width=1.55cm, minimum height=0.44cm, align=center,
+    inner sep=2pt, font=\fontsize{5.6}{6.6}\selectfont},
+  link/.style={line width=0.75pt, draw=lavenderDark!85!black},
+  card/.style={font=\fontsize{6.2}{7.2}\selectfont\bfseries, text=lavenderDark!95!black}
+]
+
+% ==================== ENTITIES & RELATIONSHIPS ====================
+% Horizontal line of chat entities (y = 0.90)
+\node[entity]   (sessions)  at (-5.60,  0.90) {AGENT\_CHAT\_SESSIONS};
+\node[relation] (hasmsg)    at (-2.80,  0.90) {MESSAGES};
+\node[entity]   (messages)  at ( 0.00,  0.90) {AGENT\_CHAT\_MESSAGES};
+\node[relation] (hastool)   at ( 2.80,  0.90) {TOOLS};
+\node[entity]   (tools)     at ( 5.60,  0.90) {AI\_TOOL\_HISTORY};
+
+% Vertical extension for state store (x = 5.60)
+\node[relation] (usesstate) at ( 5.60, -0.75) {USES STATE};
+\node[entity]   (kv)        at ( 5.60, -2.25) {AGENT KEY--VALUE STORES};
+
+% ==================== ATTRIBUTES ====================
+% Sessions Attributes (Top & Bottom)
+\node[attr] (sid)      at (-6.35, 2.25) {\underline{sessionId}};
+\node[attr] (stitle)   at (-4.85, 2.25) {title};
+\node[attr] (screated) at (-5.60, -0.30) {createdAt};
+\draw[link] (sid)      -- ([xshift=-0.5cm]sessions.north);
+\draw[link] (stitle)   -- ([xshift=0.5cm]sessions.north);
+\draw[link] (screated) -- (sessions.south);
+
+% Messages Attributes (Top & Bottom)
+\node[attr] (mid)      at (-1.10, 2.15) {\underline{id}};
+\node[attr] (msession) at ( 0.00, 2.75) {sessionId (FK)};
+\node[attr] (mrole)    at ( 1.10, 2.15) {role};
+\node[attr] (mcontent) at ( 0.00, -0.30) {content};
+\draw[link] (mid)      -- ([xshift=-0.5cm]messages.north);
+\draw[link] (msession) -- (messages.north);
+\draw[link] (mrole)    -- ([xshift=0.5cm]messages.north);
+\draw[link] (mcontent) -- (messages.south);
+
+% Tool-History Attributes (Top & Right)
+\node[attr] (tid)      at ( 4.50, 2.15) {\underline{id}};
+\node[attr] (tsession) at ( 5.60, 2.75) {sessionId (FK)};
+\node[attr] (ttype)    at ( 6.70, 2.15) {toolType};
+\node[attr] (tinput)   at ( 7.80, 1.35) {input};
+\node[attr] (toutput)  at ( 7.80, 0.45) {output};
+\draw[link] (tid)      -- ([xshift=-0.5cm]tools.north);
+\draw[link] (tsession) -- (tools.north);
+\draw[link] (ttype)    -- ([xshift=0.5cm]tools.north);
+\draw[link] (tinput)   -- (tools.east);
+\draw[link] (toutput)  -- (tools.east);
+
+% Key-Value Attributes (Bottom)
+\node[attr] (key)   at ( 4.55, -3.20) {\underline{key}};
+\node[attr] (value) at ( 6.65, -3.20) {value};
+\draw[link] (key)   -- ([xshift=-0.6cm]kv.south);
+\draw[link] (value) -- ([xshift=0.6cm]kv.south);
+
+% ==================== CONNECTORS & CARDINALITIES ====================
+% Sessions <-> MESSAGES <-> Messages
+\draw[link] (sessions.east) -- node[above=2pt, card] {1} (hasmsg.west);
+\draw[link] (hasmsg.east)   -- node[above=2pt, card] {N} (messages.west);
+
+% Messages <-> TOOLS <-> Tools
+\draw[link] (messages.east) -- node[above=2pt, card] {1} (hastool.west);
+\draw[link] (hastool.east)  -- node[above=2pt, card] {N} (tools.west);
+
+% Tools <-> USES STATE <-> Key-Value Stores
+\draw[link] (tools.south)     -- node[right=3.5pt, card] {N} (usesstate.north);
+\draw[link] (usesstate.south) -- node[right=3.5pt, card] {1} (kv.north);
+
+\end{tikzpicture}%
+

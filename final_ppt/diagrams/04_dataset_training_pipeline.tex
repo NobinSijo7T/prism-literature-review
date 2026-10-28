@@ -1,0 +1,70 @@
+% Extracted diagram: 04_dataset_training_pipeline
+% Source: main.tex, lines 2131-2195
+% This fragment uses the presentation preamble, colors, styles, and macros from main.tex.
+
+\begin{tikzpicture}[
+  stage/.style={rectangle, rounded corners=4pt, draw=lavenderDark!75, line width=0.9pt,
+    minimum height=4.4cm, align=left, inner sep=3.5pt, font=\fontsize{5.0}{5.6}\selectfont},
+  flow/.style={-{Stealth[scale=0.8]}, line width=1pt, draw=prismTeal!85!black}
+]
+\node[stage, fill=lavenderLight!55, minimum width=2.9cm, text width=2.5cm] (raw) at (-0.1,0) {
+  \centering{\fontsize{12}{12}\selectfont\color{lavenderDark}\faDatabase}\\[2pt]
+  \centering\textbf{1. Raw Datasets}\\[3pt]
+  \raggedright\fontsize{4.6}{5.5}\selectfont
+  \textbullet\ \textbf{BEIR} -- information retrieval,\\
+  \hspace{1.0em}semantic search, research intent labels\\
+  \textbullet\ \textbf{Agent Router datasets} -- agent/tool routing\\
+  \hspace{1.0em}{\fontsize{3.8}{4.4}\selectfont\comp{agent-llm-traces, AgentInstruct, APIBench, xlam-function-calling-60k}}\\
+  \textbullet\ \textbf{RouterBench} -- provider choice\\
+  \textbullet\ \textbf{UltraFeedback} -- preference pairs\\[3pt]
+  \centering\texttt{\fontsize{4.2}{5.0}\selectfont .parquet, .json, .jsonl}
+};
+\node[stage, fill=prismTeal!14, minimum width=6.25cm, text width=5.90cm] (tables) at (5.35,0) {
+  \centering{\fontsize{12}{12}\selectfont\color{prismTeal!85!black}\faTable}\\[1.5pt]
+  \centering\textbf{2. Supervised Tables: Fields \& Training Roles}\\[2.5pt]
+  \fontsize{3.55}{4.25}\selectfont
+  \setlength{\tabcolsep}{1.4pt}
+  \renewcommand{\arraystretch}{1.12}
+  \begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}m{1.28cm}|>{\raggedright\arraybackslash\ttfamily}m{1.65cm}|>{\raggedright\arraybackslash}m{1.82cm}|>{\raggedright\arraybackslash}X|}
+  \hline
+  \rowcolor{prismTeal!25}
+  \textrm{\textbf{Dataset $\to$ Table}} & \textrm{\textbf{Training fields}} & \textrm{\textbf{Algorithm}} & \textrm{\textbf{Resultant model}} \\\hline
+  \textbf{BEIR}\newline\comp{intent.jsonl} & 
+  query; document;\newline relevance score;\newline research intent label & 
+  TF--IDF / embeddings + XGBoost classifier. &
+  \textbf{IntentClassifier}\\\hline
+  \textbf{Agent Router datasets}\newline\comp{router.jsonl} & 
+  task prompt;\newline capabilities; tool / API cues;\newline agent or route target &
+  Binary-relevance XGBoost. &
+  \textbf{AgentRouter}\\\hline
+  \textbf{RouterBench}\newline\comp{provider.jsonl} & 
+  prompt;\newline winner / provider target;\newline vote\_score & 
+  XGBoost ranking/classifier. &
+  \textbf{ProviderRouter}\\\hline
+  \textbf{UltraFeedback}\newline\comp{reward.jsonl} & 
+  prompt;\newline chosen response;\newline rejected response; preference pair & 
+  ORPO (Odds Ratio Preference Optimization). &
+  \textbf{RewardModel}\\\hline
+  \end{tabularx}
+};
+\node[stage, fill=lavenderMedium!22, minimum width=4.45cm, text width=4.05cm] (models) at (11.45,0) {
+  \centering{\fontsize{13}{13}\selectfont\color{lavenderMedium!85!black}\faCogs}\\[2pt]
+  \centering\textbf{3. Resultant Production Models}\\[3pt]
+  \begin{minipage}{4.05cm}\centering\fontsize{5.2}{6.4}\selectfont
+  \fcolorbox{lavenderDark!75}{lavenderLight!55}{\parbox{3.82cm}{\centering
+  \textbf{IntentClassifier}\\[4pt]
+  \textbf{AgentRouter}\\[4pt]
+  \textbf{ProviderRouter}\\[4pt]
+  \textbf{RewardModel}}}
+  \end{minipage}
+};
+% Source normalization remains a single intake step.
+\draw[flow, line width=1.35pt] (raw.east |- 0,1.05) --
+  (tables.west |- 0,1.05);
+% Row-level training paths: each supervised table points to its resultant model.
+\draw[flow, line width=0.8pt] (tables.east |- 0,0.78) -- node[above, font=\fontsize{3.25}{3.65}\selectfont\bfseries, fill=prismLight, inner sep=0.35pt]{IntentClassifier} (models.west |- 0,0.78);
+\draw[flow, line width=0.8pt] (tables.east |- 0,0.24) -- node[above, font=\fontsize{3.25}{3.65}\selectfont\bfseries, fill=prismLight, inner sep=0.35pt]{AgentRouter} (models.west |- 0,0.24);
+\draw[flow, line width=0.8pt] (tables.east |- 0,-0.30) -- node[above, font=\fontsize{3.25}{3.65}\selectfont\bfseries, fill=prismLight, inner sep=0.35pt]{ProviderRouter} (models.west |- 0,-0.30);
+\draw[flow, line width=0.8pt] (tables.east |- 0,-0.84) -- node[below, font=\fontsize{3.25}{3.65}\selectfont\bfseries, fill=prismLight, inner sep=0.35pt]{RewardModel} (models.west |- 0,-0.84);
+\end{tikzpicture}%
+

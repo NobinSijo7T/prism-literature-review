@@ -1,0 +1,37 @@
+% Extracted diagram: 12_proposed_methods_pipeline
+% Source: main.tex, lines 3066-3097
+% This fragment uses the presentation preamble, colors, styles, and macros from main.tex.
+
+\begin{tikzpicture}[
+  >=Latex,
+  method/.style={draw=lavenderDark!75, rounded corners=4pt, minimum height=1.48cm,
+    text width=2.42cm, align=center, inner sep=4pt, line width=0.7pt,
+    font=\fontsize{6.5}{7.7}\selectfont},
+  methodarrow/.style={->, draw=lavenderDark!80, line width=0.9pt},
+  loop/.style={draw=prismTeal!80!black, rounded corners=3pt, fill=white,
+    minimum height=0.36cm, text width=0.74cm, align=center, inner sep=1pt,
+    font=\fontsize{3.85}{4.35}\selectfont\bfseries}
+]
+  \node[method, fill=cInput!65] (route) {\textbf{1. Route}\\[0.18em]
+    \normalfont\fontsize{5.7}{6.6}\selectfont Fuse context + embeddings\\ choose provider + agents};
+  \node[method, fill=cPlanner!55, right=0.30cm of route] (dag) {\textbf{2. Plan}\\[0.18em]
+    \normalfont\fontsize{5.7}{6.6}\selectfont Build a task DAG\\ run dependencies in order};
+  \node[method, fill=cReact!60, draw=prismTeal!90!black, line width=1.05pt,
+    text width=2.80cm, right=0.22cm of dag] (react) {\textbf{3. Execute}\\[0.08em]
+    \normalfont\fontsize{5.6}{6.4}\selectfont
+    \begin{tikzpicture}[baseline=-0.3ex, node distance=0.05cm]
+      \node[loop, text width=0.74cm, fill=cReact!35] (obs) {Observe};
+      \node[loop, text width=0.74cm, fill=cStage2!32, right=0.05cm of obs] (think) {Think};
+      \node[loop, text width=0.74cm, fill=cTool!38, right=0.05cm of think] (act) {Act+MCP};
+      \draw[methodarrow, draw=prismTeal!80!black, line width=0.55pt] (obs) -- (think);
+      \draw[methodarrow, draw=prismTeal!80!black, line width=0.55pt] (think) -- (act);
+      \draw[->, draw=prismTeal!80!black, line width=0.55pt] (act.south) .. controls +(0,-0.25) and +(0,-0.25) .. (obs.south);
+    \end{tikzpicture}\\[-0.05em]
+    \fontsize{5.1}{5.9}\selectfont Repeat until the sub-task is complete};
+  \node[method, fill=cSafety!45, right=0.22cm of react] (verify) {\textbf{4. Verify}\\[0.18em]
+    \normalfont\fontsize{5.7}{6.6}\selectfont ORPO + approval gate\\ save result in PrismDB};
+  \draw[methodarrow] (route.east) -- (dag.west);
+  \draw[methodarrow] (dag.east) -- (react.west);
+  \draw[methodarrow] (react.east) -- (verify.west);
+\end{tikzpicture}
+

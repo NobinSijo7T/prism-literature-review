@@ -1,0 +1,151 @@
+% Extracted diagram: 13_overall_system_flow
+% Source: main.tex, lines 3112-3257
+% This fragment uses the presentation preamble, colors, styles, and macros from main.tex.
+
+\begin{tikzpicture}[
+    x=1cm, y=1cm,
+    font=\sffamily,
+    inout/.style={
+        rectangle, rounded corners=3.5pt, line width=0.8pt,
+        inner sep=4.5pt, align=center,
+        font=\fontsize{7.2}{8.8}\selectfont
+    },
+    hdrbox/.style={
+        rectangle, draw=lavenderDark!80, line width=0.75pt, fill=lavenderDark!12,
+        rounded corners=2.5pt, inner sep=3.2pt, align=center,
+        text width=3.75cm,
+        font=\fontsize{6.8}{8.0}\selectfont\bfseries\color{lavenderDark}
+    },
+    stepbox/.style={
+        rectangle, draw=black!70, line width=0.65pt, fill=white,
+        rounded corners=2.5pt, inner sep=3.0pt, align=center,
+        text width=3.75cm,
+        font=\fontsize{6.2}{7.4}\selectfont
+    },
+    enginebox/.style={
+        rectangle, draw=lavenderDark!85, line width=0.75pt, fill=lavenderLight,
+        rounded corners=3pt, inner sep=3.5pt, align=left,
+        text width=3.75cm,
+        font=\fontsize{5.8}{7.0}\selectfont
+    },
+    stagebox/.style={
+        rectangle, draw=lavenderDark!35, dashed, rounded corners=5pt, line width=0.7pt,
+        fill=lavenderLight!25, inner xsep=4pt, inner ysep=5pt
+    },
+    flowarr/.style={
+        -{Stealth[scale=0.75]}, line width=0.75pt, draw=black!75
+    },
+    transarr/.style={
+        -{Stealth[scale=0.95]}, line width=1.3pt, draw=lavenderMedium
+    }
+]
+
+    % 1. TOP: INPUT BAR
+    \node [inout, fill=lavenderLight, draw=lavenderDark!70, text width=14.4cm] (input_node) at (0, 3.0) {
+        \textbf{\fontsize{7.8}{9.2}\selectfont\color{lavenderDark}[INPUT]} $\;\longrightarrow\;$
+        \textbf{User Objective, Query Prompt \& Task Context}
+        {\fontsize{6.5}{7.8}\selectfont $\;\vert\;$ Everyday Productivity / Technical Goals $\;\vert\;$ Session History}
+    };
+
+    % 2. MIDDLE: 3-STAGE HORIZONTAL PIPELINE
+
+    % --- STAGE 1: PREPROCESSING & FEATURES ---
+    \node [hdrbox] (h1) at (-5.1, 2.1) {1. Preprocessing \& Features};
+    \node [stepbox, below=0.25cm of h1] (s1_1) {\textbf{Data Preprocessing \& Normalization}};
+    \node [stepbox, below=0.25cm of s1_1] (s1_2) {
+        \textbf{Feature Extraction}\\[0.1em]
+        {\fontsize{5.4}{6.4}\selectfont Token N-Grams \& Metrics}
+    };
+    \node [stepbox, below=0.25cm of s1_2] (s1_3) {
+        \textbf{Missing Value Imputation}\\[0.1em]
+        {\fontsize{5.4}{6.4}\selectfont Standardization \& Cleaning}
+    };
+    \node [stepbox, below=0.25cm of s1_3] (s1_4) {
+        \textbf{Anomaly Detection}\\[0.1em]
+        {\fontsize{5.4}{6.4}\selectfont Outlier Filtering (IsolationForest)}
+    };
+
+    \draw [flowarr] (s1_1) -- (s1_2);
+    \draw [flowarr] (s1_2) -- (s1_3);
+    \draw [flowarr] (s1_3) -- (s1_4);
+
+    \begin{scope}[on background layer]
+    \node [stagebox, fit=(h1) (s1_4)] (stage1) {};
+    \end{scope}
+
+    % --- STAGE 2: MULTI-MODEL INTELLIGENCE & DAG PLANNING ---
+    \node [hdrbox] (h2) at (0, 2.1) {2. Intelligence \& Planning};
+    \node [enginebox, below=0.25cm of h2] (s2_1) {
+        \centering\textbf{\fontsize{6.8}{8.0}\selectfont\color{lavenderDark}Multi-Model Intelligence $\mathcal{M}_{\text{prism}}$}\\[0.15em]
+        {\color{lavenderMedium!60}\rule{\linewidth}{0.4pt}}\\[0.2em]
+        {\fontsize{5.6}{6.8}\selectfont
+        $\bullet$ \textbf{12-Class Intent Classifier} (Classifier Head)\\[0.15em]
+        $\bullet$ \textbf{Multi-Provider Router} (Groq, OpenAI, NIM)\\[0.15em]
+        $\bullet$ \textbf{Swarm Dispatcher} (Multi-Label Classifier)\\[0.15em]
+        $\bullet$ \textbf{Safety \& Approval Gate} (Threshold-Tuned)}
+    };
+
+    \node [stepbox, below=0.30cm of s2_1] (s2_2) {
+        \textbf{DAG (Directed Acyclic Graph) Plan}\\[0.12em]
+        {\fontsize{5.4}{6.4}\selectfont Compute Sub-Task DAG $\mathcal{G}(V, E)$}
+    };
+
+    \draw [flowarr] (s2_1) -- (s2_2);
+
+    \begin{scope}[on background layer]
+    \node [stagebox, fit=(h2) (s2_2)] (stage2) {};
+    \end{scope}
+
+    % --- STAGE 3: EXECUTION, STREAMING & PERSISTENCE ---
+    \node [hdrbox] (h3) at (5.1, 2.1) {3. Execution \& Storage};
+    \node [stepbox, below=0.25cm of h3] (s3_1) {
+        \textbf{\fontsize{6.2}{7.3}\selectfont ReAct Loop \& MCP Tools}\\[0.1em]
+        {\fontsize{5.4}{6.4}\selectfont Observation $\to$ Thought $\to$ Action $\mathbf{A}_{i,j}$}
+    };
+    \node [stepbox, below=0.25cm of s3_1] (s3_2) {
+        \textbf{Real-Time SSE Streaming}\\[0.1em]
+        {\fontsize{5.4}{6.4}\selectfont Token Delivery \& Telemetry}
+    };
+    \node [stepbox, below=0.25cm of s3_2] (s3_3) {
+        \textbf{ORPO Safety \& Verification}\\[0.1em]
+        {\fontsize{5.4}{6.4}\selectfont Preference Reward Scoring}
+    };
+    \node [stepbox, below=0.25cm of s3_3, fill=lavenderLight] (s3_4) {
+        \textbf{Local IndexedDB (\texttt{PrismDB})}\\[0.1em]
+        {\fontsize{5.4}{6.4}\selectfont Reactive via \texttt{useLiveQuery()}}
+    };
+
+    \draw [flowarr] (s3_1) -- (s3_2);
+    \draw [flowarr] (s3_2) -- (s3_3);
+    \draw [flowarr] (s3_3) -- (s3_4);
+
+    \begin{scope}[on background layer]
+    \node [stagebox, fit=(h3) (s3_4)] (stage3) {};
+    \end{scope}
+
+    % Transition arrows between stages
+    \draw [transarr] ($(stage1.east |- 0, 0.4)$) -- 
+        node[above=1pt, font=\fontsize{6.0}{7.0}\selectfont\bfseries\color{lavenderDark}]{Features} ($(stage2.west |- 0, 0.4)$);
+
+    \draw [transarr] ($(stage2.east |- 0, 0.4)$) -- 
+        node[above=1pt, font=\fontsize{6.0}{7.0}\selectfont\bfseries\color{lavenderDark}]{DAG Plan} ($(stage3.west |- 0, 0.4)$);
+
+    \draw [flowarr, line width=1.1pt, draw=lavenderDark!85] (input_node.south -| h1.north) -- (h1.north);
+
+    % 3. BOTTOM: OUTPUT BAR
+    \node [inout, fill=prismGold!15, draw=prismGold!90!black, text width=14.4cm, below=0.45cm of $(stage1.south)!0.5!(stage3.south)$] (output_node) {
+        \textbf{\fontsize{7.8}{9.2}\selectfont\color{lavenderDark}[OUTPUT]} $\;\longrightarrow\;$
+        \textbf{Live SSE Tokens} $\;\vert\;$
+        \textbf{Verified Everyday Deliverables, Emails, Reports \& Code} $\;\vert\;$
+        \textbf{Persistent PrismDB State}
+    };
+
+    \draw [flowarr, line width=1.1pt, draw=prismGold!90!black] (stage3.south -| h3.south) -- (output_node.north -| h3.south);
+
+    % Caption
+    \node [font=\fontsize{7.2}{8.5}\selectfont\bfseries\color{black!80}, below=0.10cm of output_node] {
+        \textit{Figure 1.1: End-to-End System Flow Architecture (\texttt{PrismSpace})}
+    };
+
+\end{tikzpicture}%
+

@@ -1,0 +1,198 @@
+% Extracted diagram: 15_system_architecture
+% Source: main.tex, lines 3836-4028
+% This fragment uses the presentation preamble, colors, styles, and macros from main.tex.
+
+\begin{tikzpicture}[
+  x=1cm, y=1cm,
+  every node/.style={align=center},
+  group/.style={draw=lavenderMedium!60, dashed, line width=0.75pt,
+    fill=lavenderLight!20, rounded corners=6pt},
+  grouptitle/.style={fill=lavenderDark, text=white, font=\fontsize{5.5}{6.5}\selectfont\bfseries,
+    rounded corners=2.5pt, inner xsep=6pt, inner ysep=2.2pt},
+  colbox/.style={rectangle, rounded corners=3pt, line width=0.65pt,
+    minimum height=0.60cm, inner ysep=2.5pt, inner xsep=4pt,
+    font=\fontsize{5.2}{6.2}\selectfont\bfseries},
+  modelbox/.style={rectangle, rounded corners=2.5pt, line width=0.65pt,
+    draw=lavenderDark!85, fill=white,
+    minimum height=0.60cm, inner ysep=2.2pt, inner xsep=3pt,
+    font=\fontsize{4.8}{5.8}\selectfont},
+  arrow/.style={
+    -{Stealth[scale=0.75]}, line width=0.75pt, draw=lavenderDark!85
+  },
+  modelarrow/.style={
+    -{Stealth[scale=0.65]}, line width=0.65pt, draw=lavenderDark!75
+  },
+  badge/.style={
+    fill=white, draw=lavenderMedium!80, rounded corners=2pt, line width=0.45pt,
+    inner xsep=3.5pt, inner ysep=1.6pt, font=\fontsize{4.2}{5.2}\selectfont\bfseries
+  }
+]
+
+  % =========================================================================
+  % COLUMN 1: PRESENTATION & API GATEWAY
+  % Center: 1.38, width: 2.65cm, height: 6.30cm, Center Y = 3.30
+  % Group span: [0.055, 2.705]
+  % =========================================================================
+  \node[group, minimum width=2.65cm, minimum height=6.30cm] (g1) at (1.38, 3.30) {};
+  \node[grouptitle, anchor=west] at (0.15, 6.45) {1. Presentation \& API Gateway};
+
+  \node[colbox, text width=2.45cm, fill=cInput, draw=prismSlate!70] (g1_user) at (1.38, 5.60) {%
+    \faUser\ \textbf{User Objective Ingestion}\\[1.5pt]
+    {\fontsize{4.1}{5.0}\selectfont Natural Language Prompt\\[0.5pt]Scope Bounds ($K \le 3$)}%
+  };
+
+  \node[colbox, text width=2.45cm, fill=cStem, draw=prismIndigo!70] (g1_ui) at (1.38, 3.80) {%
+    \faDesktop\ \textbf{Next.js 15 Client UI}\\[1.5pt]
+    {\fontsize{4.1}{5.0}\selectfont React 19 Dashboard\\[0.5pt]Swarm Visualizer}%
+  };
+
+  \node[colbox, text width=2.45cm, fill=cPlanner, draw=prismBlue!80] (g1_gw) at (1.38, 2.00) {%
+    \faServer\ \textbf{FastAPI Hive Gateway}\\[1.5pt]
+    {\fontsize{4.1}{5.0}\selectfont REST API $\cdot$ Tool Registry\\[0.5pt]Real-Time Token Streaming}%
+  };
+
+  \draw[arrow] (g1_user) -- (g1_ui);
+  \draw[arrow] (g1_ui) -- (g1_gw);
+
+  % =========================================================================
+  % COLUMN 2: ML ROUTING & HYBRID RETRIEVAL
+  % Center: 5.95, width: 4.60cm, height: 6.30cm, Center Y = 3.30
+  % Group span: [3.65, 8.25]
+  % =========================================================================
+  \node[group, minimum width=4.60cm, minimum height=6.30cm] (g2) at (5.95, 3.30) {};
+  \node[grouptitle, anchor=west] at (3.75, 6.45) {2. ML Routing \& Hybrid Retrieval};
+
+  \node[colbox, text width=4.30cm, fill=cDispatch, draw=prismBlue!85] (g2_feat) at (5.95, 5.60) {%
+    \faCogs\ \textbf{Feature Extraction \& Vectorization}\\[1.5pt]
+    {\fontsize{4.1}{5.0}\selectfont Convert text to numbers + Statistical word patterns\\[0.5pt]Multi-Source Training Corpora}%
+  };
+
+  % ML Model Grid (Intent, Agent Router, Provider Router)
+  \node[modelbox, text width=2.00cm, minimum height=0.65cm, fill=cHead!45] (m_intent) at (4.80, 4.35) {%
+    \faBrain\ \textbf{Intent Classifier}%
+  };
+  \node[modelbox, text width=2.00cm, minimum height=0.65cm, fill=cStage1!45] (m_agent) at (7.10, 4.35) {%
+    \faUsers\ \textbf{Swarm Agent Router}\\[1.5pt]
+    {\fontsize{4.0}{4.8}\selectfont Specialist Dispatch ($K \le 3$)}%
+  };
+  \node[modelbox, text width=2.50cm, minimum height=0.65cm, fill=cStage4!45] (m_model) at (5.95, 3.05) {%
+    \faRandom\ \textbf{Provider Router}\\[1.5pt]
+    {\fontsize{4.0}{4.8}\selectfont Groq, OpenAI, Anthropic, NIM}%
+  };
+
+  \node[colbox, text width=4.30cm, fill=cMemory, draw=purple!60!black] (g2_rank) at (5.95, 1.35) {%
+    \faSearch\ \textbf{Hybrid Retrieval Ranker}\\[1.5pt]
+    {\fontsize{4.1}{5.0}\selectfont Dense Vector Embedding Search + Keyword Relevance Match\\[0.5pt]
+    Context Window Selection $\cdot$ Specialist Knowledge Bases}%
+  };
+
+  % Connectors inside Col 2
+  \draw[modelarrow] (g2_feat.south) -- (5.95, 5.00) -| (m_intent.north);
+  \draw[modelarrow] (g2_feat.south) -- (5.95, 5.00) -| (m_agent.north);
+  \draw[-] (m_intent.south) -- (4.80, 3.65) -- (5.95, 3.65);
+  \draw[-] (m_agent.south) -- (7.10, 3.65) -- (5.95, 3.65);
+  \draw[modelarrow] (5.95, 3.65) -- (m_model.north);
+  \draw[modelarrow] (m_model.south) -- (g2_rank.north);
+  % =========================================================================
+  % COLUMN 3: SWARM DAG, SEPARATE AGENT BOXES, SAFETY & SEPARATE OUTPUTS
+  % Center: 11.90, width: 5.80cm, height: 6.30cm, Center Y = 3.30
+  % Group span: [9.00, 14.80]
+  % =========================================================================
+  \node[group, minimum width=5.80cm, minimum height=6.30cm] (g3) at (11.90, 3.30) {};
+  \node[grouptitle, anchor=west] at (9.10, 6.45) {3. Swarm DAG, Specialist Agents, Safety \& Outputs};
+
+  % 1. DAG Task Planner
+  \node[colbox, text width=5.40cm, fill=cReact, draw=prismTeal!90] (g3_dag) at (11.90, 5.60) {%
+    \faProjectDiagram\ \textbf{DAG Task Planner $\mathcal{G}(V, E)$}\\[1.5pt]
+    {\fontsize{4.1}{5.0}\selectfont Workflow DAG Generation \& Scheduling $\cdot$ Success Probability Forecaster}%
+  };
+
+  % 2. THREE SEPARATE AGENT BOXES (Side-by-Side with clear roles and tools!)
+  % Centers: 9.95, 11.90, 13.85 (width: 1.65cm each, height: 1.35cm, Y = 4.15)
+  \node[colbox, text width=1.55cm, minimum height=1.35cm, fill=cTool!80, draw=prismGold!95!black, inner sep=2.5pt] (ag_coder) at (9.95, 4.15) {%
+    \textbf{\fontsize{4.9}{5.9}\selectfont\color{prismTeal!90!black}\faCode\ Coder Agent}\\[2.5pt]
+    {\fontsize{3.7}{4.5}\selectfont Edits source code,\\[1pt]CLI terminal tools,\\[1pt]syntax debugging}%
+  };
+
+  \node[colbox, text width=1.55cm, minimum height=1.35cm, fill=cTool!80, draw=prismGold!95!black, inner sep=2.5pt] (ag_assist) at (11.90, 4.15) {%
+    \textbf{\fontsize{4.9}{5.9}\selectfont\color{prismBlue}\faSearch\ Assistant Agent}\\[2.5pt]
+    {\fontsize{3.7}{4.5}\selectfont Web research,\\[1pt]Gmail \& Drive tools,\\[1pt]context synthesis}%
+  };
+
+  \node[colbox, text width=1.55cm, minimum height=1.35cm, fill=cTool!80, draw=prismGold!95!black, inner sep=2.5pt] (ag_val) at (13.85, 4.15) {%
+    \textbf{\fontsize{4.9}{5.9}\selectfont\color{purple!75!black}\faClipboardCheck\ Validator Agent}\\[2.5pt]
+    {\fontsize{3.7}{4.5}\selectfont Output reviews,\\[1pt]test assertion suites,\\[1pt]safety policy checks}%
+  };
+
+  % 3. Safety Triad & HITL Gate
+  \node[colbox, text width=5.40cm, fill=cSafety!50, draw=red!70!black] (g3_safety) at (11.90, 2.75) {%
+    \faLock\ \textbf{Safety Triad \& HITL Checkpoint Gate}\\[1.5pt]
+    {\fontsize{4.1}{5.0}\selectfont Approval Risk Scorer $\cdot$ Anomaly Detector $\cdot$ ORPO Alignment Scorer}%
+  };
+
+  % 4. Approval Badge
+  \node[badge, draw=green!60!black, text=green!55!black] (b_app) at (11.90, 2.05) {\faCheck\ Approved: Commit Deliverables};
+
+  % 5. FOUR SEPARATE OUTPUT BOXES (2x2 Grid with generous central spacing!)
+  % Row 1 at Y = 1.35, Row 2 at Y = 0.55
+  % Left Col: 10.35, Right Col: 13.45 (width: 2.35cm each, height: 0.65cm)
+  \node[colbox, text width=2.25cm, minimum height=0.62cm, fill=cDeliverable!95, draw=prismTeal!80!black, inner sep=2.0pt] (out_gmail) at (10.35, 1.35) {%
+    \textbf{\fontsize{4.8}{5.8}\selectfont\color{red!70!black}\faEnvelope\ Gmail Actions}\\[1.5pt]
+    {\fontsize{3.7}{4.5}\selectfont Sent emails, replies \& drafts}%
+  };
+
+  \node[colbox, text width=2.25cm, minimum height=0.62cm, fill=cDeliverable!95, draw=prismTeal!80!black, inner sep=2.0pt] (out_drive) at (13.45, 1.35) {%
+    \textbf{\fontsize{4.8}{5.8}\selectfont\color{prismBlue!90!black}\faGoogleDrive\ Google Drive Sync}\\[1.5pt]
+    {\fontsize{3.7}{4.5}\selectfont Synced docs \& spreadsheets}%
+  };
+
+  \node[colbox, text width=2.25cm, minimum height=0.62cm, fill=cDeliverable!95, draw=prismTeal!80!black, inner sep=2.0pt] (out_code) at (10.35, 0.55) {%
+    \textbf{\fontsize{4.8}{5.8}\selectfont\color{prismTeal!90!black}\faFileCode\ Code \& Terminal}\\[1.5pt]
+    {\fontsize{3.7}{4.5}\selectfont Source patches \& CLI builds}%
+  };
+
+  \node[colbox, text width=2.25cm, minimum height=0.62cm, fill=cDeliverable!95, draw=prismTeal!80!black, inner sep=2.0pt] (out_db) at (13.45, 0.55) {%
+    \textbf{\fontsize{4.8}{5.8}\selectfont\color{purple!75!black}\faDatabase\ PrismDB \& Live UI}\\[1.5pt]
+    {\fontsize{3.7}{4.5}\selectfont 17 Dexie tables \& token stream}%
+  };
+
+  % Connectors inside Col 3
+  % DAG Planner -> 3 Agents
+  \draw[arrow] (g3_dag.south) -- (11.90, 5.00) -| (ag_coder.north);
+  \draw[arrow] (g3_dag.south) -- (ag_assist.north);
+  \draw[arrow] (g3_dag.south) -- (11.90, 5.00) -| (ag_val.north);
+
+  % 3 Agents -> Safety Gate
+  \draw[arrow] (ag_coder.south) |- (11.90, 3.30) -- (g3_safety.north);
+  \draw[arrow] (ag_assist.south) -- (g3_safety.north);
+  \draw[arrow] (ag_val.south)   |- (11.90, 3.30) -- (g3_safety.north);
+
+  % Safety Gate -> Commit Badge -> 4 Output Boxes via clean central bus
+  \draw[arrow, draw=green!60!black, line width=0.75pt] (g3_safety.south) -- (b_app.north);
+  \draw[-, draw=green!60!black, line width=0.75pt] (b_app.south) -- (11.90, 0.55);
+  \draw[arrow, draw=green!60!black, line width=0.65pt] (11.90, 1.35) -- (out_gmail.east);
+  \draw[arrow, draw=green!60!black, line width=0.65pt] (11.90, 1.35) -- (out_drive.west);
+  \draw[arrow, draw=green!60!black, line width=0.65pt] (11.90, 0.55) -- (out_code.east);
+  \draw[arrow, draw=green!60!black, line width=0.65pt] (11.90, 0.55) -- (out_db.west);
+
+  % Re-Plan / Feedback Loop (Right margin at x=15.40 - ample clearance from ag_val at 14.675!)
+  \draw[arrow, draw=red!75!black, line width=0.75pt] (g3_safety.east) -- (15.40, 2.75) -- (15.40, 5.60) -- (g3_dag.east);
+  \node[badge, draw=red!75!black, text=red!75!black] at (15.40, 4.15) {\faTimes\ Re-Plan};
+
+  % =========================================================================
+  % INTER-COLUMN PIPELINE ROUTING
+  % =========================================================================
+  % Gateway -> Feature Extraction (Channel 1: mid = 3.14)
+  \draw[arrow, draw=lavenderDark!90, line width=0.75pt] (g1_gw.east) -- (3.14, 2.00) -- (3.14, 5.60) -- (g2_feat.west);
+  \node[badge, text=lavenderDark] at (3.14, 3.80) {REST / Stream};
+
+  % Channel 2: Routing Spec -> DAG Planner (mid = 8.62)
+  \draw[arrow, draw=lavenderDark!90, line width=0.75pt] (m_agent.east) -- (8.62, 4.35) -- (8.62, 5.60) -- (g3_dag.west);
+  \node[badge, text=lavenderDark] at (8.62, 5.05) {Routing};
+
+  % Channel 2: Context -> Agents (mid = 8.62)
+  \draw[arrow, draw=lavenderDark!90, line width=0.75pt] (g2_rank.east) -- (8.62, 1.35) -- (8.62, 4.15) -- (ag_coder.west);
+  \node[badge, text=lavenderDark] at (8.62, 2.75) {Context};
+
+\end{tikzpicture}%
+

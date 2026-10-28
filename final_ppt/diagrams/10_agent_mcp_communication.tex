@@ -1,0 +1,25 @@
+% Extracted diagram: 10_agent_mcp_communication
+% Source: main.tex, lines 2785-2804
+% This fragment uses the presentation preamble, colors, styles, and macros from main.tex.
+
+\begin{tikzpicture}[
+  font=\sffamily,
+  comm/.style={rectangle, rounded corners=2.5pt, draw=lavenderDark!75,
+    fill=lavenderLight!45, line width=0.65pt, minimum height=0.48cm,
+    text width=2.35cm, align=center, font=\fontsize{5.4}{6.2}\selectfont\bfseries,
+    inner sep=2.5pt},
+  req/.style={-{Stealth[scale=0.65]}, line width=0.7pt, draw=prismTeal!90!black},
+  resp/.style={{Stealth[scale=0.65]}-, line width=0.6pt, draw=prismGold!90!black, dashed}
+]
+\node[comm, fill=prismGold!18] (agent) at (0,0) {Agent / LLM\\\scriptsize decides tool call};
+\node[comm, fill=prismTeal!14] (client) at (3.2,0) {MCP Client\\\scriptsize validates request};
+\node[comm, fill=lavenderLight!70] (server) at (6.4,0) {MCP Server\\\scriptsize exposes tools};
+\node[comm, fill=prismMint!55] (tool) at (9.6,0) {Tool\\\scriptsize browser / DB / CLI};
+\draw[req] (agent) -- node[above=2pt, fill=white, inner sep=0.8pt, font=\fontsize{4.8}{5.6}\selectfont]{request} (client);
+\draw[req] (client) -- (server);
+\draw[req] (server) -- (tool);
+\coordinate (returnStart) at ([yshift=-0.48cm]tool.south);
+\coordinate (returnEnd) at ([yshift=-0.48cm]agent.south);
+\draw[resp] (tool.south) -- (returnStart) -- node[below=1pt, fill=white, inner sep=0.8pt, font=\fontsize{4.8}{5.6}\selectfont]{tool result} (returnEnd) -- (agent.south);
+\end{tikzpicture}%
+

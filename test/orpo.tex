@@ -1,0 +1,123 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{pifont}
+\usepackage{enumitem}
+\usepackage{tabularx}
+
+\geometry{a4paper, margin=1in}
+
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+\title{How ORPO Works: Preference Alignment and Quality Gating}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction and Definitions}
+
+\subsection{WHAT IS ORPO?}
+\begin{itemize}
+    \item \textbf{ORPO = Odds Ratio Preference Optimization}. It is a preference-optimization method for fine-tuning language models.
+    \item ORPO combines the supervised fine-tuning (SFT) objective with an odds-ratio preference objective in a single training stage.
+    \item It learns from preferred and rejected responses without requiring a separately trained reward model.
+\end{itemize}
+
+\subsection{WHAT IS A PREFERENCE PAIR?}
+A preference pair contains a prompt and two responses to that prompt: one preferred and one rejected. These pairs are prepared as training data before ORPO fine-tuning.
+\begin{itemize}
+    \item[\cmark] \textbf{Preferred answer} (higher quality / better aligned)
+    \item[\xmark] \textbf{Rejected answer} (lower quality / less suitable)
+\end{itemize}
+
+\noindent\textit{Illustrative example:} Prompt: ``Explain photosynthesis in simple words.'' Preferred response: ``Plants use sunlight to make food from water and carbon dioxide.'' Rejected response: ``Photosynthesis is the process by which atoms form nuclear explosions.'' These are illustrative preference-training examples, not guaranteed outputs produced by ORPO.
+
+\raggedbottom
+\newpage
+
+\section{End-to-End Pipeline: From Preference Pairs to\\ Runtime Quality Gating}
+
+\subsection{Training Stage}
+
+\begin{enumerate}
+    \item \textbf{Prepare preference data}
+    \begin{itemize}
+        \item Each record contains a prompt, a preferred response, and a rejected response.
+        \item The prompt and its two candidate responses form a preference pair for training.
+    \end{itemize}
+    
+    \item \textbf{Provide the preference pair}
+    \begin{itemize}
+        \item \textit{Prompt:} ``Explain photosynthesis in simple words.''
+        \item[\cmark] \textbf{Preferred:} Plants use sunlight to make food from water and carbon dioxide.
+        \item[\xmark] \textbf{Rejected:} Photosynthesis is the process by which atoms form nuclear explosions.
+    \end{itemize}
+    
+    \item \textbf{Apply single-stage ORPO fine-tuning}
+    \begin{itemize}
+        \item ORPO combines the supervised learning loss with an odds-ratio preference loss for the pair $(y_w, y_l)$, where $y_w$ is preferred and $y_l$ is rejected.
+        \item In simplified form, its objective can be written as $\mathcal{L}_{\mathrm{ORPO}} = \mathcal{L}_{\mathrm{SFT}} + \lambda\mathcal{L}_{\mathrm{OR}}$. It does not use a separate reward signal or reward model.
+    \end{itemize}
+    
+    \item \textbf{Produce the fine-tuned model}
+    \begin{itemize}
+        \item The result is a fine-tuned model that has learned from the supplied preference data.
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Runtime Inference Stage}
+
+\begin{enumerate}
+    \item \textbf{Receive a new user prompt} and generate a response using the fine-tuned model.
+    \item \textbf{Apply the separate quality gate} to the generated response.
+    \begin{itemize}
+        \item \textbf{Example checks:} task relevance, coherence, and applicable safety requirements.
+        \item The quality gate is an optional project-level runtime component; it is not an inherent part of ORPO.
+    \end{itemize}
+    
+    \item \textbf{Approve or trigger an action}
+    \begin{itemize}
+        \item[\cmark] \textbf{Approved:} The response passes the defined checks.
+        \item[\xmark] \textbf{Rejected or revised:} The system blocks the response or triggers a revision according to the defined rules.
+    \end{itemize}
+\end{enumerate}
+
+\newpage
+
+\section{Comparison and Selection Evaluation}
+
+\subsection{ORPO vs. Traditional PPO-Based RLHF}
+
+\begin{table}[h!]
+\centering
+\caption{Comparison of ORPO and Traditional PPO-Based RLHF}
+\begin{tabularx}{\textwidth}{@{}X X@{}}
+\toprule
+\textbf{ORPO} & \textbf{Traditional PPO-Based RLHF} \\ \midrule
+\cmark\ Combines SFT and preference optimization in one training stage. & \cmark\ Typically uses SFT, a separately trained reward model, and PPO optimization. \\
+\cmark\ Does not require a separate reward model. & \cmark\ Requires a separate reward model to provide the learned objective for PPO. \\
+\cmark\ Has fewer separate training components. & \cmark\ Has a more involved multi-stage training pipeline. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Why Choose ORPO for This Project?}
+\begin{itemize}
+    \item \textbf{Direct preference learning:} it learns from preferred and rejected responses without a separate reward-model training step.
+    \item \textbf{Simpler training workflow:} combining supervised fine-tuning and preference optimization reduces the number of separate training components to implement and explain.
+    \item \textbf{Additional runtime validation:} the separate quality gate can check relevance, coherence, and applicable safety requirements after generation. ORPO itself does not guarantee that every response is safe or correct.
+\end{itemize}
+
+\vfill
+\footnotesize
+\noindent\rule{\textwidth}{0.4pt}
+\begin{center}
+Group 01 \textbullet\ CSE, CEK \hfill Fine-tuning, ORPO \hfill ORPO
+\end{center}
+
+\end{document}

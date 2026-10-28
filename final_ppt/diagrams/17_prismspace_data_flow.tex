@@ -1,0 +1,106 @@
+% Extracted diagram: 17_prismspace_data_flow
+% Source: main.tex, lines 4286-4386
+% This fragment uses the presentation preamble, colors, styles, and macros from main.tex.
+
+\begin{tikzpicture}[
+  entity/.style={rectangle, draw=lavenderDark!75, line width=0.85pt, rounded corners=2.5pt,
+    align=center, inner sep=4.5pt, font=\fontsize{6.5}{7.5}\selectfont\bfseries,
+    text width=1.75cm, fill=cInput, drop shadow={opacity=0.08, shadow xshift=0.5pt, shadow yshift=-0.5pt}},
+  store/.style={rectangle, draw=lavenderDark!70, line width=0.85pt,
+    align=center, inner sep=4.0pt, font=\fontsize{6.0}{7.0}\selectfont,
+    text width=1.85cm, fill=lavenderLight, drop shadow={opacity=0.08, shadow xshift=0.5pt, shadow yshift=-0.5pt}},
+  proc/.style={circle, draw=lavenderMedium!90, line width=0.85pt,
+    align=center, inner sep=1.5pt, minimum size=1.15cm,
+    font=\fontsize{5.8}{6.8}\selectfont, fill=cStage1, drop shadow={opacity=0.06, shadow xshift=0.5pt, shadow yshift=-0.5pt}},
+  procblue/.style={proc, fill=cStage4},
+  procgold/.style={proc, fill=cStage2},
+  iface/.style={rectangle, rounded corners=5pt, draw=lavenderDark!85, line width=0.95pt,
+    align=center, inner sep=5pt, text width=1.85cm,
+    font=\fontsize{6.5}{7.5}\selectfont\bfseries, fill=cPlanner, drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}},
+  model/.style={entity, text width=1.85cm, fill=cStage2},
+  flow/.style={-{Stealth[scale=0.80]}, line width=0.85pt, draw=lavenderDark!85},
+  dottedflow/.style={-{Stealth[scale=0.75]}, dashed, line width=0.80pt, draw=lavenderDark!75},
+  feedback/.style={-{Stealth[scale=0.80]}, dashed, line width=0.85pt, draw=prismTeal!90!black},
+  label/.style={font=\fontsize{5.2}{6.2}\selectfont\bfseries, text=prismTeal!90!black, inner sep=1.5pt}
+]
+
+% ==================== NODES ====================
+
+% External Entity: User / Workspace (Leftmost)
+\node[entity] (external) at (-6.20, 0.20) {User /\\ Workspace};
+
+% Stores: Top row (y = 2.45)
+\node[store] (accounts) at (-4.20, 2.45) {\textbf{Indexed DB}\\[1pt]\fontsize{5.4}{6.4}\selectfont sessions,\\ messages, files};
+\node[store] (prompts) at (1.50, 2.45) {\textbf{User}\\[1pt]\textbf{Prompts}};
+
+% Model Entity (Top Right, y = 2.45)
+\node[model] (model) at (5.40, 2.45) {Large\\ Language\\ Models};
+
+% Left Process Group (Input ingestion & Session, y = 1.05 and y = -0.45)
+\node[proc] (login) at (-4.20, 1.05) {load\\ context};
+\node[proc] (enter) at (-4.20, -0.45) {enter\\ objective};
+\node[procblue] (validate) at (-2.60, 1.05) {validate\\ session};
+
+% Central Interfaces & Prompt Handling
+\node[iface] (api) at (-1.80, -0.45) {Next.js\\ API\\ proxy};
+\node[procblue] (storeprompt) at (-0.30, 1.05) {store\\ prompt};
+\node[procblue] (pass) at (0.90, 1.05) {pass\\ context};
+\node[procgold] (read) at (2.20, 1.05) {read\\ prompt};
+\node[iface] (llm) at (2.20, -0.45) {LLM\\ interface};
+
+% Execution Output
+\node[proc] (generate) at (5.40, -0.45) {generate\\ response};
+
+% Bottom Row: Validation, Feedback & Adaptation (All on y = -1.95)
+\node[procblue] (display) at (-6.20, -1.95) {display\\ response};
+\node[proc] (correct) at (-1.80, -1.95) {validate\\ result};
+\node[store] (wrong) at (0.40, -1.95) {store\\ failed\\ trace};
+\node[procgold] (train) at (2.40, -1.95) {route /\\ refine};
+\node[procgold] (integrate) at (4.40, -1.95) {update\\ policy};
+
+% ==================== FLOW ARROWS ====================
+
+% 1. Context loading from Indexed DB
+\draw[flow] (accounts.south) -- node[right=1pt, font=\fontsize{4.8}{5.8}\selectfont\color{lavenderDark!70}]{read} (login.north);
+\draw[flow] (login.east) -- (validate.west);
+\draw[flow] (validate.south) to[out=-70,in=140] ([xshift=-0.35cm]api.north);
+
+% 2. User Input flow
+\draw[flow] (external.east) |- (enter.west);
+\draw[flow] (enter.east) -- (api.west);
+
+% 3. Persistence to Indexed DB from API Proxy (runs straight up at X = -1.80 to Y = 2.45, then left into accounts.east)
+\draw[dottedflow] (api.north) -- (-1.80, 2.45) -- node[above, font=\fontsize{4.8}{5.8}\selectfont\color{lavenderDark!80}\itshape]{persist} (accounts.east);
+
+% 4. Prompt Storage in Data Store
+\draw[flow] ([xshift=0.35cm]api.north) |- (storeprompt.west);
+\draw[flow] (storeprompt.north) |- (prompts.west);
+
+% 5. Prompt & Context Retrieval into LLM Interface (Straight parallel vertical drops)
+\draw[flow] ([xshift=-0.60cm]prompts.south) -- (pass.north);
+\draw[flow] ([xshift=0.70cm]prompts.south) -- (read.north);
+\draw[flow] (pass.south) -- ++(0, -0.40) -| ([xshift=-0.45cm]llm.north);
+\draw[flow] (read.south) -- (llm.north);
+
+% 6. LLM Interface <-> Model Inference Cycle
+\draw[flow] (llm.north east) -- (model.south west);
+\draw[flow] (model.south) -- (generate.north);
+\draw[flow] (generate.west) -- (llm.east);
+\draw[flow] (llm.west) -- (api.east);
+
+% 7. Validation Path from API
+\draw[flow] (api.south) -- (correct.north);
+
+% 8. Verified Output Delivery (Pass)
+\draw[feedback] (correct.west) -- node[above, label]{verified output} (display.east);
+\draw[feedback] (display.north) -- (external.south);
+
+% 9. Failure Handling & Adaptive Re-planning Loop
+\draw[flow] (correct.east) -- node[above, font=\fontsize{4.8}{5.8}\selectfont\color{statusFail!90!black}\bfseries]{fail} (wrong.west);
+\draw[flow] (wrong.east) -- (train.west);
+\draw[flow] (train.east) -- (integrate.west);
+% Policy update cleanly loops back to LLM Interface in the open horizontal corridor at Y = -1.15
+\draw[dottedflow] (integrate.north) -- (4.40, -1.15) -- node[above, font=\fontsize{4.8}{5.8}\selectfont\color{lavenderDark}\itshape]{refine / retry} (2.20, -1.15) -- (llm.south);
+
+\end{tikzpicture}%
+

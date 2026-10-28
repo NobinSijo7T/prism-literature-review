@@ -1,0 +1,134 @@
+% Extracted diagram: 22_topological_sorting_and_routing
+% Source: slide_topological.tex, lines 153-281
+% This fragment uses the presentation preamble, colors, styles, and macros from main.tex.
+
+\begin{tikzpicture}[
+  node distance=0.25cm,
+  stepnode/.style={
+    rectangle, rounded corners=3.5pt, draw=lavenderDark!75, fill=lavenderLight!50,
+    minimum height=1.54cm, text width=2.15cm, align=center, inner sep=2.5pt,
+    font=\fontsize{5.2}{6.2}\selectfont
+  },
+  poolnode/.style={
+    rectangle, rounded corners=3.5pt, draw=prismTeal!80!black, fill=prismMint!35,
+    minimum height=1.54cm, text width=4.35cm, align=center, inner sep=2.0pt
+  },
+  filternode/.style={
+    rectangle, rounded corners=3.5pt, draw=prismBlue!85!black, fill=lavenderLight!65,
+    minimum height=1.54cm, text width=2.15cm, align=center, inner sep=2.5pt,
+    font=\fontsize{5.2}{6.2}\selectfont
+  },
+  scorenode/.style={
+    rectangle, rounded corners=3.5pt, draw=prismTeal!85!black, fill=prismMint!60,
+    minimum height=1.54cm, text width=2.20cm, align=center, inner sep=2.5pt,
+    font=\fontsize{5.2}{6.2}\selectfont
+  },
+  dispatchnode/.style={
+    rectangle, rounded corners=3.5pt, draw=lavenderDark!90, fill=lavenderLight!80,
+    minimum height=1.54cm, text width=2.20cm, align=center, inner sep=2.5pt,
+    font=\fontsize{5.2}{6.2}\selectfont
+  },
+  parr/.style={-{Stealth[scale=0.70]}, line width=0.90pt, draw=lavenderDark!90!black,
+    shorten <=0.02cm, shorten >=0.02cm}
+]
+
+  % 1. Task Profile
+  \node[stepnode] (step1) at (0, 0) {
+    \textbf{\color{lavenderDark}\faTasks\; 1. Task Profile}\\[1.5pt]
+    \fontsize{4.5}{5.4}\selectfont
+    \textbf{Input:} User task + constraints\\
+    \textbf{Working:} Extract task type, quality needs, privacy, and deadline\\
+    \textbf{Output:} Routing requirements
+  };
+
+  % 2. Candidate Pool with Real Logos
+  \node[poolnode] (step2) at (4.10, 0) {
+    {\fontsize{5.2}{6.2}\selectfont\textbf{\color{prismTeal!90!black}\faServer\; 2. Candidate Pool}}\\[-1pt]
+    {\fontsize{4.4}{5.2}\selectfont\textbf{Input:} routing requirements \quad | \quad \textbf{Working:} check provider capabilities \quad | \quad \textbf{Output:} candidate models}\\[1pt]
+    % Groq Card
+    \begin{tcolorbox}[
+      enhanced, arc=2pt, colframe=groqOrange!85, colback=white,
+      boxrule=0.45pt, left=1.5pt, right=1.5pt, top=0.6pt, bottom=0.6pt, width=4.20cm
+    ]
+      \begin{minipage}[c]{0.11\linewidth}
+        \centering\includegraphics[height=0.28cm,keepaspectratio]{logos/groq.png}
+      \end{minipage}%
+      \begin{minipage}[c]{0.87\linewidth}
+        \fontsize{4.5}{5.4}\selectfont
+        \textbf{\color{groqOrange!95!black}Groq LPU:} Blazing speed ($\approx 500$ tok/s, lowest cost)\\
+        \textit{Role: Fast streaming, tool calls \& instant summaries}
+      \end{minipage}
+    \end{tcolorbox}
+    \vspace{-0.24cm}
+    % OpenAI Card
+    \begin{tcolorbox}[
+      enhanced, arc=2pt, colframe=openaiGreen!85, colback=white,
+      boxrule=0.45pt, left=1.5pt, right=1.5pt, top=0.6pt, bottom=0.6pt, width=4.20cm
+    ]
+      \begin{minipage}[c]{0.11\linewidth}
+        \centering\includegraphics[height=0.28cm,keepaspectratio]{logos/openai.png}
+      \end{minipage}%
+      \begin{minipage}[c]{0.87\linewidth}
+        \fontsize{4.5}{5.4}\selectfont
+        \textbf{\color{openaiGreen!95!black}OpenAI GPT-4o:} Frontier IQ \& deep reasoning\\
+        \textit{Role: Complex planning, code synthesis \& math logic}
+      \end{minipage}
+    \end{tcolorbox}
+    \vspace{-0.24cm}
+    % NVIDIA NIM Card
+    \begin{tcolorbox}[
+      enhanced, arc=2pt, colframe=nvidiaGreen!85, colback=white,
+      boxrule=0.45pt, left=1.5pt, right=1.5pt, top=0.6pt, bottom=0.6pt, width=4.20cm
+    ]
+      \begin{minipage}[c]{0.11\linewidth}
+        \centering\includegraphics[height=0.28cm,keepaspectratio]{logos/nvidia.png}
+      \end{minipage}%
+      \begin{minipage}[c]{0.87\linewidth}
+        \fontsize{4.5}{5.4}\selectfont
+        \textbf{\color{nvidiaGreen!95!black}NVIDIA NIM:} Self-hosted / Open Llama-3 70B\\
+        \textit{Role: Enterprise microservice, private zero-leak GPU}
+      \end{minipage}
+    \end{tcolorbox}
+  };
+
+  % 3. Filter
+  \node[filternode] (step3) at (8.20, 0) {
+    \textbf{\color{prismBlue!90!black}\faFilter\; 3. Hard Filter}\\[1.5pt]
+    \fontsize{4.5}{5.4}\selectfont
+    \textbf{Input:} candidate models\\[-1pt]
+    \textbf{Working:} remove models that cannot satisfy the task\\[-1pt]
+    \textbf{Checks:} context, availability, privacy\\[-1pt]
+    \textbf{Output:} eligible models
+  };
+
+  % 4. Score
+  \node[scorenode] (step4) at (11.25, 0) {
+    \textbf{\color{prismTeal!90!black}\faBalanceScale\; 4. Smart Scoring}\\[1.5pt]
+    \fontsize{4.5}{5.4}\selectfont
+    \textbf{Input:} eligible models\\[-1pt]
+    \textbf{Algorithm:} XGBoost ranking/classifier\\[-1pt]
+    \textbf{Working:} compare task needs with model capabilities\\[-1pt]
+    \textbf{Output:} ranked model list
+  };
+
+  % 5. Dispatch
+  \node[dispatchnode] (step5) at (14.30, 0) {
+    \textbf{\color{lavenderDark}\faPaperPlane\; 5. Dispatch \& Fallback}\\[1.5pt]
+    \fontsize{4.5}{5.4}\selectfont
+    \textbf{Input:} selected model + task\\[-1pt]
+    \textbf{Working:} send request, monitor execution, and use fallback if needed\\[-1pt]
+    \textbf{Output:} model response + telemetry\\[-1pt]
+    \textbf{Result:} tool/API response
+  };
+
+  % Place each hand-off label above its arrow, centered in the gap between boxes.
+  \tikzset{flowlabel/.style={midway, above=1.5pt, fill=white, inner sep=0.6pt,
+    text width=0.58cm, align=center,
+    font=\fontsize{3.8}{4.3}\selectfont\bfseries, text=lavenderDark}}
+  \draw[parr] (step1.east) -- node[flowlabel] {Output:\\ \{task\_profile\}} (step2.west);
+  \draw[parr] (step2.east) -- node[flowlabel] {Output:\\ \{candidates[]\}} (step3.west);
+  \draw[parr] (step3.east) -- node[flowlabel] {Output:\\ \{eligible[]\}} (step4.west);
+  \draw[parr] (step4.east) -- node[flowlabel] {Output:\\ \{selected\_model\}} (step5.west);
+
+\end{tikzpicture}%
+

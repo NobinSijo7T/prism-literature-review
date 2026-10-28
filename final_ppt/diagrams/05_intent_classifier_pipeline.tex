@@ -1,0 +1,43 @@
+% Extracted diagram: 05_intent_classifier_pipeline
+% Source: main.tex, lines 2291-2328
+% This fragment uses the presentation preamble, colors, styles, and macros from main.tex.
+
+\begin{tikzpicture}[
+  font=\sffamily,
+  stage/.style={rectangle, rounded corners=3pt, draw=lavenderDark!70,
+    line width=0.7pt, minimum height=0.72cm, text width=2.35cm,
+    align=center, inner sep=3pt, font=\fontsize{5.8}{6.8}\selectfont\bfseries},
+  detail/.style={rectangle, rounded corners=2pt, draw=black!25,
+    fill=white, line width=0.5pt, text width=2.55cm, align=left,
+    inner sep=3pt, font=\fontsize{4.8}{5.7}\selectfont},
+  flow/.style={-{Stealth[scale=0.72]}, line width=0.8pt, draw=prismTeal!90!black},
+  branch/.style={-{Stealth[scale=0.65]}, line width=0.65pt, draw=prismGold!90!black}
+]
+% Main processing path
+\node[stage, fill=prismGold!18] (prompt) at (0,2.15) {1. User Prompt\\\scriptsize natural language};
+\node[detail] (clean) at (0,0.72) {\textbf{Normalize}\\lowercase, resolve references, detect constraints\\\texttt{prompt\_cleaner}};
+\node[stage, fill=lavenderLight!65] (features) at (3.3,2.15) {2. Feature Extraction\\\scriptsize entities + constraints};
+\node[detail] (intent) at (3.3,0.72) {\textbf{Classify intent}\\research / coding / tool use / synthesis\\\texttt{intent\_classifier.joblib}};
+\node[stage, fill=prismTeal!18] (classify) at (6.6,2.15) {3. Intent Classifier\\\scriptsize task type + confidence};
+\node[detail] (route) at (6.6,0.72) {\textbf{Route}\\select agent roles, model provider, and safety policy\\confidence threshold};
+\node[stage, fill=prismMint!55] (dag) at (9.9,2.15) {4. DAG Segmentation\\\scriptsize dependency-safe subtasks};
+\node[detail] (actions) at (9.9,0.72) {\textbf{Action guidelines}\\sequence, tools, approvals, retry policy\\\texttt{dag\_planner.pkl}};
+
+\draw[flow] (prompt.east) -- node[above, font=\fontsize{4.7}{5.5}\selectfont]{parse} (features.west);
+\draw[flow] (features.east) -- node[above, font=\fontsize{4.7}{5.5}\selectfont]{predict} (classify.west);
+\draw[flow] (classify.east) -- node[above, font=\fontsize{4.7}{5.5}\selectfont]{decompose} (dag.west);
+\draw[branch] (prompt.south) -- (clean.north);
+\draw[branch] (features.south) -- (intent.north);
+\draw[branch] (classify.south) -- (route.north);
+\draw[branch] (dag.south) -- (actions.north);
+
+% Interactive-style decision branches
+\node[stage, fill=red!10, text width=2.7cm] (safe) at (3.3,-1.15) {5. Safety Gate\\\scriptsize approval required?};
+\node[stage, fill=prismGold!18, text width=2.7cm] (parallel) at (6.6,-1.15) {6. Parallelize\\\scriptsize independent DAG nodes};
+\node[stage, fill=prismTeal!18, text width=2.7cm] (execute) at (9.9,-1.15) {7. Execute + Verify\\\scriptsize observe, act, validate};
+\draw[flow] (actions.south) -- (safe.north);
+\draw[flow] (safe.east) -- node[above, font=\fontsize{4.5}{5.2}\selectfont]{approved} (parallel.west);
+\draw[flow] (parallel.east) -- node[above, font=\fontsize{4.5}{5.2}\selectfont]{dispatch} (execute.west);
+\draw[branch] (safe.south) -- ++(0,-0.35) -| node[pos=0.25, below, font=\fontsize{4.4}{5.2}\selectfont]{pause / request HITL} (safe.west);
+\end{tikzpicture}%
+

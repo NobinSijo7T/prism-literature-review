@@ -1,0 +1,56 @@
+% Extracted diagram: 20_conclusion_gantt
+% Source: main.tex, lines 4810-4860
+% This fragment uses the presentation preamble, colors, styles, and macros from main.tex.
+
+\begin{tikzpicture}[
+  x=1.00cm, y=0.52cm,
+  lab/.style={anchor=east, font=\scriptsize, inner sep=3pt, text=prismNavy}
+]
+\def\nm{9}
+\def\rowh{1.0}
+\def\bh{0.36}
+\def\topY{11.5}
+
+\foreach \i in {0,1,...,\nm} {
+  \draw[gray!22] (\i,0.5) -- (\i,\topY);
+}
+\foreach \i/\m in {0.5/Jul'26,1.5/Aug'26,2.5/Sep'26,3.5/Oct'26,4.5/Nov'26,5.5/Dec'26,6.5/Jan'27,7.5/Feb'27,8.5/Mar'27} {
+  \node[anchor=south, font=\scriptsize\bfseries, text=prismNavy] at (\i,\topY+0.08) {\m};
+}
+\draw[prismNavy, line width=0.7pt] (0,\topY) -- (\nm,\topY);
+\draw[prismNavy, line width=0.6pt] (0,0.5) -- (\nm,0.5);
+
+\foreach \k in {0,...,10} {
+  \pgfmathsetmacro{\yc}{11.0-\k}
+  \ifodd\k
+    \fill[prismMint, opacity=0.45] (0,\yc-0.5) rectangle (\nm,\yc+0.5);
+  \fi
+}
+
+\node[lab] at (0,11.0) {Project ideation \& problem identification};
+\node[lab] at (0,10.0) {Literature survey \& research};
+\node[lab] at (0,9.0) {Requirement analysis \& feasibility};
+\node[lab] at (0,8.0) {System design (agents, \textbf{MCP}, \textbf{HITL})};
+\node[lab] at (0,7.0) {Trajectory data collection \& pairing};
+\node[lab] at (0,6.0) {Implementation: \textbf{MCP} \textbf{ReAct} swarm};
+\node[lab] at (0,5.0) {Implementation: \textbf{ORPO} \& \textbf{ML} routing};
+\node[lab] at (0,4.0) {Workspace integration \& \textbf{HITL} gates};
+\node[lab] at (0,3.0) {Testing \& evaluation};
+\node[lab] at (0,2.0) {Project documentation};
+\node[lab] at (0,1.0) {Final review \& submission};
+
+\fill[prismBlue]     (0.0,11.0-0.18) rectangle (2.0,11.0+0.18);
+\fill[prismTeal]     (1.0,10.0-0.18) rectangle (2.5,10.0+0.18);
+\fill[prismGold]     (1.5,9.0-0.18)  rectangle (2.5,9.0+0.18);
+\fill[prismBlue]     (2.0,8.0-0.18)  rectangle (3.5,8.0+0.18);
+\fill[prismTeal]     (3.0,7.0-0.18)  rectangle (4.5,7.0+0.18);
+\fill[prismGold]     (4.0,6.0-0.18)  rectangle (5.5,6.0+0.18);
+\fill[prismBlue]     (5.0,5.0-0.18)  rectangle (6.5,5.0+0.18);
+\fill[prismTeal]     (6.0,4.0-0.18)  rectangle (7.5,4.0+0.18);
+\fill[prismGold]     (7.0,3.0-0.18)  rectangle (8.0,3.0+0.18);
+\fill[prismBlue]     (7.5,2.0-0.18)  rectangle (9.0,2.0+0.18);
+\fill[prismTeal]     (8.0,1.0-0.18)  rectangle (9.0,1.0+0.18);
+
+\node[font=\scriptsize\bfseries, text=prismNavy] at (4.5,-0.15) {Timeline (Jul 2026 -- Mar 2027)};
+\end{tikzpicture}%
+

@@ -9,36 +9,36 @@
 \begin{column}{0.32\textwidth}
   \begin{tcolorbox}[
     enhanced, arc=2.5pt, colframe=lavenderDark!85, colback=lavenderLight!35,
-    title={\scriptsize\bfseries\color{white}\faProjectDiagram\; 1. Partial Order Precedence},
+    title={\scriptsize\bfseries\color{white}\faProjectDiagram\; 1. Task Dependencies},
     boxrule=0.55pt, left=3pt, right=3pt, top=1.2pt, bottom=1.2pt
   ]
   \fontsize{4.6}{5.5}\selectfont
-  $\bullet$\;\textbf{Causal constraints:} Task $v$ blocks until inputs $u \in \text{Pred}(v)$ finish.\\
-  $\bullet$\;\textbf{No false priority:} Independent tasks ($A, B$) share no forced order.
+  $\bullet$\;\textbf{Prerequisites first:} A task starts after the tasks it needs are finished.\\
+  $\bullet$\;\textbf{Independent work:} Unrelated tasks can run in any order.
   \end{tcolorbox}
 \end{column}
 
 \begin{column}{0.34\textwidth}
   \begin{tcolorbox}[
     enhanced, arc=2.5pt, colframe=prismTeal!85!black, colback=prismMint!35,
-    title={\scriptsize\bfseries\color{white}\faExclamationTriangle\; 2. Finds Cycles \& Prevents Hangs},
+    title={\scriptsize\bfseries\color{white}\faExclamationTriangle\; 2. Finds Waiting Loops},
     boxrule=0.55pt, left=3pt, right=3pt, top=1.2pt, bottom=1.2pt
   ]
   \fontsize{4.6}{5.5}\selectfont
-  $\bullet$\;\textbf{Finds circular dependencies:} Detects when tasks wait for each other in a loop ($A\;\longrightarrow\;B\;\longrightarrow\;A$).\\
-  $\bullet$\;\textbf{Stops safely:} Reports the problem instead of waiting forever for tasks to finish.
+  $\bullet$\;\textbf{Finds circular waiting:} Detects loops such as $A$ waits for $B$, while $B$ waits for $A$.\\
+  $\bullet$\;\textbf{Stops safely:} Reports the problem instead of waiting forever.
   \end{tcolorbox}
 \end{column}
 
 \begin{column}{0.32\textwidth}
   \begin{tcolorbox}[
     enhanced, arc=2.5pt, colframe=lavenderMedium!90, colback=lavenderLight!35,
-    title={\scriptsize\bfseries\color{white}\faCogs\; 3. Parallel Concurrency Fan-out},
+    title={\scriptsize\bfseries\color{white}\faCogs\; 3. Runs Work in Parallel},
     boxrule=0.55pt, left=3pt, right=3pt, top=1.2pt, bottom=1.2pt
   ]
   \fontsize{4.6}{5.5}\selectfont
-  $\bullet$\;\textbf{Zero in-degree queue:} Nodes with $\text{in-degree} = 0$ run \textbf{concurrently}.\\
-  $\bullet$\;\textbf{Barrier sync:} Automatically resolves dependencies into join barriers.
+  $\bullet$\;\textbf{Ready tasks:} Tasks with no unfinished prerequisites can start together.\\
+  $\bullet$\;\textbf{Safe hand-off:} The next task starts only when all required inputs arrive.
   \end{tcolorbox}
 \end{column}
 \end{columns}
@@ -49,7 +49,7 @@
 \begin{tcolorbox}[
   enhanced, arc=3pt, colframe=lavenderDark!75, colback=white,
   boxrule=0.55pt, left=2.0pt, right=2.0pt, top=0.8pt, bottom=0.8pt, width=\linewidth,
-  title={\scriptsize\bfseries\color{white}\faTable\; Comparative Analysis: Topological Sort vs. Classical Sorting Algorithms}
+  title={\scriptsize\bfseries\color{white}\faTable\; Simple Comparison: Topological Sort vs. Common Sorting}
 ]
 \setlength{\tabcolsep}{2.2pt}
 \fontsize{4.2}{5.1}\selectfont
@@ -57,53 +57,53 @@
 \begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}m{2.30cm} | >{\centering\arraybackslash}m{1.80cm} | >{\raggedright\arraybackslash}m{2.50cm} | >{\centering\arraybackslash}m{1.40cm} | >{\centering\arraybackslash}m{1.45cm} | >{\centering\arraybackslash}m{1.50cm} | >{\raggedright\arraybackslash}X}
 \hline
 \rowcolor{lavenderLight!90}
-\textbf{Algorithm} & \textbf{Data Structure} & \textbf{Ordering Principle} & \textbf{Time Compl.} & \textbf{Cycle Detect} & \textbf{Parallelism} & \textbf{Fit for Workflow DAGs} \\
+\textbf{Method} & \textbf{Works With} & \textbf{How It Orders} & \textbf{Speed} & \textbf{Finds Loops} & \textbf{Parallel Work} & \textbf{Useful for Task Workflows} \\
 \hline
 
 \rowcolor{prismMint!85}
-\textbf{\color{prismTeal!90!black}\faCheckCircle\; Topological Sort} (Kahn's / DFS) &
-Directed Acyclic Graph $\mathcal{G}(V,E)$ &
-\textbf{Causal Precedence} (Partial Order: $u\;\longrightarrow\;v$) &
+\textbf{\color{prismTeal!90!black}\faCheckCircle\; Topological Sort} &
+Task dependency graph &
+\textbf{Prerequisites first} &
 $\mathcal{O}(V + E)$ &
 {\color{prismTeal!90!black}\textbf{Yes}} (In-degree) &
 {\color{prismTeal!90!black}\textbf{Yes}} (Fan-out) &
-\textbf{\color{prismTeal!90!black}Optimal:} Respects data pipes; runs async independent tasks in parallel. \\
+\textbf{\color{prismTeal!90!black}Best choice:} Follows task dependencies and runs independent tasks together. \\
 \hline
 
-\textbf{Merge Sort} (Divide \& Conquer) &
-1D Array / Linear List &
-\textbf{Value Magnitude} (Total Order: $a \le b$) &
+\textbf{Merge Sort} &
+List of values &
+\textbf{Smallest value first} &
 $\mathcal{O}(n \log n)$ &
 {\color{red!75!black}\faTimesCircle\; No} (N/A) &
 {\color{red!75!black}\faTimesCircle\; No} (Serial 1D) &
-{\color{red!75!black}\textbf{Invalid:}} Ignores dependency graphs; compares data values, not prerequisites. \\
+{\color{red!75!black}\textbf{Not suitable:}} Sorts values, not task prerequisites. \\
 \hline
 
-\textbf{Quick Sort} (Pivot Partitioning) &
-1D Array / Linear List &
-\textbf{Value Magnitude} (Total Order: $a \le b$) &
+\textbf{Quick Sort} &
+List of values &
+\textbf{Around a pivot value} &
 $\mathcal{O}(n \log n)$ avg &
 {\color{red!75!black}\faTimesCircle\; No} (N/A) &
 {\color{red!75!black}\faTimesCircle\; No} (Serial 1D) &
-{\color{red!75!black}\textbf{Invalid:}} Partitions around arbitrary value pivots; destroys execution order. \\
+{\color{red!75!black}\textbf{Not suitable:}} Does not know which task must come first. \\
 \hline
 
-\textbf{Heap Sort} (Priority Queue) &
-Binary Tree / Array &
-\textbf{Key Priority} (Total Order: max/min) &
+\textbf{Heap Sort} &
+Priority list &
+\textbf{Highest priority first} &
 $\mathcal{O}(n \log n)$ &
 {\color{red!75!black}\faTimesCircle\; No} (N/A) &
 {\color{red!75!black}\faTimesCircle\; No} (Serial 1D) &
-{\color{red!75!black}\textbf{Invalid:}} Orders by scalar priority; cannot enforce multi-parent edge barriers. \\
+{\color{red!75!black}\textbf{Not suitable:}} Priority alone cannot enforce several prerequisites. \\
 \hline
 
-\textbf{Bubble / Insertion} (Linear Swap) &
-1D Array / Linear List &
-\textbf{Adjacent Swap} (Total Order: $a_i > a_{i+1}$) &
+\textbf{Bubble / Insertion} &
+List of values &
+\textbf{Neighbor comparisons} &
 $\mathcal{O}(n^2)$ &
 {\color{red!75!black}\faTimesCircle\; No} (N/A) &
 {\color{red!75!black}\faTimesCircle\; No} (Strict Serial) &
-{\color{red!75!black}\textbf{Invalid:}} Quadratic pairwise swaps cannot represent topological DAG flow. \\
+{\color{red!75!black}\textbf{Not suitable:}} Pairwise swaps cannot represent task dependencies. \\
 \hline
 \end{tabularx}
 \end{tcolorbox}
@@ -114,7 +114,7 @@ $\mathcal{O}(n^2)$ &
   boxrule=0.45pt, left=3.5pt, right=3.5pt, top=1.0pt, bottom=1.0pt
 ]
 \fontsize{4.3}{5.1}\selectfont\color{lavenderDark}
-\textbf{Core Architectural Takeaway:} Classical sorting algorithms ($\mathcal{O}(n \log n)$) arrange scalar values along a 1D axis ($a_1 \le a_2 \dots$). In contrast, multi-agent execution graphs require scheduling a \textbf{partially ordered set} with zero, one, or multiple asynchronous parent promises. \textbf{Topological Sorting} is the only algorithm with $\mathcal{O}(V+E)$ complexity that guarantees causal precedence, detects deadlocks, and unlocks parallel execution.
+\textbf{Why This Matters for PrismSpace:} Regular sorting puts numbers or words in order. PrismSpace must order tasks based on their prerequisites. \textbf{Topological sorting} follows those prerequisites, detects circular dependencies, and lets independent tasks run together.
 \end{tcolorbox}
 
 \end{frame}
@@ -126,7 +126,8 @@ $\mathcal{O}(n^2)$ &
 \providecolor{openaiGreen}{RGB}{16, 163, 127}
 \providecolor{nvidiaGreen}{RGB}{118, 185, 0}
 
-\begin{frame}[t]{How Provider Routing Works: Task-to-Model Selection}
+\iffalse
+\begin{frame}[t]{Agent \& Provider Router working}
 \vspace{-0.78em}
 
 % Top Concept Banner: Technically Simplified Goal
@@ -148,13 +149,13 @@ Instead of sending every query to a slow, expensive frontier model, PrismSpace d
   boxrule=0.6pt, left=2.0pt, right=2.0pt, top=0.9pt, bottom=0.9pt
 ]
 \centering
-\adjustbox{max width=0.99\linewidth, max totalheight=0.335\textheight, keepaspectratio}{%
+\adjustbox{max width=0.99\linewidth, max totalheight=0.47\textheight, keepaspectratio}{%
 \begin{tikzpicture}[
   node distance=0.25cm,
   stepnode/.style={
     rectangle, rounded corners=3.5pt, draw=lavenderDark!75, fill=lavenderLight!50,
     minimum height=1.54cm, text width=2.15cm, align=center, inner sep=2.5pt,
-    font=\fontsize{4.4}{5.2}\selectfont
+    font=\fontsize{5.2}{6.2}\selectfont
   },
   poolnode/.style={
     rectangle, rounded corners=3.5pt, draw=prismTeal!80!black, fill=prismMint!35,
@@ -163,17 +164,17 @@ Instead of sending every query to a slow, expensive frontier model, PrismSpace d
   filternode/.style={
     rectangle, rounded corners=3.5pt, draw=prismBlue!85!black, fill=lavenderLight!65,
     minimum height=1.54cm, text width=2.15cm, align=center, inner sep=2.5pt,
-    font=\fontsize{4.4}{5.2}\selectfont
+    font=\fontsize{5.2}{6.2}\selectfont
   },
   scorenode/.style={
     rectangle, rounded corners=3.5pt, draw=prismTeal!85!black, fill=prismMint!60,
     minimum height=1.54cm, text width=2.20cm, align=center, inner sep=2.5pt,
-    font=\fontsize{4.4}{5.2}\selectfont
+    font=\fontsize{5.2}{6.2}\selectfont
   },
   dispatchnode/.style={
     rectangle, rounded corners=3.5pt, draw=lavenderDark!90, fill=lavenderLight!80,
     minimum height=1.54cm, text width=2.20cm, align=center, inner sep=2.5pt,
-    font=\fontsize{4.4}{5.2}\selectfont
+    font=\fontsize{5.2}{6.2}\selectfont
   },
   parr/.style={-{Stealth[scale=0.70]}, line width=0.90pt, draw=lavenderDark!90!black,
     shorten <=0.02cm, shorten >=0.02cm}
@@ -182,16 +183,16 @@ Instead of sending every query to a slow, expensive frontier model, PrismSpace d
   % 1. Task Profile
   \node[stepnode] (step1) at (0, 0) {
     \textbf{\color{lavenderDark}\faTasks\; 1. Task Profile}\\[1.5pt]
-    \fontsize{4.0}{4.7}\selectfont
-    $\bullet$\;\textbf{Intent:} Code, logic, lookup\\
-    $\bullet$\;\textbf{Min Quality:} Threshold $\tau$\\
-    $\bullet$\;\textbf{Privacy:} Public vs Local\\
-    $\bullet$\;\textbf{SLA:} Latency deadline
+    \fontsize{4.5}{5.4}\selectfont
+    \textbf{Input:} User task + constraints\\
+    \textbf{Working:} Extract task type, quality needs, privacy, and deadline\\
+    \textbf{Output:} Routing requirements
   };
 
   % 2. Candidate Pool with Real Logos
   \node[poolnode] (step2) at (4.10, 0) {
-    {\fontsize{4.5}{5.2}\selectfont\textbf{\color{prismTeal!90!black}\faServer\; 2. Candidate Pool (Specialized Backends)}}\\[1.5pt]
+    {\fontsize{5.2}{6.2}\selectfont\textbf{\color{prismTeal!90!black}\faServer\; 2. Candidate Pool}}\\[-1pt]
+    {\fontsize{4.4}{5.2}\selectfont\textbf{Input:} routing requirements \quad | \quad \textbf{Working:} check provider capabilities \quad | \quad \textbf{Output:} candidate models}\\[1pt]
     % Groq Card
     \begin{tcolorbox}[
       enhanced, arc=2pt, colframe=groqOrange!85, colback=white,
@@ -201,7 +202,7 @@ Instead of sending every query to a slow, expensive frontier model, PrismSpace d
         \centering\includegraphics[height=0.28cm,keepaspectratio]{logos/groq.png}
       \end{minipage}%
       \begin{minipage}[c]{0.87\linewidth}
-        \fontsize{4.1}{4.7}\selectfont
+        \fontsize{4.5}{5.4}\selectfont
         \textbf{\color{groqOrange!95!black}Groq LPU:} Blazing speed ($\approx 500$ tok/s, lowest cost)\\
         \textit{Role: Fast streaming, tool calls \& instant summaries}
       \end{minipage}
@@ -216,7 +217,7 @@ Instead of sending every query to a slow, expensive frontier model, PrismSpace d
         \centering\includegraphics[height=0.28cm,keepaspectratio]{logos/openai.png}
       \end{minipage}%
       \begin{minipage}[c]{0.87\linewidth}
-        \fontsize{4.1}{4.7}\selectfont
+        \fontsize{4.5}{5.4}\selectfont
         \textbf{\color{openaiGreen!95!black}OpenAI GPT-4o:} Frontier IQ \& deep reasoning\\
         \textit{Role: Complex planning, code synthesis \& math logic}
       \end{minipage}
@@ -231,7 +232,7 @@ Instead of sending every query to a slow, expensive frontier model, PrismSpace d
         \centering\includegraphics[height=0.28cm,keepaspectratio]{logos/nvidia.png}
       \end{minipage}%
       \begin{minipage}[c]{0.87\linewidth}
-        \fontsize{4.1}{4.7}\selectfont
+        \fontsize{4.5}{5.4}\selectfont
         \textbf{\color{nvidiaGreen!95!black}NVIDIA NIM:} Self-hosted / Open Llama-3 70B\\
         \textit{Role: Enterprise microservice, private zero-leak GPU}
       \end{minipage}
@@ -241,39 +242,41 @@ Instead of sending every query to a slow, expensive frontier model, PrismSpace d
   % 3. Filter
   \node[filternode] (step3) at (8.20, 0) {
     \textbf{\color{prismBlue!90!black}\faFilter\; 3. Hard Filter}\\[1.5pt]
-    \fontsize{4.0}{4.7}\selectfont
-    \textbf{Drops ineligible models}\\[1.2pt]
-    $\bullet$\;\textbf{Context limit}\\
-    $\bullet$\;\textbf{Rate limits}\\
-    $\bullet$\;\textbf{Privacy policy}
+    \fontsize{4.5}{5.4}\selectfont
+    \textbf{Input:} candidate models\\[-1pt]
+    \textbf{Working:} remove models that cannot satisfy the task\\[-1pt]
+    \textbf{Checks:} context, availability, privacy\\[-1pt]
+    \textbf{Output:} eligible models
   };
 
   % 4. Score
   \node[scorenode] (step4) at (11.25, 0) {
     \textbf{\color{prismTeal!90!black}\faBalanceScale\; 4. Smart Scoring}\\[1.5pt]
-    \fontsize{4.0}{4.7}\selectfont
-    $\bullet$\;\textbf{Evaluates trade-off}\\[1.2pt]
-    $\bullet$\;\textbf{Cost + Latency}\\[1.2pt]
-    $\bullet$\;\textbf{Quality $\ge \tau$}
+    \fontsize{4.5}{5.4}\selectfont
+    \textbf{Input:} eligible models\\[-1pt]
+    \textbf{Algorithm:} XGBoost ranking/classifier\\[-1pt]
+    \textbf{Working:} compare task needs with model capabilities\\[-1pt]
+    \textbf{Output:} ranked model list
   };
 
   % 5. Dispatch
   \node[dispatchnode] (step5) at (14.30, 0) {
     \textbf{\color{lavenderDark}\faPaperPlane\; 5. Dispatch \& Fallback}\\[1.5pt]
-    \fontsize{4.0}{4.7}\selectfont
-    $\bullet$\;\textbf{Execute API}\\
-    $\bullet$\;\textbf{Auto-Failover}\\
-    $\bullet$\;\textbf{Telemetry}
+    \fontsize{4.5}{5.4}\selectfont
+    \textbf{Input:} selected model + task\\[-1pt]
+    \textbf{Working:} send request, monitor execution, and use fallback if needed\\[-1pt]
+    \textbf{Output:} model response + telemetry\\[-1pt]
+    \textbf{Result:} tool/API response
   };
 
   % Place each hand-off label above its arrow, centered in the gap between boxes.
   \tikzset{flowlabel/.style={midway, above=1.5pt, fill=white, inner sep=0.6pt,
     text width=0.58cm, align=center,
     font=\fontsize{3.8}{4.3}\selectfont\bfseries, text=lavenderDark}}
-  \draw[parr] (step1.east) -- node[flowlabel] {Task\\profile} (step2.west);
-  \draw[parr] (step2.east) -- node[flowlabel] {Model\\candidates} (step3.west);
-  \draw[parr] (step3.east) -- node[flowlabel] {Eligible\\models} (step4.west);
-  \draw[parr] (step4.east) -- node[flowlabel] {Selected\\model} (step5.west);
+  \draw[parr] (step1.east) -- node[flowlabel] {Output:\\ \{task\_profile\}} (step2.west);
+  \draw[parr] (step2.east) -- node[flowlabel] {Output:\\ \{candidates[]\}} (step3.west);
+  \draw[parr] (step3.east) -- node[flowlabel] {Output:\\ \{eligible[]\}} (step4.west);
+  \draw[parr] (step4.east) -- node[flowlabel] {Output:\\ \{selected\_model\}} (step5.west);
 
 \end{tikzpicture}%
 }
@@ -295,6 +298,26 @@ $\bullet$\;\textbf{High-Complexity Tasks ($\tau \uparrow$):} Architectural synth
 $\bullet$\;\textbf{Confidential Workflows:} Data protection requirements lock execution to local \textbf{NVIDIA NIM} microservices.
 \end{tcolorbox}
 \end{frame}
+\fi
+
+% Rebuilt provider-routing diagram: coherent data flow with explicit payloads.
+\begin{frame}[t]{Agent \& Provider Router working}
+\vspace{-0.62em}
+
+\begin{tcolorbox}[
+  enhanced, arc=2.5pt, colframe=lavenderDark!90, colback=lavenderLight!40,
+  boxrule=0.55pt, left=5pt, right=5pt, top=1.5pt, bottom=1.5pt
+]
+\fontsize{5.0}{6.0}\selectfont
+\textbf{Routing goal:} Convert a task profile into one suitable model request, then return the model response.
+\end{tcolorbox}
+
+\vspace{0.10em}
+\centering
+\begin{adjustbox}{max width=1.04\linewidth, max totalheight=0.74\textheight, keepaspectratio}
+\includegraphics[width=1.04\linewidth, trim=8 6 8 6, clip]{AgentandProviderRouting-Pipeline.png}
+\end{adjustbox}
+\end{frame}
 
 % =============================================================================
 % SLIDE: ORPO
@@ -309,136 +332,15 @@ $\bullet$\;\textbf{Confidential Workflows:} Data protection requirements lock ex
 ]
 \fontsize{4.8}{5.8}\selectfont
 \textbf{\color{lavenderDark}\faBalanceScale\; What is ORPO \& Why is it Used Here as a Reward System?}\\[0.5pt]
-$\bullet$\;\textbf{What is ORPO?} \textbf{Odds Ratio Preference Optimization (ORPO)} is an integrated \textbf{single-stage reward and alignment algorithm}. Traditional RLHF (PPO) requires training a separate reward model and keeping a frozen reference model in GPU memory (heavy, slow, and unstable).\\
+$\bullet$\;\textbf{What is ORPO?} \textbf{Odds Ratio Preference Optimization (ORPO)} is an integrated \textbf{single-stage reward and alignment algorithm}. Traditional \textbf{Reinforcement Learning from Human Feedback (RLHF)} requires training a separate reward model and keeping a frozen reference model in GPU memory (heavy, slow, and unstable).\\
 $\bullet$\;\textbf{Why in PrismSpace?} In multi-agent swarms, LLMs can hallucinate invalid tools or malformed code. ORPO acts as an \textbf{internal reward filter}: it mathematically rewards compliant trajectories ($y_w$) and penalizes bad responses ($y_l$) during fine-tuning, eliminating the need for an external reward model.
 \end{tcolorbox}
 
-\vspace{-0.30em}
+\vspace{-0.55em}
 
 % Interactive & Intuitive Workflow Diagram
-\begin{tcolorbox}[
-  enhanced, arc=3pt, colframe=lavenderDark!80, colback=white,
-  title={\scriptsize\bfseries\color{white}\faProjectDiagram\; End-to-End Pipeline: From Preference Pairs to Runtime Quality Gating},
-  boxrule=0.6pt, left=2.5pt, right=2.5pt, top=1.2pt, bottom=1.2pt
-]
-\centering
-\adjustbox{max width=0.99\linewidth, max totalheight=0.39\textheight, keepaspectratio}{%
-\begin{tikzpicture}[
-  pbox/.style={rectangle, rounded corners=3pt, draw=lavenderDark!80,
-    fill=lavenderLight!50, minimum height=0.88cm, text width=2.35cm,
-    align=center, inner sep=2.5pt, font=\fontsize{4.8}{5.7}\selectfont},
-  pwinner/.style={rectangle, rounded corners=3pt, draw=prismTeal!85!black,
-    fill=prismMint!60, minimum height=0.70cm, text width=2.50cm,
-    align=center, inner sep=2.5pt, font=\fontsize{4.6}{5.5}\selectfont},
-  ploser/.style={rectangle, rounded corners=3pt, draw=red!70!black,
-    fill=red!8, minimum height=0.70cm, text width=2.50cm,
-    align=center, inner sep=2.5pt, font=\fontsize{4.6}{5.5}\selectfont},
-  peng/.style={rectangle, rounded corners=4pt, draw=lavenderDark!90,
-    fill=lavenderLight!75, minimum height=0.92cm, text width=2.75cm,
-    align=center, inner sep=2.5pt, font=\fontsize{4.8}{5.7}\selectfont},
-  pgate/.style={rectangle, rounded corners=3pt, draw=prismBlue!85!black,
-    fill=cStage4!35, minimum height=0.88cm, text width=2.30cm,
-    align=center, inner sep=2.5pt, font=\fontsize{4.7}{5.6}\selectfont},
-  papp/.style={rectangle, rounded corners=3pt, draw=prismTeal!90!black,
-    fill=prismMint!85, minimum height=0.68cm, text width=2.25cm,
-    align=center, inner sep=2.5pt, font=\fontsize{4.6}{5.5}\selectfont},
-  prej/.style={rectangle, rounded corners=3pt, draw=red!75!black,
-    fill=red!10, minimum height=0.68cm, text width=2.25cm,
-    align=center, inner sep=2.5pt, font=\fontsize{4.6}{5.5}\selectfont},
-  parrow/.style={-{Stealth[scale=0.75]}, line width=0.85pt, draw=lavenderDark!90!black},
-  lbl/.style={font=\fontsize{4.1}{4.9}\selectfont\bfseries}
-]
-
-  % 1. Input Prompt & State
-  \node[pbox] (input) at (0,0) {
-    \textbf{1. Task Prompt $x$}\\[1pt]
-    \fontsize{4.1}{4.9}\selectfont User instruction, agent context, schema constraints
-  };
-
-  % 2. Dual Candidate Branch (Tournament)
-  \node[pwinner] (winner) at (3.25, 0.58) {
-    \textbf{\color{prismTeal!90!black}\faCheckCircle\; Chosen $y_w$ (Winner)}\\[1pt]
-    Valid tool call, correct schema, factual reasoning $\to$ \textbf{\color{prismTeal!90!black}+Reward}
-  };
-  \node[ploser] (loser) at (3.25, -0.58) {
-    \textbf{\color{red!80!black}\faTimesCircle\; Rejected $y_l$ (Loser)}\\[1pt]
-    Hallucinated table, syntax error, illegal action $\to$ \textbf{\color{red!80!black}-Penalty}
-  };
-
-  % 3. ORPO Engine
-  \node[peng] (engine) at (6.85, 0) {
-    \textbf{\color{lavenderDark}\faCogs\; 2. Single-Stage ORPO}\\[1pt]
-    \fontsize{4.1}{5.0}\selectfont
-    $\bullet$\;\textbf{$\mathcal{L}_{\text{SFT}}$:} Learns task generation\\
-    $\bullet$\;\textbf{$\mathcal{L}_{\text{OR}}$:} Odds Ratio reward penalty\\
-    \color{lavenderDeep}\textit{(No reference model loaded!)}
-  };
-
-  % 4. Quality Gate
-  \node[pgate] (gate) at (10.55, 0) {
-    \textbf{\color{lavenderDark}\faShieldAlt\; 3. Quality Gate}\\[1pt]
-    \fontsize{4.2}{5.0}\selectfont
-    Scores reward confidence:\\[1pt]
-    $\text{Reward Score } R(y|x) \ge \tau$
-  };
-
-  % 5. Decision Branch
-  \node[papp] (approved) at (13.80, 0.55) {
-    \textbf{\color{prismTeal!90!black}\faCheckCircle\; Approved ($\ge \tau$)}\\[1pt]
-    Commit to PrismDB; proceed to next DAG task
-  };
-  \node[prej] (rejected) at (13.80, -0.55) {
-    \textbf{\color{red!80!black}\faExclamationTriangle\; Gated Out ($< \tau$)}\\[1pt]
-    Trigger Re-planning DAG or fallback to HITL
-  };
-
-  % Connections with nice styling
-  \draw[parrow] (input.east) -- ++(0.30,0) |- (winner.west);
-  \draw[parrow] (input.east) -- ++(0.30,0) |- (loser.west);
-
-  \draw[parrow] (winner.east) -| ++(0.30,0) -- ([yshift=0.20cm]engine.west);
-  \draw[parrow] (loser.east) -| ++(0.30,0) -- ([yshift=-0.20cm]engine.west);
-
-  \draw[parrow] (engine.east) -- (gate.west) node[midway, above=1pt, font=\fontsize{3.8}{4.5}\selectfont\color{lavenderDeep}\bfseries] {Aligned Model};
-
-  \draw[parrow] (gate.east) -- ++(0.30,0) |- (approved.west) node[pos=0.65, above, lbl, color=prismTeal!90!black] {Pass};
-  \draw[parrow] (gate.east) -- ++(0.30,0) |- (rejected.west) node[pos=0.65, below, lbl, color=red!80!black] {Fail};
-
-\end{tikzpicture}%
+\centering\vspace{-0.10em}
+\adjustbox{max width=0.99\linewidth, max totalheight=0.68\textheight, keepaspectratio}{%
+\includegraphics[width=0.99\linewidth, trim=0 10 0 10, clip]{ORPO.png}%
 }
-\end{tcolorbox}
-
-\vspace{-0.30em}
-
-% Bottom Deep-Dive Cards for CS Students
-\begin{columns}[T]
-\begin{column}{0.50\textwidth}
-\begin{tcolorbox}[
-  enhanced, arc=2.5pt, colframe=lavenderDark!80, colback=lavenderLight!30,
-  title={\scriptsize\bfseries\color{white}\faGraduationCap\; ORPO vs. Traditional RLHF},
-  boxrule=0.55pt, left=3pt, right=3pt, top=1.0pt, bottom=1.0pt
-]
-\fontsize{4.5}{5.4}\selectfont
-$\bullet$\;\textbf{The RLHF (Reinforcement Learning from Human Feedback) Problem:} Traditional alignment (PPO/DPO) requires running 3 separate models simultaneously: Policy Model, Reference Model, and Reward Critic. This demands $>48$\,GB VRAM and suffers from unstable policy gradients.\\
-$\bullet$\;\textbf{The ORPO Breakthrough:} It mathematically merges preference alignment directly into supervised fine-tuning in a \textbf{single stage}.\\
-$\bullet$\;\textbf{Concrete Benefit:} \textbf{50\% GPU memory savings}, faster convergence, and no policy drift without loading any secondary reference model!
-\end{tcolorbox}
-\end{column}
-
-\begin{column}{0.49\textwidth}
-\begin{tcolorbox}[
-  enhanced, arc=2.5pt, colframe=prismTeal!75!black, colback=prismMint!30,
-  title={\scriptsize\bfseries\color{white}\faCalculator\; The Mathematical Reward Intuition},
-  boxrule=0.55pt, left=3pt, right=3pt, top=1.0pt, bottom=1.0pt
-]
-\fontsize{4.4}{5.3}\selectfont
-\centering
-$\mathcal{L}_{\mathrm{ORPO}} = \mathcal{L}_{\mathrm{SFT}} + \lambda_{\mathrm{OR}}\,\mathcal{L}_{\mathrm{OR}}$\\[1pt]
-$\mathcal{L}_{\mathrm{OR}} = -\log \sigma\!\left(\log \frac{\mathrm{odds}(y_w|x)}{\mathrm{odds}(y_l|x)}\right), \quad \mathrm{odds}(y|x) = \frac{P(y|x)}{1 - P(y|x)}$\\[1.5pt]
-\raggedright
-$\bullet$\;\textbf{Implicit Reward Gradient:} $\text{odds}(y|x)$ measures the probability of generating a token vs not generating it. When $y_l$ is chosen, loss explodes, forcing logits of $y_w \gg y_l$.\\
-$\bullet$\;\textbf{Runtime Impact:} The model naturally generates schema-compliant tool calls and suppresses hallucinations before writing to PrismDB.
-\end{tcolorbox}
-\end{column}
-\end{columns}
 \end{frame}

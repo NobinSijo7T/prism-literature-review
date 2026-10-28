@@ -1,0 +1,120 @@
+% Extracted diagram: 23_intent_classifier_serialization
+% Source: intent_classifier_frame.tex, lines 52-166
+% This fragment uses the presentation preamble, colors, styles, and macros from main.tex.
+
+\begin{tikzpicture}[remember picture, font=\sffamily, y=0.82cm]
+
+\intentcol{1}{cUser}{User Input}{User}{(Human)}{%
+  \textit{``Find the latest API changes, summarize them, and update my notes.''}\par\vspace{2.5pt}
+  \intentbadge{cUser}{Function}
+  Receive the user request and prepare it for processing.\par\vspace{1.5pt}
+  \intentbadge{cUser}{Input}
+  Natural language prompt (from user).\par\vspace{1.5pt}
+  \intentbadge{cUser}{Output}
+  Raw prompt text.}
+
+\intentcol{2}{cTok}{Tokenize / Encode}{Tokenizer Agent}{(Tokenizer Service)}{%
+  \intentbadge{cTok}{Function}
+  Tokenize prompt into IDs and compute dense embeddings.\par\vspace{1.2pt}
+  \intentbadge{cTok}{Input}
+  Raw prompt text.\par\vspace{1.2pt}
+  \intentbadge{cTok}{Output}
+  Token IDs + embedding vectors.}
+
+\intentcol{3}{cInt}{Intent Classifier}{Intent Classifier Agent}{(LLM / Classifier)}{%
+  \intentbadge{cInt}{Function}
+  Analyze contextual embeddings to classify user intent, extract domain entities (target API, destination notes), resolve dependencies, and evaluate confidence thresholds for task routing.\par\vspace{1.5pt}
+  \intentbadge{cInt}{Input}
+  Token embeddings + prompt context.\par\vspace{1.5pt}
+  \intentbadge{cInt}{Output}
+  Intent label(s) with confidence (research: 0.98, summarize: 0.95, write: 0.92) + entity slots.}
+
+\intentcol{4}{cRpc}{Semantic Decomposer}{Decomposer Agent}{(Planning Agent)}{%
+  \intentbadge{cRpc}{Function}
+  Break the classified intent into modular sub-tasks, establish execution ordering, and detect dependencies.\par\vspace{1.2pt}
+  \intentbadge{cRpc}{Input}
+  Intent labels + context from Step 3.\par\vspace{1.2pt}
+  \intentbadge{cRpc}{Output}
+  JSON-RPC task packet:}
+
+\intentcol{5}{cDec}{Task DAG Output}{Tool Executor Agent}{(Tooling Agent)}{%
+  \intentbadge{cDec}{Function}
+  Construct, validate, and execute the Directed Acyclic Graph (DAG) for dependency-ordered tool execution.\par\vspace{1.5pt}
+  \intentbadge{cDec}{Input}
+  Serialized task packet + tool bindings.\par\vspace{1.5pt}
+  \intentbadge{cDec}{Output}}
+
+\foreach \x in {3.14,6.28,9.42,12.56}{%
+  \draw[-{Stealth[length=2mm]},thick,cDet!80] (\x+0.01,8.09) -- ++(0.28,0);}
+
+\node[draw=cRpc!60,fill=white,rounded corners=2pt,anchor=north west,
+  text width=2.46cm,align=left,inner sep=2.5pt,
+  font=\fontsize{4.1}{4.9}\selectfont\ttfamily]
+  at (0.3+3*3.14+0.12,4.48)
+  {\{"tasks": ["research",\\ "extract", "summarize",\\ "write"],\\ "approval\_gate": true\\ \}};
+
+\begin{scope}[shift={(0.3+4*3.14+0.12,3.44)}]
+  \draw[draw=cDec!40,fill=white,rounded corners=3pt] (0,0) rectangle (2.60,1.88);
+  \node[font=\bfseries\fontsize{4.5}{5.2}\selectfont,text=cDec!90!black]
+    at (1.30,1.72) {Dependency Task Graph};
+  \node[draw=cDec!70,fill=cDec!8,rounded corners=2pt,inner sep=1.7pt,
+    font=\fontsize{4.0}{4.6}\selectfont] (t1) at (0.62,1.34) {1. Research};
+  \node[draw=cDec!70,fill=cDec!8,rounded corners=2pt,inner sep=1.7pt,
+    font=\fontsize{4.0}{4.6}\selectfont] (t2) at (1.98,1.34) {2. Extract};
+  \node[draw=cDec!70,fill=cDec!8,rounded corners=2pt,inner sep=1.7pt,
+    font=\fontsize{4.0}{4.6}\selectfont] (t3) at (1.30,0.82) {3. Summarize};
+  \node[draw=cDec!70,fill=cDec!8,rounded corners=2pt,inner sep=1.7pt,
+    font=\fontsize{4.0}{4.6}\selectfont] (t4) at (1.30,0.26) {4. Write Note};
+  \draw[-{Stealth[length=1.3mm,width=1.0mm]},cDec!85,thick] (t1) -- (t2);
+  \draw[-{Stealth[length=1.3mm,width=1.0mm]},cDec!85,thick]
+    (t1.south) to[out=270,in=160] (t3.west);
+  \draw[-{Stealth[length=1.3mm,width=1.0mm]},cDec!85,thick]
+    (t2.south) to[out=270,in=20] (t3.east);
+  \draw[-{Stealth[length=1.3mm,width=1.0mm]},cDec!85,thick] (t3) -- (t4);
+  \node[fill=orange!20,draw=orange!80,rounded corners=1.5pt,inner sep=1pt,
+    font=\fontsize{3.5}{4.0}\selectfont\bfseries,text=orange!90!black]
+    at (2.12,0.26) {Gate: OK};
+\end{scope}
+
+\draw[dashed,cTok!70,rounded corners=3pt,fill=white] (3.56,3.39) rectangle (6.16,5.08);
+\node[font=\bfseries\fontsize{4.3}{4.9}\selectfont,text=cTok!85!black]
+  at (4.86,4.93) {Tokenization Process (in detail)};
+\node[draw=cTok!40,fill=cTok!4,rounded corners=1.5pt,font=\ttfamily\fontsize{3.5}{4.1}\selectfont,inner sep=1.1pt]
+  at (4.86,4.69) {"Find the latest API..."};
+\draw[-{Stealth[length=0.85mm]},cTok!80,line width=0.45pt] (4.86,4.58) -- (4.86,4.48);
+\foreach \t/\x in {Find/3.88,the/4.33,latest/4.86,API/5.38,\ldots/5.78}{%
+  \node[draw=cTok!40,fill=cTok!6,rounded corners=1.5pt,font=\ttfamily\fontsize{3.3}{3.8}\selectfont,inner sep=0.9pt]
+    at (\x,4.38) {\t};}
+\draw[-{Stealth[length=0.85mm]},cTok!80,line width=0.45pt] (4.86,4.25) -- (4.86,4.15);
+\node[draw=cTok!40,fill=cTok!4,rounded corners=1.5pt,font=\ttfamily\fontsize{3.5}{4.1}\selectfont,inner sep=1.1pt]
+  at (4.86,4.05) {[4821, 199, 3087, \ldots]};
+\draw[-{Stealth[length=0.85mm]},cTok!80,line width=0.45pt] (4.86,3.92) -- (4.86,3.82);
+\foreach \c [count=\k from 0] in {cyan,blue,teal,green,yellow,orange,red,magenta}{%
+  \fill[\c!70] (4.02+\k*0.21,3.65) rectangle ++(0.21,0.11);}
+\node[font=\fontsize{3.3}{3.8}\selectfont,text=cTok!75!black] at (4.86,3.52) {(embeddings $\in \mathbb{R}^{768}$)};
+
+\draw[rounded corners=5pt,draw=cDet!70,fill=cDet!5,line width=0.7pt]
+  (0.15,-0.25) rectangle (15.85,3.10);
+\node[anchor=west,font=\bfseries\fontsize{7.5}{8.5}\selectfont,text=cDet!85!black]
+  at (0.35,2.84) {Tokenization Process\ \ {\normalfont\footnotesize\textcolor{cDet!75!black}{(Step 2 -- Detailed)}}};
+
+\intentdetail{1}{Raw Prompt}{\intentbadge{cDet}{Input}
+  ``Find the latest API changes, summarize them, and update my notes.''\par\vspace{2pt}\textit{(string)}}{0.3}
+\intentdetail{2}{Tokenization}{\intentbadge{cDet}{Function}
+  Split text into tokens (using BPE / WordPiece).\par\vspace{2pt}\intentbadge{cDet}{Output}
+  {\fontsize{4.1}{5}\selectfont\ttfamily ["Find", "the", "latest",\\ "API", "changes", \ldots]}\par\vspace{1pt}\textit{(tokens)}}{3.44}
+\intentdetail{3}{Convert to IDs}{\intentbadge{cDet}{Function}
+  Map tokens to unique integers from vocabulary.\par\vspace{2pt}\intentbadge{cDet}{Output}
+  {\fontsize{4.1}{5}\selectfont\ttfamily [4821, 199, 3087, 421, \ldots]}\par\vspace{1pt}\textit{(token IDs)}}{6.58}
+\intentdetail{4}{Create Embeddings}{\intentbadge{cDet}{Function}
+  Convert IDs to vector representations (e.g., 768-d).\par\vspace{2pt}\intentbadge{cDet}{Output}
+  \textcolor{cyan!60}{\rule{0.28cm}{2.8pt}}\,\textcolor{magenta!50}{\rule{0.28cm}{2.8pt}}\,\textcolor{violet!70}{\rule{0.28cm}{2.8pt}}\,\textcolor{teal!60}{\rule{0.28cm}{2.8pt}}\,\textcolor{yellow!80}{\rule{0.28cm}{2.8pt}}\,\textcolor{green!60}{\rule{0.28cm}{2.8pt}}\par\vspace{1.5pt}
+  {\fontsize{4.1}{5}\selectfont\ttfamily [0.12, 0.45, -0.03, \ldots]}\par\vspace{1pt}\textit{(embedding vectors)}}{9.72}
+\intentdetail{5}{Pass to Intent Classifier}{\intentbadge{cDet}{Function}
+  Embeddings + context $\rightarrow$ intent classification.\par\vspace{2pt}\intentbadge{cDet}{Output}
+  Intent label(s) + entities (``research'', ``summarize'', \ldots).}{12.86}
+\foreach \x in {3.14,6.28,9.42,12.56}{%
+  \draw[-{Stealth[length=2mm]},thick,cDet!80] (\x+0.01,1.33) -- ++(0.28,0);}
+
+\end{tikzpicture}
+

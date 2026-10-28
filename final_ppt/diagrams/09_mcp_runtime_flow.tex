@@ -1,0 +1,102 @@
+% Extracted diagram: 09_mcp_runtime_flow
+% Source: main.tex, lines 2671-2767
+% This fragment uses the presentation preamble, colors, styles, and macros from main.tex.
+
+\begin{tikzpicture}[
+  x=1cm, y=1cm,
+  font=\sffamily,
+  mcpbox/.style={
+    rectangle, rounded corners=3.5pt,
+    line width=0.8pt, inner sep=3.0pt,
+    align=center, font=\fontsize{6.2}{7.2}\selectfont\bfseries,
+    drop shadow={opacity=0.10, shadow xshift=0.5pt, shadow yshift=-0.5pt}
+  },
+  toolbox/.style={
+    rectangle, rounded corners=2.5pt,
+    draw=prismGold!80, fill=prismGold!12, text=black,
+    line width=0.65pt, inner sep=2.0pt,
+    minimum width=1.95cm, minimum height=0.42cm,
+    align=center, font=\fontsize{4.9}{5.9}\selectfont
+  },
+  arr/.style={-{Stealth[scale=0.75]}, line width=0.85pt, draw=black!75},
+  dasharr/.style={-{Stealth[scale=0.65]}, line width=0.75pt, draw=mcpBlue!90, dashed}
+]
+
+% Stage 1: MCP Configuration & Loader
+\node[mcpbox, draw=mcpBlue!85, fill=mcpBlue!12, minimum width=6.2cm, minimum height=0.52cm] (config) at (0, 2.50) {
+  \faFileCode\ \textbf{MCP Configuration \& Transports}\\[-0.08em]
+  {\fontsize{4.9}{5.9}\selectfont\normalfont \texttt{mcp\_servers.json} $\cdot$ Stdio / JSON-RPC $\cdot$ Masked env tokens}
+};
+
+% Stage 2: Orchestration Context
+\node[mcpbox, draw=mcpBlue!85, fill=mcpBlue!12, minimum width=6.2cm, minimum height=0.52cm] (context) at (0, 1.62) {
+  \faBrain\ \textbf{Orchestration Context \& Dynamic Discovery}\\[-0.08em]
+  {\fontsize{4.9}{5.9}\selectfont\normalfont Servers parsed $\rightarrow$ Tool schemas injected into LLM system prompt}
+};
+
+% Stage 3: MCP Tool Grid (2 rows x 3 columns)
+\node[toolbox] (browser) at (-2.10, 0.86) {
+  \faGlobe\ \textbf{Browser}\\[-0.05em]
+  {\fontsize{4.4}{5.2}\selectfont Web scraper}
+};
+
+\node[toolbox] (terminal) at (0, 0.86) {
+  \faTerminal\ \textbf{Terminal}\\[-0.05em]
+  {\fontsize{4.4}{5.2}\selectfont Shell \& CLI}
+};
+
+\node[toolbox] (filesystem) at (2.10, 0.86) {
+  \faFolderOpen\ \textbf{FileSystem}\\[-0.05em]
+  {\fontsize{4.4}{5.2}\selectfont Sandboxed I/O}
+};
+
+\node[toolbox] (database) at (-2.10, 0.30) {
+  \faDatabase\ \textbf{Database}\\[-0.05em]
+  {\fontsize{4.4}{5.2}\selectfont SQLite / PrismDB}
+};
+
+\node[toolbox] (github) at (0, 0.30) {
+  \faGithub\ \textbf{GitHub}\\[-0.05em]
+  {\fontsize{4.4}{5.2}\selectfont PRs \& Commits}
+};
+
+\node[toolbox] (figma) at (2.10, 0.30) {
+  \faPalette\ \textbf{Workspace}\\[-0.05em]
+  {\fontsize{4.4}{5.2}\selectfont APIs \& Design}
+};
+
+% Tool Registry Container Frame
+\begin{scope}[on background layer]
+  \node[rectangle, rounded corners=3pt, draw=prismGold!50, fill=prismGold!5, line width=0.5pt,
+        fit=(browser)(filesystem)(database)(figma), inner sep=2.5pt] (toolframe) {};
+\end{scope}
+
+% Stage 4: ReAct Execution Engine
+\node[mcpbox, draw=mcpGreen!85, fill=mcpGreen!14, minimum width=6.2cm, minimum height=0.52cm] (execution) at (0, -0.44) {
+  \faPlay\ \textbf{Tool Execution \& ReAct Engine}\\[-0.08em]
+  {\fontsize{4.9}{5.9}\selectfont\normalfont Observe (tool output) $\rightarrow$ Think (LLM reasoning) $\rightarrow$ Act (next call)}
+};
+
+% Stage 5: Validation & Response
+\node[mcpbox, draw=mcpGreen!85, fill=mcpGreen!14, minimum width=6.2cm, minimum height=0.52cm] (validation) at (0, -1.26) {
+  \faCheckSquare\ \textbf{Validation, Output Synthesis \& Gating}\\[-0.08em]
+  {\fontsize{4.9}{5.9}\selectfont\normalfont Schema verification $\cdot$ ORPO alignment score $\cdot$ Output response}
+};
+
+% Flow Arrows
+\draw[arr] (config) -- (context);
+
+% Dynamic tool injection arrows from context into tool grid
+\draw[dasharr] (context.south) -- (terminal.north);
+\draw[dasharr] (context.south) -- ++(0, -0.12) -| (browser.north);
+\draw[dasharr] (context.south) -- ++(0, -0.12) -| (filesystem.north);
+
+% Tool invocation flows from tool registry directly into execution engine
+\draw[arr] (database.south) -- ([xshift=-2.10cm]execution.north);
+\draw[arr] (github.south) -- (execution.north);
+\draw[arr] (figma.south) -- ([xshift=2.10cm]execution.north);
+
+\draw[arr] (execution) -- (validation);
+
+\end{tikzpicture}%
+
