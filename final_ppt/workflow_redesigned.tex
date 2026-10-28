@@ -1,0 +1,139 @@
+\begin{frame}[t]{06. PrismSpace Workflow}
+\vspace{-0.35em}
+\centering
+\adjustbox{max width=0.98\linewidth, max height=0.75\textheight}{%
+\begin{tikzpicture}[
+    x=1cm, y=1cm,
+    font=\sffamily,
+    refcard/.style={
+        rectangle, draw=lavenderDark!85, line width=0.9pt, fill=white,
+        rounded corners=5pt, inner sep=4pt, align=center,
+        drop shadow={shadow xshift=1.2pt, shadow yshift=-1.2pt, opacity=0.18}
+    },
+    flowarr/.style={
+        -{Stealth[scale=0.95]}, line width=1.15pt, draw=lavenderDark!90
+    },
+    dashloop/.style={
+        -{Stealth[scale=0.90]}, line width=0.95pt, dashed, draw=prismGold!95!black
+    }
+]
+
+    % Stage 1: User Request with examples
+    \node [refcard, fill=cPlanner!25, text width=3.2cm, minimum height=2.0cm] (b_request) at (-7.0, 0) {
+        {\fontsize{7.6}{9.0}\selectfont\bfseries\color{lavenderDark}User Request}\\[0.18em]
+        {\color{prismTeal}\fontsize{18}{21}\selectfont\faUser}\\[0.18em]
+        {\fontsize{5.6}{6.8}\selectfont\normalfont
+        \includegraphics[height=1.3ex]{logos/gmail.png}\ Emails\\
+        \faFile\ Documents\\
+        \faCode\ Code tasks\\[0.1em]
+        {\fontsize{5.0}{6.0}\selectfont\textit{Example: ``Fix bug\\in login.py''}}}
+    };
+
+    % Stage 2: Intent Classifier
+    \node [refcard, fill=cStage4!30, text width=3.2cm, minimum height=1.8cm] (b_intent) at (-3.5, 0) {
+        {\fontsize{7.6}{9.0}\selectfont\bfseries\color{lavenderDark}Intent Classifier}\\[0.18em]
+        {\color{prismTeal}\fontsize{18}{21}\selectfont\faBrain}\\[0.18em]
+        {\fontsize{5.6}{6.8}\selectfont\normalfont
+        Analyzes request\\
+        Extracts intent\\
+        Determines task type}
+    };
+
+    % Stage 3: Agent Router
+    \node [refcard, fill=cPlanner!18, text width=3.2cm, minimum height=1.8cm] (b_router) at (0, 0) {
+        {\fontsize{7.6}{9.0}\selectfont\bfseries\color{lavenderDark}Agent Router}\\[0.18em]
+        {\color{prismTeal}\fontsize{18}{21}\selectfont\faRandom}\\[0.18em]
+        {\fontsize{5.6}{6.8}\selectfont\normalfont
+        Routes to agent\\
+        Selects model\\
+        Tool selection}
+    };
+
+    % Stage 4: Agents (3 parallel agents)
+    % 1. Top Agent: Assistant & Documents
+    \node [refcard, fill=cStage1!30, text width=3.2cm, minimum height=1.3cm] (b_agent1) at (3.5, 1.5) {
+        \textbf{\fontsize{7.0}{8.2}\selectfont\color{lavenderDark}{\color{prismBlue}\faFile}\; Assistant \&}\\
+        \textbf{\fontsize{7.0}{8.2}\selectfont\color{lavenderDark}Documents}\\[0.15em]
+        \fontsize{5.4}{6.5}\selectfont
+        \includegraphics[height=1.2ex]{logos/gmail.png}\ Gmail MCP\\
+        \includegraphics[height=1.2ex]{logos/drive.png}\ Drive MCP
+    };
+
+    % 2. Middle Agent: Coder & Workspace
+    \node [refcard, fill=cStage4!30, text width=3.2cm, minimum height=1.3cm] (b_agent2) at (3.5, 0) {
+        \textbf{\fontsize{7.0}{8.2}\selectfont\color{lavenderDark}{\color{prismTeal}\faCode}\; Coder \&}\\
+        \textbf{\fontsize{7.0}{8.2}\selectfont\color{lavenderDark}Workspace}\\[0.15em]
+        \fontsize{5.4}{6.5}\selectfont
+        {\color{prismGold!90!black}\faFolderOpen}\ Filesystem\\
+        {\color{prismTeal}\faTerminal}\ Terminal
+    };
+
+    % 3. Bottom Agent: MCP & Validation
+    \node [refcard, fill=cStage2!30, text width=3.2cm, minimum height=1.3cm] (b_agent3) at (3.5, -1.5) {
+        \textbf{\fontsize{7.0}{8.2}\selectfont\color{lavenderDark}{\color{purple!75!black}\faTasks}\; MCP \&}\\
+        \textbf{\fontsize{7.0}{8.2}\selectfont\color{lavenderDark}Validation}\\[0.15em]
+        \fontsize{5.4}{6.5}\selectfont
+        Web Search\\
+        Tool Execution
+    };
+
+    % Stage 5: ORPO (Reward Model & Quality Gate)
+    \node [refcard, fill=cSafety!30, text width=3.2cm, minimum height=2.0cm] (b_orpo) at (7.0, 0) {
+        {\fontsize{7.6}{9.0}\selectfont\bfseries\color{lavenderDark}ORPO}\\[0.18em]
+        {\color{lavenderDark}\fontsize{18}{21}\selectfont\faIcon{shield-alt}}\\[0.18em]
+        {\fontsize{5.6}{6.8}\selectfont\normalfont
+        Reward Model\\
+        Quality Gate\\[0.1em]
+        {\fontsize{5.0}{6.0}\selectfont Scores outputs\\
+        Validates quality}}
+    };
+
+    % Stage 6: Output Actions
+    \node [refcard, fill=cDeliverable!40, text width=3.2cm, minimum height=2.0cm] (b_output) at (10.5, 0) {
+        {\fontsize{7.6}{9.0}\selectfont\bfseries\color{lavenderDark}Output Actions}\\[0.18em]
+        {\color{prismTeal}\fontsize{18}{21}\selectfont\faUserCheck}\\[0.18em]
+        {\fontsize{5.6}{6.8}\selectfont\normalfont
+        Action sign-off\\
+        Verified artifacts\\
+        Output dispatch\\
+        User delivery}
+    };
+
+    % Main Connecting Arrows
+    \draw [flowarr] (b_request.east) -- (b_intent.west);
+    \draw [flowarr] (b_intent.east) -- (b_router.west);
+    
+    % Router to Agents (fan-out)
+    \draw [flowarr, rounded corners=2.5pt] (b_router.east) -- (2.0, 0) -- (2.0, 1.5) -- (b_agent1.west);
+    \draw [flowarr] (b_router.east) -- (b_agent2.west);
+    \draw [flowarr, rounded corners=2.5pt] (b_router.east) -- (2.0, 0) -- (2.0, -1.5) -- (b_agent3.west);
+
+    % Agents to ORPO (fan-in)
+    \draw [flowarr, rounded corners=2.5pt] (b_agent1.east) -- (5.5, 1.5) -- (5.5, 0) -- (b_orpo.west);
+    \draw [flowarr] (b_agent2.east) -- (b_orpo.west);
+    \draw [flowarr, rounded corners=2.5pt] (b_agent3.east) -- (5.5, -1.5) -- (5.5, 0) -- (b_orpo.west);
+
+    % ORPO to Output
+    \draw [flowarr] (b_orpo.east) -- (b_output.west);
+
+    % Feedback Loop from ORPO back to Intent Classifier
+    \draw [dashloop, rounded corners=4pt]
+        (b_orpo.north) --
+        (7.0, 2.5) --
+        node[pos=0.5, above=3pt, font=\fontsize{6.0}{7.2}\selectfont\bfseries\color{prismGold!95!black}]{\faRedo\ Validation Feedback \& Retry Loop}
+        (-3.5, 2.5) --
+        (b_intent.north);
+
+\end{tikzpicture}%
+}
+\vspace{0.2em}
+\begin{tcolorbox}[
+  enhanced, arc=3pt, colframe=lavenderDark!65, colback=lavenderLight!35,
+  boxrule=0.6pt, left=2pt, right=2pt, top=1.2pt, bottom=1.2pt
+]
+\centering\fontsize{4.2}{5.0}\selectfont\color{lavenderDark}
+\textbf{Figure 1.0: PrismSpace Workflow} $\,\vert\,$ 
+\textbf{MCP} = Model Context Protocol $\,\vert\,$ 
+\textbf{ORPO} = Odds Ratio Preference Optimization
+\end{tcolorbox}
+\end{frame}

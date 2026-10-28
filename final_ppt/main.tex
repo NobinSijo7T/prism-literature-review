@@ -203,10 +203,10 @@ PRISMSPACE -- INTELLIGENT MULTI-AGENT PLATFORM
 \begin{itemize}
   \setlength{\itemsep}{12pt}
   \setlength{\leftmargin}{1.5em}
-  \item \textbf{Problem:} Coordinating multiple AI agents and complex tasks requires efficient task orchestration, seamless tool integration, clear workflow visibility, and secure execution.
-  \item \textbf{Input:} Developer task prompts, workspace and session state, uploaded files, and MCP and human approval configurations.
-  \item \textbf{Method:} PrismSpace applies intent classification, supervised model routing, DAG decomposition with topological scheduling, MCP-based tool execution, ORPO preference alignment, and human approval for sensitive actions.
-  \item \textbf{Output:} Task results, tool outputs, validation results, and workflow status summaries.
+  \item Coordinating multiple AI agents and complex tasks requires efficient task orchestration, seamless tool integration, clear workflow visibility, and secure execution.
+  \item Developer task prompts, workspace and session state, uploaded files, and MCP and human approval configurations.
+  \item PrismSpace applies intent classification, supervised model routing, DAG decomposition with topological scheduling, MCP-based tool execution, ORPO preference alignment, and human approval for sensitive actions.
+  \item Task results, tool outputs, validation results, and workflow status summaries.
 \end{itemize}
 \end{minipage}
 \end{center}
@@ -219,20 +219,21 @@ PRISMSPACE -- INTELLIGENT MULTI-AGENT PLATFORM
 \section{Objectives}
 
 \begin{frame}[t]{03. Objectives}
-\vspace{0.15cm}
+\vfill
 \begin{center}
-\begin{minipage}{0.86\linewidth}
-\normalsize
-\begin{enumerate}\setlength{\itemsep}{8pt}\setlength{\leftmargin}{0.28in}
-  \item \textbf{Intent Classification Module:} Identifies user intent and classifies incoming prompts.
-  \item \textbf{DAG Generation Module:} Decomposes user goals into dependency-aware subtasks and schedules their execution.
-  \item \textbf{Agent Routing Module:} Assigns tasks to suitable agents based on task requirements.
-  \item \textbf{MCP Tool Integration Module:} Connects approved external tools and manages tool execution.
-  \item \textbf{Validation and Human Approval Module:} Validates outputs and requests human approval for sensitive actions.
-  \item \textbf{Workflow Visualization and Session Management Module:} Displays real-time task progress and stores session data locally.
-\end{enumerate}
+\begin{minipage}{0.88\linewidth}
+\large
+\begin{itemize}
+  \setlength{\itemsep}{12pt}
+  \setlength{\leftmargin}{1.5em}
+  \item Implement \textbf{PrismSpace} as a multi-agent workspace that transforms a user's prompt into a verified deliverable through coordinated planning, tool use, and human oversight.
+  \item Accept the user's prompt and constraints.
+  \item Classify intent, generate a dependency-aware DAG, route subtasks to specialist agents, execute approved MCP tools, and validate progress with HITL safeguards.
+  \item Synthesize and deliver a verified result while showing task progress and preserving the session state.
+\end{itemize}
 \end{minipage}
 \end{center}
+\vfill
 \end{frame}
 
 % =============================================================================
@@ -1255,17 +1256,17 @@ Proposes a hybrid bio-inspired metaheuristic combining \textbf{Dolphin Swarm Opt
 \vspace{-0.05cm}
 \begin{block}{What the surveyed methods already do}
 \footnotesize
-\textbf{MARL} works address \textbf{CTDE}, role grouping, and ad-hoc coordination. \textbf{ORPO} aligns \textbf{LLM} preferences without reference models, while \textbf{HIAT} leverages human interventions as auxiliary \textbf{RL} signals. \textbf{CPN-HRL} and \textbf{DAG} schedulers optimize cloud task allocation, and \textbf{MHC} formalizes tracking and tracing properties.
+\textbf{ORPO (Odds Ratio Preference Optimization)} trains \textbf{Large Language Models (LLMs)} to prefer better responses without requiring a separate reference model. \textbf{DAG (Directed Acyclic Graph)} schedulers organize tasks based on their dependencies to ensure they run in the correct order.
 \end{block}
 \vspace{0.08cm}
 \begin{block}{Limitations observed in those papers}
 \footnotesize
-Coordination benchmarks focus on gaming (\textbf{SMAC}, Overcooked) rather than filesystem/\textbf{API} tooling. \textbf{ORPO} lacks grounding in \textbf{MCP} \textbf{ReAct} tool traces, while \textbf{HIAT} targets continuous robotic control instead of code execution. Cloud schedulers assume static \textbf{DAGs} or slow metaheuristics ill-suited for real-time \textbf{LLM} routing.
+Most multi-agent coordination methods are tested in games such as \textbf{SMAC (StarCraft Multi-Agent Challenge)} and Overcooked rather than real developer tools. \textbf{ORPO} is not specifically designed to learn from \textbf{Model Context Protocol (MCP)} tool-use traces. \textbf{DAG}-based schedulers often rely on predefined task dependencies and do not fully support dynamic task routing based on the changing needs of \textbf{LLMs}. These methods lack a unified approach that combines tool-aware agents, preference alignment, and dynamic task execution in a developer workspace.
 \end{block}
 \vspace{0.08cm}
 \begin{block}{Why PrismSpace is required}
 \footnotesize
-No reviewed system jointly grounds tool observations, aligns policies on agent trajectories, dynamically routes heterogeneous \textbf{LLMs}, and enforces human-in-the-loop safety gates within a unified developer workspace.
+PrismSpace combines tool-aware AI agents, \textbf{ORPO}-based preference alignment, dynamic \textbf{LLM} routing, and \textbf{DAG}-based task coordination in one developer workspace. It helps agents select suitable tools, coordinate complex tasks, and adapt task execution to changing requirements.
 \end{block}
 \end{frame}
 
@@ -1400,7 +1401,7 @@ No reviewed system jointly grounds tool observations, aligns policies on agent t
 % =============================================================================
 \section{Comparative Analysis}
 
-\begin{frame}[t]{03. Comparative Analysis: Existing Platforms vs. PrismSpace}
+\begin{frame}[t]{05. Comparative Analysis: Existing Platforms vs. PrismSpace}
 \vspace{-0.44em}
 
 % Top subtitle banner
@@ -1946,6 +1947,8 @@ Cloud or temporary in-memory state &
 % =============================================================================
 \section{System Overview}
 
+% Removed per request: Project Architecture, Working & System Design divider.
+\iffalse
 \begin{frame}[plain]
 \vfill
 \begin{center}
@@ -1955,8 +1958,9 @@ Cloud or temporary in-memory state &
 \end{center}
 \vfill
 \end{frame}
+\fi
 
-\begin{frame}[t]{06. PrismSpace Workflow (Figure 1.0)}
+\begin{frame}[t]{06. PrismSpace Workflow}
 \vspace{-0.35em}
 \centering
 \adjustbox{max width=0.98\linewidth, max height=0.75\textheight}{%
@@ -1971,131 +1975,116 @@ Cloud or temporary in-memory state &
     flowarr/.style={
         -{Stealth[scale=0.95]}, line width=1.15pt, draw=lavenderDark!90
     },
-    merge/.style={
-        line width=1.15pt, draw=lavenderDark!90
-    },
-    curvearr/.style={
-        -{Stealth[scale=0.95]}, line width=1.15pt, draw=lavenderDark!90
-    },
     dashloop/.style={
         -{Stealth[scale=0.90]}, line width=0.95pt, dashed, draw=prismGold!95!black
     }
 ]
 
-    % Stage 1: Agent Loop (Matching Reference Image)
-    \node [refcard, fill=cPlanner!25, text width=3.10cm, minimum height=4.2cm] (b_loop) at (-5.55, -0.15) {
-        \vspace{0.25em}
-        {\fontsize{9.2}{11}\selectfont\bfseries\color{lavenderDark}Agent Loop}\\[0.25em]
-        {\color{prismTeal}\fontsize{24}{28}\selectfont\faSync}\\[0.35em]
-        {\fontsize{6.1}{7.3}\selectfont\bfseries\color{lavenderDark}1. User Request \& Router}\\[0.20em]
-        \begin{minipage}{2.80cm}\raggedright\fontsize{5.7}{7.0}\selectfont
-        $\bullet$ Emails, docs \& scheduling\\[1.8pt]
-        $\bullet$ Code edits, debug \& CLI\\[1.8pt]
-        $\bullet$ Web search \& tool runs\\[1.8pt]
-        $\bullet$ Model routing \& context
-        \end{minipage}
-        \vspace{0.25em}
+    % Stage 1: User Request with examples
+    \node [refcard, fill=cPlanner!25, text width=3.2cm, minimum height=2.0cm] (b_request) at (-7.0, 0) {
+        {\fontsize{7.6}{9.0}\selectfont\bfseries\color{lavenderDark}User Request}\\[0.18em]
+        {\color{prismTeal}\fontsize{18}{21}\selectfont\faUser}\\[0.18em]
+        {\fontsize{5.6}{6.8}\selectfont\normalfont
+        \includegraphics[height=1.3ex]{logos/gmail.png}\ Emails\\
+        \faFile\ Documents\\
+        \faCode\ Code tasks\\[0.1em]
+        {\fontsize{5.0}{6.0}\selectfont\textit{Example: ``Fix bug\\in login.py''}}}
     };
 
-    % Branching Dot Node (Matching Reference Image 'Make control explicit')
-    \node [circle, fill=lavenderDark, inner sep=2.5pt] (dot) at (-2.45, -0.15) {};
-    \node [above=5pt of dot, xshift=-0.70cm, align=center, font=\fontsize{5.8}{6.8}\selectfont\bfseries\color{lavenderDark}] {
-        Make control\\[-1pt]explicit
-    };
-    \node [below=5pt of dot, xshift=-0.70cm, align=center, font=\fontsize{5.2}{6.2}\selectfont\bfseries\color{prismTeal}] {
-        (DAG Planning)
-    };
-
-    % Stage 2: Three Parallel Sub-Tasks / Agents (Matching Reference Image middle 3 cards with gaps)
-    % 1. Top Card: Assistant & Docs (Document icon + Gmail & Drive)
-    \node [refcard, fill=cStage1!30, text width=4.50cm, minimum height=1.15cm] (b_top) at (0.50, 1.45) {
-        \textbf{\fontsize{7.8}{9.2}\selectfont\color{lavenderDark}{\color{prismBlue}\faFile}\; Assistant \& Documents}\\[0.20em]
-        \fontsize{5.8}{7.0}\selectfont
-        \includegraphics[height=1.35ex]{logos/gmail.png}\;\textbf{Gmail MCP:} sent emails \& drafts\\[0.1em]
-        \includegraphics[height=1.35ex]{logos/drive.png}\;\textbf{Drive MCP:} docs \& spreadsheets
+    % Stage 2: Intent Classifier
+    \node [refcard, fill=cStage4!30, text width=3.2cm, minimum height=1.8cm] (b_intent) at (-3.5, 0) {
+        {\fontsize{7.6}{9.0}\selectfont\bfseries\color{lavenderDark}Intent Classifier}\\[0.18em]
+        {\color{prismTeal}\fontsize{18}{21}\selectfont\faBrain}\\[0.18em]
+        {\fontsize{5.6}{6.8}\selectfont\normalfont
+        Analyzes request\\
+        Extracts intent\\
+        Determines task type}
     };
 
-    % 2. Middle Card: Coder & Terminal (Code window </> icon + Filesystem & Terminal)
-    \node [refcard, fill=cStage4!30, text width=4.50cm, minimum height=1.15cm] (b_mid) at (0.50, -0.15) {
-        \textbf{\fontsize{7.8}{9.2}\selectfont\color{lavenderDark}{\color{prismTeal}\faCode}\; Coder \& Workspace}\\[0.20em]
-        \fontsize{5.8}{7.0}\selectfont
-        {\color{prismGold!90!black}\faFolderOpen}\;\textbf{Filesystem MCP:} local code edits\\[0.1em]
-        {\color{prismTeal}\faTerminal}\;\textbf{Terminal MCP:} CLI commands \& tools
+    % Stage 3: Agent Router
+    \node [refcard, fill=cPlanner!18, text width=3.2cm, minimum height=1.8cm] (b_router) at (0, 0) {
+        {\fontsize{7.6}{9.0}\selectfont\bfseries\color{lavenderDark}Agent Router}\\[0.18em]
+        {\color{prismTeal}\fontsize{18}{21}\selectfont\faRandom}\\[0.18em]
+        {\fontsize{5.6}{6.8}\selectfont\normalfont
+        Routes to agent\\
+        Selects model\\
+        Tool selection}
     };
 
-    % 3. Bottom Card: MCP & Validation Agent
-    \node [refcard, fill=cStage2!30, text width=4.50cm, minimum height=1.55cm] (b_bot) at (0.50, -2.29) {
-        \textbf{\fontsize{7.8}{9.2}\selectfont\color{lavenderDark}{\color{purple!75!black}\faTasks}\; MCP \& Validation Agent}\\[0.18em]
-        \begin{minipage}{4.30cm}\raggedright\fontsize{5.8}{7.0}\selectfont
-        \hyphenpenalty=10000
-        \exhyphenpenalty=10000
-        \setlength{\tabcolsep}{0pt}
-        \begin{tabular}{@{}l@{\hspace{0.10cm}}>{\raggedright\arraybackslash}p{3.30cm}@{}}
-        \textbf{Protocol:} & \mbox{MCP (JSON-RPC)}\\
-        \textbf{Tools:} & \mbox{Filesystem, Web Search, Terminal}\\
-        \textbf{Process:} & \mbox{Tool Selection $\rightarrow$ Execution}\\
-                         & \mbox{$\rightarrow$ Result~Validation}\\
-        \textbf{Example:} & \mbox{Web Search MCP}\\
-                         & \mbox{$\rightarrow$ Retrieve results}\\
-                         & \mbox{$\rightarrow$ Validate~output}
-        \end{tabular}
-        \end{minipage}
+    % Stage 4: Agents (3 parallel agents) - Adjusted spacing to prevent overlap
+    % 1. Top Agent: Assistant & Documents
+    \node [refcard, fill=cStage1!30, text width=3.0cm, minimum height=1.35cm] (b_agent1) at (3.5, 1.8) {
+        \textbf{\fontsize{6.8}{8.0}\selectfont\color{lavenderDark}{\color{prismBlue}\faFile}\; Assistant \&}\\
+        \textbf{\fontsize{6.8}{8.0}\selectfont\color{lavenderDark}Documents}\\[0.12em]
+        \fontsize{5.2}{6.2}\selectfont
+        \includegraphics[height=1.15ex]{logos/gmail.png}\ Gmail MCP\\
+        \includegraphics[height=1.15ex]{logos/drive.png}\ Drive MCP
     };
 
-    % Stage 3: Verify Box (Matching Reference Image Shield with checkmark)
-    \node [refcard, fill=cSafety!30, text width=2.1cm, minimum height=4.2cm] (b_verify) at (5.40, -0.15) {
-        \vspace{0.4em}
-        {\color{lavenderDark}\fontsize{24}{28}\selectfont\faIcon{shield-alt}}\\[0.3em]
-        \textbf{\fontsize{8.6}{10.5}\selectfont\color{lavenderDark}Verify}\\[0.4em]
-        \fontsize{6.0}{7.3}\selectfont
-        $\bullet$ ORPO score
-        \vspace{0.4em}
+    % 2. Middle Agent: Coder & Workspace
+    \node [refcard, fill=cStage4!30, text width=3.0cm, minimum height=1.35cm] (b_agent2) at (3.5, 0) {
+        \textbf{\fontsize{6.8}{8.0}\selectfont\color{lavenderDark}{\color{prismTeal}\faCode}\; Coder \&}\\
+        \textbf{\fontsize{6.8}{8.0}\selectfont\color{lavenderDark}Workspace}\\[0.12em]
+        \fontsize{5.2}{6.2}\selectfont
+        {\color{prismGold!90!black}\faFolderOpen}\ Filesystem\\
+        {\color{prismTeal}\faTerminal}\ Terminal
     };
 
-    % Stage 4: Approve Box (Matching Reference Image Person with badge / checkmark)
-    \node [refcard, fill=cDeliverable!40, text width=2.15cm, minimum height=4.2cm] (b_approve) at (8.35, -0.15) {
-        \vspace{0.4em}
-        {\color{prismTeal}\fontsize{24}{28}\selectfont\faUserCheck}\\[0.3em]
-        \textbf{\fontsize{8.6}{10.5}\selectfont\color{lavenderDark}Approve}\\[0.4em]
-        \fontsize{6.0}{7.3}\selectfont
-        $\bullet$ Action sign-off\\
-        $\bullet$ Verified artifacts\\
-        $\bullet$ Output dispatch
-        \vspace{0.4em}
+    % 3. Bottom Agent: MCP & Validation
+    \node [refcard, fill=cStage2!30, text width=3.0cm, minimum height=1.35cm] (b_agent3) at (3.5, -1.8) {
+        \textbf{\fontsize{6.8}{8.0}\selectfont\color{lavenderDark}{\color{purple!75!black}\faTasks}\; MCP \&}\\
+        \textbf{\fontsize{6.8}{8.0}\selectfont\color{lavenderDark}Validation}\\[0.12em]
+        \fontsize{5.2}{6.2}\selectfont
+        Web Search\\
+        Tool Execution
+    };
+
+    % Stage 5: ORPO (Reward Model & Quality Gate)
+    \node [refcard, fill=cSafety!30, text width=3.2cm, minimum height=2.0cm] (b_orpo) at (7.0, 0) {
+        {\fontsize{7.6}{9.0}\selectfont\bfseries\color{lavenderDark}ORPO}\\[0.18em]
+        {\color{lavenderDark}\fontsize{18}{21}\selectfont\faIcon{shield-alt}}\\[0.18em]
+        {\fontsize{5.6}{6.8}\selectfont\normalfont
+        Reward Model\\
+        Quality Gate\\[0.1em]
+        {\fontsize{5.0}{6.0}\selectfont Scores outputs\\
+        Validates quality}}
+    };
+
+    % Stage 6: Output Actions
+    \node [refcard, fill=cDeliverable!40, text width=3.2cm, minimum height=2.0cm] (b_output) at (10.5, 0) {
+        {\fontsize{7.6}{9.0}\selectfont\bfseries\color{lavenderDark}Output Actions}\\[0.18em]
+        {\color{prismTeal}\fontsize{18}{21}\selectfont\faUserCheck}\\[0.18em]
+        {\fontsize{5.6}{6.8}\selectfont\normalfont
+        Action sign-off\\
+        Verified artifacts\\
+        Output dispatch\\
+        User delivery}
     };
 
     % Main Connecting Arrows
-    % 1. From Agent Loop to Dot
-    \draw [flowarr] (b_loop.east) -- (dot);
+    \draw [flowarr] (b_request.east) -- (b_intent.west);
+    \draw [flowarr] (b_intent.east) -- (b_router.west);
+    
+    % Router to Agents (fan-out)
+    \draw [flowarr, rounded corners=2.5pt] (b_router.east) -- (2.0, 0) -- (2.0, 1.8) -- (b_agent1.west);
+    \draw [flowarr] (b_router.east) -- (b_agent2.west);
+    \draw [flowarr, rounded corners=2.5pt] (b_router.east) -- (2.0, 0) -- (2.0, -1.8) -- (b_agent3.west);
 
-    % 2. Branching from Dot to 3 Parallel Cards (clean orthogonal fork)
-    \draw [flowarr, rounded corners=2.5pt] (dot) -- (-2.45, 1.45) -- (b_top.west);
-    \draw [flowarr] (dot) -- (b_mid.west);
-    \draw [flowarr, rounded corners=2.5pt] (dot) -- (-2.45, -2.29) -- (b_bot.west);
+    % Agents to ORPO (fan-in)
+    \draw [flowarr, rounded corners=2.5pt] (b_agent1.east) -- (5.5, 1.8) -- (5.5, 0) -- (b_orpo.west);
+    \draw [flowarr] (b_agent2.east) -- (b_orpo.west);
+    \draw [flowarr, rounded corners=2.5pt] (b_agent3.east) -- (5.5, -1.8) -- (5.5, 0) -- (b_orpo.west);
 
-    % 3. Merge the three agent result streams into one validation input
-    \coordinate (merge) at (3.29, -0.15);
-    \draw [merge, rounded corners=2.5pt]
-        (b_top.east) -- (3.29, 1.45) -- (3.29, -2.29) -- (b_bot.east);
-    \draw [merge] (b_mid.east) -- (3.29, -0.15);
-    \draw [flowarr] (merge) -- (b_verify.west);
-    \node [inner sep=0.4pt, align=center,
-           font=\fontsize{5.4}{6.2}\selectfont\bfseries\color{lavenderDark}]
-           at (3.7495, 0.13) {agent\\outputs};
+    % ORPO to Output
+    \draw [flowarr] (b_orpo.east) -- (b_output.west);
 
-    % 4. From Verify to Approve
-    \draw [flowarr] (b_verify.east) --
-        node[above=2pt, inner sep=0.4pt,
-             font=\fontsize{5.4}{6.2}\selectfont\bfseries\color{prismTeal!90!black}]{pass}
-        (b_approve.west);
-
-    % 5. Validation Feedback & Retry Loop (Clean loop entering top of Agent Loop)
+    % Feedback Loop from ORPO back to Intent Classifier
     \draw [dashloop, rounded corners=4pt]
-        (b_verify.north) --
-        ($(b_verify.north)+(0,0.55)$) --
-        node[pos=0.5, above=3pt, font=\fontsize{6.5}{7.8}\selectfont\bfseries\color{prismGold!95!black}]{\faRedo\ Validation Feedback \& Retry Loop}
-        ($(b_loop.north)+(-0.85,0.55)$) --
-        ($(b_loop.north)+(-0.85,0)$);
+        (b_orpo.north) --
+        (7.0, 2.5) --
+        node[pos=0.5, above=3pt, font=\fontsize{6.0}{7.2}\selectfont\bfseries\color{prismGold!95!black}]{\faRedo\ Validation Feedback \& Retry Loop}
+        (-3.5, 2.5) --
+        (b_intent.north);
 
 \end{tikzpicture}%
 }
@@ -2106,18 +2095,72 @@ Cloud or temporary in-memory state &
 ]
 \centering\fontsize{4.2}{5.0}\selectfont\color{lavenderDark}
 \textbf{Figure 1.0: PrismSpace Workflow} $\,\vert\,$ 
-\textbf{DAG} = Directed Acyclic Graph $\,\vert\,$ 
 \textbf{MCP} = Model Context Protocol $\,\vert\,$ 
-\textbf{ReAct} = Reason + Act $\,\vert\,$ 
-\textbf{ORPO} = Odds Ratio Preference Optimization $\,\vert\,$ 
-\textbf{HITL} = Human-in-the-Loop
+\textbf{ORPO} = Odds Ratio Preference Optimization
 \end{tcolorbox}
+\end{frame}
+
+% =============================================================================
+% SLIDE 7: DATASET DETAILS
+% =============================================================================
+\section{Dataset Details}
+
+\begin{frame}[t]{07. Dataset Details}
+\vspace{-0.25em}
+\centering
+
+% 1. AgentInstruct
+\begin{tcolorbox}[
+  enhanced, arc=3.5pt, colframe=lavenderDark!80, colback=white,
+  boxrule=0.7pt, left=8pt, right=8pt, top=3pt, bottom=3pt,
+  title={\small\bfseries\color{white}\faDatabase\enspace 1. AgentInstruct\hfill\normalfont\footnotesize\color{lavenderLight!90}Agent \& Provider Routing}
+]
+\fontsize{7.2}{9.2}\selectfont
+\begin{itemize}\setlength{\itemsep}{1.5pt}
+  \item \textbf{Format:} JSON \enspace$\vert$\enspace \textbf{Attributes:} \comp{id}, \comp{conversations}, \comp{from}, \comp{value}, \comp{loss}
+  \item \textbf{Rows:} 351 examples
+  \item \textbf{Training Target:} Agent Router + Provider Router models
+\end{itemize}
+\end{tcolorbox}
+
+\vspace{-0.15em}
+% 2. BEIR-FiQA
+\begin{tcolorbox}[
+  enhanced, arc=3.5pt, colframe=prismTeal!85!black, colback=white,
+  boxrule=0.7pt, left=8pt, right=8pt, top=3pt, bottom=3pt,
+  title={\small\bfseries\color{white}\faDatabase\enspace 2. BEIR-FiQA\hfill\normalfont\footnotesize\color{prismMint}Intent Classification}
+]
+\fontsize{7.2}{9.2}\selectfont
+\begin{itemize}\setlength{\itemsep}{1.5pt}
+  \item \textbf{Format:} JSONL / TSV \enspace$\vert$\enspace \textbf{Attributes:} \comp{query-id}, \comp{score}, \comp{embedding}, \comp{\_id}, \comp{text}
+  \item \textbf{Rows:} 6,648 queries, 57,638 documents, 14,166 relevance records
+  \item \textbf{Training Target:} Intent Classifier model
+\end{itemize}
+\end{tcolorbox}
+
+\vspace{-0.15em}
+% 3. UltraFeedback Binarized
+\begin{tcolorbox}[
+  enhanced, arc=3.5pt, colframe=lavenderMedium!90!black, colback=white,
+  boxrule=0.7pt, left=8pt, right=8pt, top=3pt, bottom=3pt,
+  title={\small\bfseries\color{white}\faDatabase\enspace 3. UltraFeedback Binarized\hfill\normalfont\footnotesize\color{lavenderLight!90}ORPO Preference Alignment}
+]
+\fontsize{7.2}{9.2}\selectfont
+\begin{itemize}\setlength{\itemsep}{1.5pt}
+  \item \textbf{Format:} JSON \enspace$\vert$\enspace \textbf{Attributes:} \comp{prompt}, \comp{prompt\_id}, \comp{chosen}, \comp{rejected}, \comp{messages}, \comp{score\_chosen}, \comp{score\_rejected}
+  \item \textbf{Rows:} 61,135 training examples; 1,000 test examples
+  \item \textbf{Training Target:} ORPO Preference Alignment model
+\end{itemize}
+\end{tcolorbox}
+
 \end{frame}
 
 % =============================================================================
 % =============================================================================
 
 % Dataset pipeline belongs immediately after the workflow figure.
+% Removed per request: Dataset Preparation & Multi-Model Training Pipeline.
+\iffalse
 \begin{frame}[t]{10. Dataset Preparation \& Multi-Model Training Pipeline}
 \vspace{-0.2em}
 \centering
@@ -2205,12 +2248,15 @@ The held-out 20\% is divided equally for validation and final testing.
 \end{tcolorbox}
 \vspace{-0.35cm}
 \end{frame}
+\fi
 
 
 
 % =============================================================================
 % SLIDE 10: MODEL TRAINING MAP
 % =============================================================================
+% Removed per request: Model Training Map.
+\iffalse
 \begin{frame}[t]{10. Model Training Map}
 \vspace{-0.38em}
 \begin{tcolorbox}[
@@ -2250,6 +2296,7 @@ Filters eligible providers and ranks the best model using capability, quality, l
 \end{tcolorbox}
 \end{frame}
 
+\fi
 \iffalse
 % --- BEGIN agent_lifecycle_frame.tex ---
 % Intent-classifier processing and action-guideline diagram.
@@ -2320,7 +2367,7 @@ Filters eligible providers and ranks the best model using capability, quality, l
 \section{Model Responsibilities}
 
 \iffalse
-\begin{frame}[t]{09. Model Responsibilities \& Inference Flow}
+\begin{frame}[t]{08. Model Responsibilities \& Inference Flow}
 \vspace{-0.30em}
 
 % Intent Definition Box - Ultra compact version
@@ -2411,7 +2458,7 @@ Filters eligible providers and ranks the best model using capability, quality, l
 \fi
 
 % Revised beginner-friendly model inference flow (4 models + final output).
-\begin{frame}[t]{09. Model Responsibilities \& Inference Flow}
+\begin{frame}[t]{08. Model Responsibilities \& Inference Flow}
 \vspace*{-0.40em}
 \noindent\makebox[\linewidth][c]{%
 \begin{adjustbox}{width=0.96\paperwidth, max height=0.86\textheight, keepaspectratio}
@@ -2466,7 +2513,7 @@ Filters eligible providers and ranks the best model using capability, quality, l
   {\fontsize{5.4}{6.4}\selectfont Provider, Model \& Cost Routing}
 };
 \node[process] (p3) at (0.00, -0.75) {
-  \textbf{Input:} task DAG + selected agents\quad $\rightarrow$\quad
+  \textbf{Input:} Selected Agents (JSON format)\quad $\rightarrow$\quad
   \textbf{Process:} compare model capabilities and availability\quad $\rightarrow$\quad
   \textbf{Output:} provider/model assignment
 };
@@ -2493,7 +2540,7 @@ Filters eligible providers and ranks the best model using capability, quality, l
 % Row 5: Final User-Facing Output Banner
 \node[state, fill=prismMint!65, text width=16.15cm, align=left] (finalout) at (0.54, -3.55) {
   \textbf{\fontsize{6.6}{7.6}\selectfont Final output to the user:}\quad
-  {\fontsize{6.0}{7.0}\selectfont Completed task result + validated tool outputs + execution status + saved session record}
+  {\fontsize{6.0}{7.0}\selectfont Completed task result + Validated output + execution status}
 };
 
 % Left model-to-model progression arrows
@@ -2517,6 +2564,8 @@ Filters eligible providers and ranks the best model using capability, quality, l
 % SPDX-License-Identifier: Apache-2.0
 % Agent Lifecycle & MCP Integration Slide Frame
 
+% Removed per request: Agent Lifecycle, MCP Integration & Runtime Flow.
+\iffalse
 \begin{frame}[t]{07. Agent Lifecycle, MCP Integration \& Runtime Flow in PrismSpace}
 \vspace{-0.65em}
 
@@ -2790,6 +2839,7 @@ Filters eligible providers and ranks the best model using capability, quality, l
 \end{tcolorbox}
 
 \end{frame}
+\fi
 
 % --- END agent_lifecycle_frame.tex ---
 
@@ -3238,6 +3288,8 @@ Filters eligible providers and ranks the best model using capability, quality, l
 % =============================================================================
 % SLIDE 8: SIMPLIFIED FLOW STAGES 1, 2, & 3
 % =============================================================================
+% Removed per request: How the System Works: From Request to Result.
+\iffalse
 \begin{frame}[t]{11. How the System Works: From Request to Result}
 \vspace{-0.55em}
 \begin{columns}[T]
@@ -3363,6 +3415,7 @@ Filters eligible providers and ranks the best model using capability, quality, l
 }
 \end{tcolorbox}
  \end{frame}
+\fi
 
 % =============================================================================
 % =============================================================================
@@ -3383,6 +3436,9 @@ Filters eligible providers and ranks the best model using capability, quality, l
 \end{frame}
 
 \iftrue
+
+% The original 12-step algorithm is retained below for reference but hidden from the deck.
+\iffalse
 
 % Hierarchical Algorithm List Environments matching Screenshot 2 structure
 \newenvironment{algolist}{%
@@ -3798,6 +3854,125 @@ Filters eligible providers and ranks the best model using capability, quality, l
 \end{frame}
 \fi
 
+% -----------------------------------------------------------------------------
+% SIMPLIFIED ALGORITHM: 6 CORE STEPS
+% -----------------------------------------------------------------------------
+\newenvironment{algolist}{%
+  \begin{list}{}{%
+    \setlength{\labelwidth}{1.9em}%
+    \setlength{\leftmargin}{2.1em}%
+    \setlength{\itemindent}{0pt}%
+    \setlength{\labelsep}{0.45em}%
+    \setlength{\itemsep}{0.28em}%
+    \setlength{\parsep}{0pt}%
+    \setlength{\topsep}{0.1em}%
+    \renewcommand{\makelabel}[1]{\textbf{\color{lavenderDark}##1}}%
+  }\small%
+}{\end{list}}
+
+\begin{frame}[t]{Algorithm: Steps 1--2 -- Prompt to DAG Plan}
+\vspace{-0.2em}
+\begin{columns}[T,onlytextwidth]
+\column{0.48\textwidth}
+ {\large\bfseries\color{lavenderDark}Step 1: Intent Classification of User Prompt}
+\vspace{0.1em}
+\begin{algolist}
+  \item[1.1] Read the user prompt and constraints.
+  \item[1.2] Build the execution record:
+    \vspace{-0.25em}
+    $$T=\langle G,C,\mathcal{M},\Phi\rangle$$
+    \vspace{-0.3em}
+    {\scriptsize\color{prismDark}\textbf{Terms:} $G$ = goal; $C$ = constraints; $\mathcal{M}$ = authorized tools; $\Phi$ = output format.}
+  \item[1.3] Tokenize the prompt with BPE (Byte Pair Encoding), convert it to IDs and embeddings, then analyze it to identify intents, entities, dependencies, and confidence.
+  \item[1.4] Split the identified intents into smaller tasks and create a JSON-RPC task packet for DAG planning; the Tool Executor validates dependencies, tools, and approvals before ordered execution.
+\end{algolist}
+
+\column{0.48\textwidth}
+{\large\bfseries\color{lavenderDark}Step 2: DAG Planning and Dependencies}
+\vspace{0.1em}
+\begin{algolist}
+  \item[2.0] The planner uses this result to split the request into small tasks. Each task becomes a vertex; when one task needs another task's result, they are linked by a directed edge.
+  \item[2.1] Build the dependency graph:
+    \vspace{-0.25em}
+    $$\mathcal{G}=(V,E),\quad \mathcal{O}_i\cap\mathcal{I}_j\ne\emptyset$$
+    \vspace{-0.3em}
+    {\scriptsize\color{prismDark}\textbf{Terms:} $V$ = vertices, where each vertex is one atomic task; $E$ = directed dependency edges; $\mathcal{O}_i$ = output of task $i$; $\mathcal{I}_j$ = input needed by task $j$.}
+  \item[2.2] Schedule tasks with $\pi=\mathrm{TopologicalSort}(\mathcal{G})$; run independent nodes in parallel.
+\end{algolist}
+\end{columns}
+\end{frame}
+
+\begin{frame}[t]{Algorithm: Steps 3--4 -- Agent Execution and Tools}
+\vspace{-0.2em}
+\begin{columns}[T,onlytextwidth]
+\column{0.48\textwidth}
+{\large\bfseries\color{lavenderDark}Step 3: Agent Assignment}
+\vspace{0.1em}
+\begin{algolist}
+  \item[3.1] Match each ready task to the best specialist:
+    \vspace{-0.25em}
+    $$a^*=\arg\max_{a\in\mathcal{A}}\mathrm{CosSim}(\mathbf{Req}(v_i),\mathbf{Cap}(a))$$
+    \vspace{-0.3em}
+    {\scriptsize\color{prismDark}\textbf{Terms:} $a$ = agent; $\mathcal{A}$ = agent pool; $\mathbf{Req}$ = task needs; $\mathbf{Cap}$ = agent capabilities.}
+  \item[3.2] Route each ready DAG task by its work type:
+    \begin{list}{}{\setlength{\leftmargin}{0pt}\setlength{\labelwidth}{0pt}\setlength{\labelsep}{0pt}\setlength{\itemindent}{0pt}\setlength{\listparindent}{0pt}\setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}}
+      \item {\scriptsize Research Agent: web search, document retrieval, and context gathering.}
+      \item {\scriptsize Coder Agent: code changes, file edits, and terminal commands.}
+      \item {\scriptsize Validator Agent: testing, output checking, and safety review.}
+    \end{list}
+  \item[3.3] Send the task, constraints, and relevant parent outputs to the selected agent.
+  \item[3.4] Pass verified outputs to downstream DAG tasks.
+\end{algolist}
+
+\column{0.48\textwidth}
+{\large\bfseries\color{lavenderDark}Step 4: MCP Tools and Safety}
+\vspace{0.1em}
+\begin{algolist}
+  \item[4.1] Discover MCP tool schemas and call servers through JSON-RPC.
+  \item[4.2] Use Browser for research; Filesystem/Terminal for code; Gmail/Drive for productivity.
+  \item[4.3] Run read-only operations automatically and pause state-changing actions for user approval.
+  \item[4.4] Validate tool results; retry or re-plan only the failed DAG branch.
+\end{algolist}
+\end{columns}
+\end{frame}
+
+\begin{frame}[t]{Algorithm: Steps 5 \& 6 -- ORPO Alignment and Quality Gate}
+\vspace{-0.2em}
+\begin{columns}[T,onlytextwidth]
+\column{0.50\textwidth}
+{\large\bfseries\color{lavenderDark}Step 5: ORPO Preference Alignment}
+\vspace{0.1em}
+\begin{algolist}
+  \item[5.1] Compare chosen and rejected responses:
+    \vspace{-0.25em}
+    $$r_w=\log\sigma(s(y_w,x)),\qquad r_l=\log\sigma(s(y_l,x))$$
+    $$L_{\mathrm{ORPO}}=-\log\sigma(r_w-r_l)$$
+    \vspace{-0.3em}
+    {\scriptsize\color{prismDark}\textbf{Terms:} $r_w$ = chosen-response score; $r_l$ = rejected-response score; $y_w$ = chosen response; $y_l$ = rejected response; $x$ = prompt; $s(y,x)$ = model score; $\sigma$ = sigmoid; $L_{\mathrm{ORPO}}$ = preference loss.}
+  \item[5.2] Update the model using the preference loss: increase $s(y_w,x)$ for the chosen response and decrease $s(y_l,x)$ for the rejected response. This increases $r_w-r_l$, makes $\sigma(r_w-r_l)$ approach 1, and reduces $L_{\mathrm{ORPO}}$ over repeated preference pairs.
+\end{algolist}
+
+\column{0.46\textwidth}
+{\large\bfseries\color{lavenderDark}Step 6: Quality Score and Gate}
+\vspace{0.1em}
+\begin{algolist}
+  \item[6.1] Calculate the final quality score:
+    \vspace{-0.25em}
+    $$R(y|x)=\frac{S_{\mathrm{factual}}+S_{\mathrm{schema}}+S_{\mathrm{structure}}}{3}$$
+    {\scriptsize\textbf{For Example:}}\\[-0.15em]
+    $$R(y|x)=\frac{0.91+0.86+0.84}{3}=0.87$$
+    \vspace{-0.3em}
+    {\scriptsize\color{prismDark}\textbf{Terms:} $R(y|x)$ = final quality score; $S_{\mathrm{factual}}$ = factual correctness; $S_{\mathrm{schema}}$ = format compliance; $S_{\mathrm{structure}}$ = clarity and completeness.}
+  \item[6.2] Apply the quality gate:
+    \vspace{-0.25em}
+    $$R(y|x)\geq\tau,\qquad \tau=0.80$$
+    \vspace{-0.3em}
+    {\scriptsize\color{prismDark}\textbf{Working:} $0.87\geq0.80$, so the response passes; otherwise, it is rejected and sent for re-planning or fallback.}
+\end{algolist}
+\end{columns}
+\end{frame}
+\fi
+
 % =============================================================================
 % REFERENCES (placed after the complete swarm algorithm)
 % =============================================================================
@@ -3805,6 +3980,8 @@ Filters eligible providers and ranks the best model using capability, quality, l
 % =============================================================================
 \section{System Architecture}
 
+% Removed per request: System Architecture & Multi-Model Swarm Workflow.
+\iffalse
 \begin{frame}[t]{12. PrismSpace System Architecture \& Multi-Model Swarm Workflow (Figure 1.2)}
 \vspace{-0.30em}
 \centering
@@ -4004,10 +4181,13 @@ Filters eligible providers and ranks the best model using capability, quality, l
 \end{tikzpicture}%
 }
 \end{frame}
+\fi
 
 % % =============================================================================
 % SLIDE 13: FLOWCHART DIAGRAM (Multi-Agent Communication Flow)
 % =============================================================================
+% Removed per request: Multi-Agent Execution Flow.
+\iffalse
 \begin{frame}[t]{13. Flowchart: Multi-Agent Execution Flow (Figure 1.3)}
 \vspace{-0.30em}
 \centering
@@ -4247,12 +4427,15 @@ Filters eligible providers and ranks the best model using capability, quality, l
 \end{tikzpicture}%
 }
 \end{frame}
+\fi
 
 % =============================================================================
 % SLIDE 14: DATABASE SCHEMA - PrismDB AI-Agent stores
 % SLIDE 7: PROJECT DATA-FLOW DIAGRAM
 % =============================================================================
+% Removed per request: PrismSpace Data Flow Diagram.
 \section{Data Flow}
+\iffalse
 
 \begin{frame}[t]{07. PrismSpace Data Flow Diagram}
 \vspace{0.15em}
@@ -4363,6 +4546,7 @@ Filters eligible providers and ranks the best model using capability, quality, l
 }
 
 \end{frame}
+\fi
 
 % =============================================================================
 % SLIDE 7: AGENT LIFECYCLE, MCP INTEGRATION & RUNTIME FLOW
@@ -4391,6 +4575,8 @@ Filters eligible providers and ranks the best model using capability, quality, l
   \endgroup
 }
 
+% Removed per request: Database Design title slide.
+\iffalse
 \begin{frame}[plain]
 \vfill
 \begin{center}
@@ -4400,7 +4586,10 @@ Filters eligible providers and ranks the best model using capability, quality, l
 \end{center}
 \vfill
 \end{frame}
+\fi
 
+% Removed per request: Database Schema.
+\iffalse
 \begin{frame}[t]{14. Database Schema}
 \vspace{-0.20cm}
 
@@ -4547,6 +4736,7 @@ Filters eligible providers and ranks the best model using capability, quality, l
 \texttt{useLiveQuery()} Reactive UI $\;\vert\;$ ACID Dexie.js
 \end{tcolorbox}
 \end{frame}
+\fi
 
 % =============================================================================
 % REQUIREMENTS, IMPLEMENTATION LAYERS & SYSTEM MODULES
@@ -4555,6 +4745,8 @@ Filters eligible providers and ranks the best model using capability, quality, l
 % --- BEGIN requirements_modules_frames.tex ---
 % Requirements, implementation layers, training modules, and system modules
 
+% Removed per request: Database ER Diagram.
+\iffalse
 \begin{frame}[t]{15. Database ER Diagram}
 \vspace{0.25cm}
 \centering
@@ -4641,6 +4833,7 @@ Filters eligible providers and ranks the best model using capability, quality, l
 \end{tikzpicture}%
 }
 \end{frame}
+\fi
 
 \begin{frame}[plain]
 \vfill
@@ -4652,7 +4845,7 @@ Filters eligible providers and ranks the best model using capability, quality, l
 \vfill
 \end{frame}
 
-\begin{frame}[t]{16. Hardware Requirements}
+\begin{frame}[t]{Hardware Requirements}
 \vspace{-0.15cm}
 \begin{tcolorbox}[enhanced,arc=3pt,colframe=lavenderDark!70,colback=lavenderLight!22,
   boxrule=0.7pt,left=8pt,right=8pt,top=6pt,bottom=6pt]
@@ -4667,7 +4860,7 @@ Filters eligible providers and ranks the best model using capability, quality, l
 \end{tcolorbox}
 \end{frame}
 
-\begin{frame}[t]{17. Software Requirements}
+\begin{frame}[t]{Software Requirements}
 \vspace{-0.15cm}
 \begin{itemize}\setlength{\itemsep}{7pt}\small
   \item \textbf{Next.js 14 / React / TypeScript:} browser-based workspace for objectives, chat history, agent status, and approvals.
@@ -4689,7 +4882,7 @@ Filters eligible providers and ranks the best model using capability, quality, l
 \vfill
 \end{frame}
 
-\begin{frame}[t]{18. Frontend Implementation}
+\begin{frame}[t]{Frontend Implementation}
 \vspace{-0.15cm}
 \begin{itemize}\setlength{\itemsep}{8pt}\small
   \item \textbf{Next.js 14:} React-based framework for building the browser application and managing frontend pages.
@@ -4702,7 +4895,7 @@ Filters eligible providers and ranks the best model using capability, quality, l
 \end{itemize}
 \end{frame}
 
-\begin{frame}[t]{19. Backend Implementation}
+\begin{frame}[t]{Backend Implementation}
 \vspace{-0.15cm}
 \begin{itemize}\setlength{\itemsep}{8pt}\small
   \item \textbf{FastAPI:} Python framework for building asynchronous backend services and application endpoints.
@@ -4715,6 +4908,8 @@ Filters eligible providers and ranks the best model using capability, quality, l
 \end{itemize}
 \end{frame}
 
+% Removed per request: Model Training Modules.
+\iffalse
 \begin{frame}[t]{20. Model Training Modules}
 \vspace{-0.15cm}
 \begin{itemize}\setlength{\itemsep}{2pt}\footnotesize
@@ -4737,6 +4932,7 @@ Filters eligible providers and ranks the best model using capability, quality, l
 \textbf{PEFT (Parameter-Efficient Fine-Tuning):} adapts a model by training only a small set of additional parameters.
 \end{tcolorbox}
 \end{frame}
+\fi
 
 \begin{frame}[plain]
 \vfill
@@ -4748,16 +4944,14 @@ Filters eligible providers and ranks the best model using capability, quality, l
 \vfill
 \end{frame}
 
-\begin{frame}[t]{21. System Modules and Responsibilities}
+\begin{frame}[t]{System Modules and Responsibilities}
 \vspace{-0.15cm}
 \begin{itemize}\setlength{\itemsep}{6pt}\footnotesize
   \item \textbf{User and Session Module:} captures objectives, settings, conversation history, uploaded files, and session state.
   \item \textbf{Context and Routing Module:} classifies intent and selects the most suitable provider, model, and specialist agents.
   \item \textbf{DAG (Directed Acyclic Graph) Planning Module:} decomposes objectives into dependency-aware subtasks and schedules parallel work.
-  \item \textbf{Agent Execution Module:} runs bounded \textbf{ReAct (Reasoning and Acting)} loops and invokes approved tools.
   \item \textbf{MCP (Model Context Protocol) Integration Module:} exposes filesystem, terminal, database, memory, and external-service tools through \textbf{JSON-RPC (JavaScript Object Notation--Remote Procedure Call)}.
   \item \textbf{Verification and Safety Module:} applies schema checks, \textbf{ORPO (Odds Ratio Preference Optimization)} preference gating, anomaly detection, and \textbf{HITL (Human-in-the-Loop)} approvals.
-  \item \textbf{Persistence Module:} stores sessions, messages, artifacts, and errors in the local \textbf{PrismDB (browser IndexedDB database)}.
 \end{itemize}
 \end{frame}
 
@@ -4769,18 +4963,18 @@ Filters eligible providers and ranks the best model using capability, quality, l
 % =============================================================================
 % SLIDE 14+: SIMPLIFIED PROJECT WORKFLOW ALGORITHM
 % =============================================================================
-\begin{frame}[t]{22. Conclusion}
+\begin{frame}[t]{Conclusion}
 \vspace{0.35cm}
 \begin{itemize}\setlength{\itemsep}{12pt}\large
   \item \textbf{PrismSpace} converts a user's natural-language goal into smaller, organized tasks.
   \item Independent tasks can be executed by multiple agents in parallel.
   \item Standard tools are connected through the \textbf{Model Context Protocol (MCP)}.
-  \item Human approval and local browser storage improve safety, privacy, and control.
+  \item ORPO aligns model responses with preferred examples and supports consistent quality improvement.
   \item The platform provides a flexible foundation for future agent-based applications.
 \end{itemize}
 \end{frame}
 
-\begin{frame}[t]{23. Gantt Chart}
+\begin{frame}[t]{Gantt Chart}
 \centering
 \resizebox{1.0\textwidth}{!}{%
 \begin{tikzpicture}[
