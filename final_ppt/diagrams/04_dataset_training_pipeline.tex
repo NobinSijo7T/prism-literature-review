@@ -12,7 +12,7 @@
   \centering\textbf{1. Raw Datasets}\\[3pt]
   \raggedright\fontsize{4.6}{5.5}\selectfont
   \textbullet\ \textbf{BEIR} -- information retrieval,\\
-  \hspace{1.0em}semantic search, research intent labels\\
+  \hspace{1.0em}semantic search; intent annotation inputs\\
   \textbullet\ \textbf{Agent Router datasets} -- agent/tool routing\\
   \hspace{1.0em}{\fontsize{3.8}{4.4}\selectfont\comp{agent-llm-traces, AgentInstruct, APIBench, xlam-function-calling-60k}}\\
   \textbullet\ \textbf{RouterBench} -- provider choice\\
@@ -30,8 +30,8 @@
   \rowcolor{prismTeal!25}
   \textrm{\textbf{Dataset $\to$ Table}} & \textrm{\textbf{Training fields}} & \textrm{\textbf{Algorithm}} & \textrm{\textbf{Resultant model}} \\\hline
   \textbf{BEIR}\newline\comp{intent.jsonl} & 
-  query; document;\newline relevance score;\newline research intent label & 
-  TF--IDF / embeddings + XGBoost classifier. &
+  query; document;\newline relevance score;\newline derived intent target\newline (when available) & 
+  TF--IDF / embeddings + XGBoost classifier.\newline\fontsize{3.1}{3.7}\selectfont\itshape Intent labels are derived during annotation/curation; they are not assumed to be present in every source record. &
   \textbf{IntentClassifier}\\\hline
   \textbf{Agent Router datasets}\newline\comp{router.jsonl} & 
   task prompt;\newline capabilities; tool / API cues;\newline agent or route target &
@@ -67,4 +67,3 @@
 \draw[flow, line width=0.8pt] (tables.east |- 0,-0.30) -- node[above, font=\fontsize{3.25}{3.65}\selectfont\bfseries, fill=prismLight, inner sep=0.35pt]{ProviderRouter} (models.west |- 0,-0.30);
 \draw[flow, line width=0.8pt] (tables.east |- 0,-0.84) -- node[below, font=\fontsize{3.25}{3.65}\selectfont\bfseries, fill=prismLight, inner sep=0.35pt]{RewardModel} (models.west |- 0,-0.84);
 \end{tikzpicture}%
-

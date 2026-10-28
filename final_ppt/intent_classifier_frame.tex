@@ -70,11 +70,11 @@
 
 \intentcol{3}{cInt}{Intent Classifier}{Intent Classifier Agent}{(LLM / Classifier)}{%
   \intentbadge{cInt}{Function}
-  Analyze contextual embeddings to classify user intent, extract domain entities (target API, destination notes), resolve dependencies, and evaluate confidence thresholds for task routing.\par\vspace{1.5pt}
+  Analyze contextual embeddings and curated supervision to infer user intent, extract domain entities (target API, destination notes), resolve dependencies, and evaluate confidence thresholds for task routing.\par\vspace{1.5pt}
   \intentbadge{cInt}{Input}
   Token embeddings + prompt context.\par\vspace{1.5pt}
   \intentbadge{cInt}{Output}
-  Intent label(s) with confidence (research: 0.98, summarize: 0.95, write: 0.92) + entity slots.}
+  Derived intent label(s) with confidence + entity slots; labels are inferred from the prompt and curated training targets, not assumed to be literal fields in every source record.}
 
 \intentcol{4}{cRpc}{Semantic Decomposer}{Decomposer Agent}{(Planning Agent)}{%
   \intentbadge{cRpc}{Function}
@@ -159,7 +159,7 @@
   {\fontsize{4.1}{5}\selectfont\ttfamily [0.12, 0.45, -0.03, \ldots]}\par\vspace{1pt}\textit{(embedding vectors)}}{9.72}
 \intentdetail{5}{Pass to Intent Classifier}{\intentbadge{cDet}{Function}
   Embeddings + context $\rightarrow$ intent classification.\par\vspace{2pt}\intentbadge{cDet}{Output}
-  Intent label(s) + entities (``research'', ``summarize'', \ldots).}{12.86}
+  Derived intent label(s) + entities (e.g., research, summarize, write) inferred from the prompt and supervision.}{12.86}
 \foreach \x in {3.14,6.28,9.42,12.56}{%
   \draw[-{Stealth[length=2mm]},thick,cDet!80] (\x+0.01,1.33) -- ++(0.28,0);}
 
