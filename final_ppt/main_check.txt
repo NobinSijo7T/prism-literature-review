@@ -1,0 +1,1278 @@
+PRISMSPACE – INTELLIGENT MULTI-AGENT
+              PLATFORM
+
+
+
+          Dept. of Computer Science & Engineering
+            College of Engineering, Karunagappally
+
+                  Project Group 01
+  NOBIN SIJO                                         KNP23CS082
+  PRANAV P                                           KNP23CS085
+  PRASANTH P                                         KNP23CS086
+  SANKAR NARAYAN S                                   KNP23CS094
+
+                Project Coordinator & Guide
+                    Dr. Leena Silvoster
+                      Associate Professor
+            College of Engineering, Karunagappally
+01. Introduction: PrismSpace Web Platform
+
+
+       ▶ A multi-agent system breaks complex goals into smaller tasks, assigns them to suitable agents,
+         runs independent tasks in parallel, and combines their results.
+
+       ▶ PrismSpace is a web-based multi-agent intelligence platform designed to coordinate AI agents
+         and manage complex workflows.
+
+       ▶ It converts natural-language goals into Directed Acyclic Graphs (DAGs) to manage task
+         dependencies and enable parallel execution.
+
+       ▶ It provides real-time workflow visualization, local session storage, and human approval controls
+         for sensitive actions.
+
+
+
+
+    Group 01 · CSE, CEK                 PrismSpace: Architecture, Flow, DB & Swarm Algorithm                2 / 58
+   Problem Statement
+Challenges in current AI-agent and workflow systems
+02. Problem Statement: Core Challenges in AI Agent Systems
+
+     ▶ Coordinating multiple AI agents and complex tasks requires efficient task
+       orchestration, seamless tool integration, clear workflow visibility, and
+       secure execution.
+
+     ▶ Developer task prompts, workspace and session state, uploaded files, and
+       MCP and human approval configurations.
+
+     ▶ PrismSpace applies intent classification, supervised model routing, DAG
+       decomposition with topological scheduling, MCP-based tool execution,
+       ORPO preference alignment, and human approval for sensitive actions.
+
+     ▶ Task results, tool outputs, validation results, and workflow status
+       summaries.
+
+    Group 01 · CSE, CEK         PrismSpace: Architecture, Flow, DB & Swarm Algorithm   4 / 58
+03. Objectives
+
+
+     ▶ Implement PrismSpace as a multi-agent workspace that transforms a
+       user’s prompt into a verified deliverable through coordinated planning,
+       tool use, and human oversight.
+
+     ▶ Accept the user’s prompt and constraints.
+
+     ▶ Classify intent, generate a dependency-aware DAG, route subtasks to
+       specialist agents, execute approved MCP tools, and validate progress with
+       HITL safeguards.
+
+     ▶ Synthesize and deliver a verified result while showing task progress and
+       preserving the session state.
+
+
+    Group 01 · CSE, CEK        PrismSpace: Architecture, Flow, DB & Swarm Algorithm   5 / 58
+ 04. Literature Review
+Research background, key findings, and identified gap
+Multi-Objective Reward Generalization in Deep Reinforcement Learning
+      Citation                Summary                                      Advantages & Disadvantages
+      F. Cornalba, C.         Investigates Multi-Objective Deep Rein- Advantages:
+      Disselkamp, D.          forcement Learning (MODRL) for optimiz-       ▶ Provides structured Pareto-optimal
+      Scassola, and C. Helf   ing competing operational objectives (e.g.,      policy exploration across conflicting
+       Neural Computing       return vs. risk). Introduces reward general-     objectives.
+      and Applications        ization techniques that train pareto-optimal
+                                                                            ▶ Generalizes across parameterized
+       Year: 2024             policies capable of dynamically adapting to
+                                                                               reward weights without full policy
+       Publisher: Springer    shifting stakeholder preferences without re-
+                                                                               retraining.
+                              training from scratch.
+      Open Access                                                           ▶ Directly informs multi-objective
+                                                                               routing (latency vs. cost vs. quality)
+                                                                               in PrismSpace.
+                                                                           Disadvantages:
+                                                                                       ▶ High initial training sample complexity
+                                                                                         across multi-dimensional reward
+                                                                                         spaces.
+                                                                                       ▶ Evaluated primarily on continuous
+                                                                                         financial time-series data.
+                                                                                       ▶ Sensitive to hyperparameter tuning in
+                                                                                         policy entropy regularization.
+
+
+
+    Group 01 · CSE, CEK                     PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                   7 / 58
+Average Reward Adjusted Discounted Reinforcement Learning
+      Citation               Summary                                     Advantages & Disadvantages
+      M. Schneckenreither    Proposes Average-Reward Adjusted Dis- Advantages:
+      and G. Moser           counted RL (Reinforcement Learning)          ▶ Eliminates infinite-horizon return
+       Neural Computing      (ARAD-RL), bridging the gap between dis-        explosion while preserving policy
+      and Applications       counted and average reward criteria in          convergence.
+       Year: 2025            infinite-horizon MDPs (Markov Decision
+                                                                          ▶ Improves long-term steady-state
+       Publisher: Springer   Processes). Addresses systematic value es-
+                                                                             throughput in continuous scheduling
+                             timation bias in standard discounted Q-
+      Open Access                                                            tasks.
+                             learning by dynamically subtracting the es-
+                             timated gain rate during Bellman updates.    ▶ Theoretically sound formulation for
+                                                                             continuous agent lifecycle
+                                                                             optimization.
+                                                                         Disadvantages:
+                                                                                      ▶ Requires accurate empirical estimation
+                                                                                        of average reward baseline.
+                                                                                      ▶ Slow convergence in highly
+                                                                                        non-stationary transition environments.
+                                                                                      ▶ Adds variance to early-stage TD
+                                                                                        (Temporal Difference) error gradient
+                                                                                        estimates.
+
+
+
+    Group 01 · CSE, CEK                    PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                   8 / 58
+Deep Reinforcement Learning for Multi-Agent Coordination
+  Citation                 Summary                                      Advantages & Disadvantages
+  K. Aina and S. Ha        Develops decentralized MARL (Multi-Agent Advantages:
+   Artificial Life and     Reinforcement Learning) algorithms for        ▶ Resolves shared-resource contention
+  Robotics                 multi-agent coordination in constrained en-      and deadlocks via decentralized
+   Year: 2026              vironments. Employs spatial-temporal ob-         policies.
+   Publisher: Springer     servation encoding and localized interaction
+                                                                         ▶ Spatial-temporal graph attention
+                           graphs to coordinate joint movements and
+  Open Access                                                               scales linearly with agent density.
+                           resolve deadlocks without requiring central-
+                           ized global state knowledge.                  ▶ Applicable to concurrent tool-use
+                                                                            contention across worker agents.
+                                                                        Disadvantages:
+                                                                                        ▶ Tested in physical robotics grids rather
+                                                                                          than software API (Application
+                                                                                          Programming Interface) environments.
+                                                                                        ▶ Vulnerable to communication packet
+                                                                                          dropouts and sensor latency.
+                                                                                        ▶ Does not account for semantic
+                                                                                          language-based coordination.
+
+
+
+     Group 01 · CSE, CEK                   PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                      9 / 58
+Open-Ended Coordination Using Modular Open Policies
+  Citation                 Summary                                        Advantages & Disadvantages
+  D. Rother, J.            Presents a framework for open-ended ad Advantages:
+  Pajarinen, J. Peters,    hoc multi-agent coordination.         Utilizes  ▶ Enables zero-shot ad hoc coordination
+  and T. H.                Modular Open Policies (MOP) where dy-              with unfamiliar teammate agent
+  Weisswange               namic agent teams dynamically infer unseen         policies.
+   Autonomous Agents       teammate skill representations and synthe-
+                                                                           ▶ Modular policy decomposition allows
+  and Multi-Agent          size blended coordination strategies without
+                                                                              plug-and-play agent role assignment.
+  Systems                  requiring pre-coordinated joint training.
+   Year: 2025                                                              ▶ Directly adopted in PrismSpace for
+                                                                              dynamic worker swarm scaling.
+   Publisher: Springer
+                                                                          Disadvantages:
+  Open Access
+                                                                                        ▶ Requires comprehensive pre-trained
+                                                                                          skill policy libraries for base roles.
+                                                                                        ▶ Evaluated primarily on benchmark
+                                                                                          games (Overcooked, LBF
+                                                                                          (Level-Based Foraging)).
+                                                                                        ▶ Action blending may introduce
+                                                                                          transient sub-optimal execution steps.
+
+
+
+     Group 01 · CSE, CEK                   PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                    10 / 58
+Improving Scalability of MADRL (Multi-Agent Deep Reinforcement
+Learning) with Suboptimal Human Knowledge
+ Citation                  Summary                                      Advantages & Disadvantages
+ D. Liu, F. Ren, J.        Addresses sample inefficiency in large-scale Advantages:
+ Yan, G. Su, W. Gu,        Multi-Agent DRL (Deep Reinforcement           ▶ Accelerates policy exploration by up to
+ and S. Kato               Learning) by integrating heuristic human         4x using noisy demonstration priors.
+  Autonomous Agents        guidance into exploration.      Proposes an
+                                                                         ▶ Robust to suboptimal or conflicting
+ and Multi-Agent           adaptive filtering mechanism that extracts
+                                                                            human heuristic rules.
+ Systems                   actionable macro-actions from noisy or sub-
+  Year: 2026               optimal human demonstration traces, accel-    ▶ Informs PrismSpace’s bootstrap
+                           erating multi-agent policy learning.             initialization from logged developer
+  Publisher: Springer
+                                                                            sessions.
+ Open Access
+                                                                        Disadvantages:
+                                                                                        ▶ Quality of learned policies depends on
+                                                                                          initial heuristic coverage.
+                                                                                        ▶ Requires complex threshold tuning to
+                                                                                          transition away from demonstrations.
+                                                                                        ▶ High memory footprint for maintaining
+                                                                                          dual replay buffers.
+
+     Group 01 · CSE, CEK                   PrismSpace: Architecture, Flow, DB & Swarm Algorithm                               11 / 58
+ε-Retraining Reinforcement Learning Algorithms
+ Citation                   Summary                                        Advantages & Disadvantages
+ L. Marzari, C. Liu, P.     Investigates bounded policy fine-tuning Advantages:
+ L. Donti, and E.           through ε-retraining, preventing catas-         ▶ Provides mathematical guarantees
+ Marchesini                 trophic forgetting when deep RL agents             against catastrophic policy divergence.
+  Autonomous Agents         adapt to non-stationary environments. Es-
+                                                                            ▶ Enables continuous telemetry-driven
+ and Multi-Agent            tablishes formal Lipschitz bounds on policy
+                                                                               model fine-tuning in production.
+ Systems                    drift, ensuring safe continual learning in de-
+  Year: 2026                ployed agent pipelines.                         ▶ Crucial for stability in PrismSpace’s
+                                                                               ongoing user interaction learning.
+  Publisher: Springer
+                                                                           Disadvantages:
+ Open Access
+                                                                                          ▶ Constrained optimization increases
+                                                                                            computation per gradient step.
+                                                                                          ▶ Conservative update bounds may slow
+                                                                                            adaptation to drastic distribution
+                                                                                            shifts.
+                                                                                          ▶ Theoretical guarantees rely on local
+                                                                                            smoothness assumptions.
+
+
+
+      Group 01 · CSE, CEK                    PrismSpace: Architecture, Flow, DB & Swarm Algorithm                              12 / 58
+Deep Multiagent Reinforcement Learning: Challenges and Directions
+ Citation                   Summary                                       Advantages & Disadvantages
+ A. Wong, T. Bäck,          Surveys Deep Multiagent Reinforcement Advantages:
+ A. V. Kononova, and        Learning (MARL), formalizing foundational      ▶ Comprehensive taxonomy of credit
+ A. Plaat                   challenges including non-stationarity, multi-     assignment and CTDE paradigms.
+  Artificial Intelligence   agent credit assignment, and combinato-
+                                                                           ▶ Establishes formal theoretical criteria
+ Review                     rial action explosion. Evaluates Central-
+                                                                              for communication protocols.
+  Year: 2023                ized Training with Decentralized Execu-
+                            tion (CTDE) and communication architec-        ▶ Provides the theoretical foundation for
+  Publisher: Springer
+                            tures for modular orchestration.                  PrismSpace’s modular agent
+ Open Access                                                                  architecture.
+                                                                          Disadvantages:
+                                                                                         ▶ Survey paper without empirical
+                                                                                           experimental evaluation.
+                                                                                         ▶ Focuses on discrete game simulations
+                                                                                           rather than API-driven software tasks.
+                                                                                         ▶ Does not cover LLM reasoning agents
+                                                                                           or human-in-the-loop approval gates.
+
+
+
+      Group 01 · CSE, CEK                   PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                13 / 58
+HIAT (Human-in-the-Loop with Auxiliary Tasks): Human-in-the-Loop RL
+with Auxiliary Tasks
+ Citation                   Summary                                      Advantages & Disadvantages
+ B. Niu, B. Luo, Y.         Introduces HIAT (Human-in-the-Loop Advantages:
+ Cui, X. Xu, Y. Zhao,       with Auxiliary Tasks), a framework leverag-   ▶ Maximizes learning efficiency from
+ and Y. Feng                ing human intervention signals as auxiliary      scarce human intervention signals.
+  Artificial Intelligence   self-supervised learning objectives. Models
+                                                                          ▶ Significantly reduces human cognitive
+ Review                     human corrections as feedback gradients
+                                                                             load through auxiliary reward shaping.
+  Year: 2025                that shape internal feature representations,
+                            minimizing human intervention frequency       ▶ Informs PrismSpace’s approval gate
+  Publisher: Springer
+                            over time.                                       telemetry and learning from user edits.
+ Open Access
+                                                                         Disadvantages:
+                                                                                         ▶ Requires consistent human feedback to
+                                                                                           avoid biased auxiliary representations.
+                                                                                         ▶ Intervention timing latency can cause
+                                                                                           temporal mis-alignment in RL updates.
+                                                                                         ▶ Higher computational overhead during
+                                                                                           auxiliary task representation training.
+
+
+      Group 01 · CSE, CEK                   PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                14 / 58
+ORPO (Odds Ratio Preference Optimization): Monolithic Preference
+Optimization without Reference Model
+ Citation                  Summary                                      Advantages & Disadvantages
+ J. Hong, N. Lee, and      Core Idea (Single-Phase Alignment):          Advantages:
+ J. Thorne                 Instead of multi-step RLHF, ORPO teaches      ▶ Reference-model-free: eliminates
+  EMNLP /                  desired answers while penalizing bad answers     maintaining frozen πref in memory.
+ arXiv:2403.07691          in one unified equation:
+                                                                         ▶ Monolithic single-phase training avoids
+  Year: 2024                          LORPO = LSFT + λ · LOR                unstable PPO policy optimization.
+  Area: LLM                                                            ▶ Directly aligns PrismSpace agent
+ Preference Alignment                                odds(yw |x)
+                                LOR = − log σ log                           trajectories on paired feedback (chosen
+                                                     odds(yl |x)
+                                                                            vs. rejected).
+                            Key Terms:                                  Disadvantages:
+                             ▶ LSFT : Base supervised fine-tuning loss
+                                 (correct code/syntax).                  ▶ Requires high-quality pairwise
+                             ▶ LOR , λ: Odds ratio penalty term and         preference datasets (yw , yl ).
+                                 penalty weight.                         ▶ Sensitive to λ hyperparameter balance.
+                             ▶ x, yw , yl : Prompt, winning action
+                               path, and losing action path.
+
+
+     Group 01 · CSE, CEK                    PrismSpace: Architecture, Flow, DB & Swarm Algorithm                 15 / 58
+Reinforcement Online Learning to Rank with Unbiased Reward Shaping
+    Citation                 Summary                                       Advantages & Disadvantages
+    S. Zhuang, Z. Qiao,      Develops an Online Learning to Rank Advantages:
+    and G. Zuccon            (OLTR) framework using counterfactual re-      ▶ Guarantees unbiased gradient
+     Information Retrieval   inforcement learning.      Employs inverse        estimation from observational implicit
+    Journal                  propensity weighting (IPW) and unbiased           feedback.
+     Year: 2023              reward shaping to correct for position, pre-
+                                                                            ▶ Operates entirely online without
+     Publisher: Springer     sentation, and click bias in user interaction
+                                                                               requiring manual document relevance
+                             logs during continuous ranker optimization.
+    Open Access                                                                labels.
+                                                                            ▶ Directly informs PrismSpace’s context
+                                                                               retrieval ranking feedback loop.
+                                                                           Disadvantages:
+                                                                                        ▶ High propensity score variance can
+                                                                                          destabilize gradient updates.
+                                                                                        ▶ Requires large volumes of query-click
+                                                                                          logs to converge.
+                                                                                        ▶ Assumes position-based user click
+                                                                                          models that may not hold in code
+                                                                                          search.
+
+
+
+    Group 01 · CSE, CEK                     PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                  16 / 58
+Knowledge Learning for Securing Workflow Scheduling in MEC (Mobile
+Edge Computing)
+  Citation                 Summary                                          Advantages & Disadvantages
+  T. M. Ghazal, A. E.      Proposes a Knowledge-Guided Reinforce- Advantages:
+  Awouda, M. K.            ment Learning (KG-RL) scheduler for com-          ▶ Enforces strict security boundary
+  Hasan, A. H. A.          plex workflow DAGs in distributed edge-              constraints during automated task
+  Rahman, S. Islam, R.     cloud environments. Integrates security con-         scheduling.
+  A. Saeed, H.             straint validation directly into the state tran-
+                                                                             ▶ Effectively handles multi-dependency
+  Elshafie, A. Iqbal,      sition model, preventing insecure task place-
+                                                                                Directed Acyclic Graph (DAG)
+  and A. H. Hussein        ment while optimizing makespan.
+                                                                                workflows.
+   Mobile Networks and
+  Applications                                                               ▶ Informs PrismSpace’s sandboxed tool
+   Year: 2025                                                                   execution and dependency resolution.
+   Publisher: Springer                                                      Disadvantages:
+  Open Access                                                                           ▶ Constraint checking introduces
+                                                                                          scheduling latency for massive DAGs.
+                                                                                        ▶ Assumes static security classification
+                                                                                          matrices across network nodes.
+                                                                                        ▶ Limited evaluation on
+                                                                                          non-deterministic tool failure scenarios.
+     Group 01 · CSE, CEK                   PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                       17 / 58
+Energy-Aware Cooperative Multi-Fitness Evolutionary Workflow
+Scheduling
+  Citation                 Summary                                     Advantages & Disadvantages
+  P. Barredo and J.        Presents a Cooperative Multi-Fitness Evo- Advantages:
+  Puente                   lutionary Algorithm (CMFEA) for multi-       ▶ Pareto-optimal trade-offs across
+   Natural Computing       objective workflow scheduling. Optimizes        makespan, financial cost, and energy.
+   Year: 2025              trade-offs between execution time, monetary
+                                                                        ▶ Cooperative sub-population
+   Publisher: Springer     compute cost, and energy consumption using
+                                                                           decomposition prevents premature
+                           island-model cooperative coevolution across
+  Open Access                                                              local convergence.
+                           heterogeneous worker pools.
+                                                                        ▶ Provides heuristics for PrismSpace’s
+                                                                           multi-agent model provider selection.
+                                                                       Disadvantages:
+                                                                                        ▶ Evolutionary search has higher runtime
+                                                                                          latency than single-pass ML heuristics.
+                                                                                        ▶ Cannot adapt instantaneously to
+                                                                                          real-time API rate limit drops.
+                                                                                        ▶ Requires parameter tuning across
+                                                                                          mutation, crossover, and migration
+                                                                                          rates.
+
+     Group 01 · CSE, CEK                   PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                     18 / 58
+Optimized Task Scheduling Using Hybrid DL (Deep Learning) and
+Metaheuristics
+  Citation                 Summary                                       Advantages & Disadvantages
+  A. Heirati, M.           Combines Deep Learning (LSTM (Long Advantages:
+  Fartash, and M.          Short-Term Memory)) workload predic-           ▶ Proactive workload forecasting
+  Khalily-Dermany          tion with metaheuristic optimization (Har-        prevents sudden compute node
+   Neural Processing       ris Hawks Optimization) for proactive work-       thrashing.
+  Letters                  flow dispatching. Predicts task execution du-
+                                                                          ▶ Hybrid pipeline balances search
+   Year: 2026              rations and memory bottlenecks in advance
+                                                                             exploration with predictive dispatching.
+   Publisher: Springer     to prevent node overloading and minimize
+                           queue waiting times.                           ▶  Relevant for predicting token latency
+  Open Access                                                                and cost before agent invocation.
+                                                                         Disadvantages:
+                                                                                        ▶ Two-stage pipeline introduces
+                                                                                          inference overhead before scheduling
+                                                                                          decisions.
+                                                                                        ▶ LSTM prediction accuracy degrades
+                                                                                          under sudden irregular workload spikes.
+                                                                                        ▶ Complex offline model retraining
+                                                                                          requirements.
+     Group 01 · CSE, CEK                   PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                     19 / 58
+Cost-Aware Workflow Offloading in Edge-Cloud Computing via GA
+(Genetic Algorithm)
+ Citation                  Summary                                    Advantages & Disadvantages
+ S. Abdi, M. Ashjaei,      Proposes a Genetic Algorithm-based work- Advantages:
+ and S. Mubeen             flow offloading framework considering het-  ▶ Guarantees valid DAG dependency
+  The Journal of           erogeneous network bandwidth, deadline         structures via specialized repair
+ Supercomputing            constraints, and monetary costs. Imple-        operators.
+  Year: 2024               ments chromosome repair operators to pre-
+                                                                       ▶ Explicitly accounts for network transfer
+  Publisher: Springer      serve DAG precedence validity throughout
+                                                                          latency between pipeline stages.
+                           mutation and crossover.
+ Open Access                                                           ▶ Informs subtask payload transfer
+                                                                          between worker agents in PrismSpace.
+                                                                      Disadvantages:
+                                                                                        ▶ Computationally heavy for interactive
+                                                                                          real-time user query response.
+                                                                                        ▶ Assumes deterministic network transfer
+                                                                                          bandwidth in cloud environments.
+                                                                                        ▶ Does not model dynamic agent failures
+                                                                                          or retries.
+
+     Group 01 · CSE, CEK                   PrismSpace: Architecture, Flow, DB & Swarm Algorithm                               20 / 58
+Dynamic Role Discovery and Assignment in Multi-Agent Task
+Decomposition
+  Citation                 Summary                                       Advantages & Disadvantages
+  Y. Xia, J. Zhu, and      Proposes dynamic role discovery and as- Advantages:
+  L. Zhu                   signment that decomposes complex high-         ▶ Enables flexible subtask allocation
+   Complex & Intelligent   level objectives into lower-level subtasks.       without hardcoded role hierarchies.
+  Systems                  Uses learned persona embeddings and mu-
+                                                                          ▶ Hierarchical decomposition prevents
+   Year: 2023              tual information to adaptively allocate sub-
+                                                                             single-agent cognitive context
+   Publisher: Springer     tasks according to situational agent capabil-
+                                                                             overload.
+                           ities, eliminating rigid static assignments.
+  Open Access                                                             ▶ Serves as core theoretical basis for
+                                                                             PrismSpace’s dynamic agent routing.
+                                                                         Disadvantages:
+                                                                                        ▶ Role discovery clustering introduces
+                                                                                          upfront computational overhead.
+                                                                                        ▶ Performance depends on
+                                                                                          representation vector accuracy for
+                                                                                          subtasks.
+                                                                                        ▶ Evaluated primarily on synthetic
+                                                                                          collaborative coordination benchmarks.
+
+     Group 01 · CSE, CEK                   PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                    21 / 58
+Decision Variable Contribution Based Adaptive Multi-Objective Scheduling
+ Citation                   Summary                                         Advantages & Disadvantages
+ J. Li, L. Xing, W.         Introduces a Decision Variable Contribu- Advantages:
+ Zhong, Z. Cai, and         tion (DVC) adaptive mechanism for evolu-         ▶ Accelerates Pareto-front convergence
+ F. Hou                     tionary multi-objective workflow scheduling.        by prioritizing high-variance variables.
+  Complex & Intelligent     Evaluates the differential sensitivity of indi-
+                                                                             ▶ Dynamically adapts search intensity
+ Systems                    vidual decision variables to focus evolution-
+                                                                                across workflow bottleneck stages.
+  Year: 2023                ary search operators on high-impact schedul-
+                            ing bottlenecks.                                 ▶ Useful for pinpointing high-latency
+  Publisher: Springer
+                                                                                critical path tools in agent workflows.
+ Open Access
+                                                                            Disadvantages:
+                                                                                          ▶ Sensitivity calculation adds
+                                                                                            per-generation matrix computation
+                                                                                            cost.
+                                                                                          ▶ Can over-concentrate on dominant
+                                                                                            objectives at the expense of diversity.
+                                                                                          ▶ Requires calibrated normalization
+                                                                                            across widely different metric units.
+
+
+
+      Group 01 · CSE, CEK                    PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                     22 / 58
+GHQ: Grouped Hybrid Q-Learning for Heterogeneous Multi-Agent RL
+  Citation                 Summary                                      Advantages & Disadvantages
+  X. Yu, Y. Lin, X.        Develops Grouped Hybrid Q-learning Advantages:
+  Wang, S. Han, and        (GHQ) for cooperative heterogeneous           ▶ Scales value estimation across large
+  K. Lv                    multi-agent systems. Clusters agents with        heterogeneous swarms via cohort
+   Complex & Intelligent   similar capabilities into functional cohorts     grouping.
+  Systems                  that share value approximations while main-
+                                                                         ▶ Reduces joint action space
+   Year: 2024              taining decoupled action execution heads for
+                                                                            dimensionality from exponential to
+   Publisher: Springer     role specialization.
+                                                                            block-linear.
+  Open Access                                                            ▶ Directly applicable to categorizing
+                                                                            LLM worker agent skill specializations.
+                                                                        Disadvantages:
+                                                                                        ▶ Cohort clustering boundaries can be
+                                                                                          rigid if agent capabilities evolve.
+                                                                                        ▶ Intra-group credit assignment remains
+                                                                                          non-trivial in dense interactions.
+                                                                                        ▶ Requires domain knowledge to
+                                                                                          establish initial grouping heuristics.
+
+
+
+     Group 01 · CSE, CEK                   PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                    23 / 58
+Decentralized Multi-Agent Cooperation via Adaptive Partner Modeling
+  Citation                 Summary                                        Advantages & Disadvantages
+  C. Xu, J. Wang, X.       Tackles environmental non-stationarity in Advantages:
+  Zhu, Y. Yue, W.          decentralized multi-agent cooperation us-       ▶ Minimizes inter-agent communication
+  Zhou, Z. Liang, and      ing Adaptive Partner Modeling (APM).               bandwidth to near zero during
+  D. Wojtczak              Instead of relying on expensive continu-           execution.
+   Complex & Intelligent   ous inter-agent broadcast communication,
+                                                                           ▶ Stabilizes decentralized joint execution
+  Systems                  agents infer partner policies and intended ac-
+                                                                              despite teammate policy shifts.
+   Year: 2024              tions from local observation histories.
+                                                                           ▶ Directly adopted in PrismSpace for
+   Publisher: Springer
+                                                                              zero-communication agent
+  Open Access                                                                 coordination.
+                                                                          Disadvantages:
+                                                                                        ▶ Partner inference error propagates if
+                                                                                          historical observations are noisy.
+                                                                                        ▶ Inference networks introduce local
+                                                                                          computational and memory overhead.
+                                                                                        ▶ Assumes partners follow relatively
+                                                                                          stationary parameterized policy spaces.
+
+
+
+     Group 01 · CSE, CEK                   PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                     24 / 58
+A Responsible AI Framework: Pipeline Contextualisation
+ Citation                  Summary                                         Advantages & Disadvantages
+ E. Vyhmeister, G. G.      Formulates an operational Responsible AI Advantages:
+ Castañé, P.-O.            Framework providing pipeline contextualisa-      ▶ Holistic governance framework linking
+ Östberg, and S.           tion across the full model lifecycle. Specifies     technical architecture to ethical safety.
+ Thevenin                  auditable checkpoints, data lineage tracking,
+                                                                            ▶ Defines concrete telemetry points for
+  AI and Ethics            and bias mitigation protocols for autonomous
+                                                                               data provenance and action auditing.
+  Year: 2023               AI decision-making systems.
+                                                                            ▶ Guides PrismSpace’s execution audit
+  Publisher: Springer
+                                                                               logging and human inspection UI.
+ Open Access
+                                                                           Disadvantages:
+                                                                                         ▶ Qualitative framework that requires
+                                                                                           custom translation into concrete code
+                                                                                           gates.
+                                                                                         ▶ Audit logging introduces storage
+                                                                                           overhead and slight execution latency.
+                                                                                         ▶ Does not provide automated formal
+                                                                                           verification of LLM reasoning traces.
+
+
+
+     Group 01 · CSE, CEK                    PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                25 / 58
+Meaningful Human Control: Actionable Properties for AI Development
+         Citation                Summary                                     Advantages & Disadvantages
+         L. Cavalcante           Formalizes the philosophical concept of Advantages:
+         Siebert, M. L.          Meaningful Human Control (MHC)               ▶ Translates abstract governance
+         Lupetti, E.             into actionable software design properties:     principles into rigorous software
+         Aizenberg, N.           Tracking (system responsive to human            specifications.
+         Beckers, A.             moral reasons) and Tracing (system actions
+                                                                              ▶ Establishes tracking and tracing
+         Zgonnikov, H.           causally attributable to accountable human
+                                                                                 requirements for autonomous tool
+         Veluwenkamp, D.         supervisors).
+                                                                                 execution.
+         Abbink, E. Giaccardi,
+         G.-J. Houben, C. M.                                                  ▶ Directly guides the design of
+         Jonker, J. van den                                                      PrismSpace’s Human-in-the-Loop
+         Hoven, D. Forster,                                                      (HITL) approval gates.
+         and R. L. Lagendijk                                                 Disadvantages:
+          AI and Ethics                                                                 ▶ High human intervention frequency
+          Year: 2023                                                                      can degrade automated agent
+          Publisher: Springer                                                             throughput.
+         Open Access                                                                    ▶ Defining actionable reason boundaries
+                                                                                          requires careful domain calibration.
+                                                                                        ▶ Assumes human supervisor maintains
+                                                                                          full comprehension of complex agent
+                                                                                          plans.
+
+
+
+
+    Group 01 · CSE, CEK                       PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                26 / 58
+CPN-HRL (Cloud-Private-Network Hierarchical Reinforcement Learning):
+Hierarchical DRL for Priority-Aware Task Scheduling
+  Citation                 Summary                                     Advantages & Disadvantages
+  Q. Yue, L. Tian, X.      Presents CPN-HRL, a Hierarchical Rein- Advantages:
+  Feng, Z. Yuan, S.        forcement Learning framework for priority-   ▶ Hierarchical policy decomposition
+  Wei, J. Xia, B. Chen,    aware task scheduling in Cloud-Edge-End         effectively handles complex task
+  X. Song, and Y. Yao      networks. Uses a macro-policy to partition      DAGs.
+   Journal of King Saud    task DAGs by priority and latency budgets,
+                                                                        ▶ Guarantees priority-aware quality of
+  University CIS           while micro-policies schedule subtasks onto
+                                                                           service under tight latency deadlines.
+   Year: 2026              optimal compute nodes.
+                                                                        ▶ Serves as primary reference for
+   Publisher: Springer
+                                                                           PrismSpace’s DAG workflow
+  Open Access                                                              scheduling engine.
+                                                                       Disadvantages:
+                                                                                        ▶ Multi-tier policy architecture requires
+                                                                                          synchronous training coordination.
+                                                                                        ▶ Edge node failure requires immediate
+                                                                                          micro-policy replanning.
+                                                                                        ▶ Evaluated in simulated telecom
+                                                                                          cloud-edge topologies.
+     Group 01 · CSE, CEK                   PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                     27 / 58
+Automatic Discovery and Description of Human Planning Strategies
+         Citation               Summary                                      Advantages & Disadvantages
+         J. Skirzyński, Y.      Develops an algorithmic framework for au- Advantages:
+         Jain, and F. Lieder    tomatically discovering and formalizing       ▶ Extracts interpretable, human-like
+          Behavior Research     planning strategies from human behavior          heuristic planning strategies
+         Methods                traces. Models task planning as resource-        automatically.
+          Year: 2023            rational search over Directed Graphical Mod-
+                                                                              ▶ Quantifies trade-offs between cognitive
+          Publisher: Springer   els, producing interpretable decision trees
+                                                                                 search effort and decision quality.
+                                that characterize human heuristic planning.
+         Open Access                                                          ▶ Informs PrismSpace’s hierarchical
+                                                                                 prompt decomposition and agent
+                                                                                 planning.
+                                                                             Disadvantages:
+                                                                                       ▶ Search space for strategy discovery
+                                                                                         grows exponentially with problem
+                                                                                         depth.
+                                                                                       ▶ Human behavioral experiments
+                                                                                         conducted in stylized cognitive
+                                                                                         testbeds.
+                                                                                       ▶ Static decision trees struggle to
+                                                                                         capture fluid LLM reasoning
+                                                                                         trajectories.
+
+
+
+
+    Group 01 · CSE, CEK                      PrismSpace: Architecture, Flow, DB & Swarm Algorithm                              28 / 58
+Data-Intensive Workflow Scheduling Based on DRL in Multi-Clouds
+  Citation                 Summary                                      Advantages & Disadvantages
+  S. Zhang, Z. Zhao,       Proposes a Deep Q-Network (DQN) sched- Advantages:
+  C. Liu, and S. Qin       uler optimized for data-intensive workflows   ▶ Optimizes data locality to prevent
+   Journal of Cloud        across multi-cloud environments. Explic-         massive cross-cloud egress overhead.
+  Computing                itly models dataset placement and cross-
+                                                                         ▶ Adaptive reward function balances
+   Year: 2023              datacenter transfer latency to minimize both
+                                                                            monetary cost and makespan
+   Publisher: Springer     workflow completion time and data egress
+                                                                            constraints.
+                           billing.
+  Open Access                                                            ▶ Directly relevant to caching and
+                                                                            embedding retrieval across distributed
+                                                                            agents.
+                                                                        Disadvantages:
+                                                                                        ▶ Assumes deterministic file sizes and
+                                                                                          network bandwidth availability.
+                                                                                        ▶ Q-network value overestimation
+                                                                                          requires double-DQN correction.
+                                                                                        ▶ State representation size scales with
+                                                                                          the total number of cloud datacenters.
+
+
+     Group 01 · CSE, CEK                   PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                    29 / 58
+RL-Based Task Scheduling for Sustainable Federated Cloud Computing
+  Citation                 Summary                                       Advantages & Disadvantages
+  Z. Wang, S. Chen, L.     Develops an Actor-Critic RL scheduling Advantages:
+  Bai, J. Gao, J. Tao,     framework for federated cloud datacenters      ▶ Incorporates environmental
+  R. R. Bond, and M.       that incorporates renewable energy availabil-     sustainability and carbon metrics into
+  D. Mulvenna              ity into scheduling policies. Dynamically         scheduling.
+   Journal of Cloud        routes compute tasks to datacenters with
+                                                                          ▶ Actor-Critic policy gradient handles
+  Computing                green energy surpluses without violating user
+                                                                             continuous action spaces effectively.
+   Year: 2023              SLA deadlines.
+                                                                          ▶ Provides conceptual foundation for
+   Publisher: Springer
+                                                                             multi-attribute provider routing.
+  Open Access
+                                                                         Disadvantages:
+                                                                                        ▶ Requires real-time telemetry from
+                                                                                          green energy generation sources.
+                                                                                        ▶ Trade-off between carbon footprint
+                                                                                          and network transmission latency.
+                                                                                        ▶ Sensitive to reward scaling factors
+                                                                                          between SLA penalties and green
+                                                                                          rewards.
+
+
+     Group 01 · CSE, CEK                   PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                 30 / 58
+Hybrid Dolphin Swarm Sparrow Search Multi-Objective Workflow
+Scheduling
+  Citation                 Summary                                       Advantages & Disadvantages
+  S. Subashree, M.         Proposes a hybrid bio-inspired metaheuris- Advantages:
+  Rajakumaran, G.          tic combining Dolphin Swarm Optimiza-          ▶ Combines global exploration of DSA
+  Pushpa, and S.           tion (DSA) and Sparrow Search Algorithm           with local exploitation of SSA.
+  Senthilkumar             (SSA) for multi-objective cloud workflow
+                                                                          ▶ Demonstrates superior Pareto
+   Journal of Cloud        scheduling. Optimizes execution makespan,
+                                                                             hypervolume compared to standard
+  Computing                virtual machine utilization, and monetary ex-
+                                                                             GA and PSO (Particle Swarm
+   Year: 2025              ecution expenditure.
+                                                                             Optimization).
+   Publisher: Springer
+                                                                          ▶ Provides strong comparative baselines
+  Open Access                                                                for workflow optimization algorithms.
+                                                                         Disadvantages:
+                                                                                        ▶ Metaheuristic iteration runtime is too
+                                                                                          slow for sub-second reactive routing.
+                                                                                        ▶ Multiple tuning parameters (predation
+                                                                                          rate, vocalization index) required.
+                                                                                        ▶ Lacks theoretical convergence rate
+                                                                                          bounds for stochastic optimization.
+
+     Group 01 · CSE, CEK                   PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                    31 / 58
+Research Gap
+
+What the surveyed methods already do
+ORPO (Odds Ratio Preference Optimization) trains Large Language Models (LLMs) to prefer better responses without
+requiring a separate reference model. DAG (Directed Acyclic Graph) schedulers organize tasks based on their
+dependencies to ensure they run in the correct order.
+
+
+Limitations observed in those papers
+Most multi-agent coordination methods are tested in games such as SMAC (StarCraft Multi-Agent Challenge) and
+Overcooked rather than real developer tools. ORPO is not specifically designed to learn from Model Context Protocol
+(MCP) tool-use traces. DAG-based schedulers often rely on predefined task dependencies and do not fully support
+dynamic task routing based on the changing needs of LLMs. These methods lack a unified approach that combines
+tool-aware agents, preference alignment, and dynamic task execution in a developer workspace.
+
+
+Why PrismSpace is required
+PrismSpace combines tool-aware AI agents, ORPO-based preference alignment, dynamic LLM routing, and DAG-based
+task coordination in one developer workspace. It helps agents select suitable tools, coordinate complex tasks, and adapt
+task execution to changing requirements.
+
+        Group 01 · CSE, CEK                  PrismSpace: Architecture, Flow, DB & Swarm Algorithm                      32 / 58
+05. Comparative Analysis: Existing Platforms vs. PrismSpace
+
+              Simple comparison: Comparing PrismSpace with conversational AI, autonomous-agent, and multi-agent platforms.
+
+
+
+     Capability Dimension                                                                                                                 ¨ PrismSpace (Ours)
+                                                                                                                                          Local Multi-Agent Platform
+                                    ChatGPT Web                        AutoGPT                          CrewAI
+                                        (OpenAI)                   (Autonomous Loop)               (Multi-Agent Swarm)
+                                                               Repeats steps automatically;       Agents follow a fixed
+  Execution Topology           One conversation at a time                                                                     DAG (Directed Acyclic Graph) Scheduling: Runs
+                                                                      may not stop                     sequence
+                                                                                                                              dependent tasks in parallel, with up to three
+                                                                                                                              workers
+                                 Mostly one provider and         Usually one model with       Model selected for each agent
+  Model Strategy & Routing                                                                                                    Multi-Model Router: Selects a suitable provider
+                                         model                       custom scripts                        role
+                                                                                                                              using task needs, speed, and cost
+                               Built-in plugins and function     Custom scripts and shell       Tool wrappers with fixed
+  Tool Connectivity Protocol                                                                                                  MCP (Model Context Protocol): A common
+                                            calls                      commands                         formats
+                                                                                                                              interface for tools such as Gmail, Drive, files, and
+                                                                                                                              web services
+                               Shows answer text; internal                                       Text traces from agent
+  Observability & Streaming                                         Terminal logs only                                        Live Run Status + Workflow Graph: Shows task
+                                   steps are hidden                                                     execution
+                                                                                                                              progress and each node’s state
+                                 Provider filters; no user     Fixed limits; limited output
+  Safety & Quality Control                                                                    Agent reviews its own output    HITL (Human-in-the-Loop) + ORPO (Odds
+                                      approval step                     checking
+                                                                                                                              Ratio Preference Optimization): Pauses risky
+                                                                                                                              tasks and ranks preferred outputs
+                               Data stored in the provider’s       Local files without a           Cloud or temporary
+  Persistence & Privacy                                                                                                       Local-First PrismDB: Stores sessions and files in
+                                          cloud                    structured database              in-memory state
+                                                                                                                              the browser’s IndexedDB database
+
+
+
+
+        Group 01 · CSE, CEK                                    PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                                                  33 / 58
+06. PrismSpace Workflow
+                                                                                                       º Validation Feedback & Retry Loop
+
+
+
+
+                                                                                                                                  @ Assistant
+                                                                                                                                 & Documents
+                                                                                                                                    Gmail MCP
+                                                                                                                                    Drive MCP
+
+                                                                                      Agent &                                                          ORPO
+         User Request                    Intent Classifier                                                                                                              Output Actions
+                                                                                                                                 Ð Coder &
+                                               j
+                                                                                 Provider Router
+                                                                                                                                                         è                   ¤
+     Gmail: ‘Draft email about PR”
+ A Documents: ‘Summarize report doc”
+                                           Analyzes request
+                                                                                         ¶                                        Workspace
+                                                                                                                                   i Filesystem      Reward Model
+                                            Extracts intent                     Evaluates task intensity                           _ Terminal         Quality Gate       Output dispatch
+ i Filesystem: ‘Read workspace config”
+                                                                                 Selects optimal model                              § GitHub         Scores outputs       User delivery
+ § Code tasks: ‘Issue & pull request”    Determines task type                                                                                       Validates quality
+                                                                                Routes to target agent
+
+
+                                                                                                                              X MCP & Validation
+                                                                                                                                   Web Search
+                                                                Groq API                NVIDIA              OpenAI                Tool Execution
+                                                                  Very fast                Fast              Moderate
+                                                                 (low    latency)     (medium   latency)   (high   latency)
+                                                                Complex task           Complex task        Complex task
+                                                                        (low)            (medium)              (high)
+
+
+
+
+                                               Figure 1.0: PrismSpace Workflow | MCP = Model Context Protocol | ORPO = Odds Ratio Preference Optimization
+
+
+
+
+             Group 01 · CSE, CEK                                                    PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                                   34 / 58
+07. Dataset Details
+
+  õ 1. AgentInstruct                                                                               Agent & Provider Routing
+
+   ▶ Format: JSON | Attributes: id, conversations, from, value, loss
+   ▶ Rows: 351 examples
+   ▶ Training Target: Agent Router + Provider Router models
+
+
+
+  õ 2. BEIR-FiQA                                                                                         Intent Classification
+   ▶ Format: JSONL / TSV | Attributes: query-id, score, embedding, _id, text
+   ▶ Rows: 6,648 queries, 57,638 documents, 14,166 relevance records
+   ▶ Training Target: Intent Classifier model
+
+
+
+  õ 3. UltraFeedback Binarized                                                                   ORPO Preference Alignment
+
+   ▶ Format: JSON | Attributes: prompt, prompt_id, chosen, rejected, messages, score_chosen, score_rejected
+   ▶ Rows: 61,135 training examples; 1,000 test examples
+   ▶ Training Target: ORPO Preference Alignment model
+
+
+     Group 01 · CSE, CEK                  PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                   35 / 58
+08. Model Responsibilities & Inference Flow
+  j 1. Intent Classifier
+                                      Input: tokenized prompt + task context → Process: derive intent from prompt        Output state 1: Task DAG created
+ Intent & Dependency Task DAG         features and curated labels, then construct dependency DAG → Output: intent        intent=derived_label; label → extract
+                                      labels + task DAG                                                                  → write
+ (Trained on Intent [BEIR] dataset)
+
+                                                                                                                                                  task DAG + intent → Agent Router input
+
+
+   ² 2. Agent Router                  Input: task DAG + intent → Process: map requirements to agent skills   →           Output state 2: Team selected
+                                      Output: selected specialist agents                                                 agents=[Researcher, Writer]
+      Specialist Agent Team
+
+
+                                                                                                                                                  agent team → Provider Router input
+
+
+
+  ¶ 3. Provider Router                Input: Selected Agents (JSON format) → Process: compare model capabilities         Output state 3: Model assigned
+                                      and availability → Output: provider/model assignment                               task=v1, provider=OpenAI, model=GPT-4o
+ Provider, Model & Cost Routing
+
+
+                                                                                                                                                  model assignment → ORPO input
+
+
+
+   8 4. ORPO Model                    Input: model output + preference data → Process: apply ORPO Preference             Output state 4: ORPO-aligned response
+                                      Optimization → Output: aligned response                                            Preferred answer + tool output + quality score
+ Preference Alignment & Quality
+
+
+                                                                                                                                                  aligned response → final output
+
+
+
+Final output to the user: Completed task result + Validated output + execution status
+
+
+
+
+            Group 01 · CSE, CEK                                   PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                                                 36 / 58
+Intent Classifier - Prompt Decomposition
+    1 User Input                        2 Tokenize / Encode                               3 Intent Classifier                  4 Semantic Decomposer & Task DAG
+    User                                Tokenizer Agent                                   Intent Classifier Agent
+                                                                                                                               Decomposer + DAG planning
+    (Human)                             (Tokenizer Service)                               (LLM / Classifier)
+   “Find the latest API changes,       Function                                          Function                             Function
+   summarize them, and update my
+   notes.”                             Tokenize prompt into IDs and                      Infer intent from embeddings and     Convert the classified request into
+                                       compute dense embeddings.                         prompt context; extract entities,    ordered sub-tasks, establish depen-
+   Function                                                                              constraints, and routing signals.    dencies, then build and validate
+                                       Input                                                                                  the execution DAG.
+   Receive the user request and pre-                                                     Input
+   pare it for processing.             Raw prompt text.                                                                        Input                                 {"tasks": ["research", "extract",
+                                       Output                                            Token embeddings + prompt con-       Intent/context, serialized task        "summarize", "write"],
+   Input                                                                                 text.                                                                       "approval_gate": true}
+                                                                                                                              packet, and tool bindings.
+   Natural language prompt (from       Token IDs + embedding vectors.                     Output
+   user).                                                                                                                     Output                                     Dependency Task Graph
+                                         Tokenization Process (in detail)                Derived label(s), confidence,
+                                                                                                                              Validated JSON-RPC packet and
+   Output                                       "Find the latest API..."                 and entities inferred from                                                    1. Research         2. Extract
+                                                                                                                              dependency DAG.
+   Raw prompt text.                      Find     the    latest   API      ...           prompt/context and curated tar-
+                                                                                         gets.                                                                                  3. Summarize
+                                                 [4821, 199, 3087, ...]
+
+                                                                                                                                                                                4. Write Note Gate: OK
+
+
+
+
+   Tokenization Process (Step 2 – Detailed)
+   1. Raw Prompt                       2. Tokenization                                   3. Convert to IDs                    4. Create Embeddings                  5. Pass to Intent Classifier
+   Input                               Function                                          Function                             Function                              Function
+
+   “Find the latest API changes,       Split the request into words and                  Replace each token with its vocab-   Convert the IDs into a vector that    Combine the vector with context
+   summarize them, and update my       symbols.                                          ulary number.                        captures meaning and context.         to infer what the user wants.
+   notes.”                             Output                                            Output                                                                     Output
+                                                                                                                              Output
+   Output                                                                                                                                                           intent = research + summarize +
+                                       [Find, the, latest, API,                          [4821, 199, 3087, 421, ...]          [0.12, 0.45, -0.03, ...]
+   The complete user request.          changes, ...]                                                                                                                write
+                                                                                         These IDs preserve token order.      Similar requests produce similar
+                                       Each piece can be processed sepa-                                                                                            confidence = 0.92; entities: API
+                                                                                                                              vectors.                              changes, notes.
+                                       rately.
+
+
+
+           Group 01 · CSE, CEK                                                   PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                                                    37 / 58
+Agent & Provider Router working
+ Routing goal: Convert a task profile into one suitable model request, then return the model response.
+
+
+
+
+          Group 01 · CSE, CEK                                        PrismSpace: Architecture, Flow, DB & Swarm Algorithm   38 / 58
+How ORPO Works: Preference Alignment and Quality Gating
+
+ 8 What is ORPO & Why is it Used Here as a Reward System?
+ • What is ORPO? Odds Ratio Preference Optimization (ORPO) is an integrated single-stage reward and alignment algorithm. Traditional Reinforcement Learning from Human Feedback (RLHF)
+ requires training a separate reward model and keeping a frozen reference model in GPU memory (heavy, slow, and unstable).
+ • Why in PrismSpace? In multi-agent swarms, LLMs can hallucinate invalid tools or malformed code. ORPO acts as an internal reward filter: it mathematically rewards compliant trajectories (yw )
+ and penalizes bad responses (yl ) during fine-tuning, eliminating the need for an external reward model.
+
+
+
+
+          Group 01 · CSE, CEK                                          PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                                                    39 / 58
+                   Algorithm
+Step-by-step execution of the PrismSpace multi-agent workflow
+Algorithm: Steps 1–2 – Prompt to DAG Plan
+
+Step 1: Intent Classification of User                                     Step 2: DAG Planning and
+Prompt                                                                    Dependencies
+1.1   Read the user prompt and constraints.                              2.0       The planner uses this result to split the request
+1.2   Build the execution record:                                                  into small tasks. Each task becomes a vertex;
+                                                                                   when one task needs another task’s result, they
+                              T = ⟨G, C, M, Φ⟩                                     are linked by a directed edge.
+       Terms: G = goal; C = constraints; M = authorized
+                                                                         2.1       Build the dependency graph:
+      tools; Φ = output format.
+                                                                                                    G = (V, E),   Oi ∩ Ij ̸= ∅
+1.3   Tokenize the prompt, convert it to IDs and
+      embeddings, then analyze it to identify intents,                              Terms: V = vertices, where each vertex is one atomic
+      entities, dependencies, and confidence.                                      task; E = directed dependency edges; Oi = output of task
+                                                                                   i; Ij = input needed by task j.
+1.4   Split the identified intents into smaller tasks and
+      create a JSON-RPC task packet for DAG                              2.2       Schedule tasks with π = TopologicalSort(G);
+      planning; the Tool Executor validates                                        run independent nodes in parallel.
+      dependencies, tools, and approvals before
+      ordered execution.
+
+        Group 01 · CSE, CEK                      PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                   41 / 58
+Algorithm: Steps 3–4 – Agent Execution and Tools
+
+Step 3: Agent Assignment                                                    Step 4: MCP Tools and Safety
+3.1   Read each READY node vi from the Step 2 DAG: task type,              4.1       For each ready DAG vertex vi , read its required
+      I/O, dependencies, constraints, and tools become Req(vi ):                     tool set Mi .
+                                                                           4.2       If Mi ̸= ∅, connect vi to the required MCP
+          a∗ = arg max CosSim(Req(vi ), Cap(a))
+                        a∈A                                                          server/tool; otherwise execute the task without
+       Terms: a = candidate agent; A = agent pool; Cap(a) =                          MCP.
+      agent capabilities.
+                                                                           4.3       Use JSON-RPC as the two-way communicator:
+3.2   Route the node to the highest-scoring capability                               send the method, parameters, and task ID to
+      match:                                                                         MCP; return the result or error to the same
+      Assistant & Documentation: research, analysis, and writing.                    vertex.
+      Coder & Workspace: code generation, debugging, and file              4.4       Example: Browser for research,
+      edits.                                                                         Filesystem/Terminal for code, and Gmail/Drive
+      MCP & Validation: tool calls, data access, and verification.                   for productivity.
+3.3   Send the task, constraints, and relevant parent                      4.5       Pause state-changing calls for approval, validate
+      outputs to the selected agent.                                                 the result, and retry only the failed DAG branch.
+3.4   Pass verified outputs to downstream DAG tasks.
+
+        Group 01 · CSE, CEK                        PrismSpace: Architecture, Flow, DB & Swarm Algorithm                            42 / 58
+Algorithm: Steps 5 & 6 – ORPO Alignment and Quality Gate
+
+Step 5: ORPO Preference Alignment                                            Step 6: Quality Score and Gate
+5.1   Compare chosen and rejected responses:                                6.1      Calculate the final quality score:
+         rw = log σ(s(yw , x)),         rl = log σ(s(yl , x))                                            Sfactual + Sschema + Sstructure
+                                                                                          R(y|x) =
+                                                                                                                        3
+                      LORPO = − log σ(rw − rl )                                      For Example:
+       Terms: rw = chosen-response score; rl = rejected-response
+      score; yw = chosen response; yl = rejected response; x =
+                                                                                                           0.91 + 0.86 + 0.84
+      prompt; s(y, x) = model score; σ = sigmoid; LORPO =                                    R(y|x) =                         = 0.87
+                                                                                                                   3
+      preference loss.
+                                                                                      Terms: R(y|x) = final quality score; Sfactual = factual
+5.2   Update the model using the preference loss:                                    correctness; Sschema = format compliance; Sstructure =
+      increase s(yw , x) for the chosen response and                                 clarity and completeness.
+      decrease s(yl , x) for the rejected response. This
+      increases rw − rl , makes σ(rw − rl ) approach 1,                     6.2      Apply the quality gate:
+      and reduces LORPO over repeated preference pairs.                                                R(y|x) ≥ τ,      τ = 0.80
+
+                                                                                      Working: 0.87 ≥ 0.80, so the response passes;
+                                                                                     otherwise, it is rejected and sent for re-planning or
+                                                                                     fallback.
+        Group 01 · CSE, CEK                     PrismSpace: Architecture, Flow, DB & Swarm Algorithm                                         43 / 58
+Algorithm: Step 7 – Project Output
+Step 7: Project Output
+7.1   Collect agent results: research, files, tool outputs, and validation messages.
+7.2   Check completion: dependencies, correctness, format, and safety.
+7.3   Assemble the final response with verified artifacts and execution status.
+7.4   Deliver the result and report any missing or failed work.
+
+
+
+
+        Group 01 · CSE, CEK                PrismSpace: Architecture, Flow, DB & Swarm Algorithm   44 / 58
+    Project Requirements
+Hardware and software needed to build and run PrismSpace
+Hardware Requirements
+
+   ▶ CPU: Multi-core processor for the Next.js client, FastAPI service, and local development tools.
+
+   ▶ GPU: NVIDIA RTX 3050 or above for embedding generation, vector indexing, and model-training
+     workloads.
+
+   ▶ Memory: Minimum 16 GB RAM for running the frontend, backend, databases, and supporting
+     services concurrently.
+
+   ▶ Storage: SSD with sufficient capacity for the codebase, PrismDB data, logs, model checkpoints, and
+     FAISS indexes.
+
+   ▶ Network: Reliable internet connection for provider APIs, MCP integrations, and model downloads.
+
+   ▶ Security: Secure environment-variable or secret-manager support for provider and tool credentials.
+
+
+
+
+     Group 01 · CSE, CEK               PrismSpace: Architecture, Flow, DB & Swarm Algorithm               46 / 58
+Software Requirements
+ ▶ Next.js 14 / React / TypeScript: browser-based workspace for objectives, chat history, agent status, and
+   approvals.
+
+ ▶ FastAPI / Python: asynchronous backend framework for agent orchestration, REST endpoints, and
+   runtime events.
+
+ ▶ Dexie.js / IndexedDB: local ACID storage for sessions, messages, files, settings, and tool history.
+ ▶ Joblib / scikit-learn: Python libraries for data preparation, utility functions, serialization, and general
+   machine-learning support.
+
+ ▶ MCP JSON-RPC: MCP (Model Context Protocol) uses JSON-RPC (JavaScript Object Notation–Remote
+   Procedure Call) messages to standardize tool names, inputs, outputs, and errors for browser, terminal,
+   filesystem, GitHub, database, and workspace tools.
+ ▶ Provider SDKs/APIs: NVIDIA NIM provides optimized model-serving endpoints; the Groq SDK
+   supports low-latency inference; and the Anthropic Claude SDK/API, OpenAI-compatible APIs, and
+   similar provider clients connect the orchestrator to different language models.
+
+
+
+      Group 01 · CSE, CEK                 PrismSpace: Architecture, Flow, DB & Swarm Algorithm                   47 / 58
+Project Implementation
+  Frontend, backend, and training components
+Frontend Implementation
+ ▶ Next.js 14: React-based framework for building the browser application and managing frontend pages.
+
+ ▶ React: component library for creating reusable user-interface elements.
+
+ ▶ TypeScript: typed JavaScript used for safer and more maintainable frontend development.
+
+ ▶ Tailwind CSS: utility-first styling framework for responsive layouts and consistent visual design.
+
+ ▶ Dexie.js, IndexedDB, and dexie-react-hooks: browser storage and reactive data-access libraries for local
+   application data.
+
+ ▶ Lucide React: icon library used for interface symbols and controls.
+
+ ▶ Framer Motion and GSAP (GreenSock Animation Platform): frontend animation libraries for smooth
+   interface transitions.
+
+
+
+
+      Group 01 · CSE, CEK                PrismSpace: Architecture, Flow, DB & Swarm Algorithm            49 / 58
+Backend Implementation
+ ▶ FastAPI: Python framework for building asynchronous backend services and application endpoints.
+
+ ▶ Python: primary backend language for API services, integrations, data handling, and runtime coordination.
+
+ ▶ Uvicorn: lightweight ASGI (Asynchronous Server Gateway Interface) server used to run FastAPI. ASGI
+   connects asynchronous Python applications to web servers and supports non-blocking concurrent requests.
+
+ ▶ REST (Representational State Transfer): API style for communicating with the frontend through
+   structured HTTP requests and responses.
+
+ ▶ Pydantic: schema validation and typed data models for request, response, configuration, and tool payloads.
+
+ ▶ MCP (Model Context Protocol) and JSON-RPC (JavaScript Object Notation–Remote Procedure
+   Call): standards for structured communication between the backend and external tools.
+
+ ▶ Provider SDKs/APIs: integration layer for connecting the backend to external language-model and
+   model-serving services.
+
+
+
+
+      Group 01 · CSE, CEK               PrismSpace: Architecture, Flow, DB & Swarm Algorithm              50 / 58
+          System Design
+Modules, responsibilities, and system-level organization
+System Modules and Responsibilities
+ ▶ User and Session Module: captures objectives, settings, conversation history, uploaded files, and session state.
+ ▶ Context and Routing Module: classifies intent and selects the most suitable provider, model, and specialist agents.
+ ▶ DAG (Directed Acyclic Graph) Planning Module: decomposes objectives into dependency-aware subtasks and
+   schedules parallel work.
+ ▶ MCP (Model Context Protocol) Integration Module: exposes filesystem, terminal, database, memory, and
+   external-service tools through JSON-RPC (JavaScript Object Notation–Remote Procedure Call).
+ ▶ Verification and Safety Module: applies schema checks, ORPO (Odds Ratio Preference Optimization) preference
+   gating, anomaly detection, and HITL (Human-in-the-Loop) approvals.
+
+
+
+
+      Group 01 · CSE, CEK                   PrismSpace: Architecture, Flow, DB & Swarm Algorithm                      52 / 58
+Conclusion
+
+ ▶ PrismSpace converts a user’s natural-language goal into smaller, organized tasks.
+
+ ▶ Independent tasks can be executed by multiple agents in parallel.
+
+ ▶ Standard tools are connected through the Model Context Protocol (MCP).
+
+ ▶ ORPO aligns model responses with preferred examples and supports consistent
+   quality improvement.
+
+ ▶ The platform provides a flexible foundation for future agent-based applications.
+
+
+
+
+     Group 01 · CSE, CEK         PrismSpace: Architecture, Flow, DB & Swarm Algorithm   53 / 58
+Gantt Chart
+                                              Jul’26    Aug’26 Sep’26 Oct’26 Nov’26 Dec’26 Jan’27            Feb’27 Mar’27
+Project ideation & problem identification
+
+              Literature survey & research
+
+       Requirement analysis & feasibility
+
+   System design (agents, MCP, HITL)
+
+     Trajectory data collection & pairing
+
+    Implementation: MCP ReAct swarm
+
+  Implementation: ORPO & ML routing
+
+   Workspace integration & HITL gates
+
+                       Testing & evaluation
+
+                     Project documentation
+
+                Final review & submission
+
+                                                                            Timeline (Jul 2026 – Mar 2027)
+       Group 01 · CSE, CEK                      PrismSpace: Architecture, Flow, DB & Swarm Algorithm                    54 / 58
+References
+
+
+[1] Cornalba F, Disselkamp C, Scassola D, Helf C (2024) Multi-objective reward generalization: improving performance of Deep
+    Reinforcement Learning for applications in single-asset trading. Neural Computing and Applications. DOI:
+    10.1007/s00521-023-09033-7
+[2] Schneckenreither M, Moser G (2025) Average reward adjusted discounted reinforcement learning. Neural Computing and
+    Applications. DOI: 10.1007/s00521-024-10620-5
+[3] Aina K, Ha S (2026) Deep reinforcement learning for multi-agent coordination. Artificial Life and Robotics. DOI:
+    10.1007/s10015-025-01089-z
+[4] Rother D, Pajarinen J, Peters J, Weisswange TH (2025) Open-ended coordination for multi-agent systems using modular open
+    policies. Autonomous Agents and Multi-Agent Systems. DOI: 10.1007/s10458-025-09723-7
+[5] Liu D, Ren F, Yan J, Su G, Gu W, Kato S (2026) Improving scalability of multi-agent deep reinforcement learning with suboptimal
+    human knowledge. Autonomous Agents and Multi-Agent Systems. DOI: 10.1007/s10458-025-09729-1
+[6] Marzari L, Liu C, Donti PL, Marchesini E (2026) ε-retraining reinforcement learning algorithms. Autonomous Agents and
+    Multi-Agent Systems. DOI: 10.1007/s10458-026-09748-6
+[7] Wong A, Bäck T, Kononova AV, Plaat A (2023) Deep multiagent reinforcement learning: challenges and directions. Artificial
+    Intelligence Review. DOI: 10.1007/s10462-022-10299-x
+[8] Niu B, Luo B, Cui Y, Xu X, Zhao Y, Feng Y (2025) HIAT: human-in-the-loop reinforcement learning with auxiliary task. Artificial
+    Intelligence Review. DOI: 10.1007/s10462-025-11260-4
+
+
+
+
+        Group 01 · CSE, CEK                      PrismSpace: Architecture, Flow, DB & Swarm Algorithm                            55 / 58
+References
+
+
+ [9] Lee J (2025) InstructPatentGPT: training patent language models to follow instructions with human feedback. Artificial Intelligence
+     and Law. DOI: 10.1007/s10506-024-09401-1
+[10] Zhuang S, Qiao Z, Zuccon G (2023) Reinforcement online learning to rank with unbiased reward shaping. Information Retrieval
+     Journal. DOI: 10.1007/s10791-022-09413-y
+[11] Ghazal TM, Awouda AE, Hasan MK, Rahman AHA, Islam S, Saeed RA, Elshafie H, Iqbal A, Hussein AH (2025) Knowledge
+     Learning for Securing Workflow Scheduling Algorithm in Mobile Edge Computing. Mobile Networks and Applications. DOI:
+     10.1007/s11036-025-02465-6
+[12] Barredo P, Puente J (2025) Energy-aware cooperative multi-fitness evolutionary algorithm for workflow scheduling in cloud
+     computing. Natural Computing. DOI: 10.1007/s11047-025-10023-y
+[13] Heirati A, Fartash M, Khalily-Dermany M (2025) Optimized Task Scheduling in Fog-Cloud Computing Using Hybrid Deep Learning
+     and Metaheuristic Algorithms. Neural Processing Letters. DOI: 10.1007/s11063-025-11819-w
+[14] Abdi S, Ashjaei M, Mubeen S (2024) Cost-aware workflow offloading in edge-cloud computing using a genetic algorithm. The Journal
+     of Supercomputing. DOI: 10.1007/s11227-024-06341-0
+[15] Xia Y, Zhu J, Zhu L (2023) Dynamic role discovery and assignment in multi-agent task decomposition. Complex & Intelligent
+     Systems. DOI: 10.1007/s40747-023-01071-x
+[16] Li J, Xing L, Zhong W, Cai Z, Hou F (2023) Decision variable contribution based adaptive mechanism for evolutionary
+     multi-objective cloud workflow scheduling. Complex & Intelligent Systems. DOI: 10.1007/s40747-023-01137-w
+
+
+
+
+         Group 01 · CSE, CEK                       PrismSpace: Architecture, Flow, DB & Swarm Algorithm                             56 / 58
+References
+
+[17] Yu X, Lin Y, Wang X, Han S, Lv K (2024) GHQ: grouped hybrid Q-learning for cooperative heterogeneous multi-agent reinforcement
+     learning. Complex & Intelligent Systems. DOI: 10.1007/s40747-024-01415-1
+[18] Xu C, Wang J, Zhu X, Yue Y, Zhou W, Liang Z, Wojtczak D (2024) Decentralized multi-agent cooperation via adaptive partner
+     modeling. Complex & Intelligent Systems. DOI: 10.1007/s40747-024-01421-3
+[19] Vyhmeister E, Castañé GG, Östberg PO, Thevenin S (2023) A responsible AI framework: pipeline contextualisation. AI and Ethics.
+     DOI: 10.1007/s43681-022-00154-8
+[20] Cavalcante Siebert L, Lupetti ML, Aizenberg E, Beckers N, Zgonnikov A, Veluwenkamp H, Abbink D, Giaccardi E, Houben GJ,
+     Jonker CM, van den Hoven J, Forster D, Lagendijk RL (2023) Meaningful human control: actionable properties for AI system
+     development. AI and Ethics. DOI: 10.1007/s43681-022-00167-3
+[21] Yue Q, Tian L, Feng X, Yuan Z, Wei S, Xia J, Chen B, Song X, Yao Y (2026) CPN-HRL: a hierarchical deep reinforcement learning
+     approach for priority-aware task scheduling in CPN enabled by cloud-edge-end environments. Journal of King Saud University
+     Computer and Information Sciences. DOI: 10.1007/s44443-026-00690-x
+[22] Skirzyński J, Jain Y, Lieder F (2023) Automatic discovery and description of human planning strategies. Behavior Research Methods.
+     DOI: 10.3758/s13428-023-02062-z
+[23] Zhang S, Zhao Z, Liu C, Qin S (2023) Data-intensive workflow scheduling strategy based on deep reinforcement learning in
+     multi-clouds. Journal of Cloud Computing. DOI: 10.1186/s13677-023-00504-9
+[24] Wang Z, Chen S, Bai L, Gao J, Tao J, Bond RR, Mulvenna MD (2023) Reinforcement learning based task scheduling for
+     environmentally sustainable federated cloud computing. Journal of Cloud Computing. DOI: 10.1186/s13677-023-00553-0
+[25] Subashree S, Rajakumaran M, Pushpa G, Senthilkumar S (2025) Hybrid dolphin swarm sparrow search optimization based
+     multi-objective cloud workflow scheduling. Journal of Cloud Computing. DOI: 10.1186/s13677-025-00828-8
+
+
+
+         Group 01 · CSE, CEK                      PrismSpace: Architecture, Flow, DB & Swarm Algorithm                             57 / 58
+                   Thank You!
+Nobin Sijo     |   Pranav P   |   Prasanth P   |   Sankar Narayan S
+             Department of Computer Science & Engineering
+                College of Engineering, Karunagappally
+

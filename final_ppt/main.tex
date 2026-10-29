@@ -1762,31 +1762,30 @@ Cloud or temporary in-memory state &
 \end{frame}
 
 % -----------------------------------------------------------------------------
-% STEP 7: SPECIALIST WORKFLOWS: RESEARCHER, CODER & VALIDATOR
+% STEP 7: PROJECT OUTPUT
 % -----------------------------------------------------------------------------
-\begin{frame}[t]{Algorithm: Step 7 -- Specialist Workflows: Researcher, Coder \& Validator}
+\begin{frame}[t]{Algorithm: Step 7 -- Project Output}
 \vspace{-0.15em}
-{\large\bfseries\color{lavenderDark}Step 7: Specialist Execution Workflows -- Researcher, Coder \& Validator}
+{\large\bfseries\color{lavenderDark}Step 7: Project Output}
 \vspace{0.15em}
 
 \begin{algolist}
-  \item[7.1] Execute Researcher Agent workflow (Information Retrieval \& Synthesis):
+  \item[7.1] Collect the results from the assigned agents:
     \begin{algosublist}
-      \item[7.1.1] Create search queries and use the Browser MCP server.
-      \item[7.1.2] Extract relevant information from retrieved documents.
-      \item[7.1.3] Remove duplicates and prepare a cited report.
+      \item[7.1.1] Gather research notes, edited files, tool results, and validation messages.
+      \item[7.1.2] Keep the outputs connected to the correct DAG task and parent result.
     \end{algosublist}
-  \item[7.2] Execute Coder Agent workflow (Software Synthesis \& Execution):
+  \item[7.2] Check that the result is complete and safe:
     \begin{algosublist}
-      \item[7.2.1] Inspect the repository and edit the required source files.
-      \item[7.2.2] Run tests or scripts in the terminal and inspect errors.
-      \item[7.2.3] Fix syntax and runtime problems using test feedback.
+      \item[7.2.1] Confirm that required tasks finished and dependencies were satisfied.
+      \item[7.2.2] Check correctness, format, citations, and approval requirements.
     \end{algosublist}
-  \item[7.3] Execute Validator Agent workflow (Quality Auditing \& Safety Gate):
+  \item[7.3] Assemble the final project output:
     \begin{algosublist}
-      \item[7.3.1] Check outputs against safety, format, and functional requirements.
-      \item[7.3.2] Return \textbf{PASS} for valid output or \textbf{FAIL} with diagnostics.
+      \item[7.3.1] Combine verified artifacts, the response, and execution status.
+      \item[7.3.2] Report any failed task, missing output, or required user action.
     \end{algosublist}
+  \item[7.4] Deliver the completed result to the user in a clear, usable form.
 \end{algolist}
 \end{frame}
 
@@ -1963,127 +1962,168 @@ Cloud or temporary in-memory state &
 \begin{frame}[t]{06. PrismSpace Workflow}
 \vspace{-0.35em}
 \centering
-\adjustbox{max width=0.98\linewidth, max height=0.75\textheight}{%
+\adjustbox{max width=0.98\linewidth, max height=0.76\textheight}{%
 \begin{tikzpicture}[
     x=1cm, y=1cm,
     font=\sffamily,
     refcard/.style={
-        rectangle, draw=lavenderDark!85, line width=0.9pt, fill=white,
-        rounded corners=5pt, inner sep=4pt, align=center,
-        drop shadow={shadow xshift=1.2pt, shadow yshift=-1.2pt, opacity=0.18}
+        rectangle, draw=lavenderDark!85, line width=0.85pt, fill=white,
+        rounded corners=5pt, inner sep=3.5pt, align=center,
+        drop shadow={shadow xshift=1.0pt, shadow yshift=-1.0pt, opacity=0.15}
+    },
+    provcard/.style={
+        rectangle, draw=lavenderDark!75, line width=0.75pt, fill=white,
+        rounded corners=4pt, inner sep=2.5pt, align=center,
+        drop shadow={shadow xshift=0.8pt, shadow yshift=-0.8pt, opacity=0.12}
     },
     flowarr/.style={
-        -{Stealth[scale=0.95]}, line width=1.15pt, draw=lavenderDark!90
+        -{Stealth[length=2.2mm, width=1.5mm]}, line width=1.05pt, draw=lavenderDark!90
+    },
+    provarr/.style={
+        -{Stealth[length=2.0mm, width=1.4mm]}, line width=0.95pt, draw=lavenderDark!85
     },
     dashloop/.style={
-        -{Stealth[scale=0.90]}, line width=0.95pt, dashed, draw=prismGold!95!black
+        -{Stealth[length=2.2mm, width=1.5mm]}, line width=0.95pt, dashed, draw=prismGold!95!black
     }
 ]
 
-    % Stage 1: User Request with examples
-    \node [refcard, fill=cPlanner!25, text width=3.2cm, minimum height=2.0cm] (b_request) at (-7.0, 0) {
-        {\fontsize{7.6}{9.0}\selectfont\bfseries\color{lavenderDark}User Request}\\[0.18em]
-        {\color{prismTeal}\fontsize{18}{21}\selectfont\faUser}\\[0.18em]
-        {\fontsize{5.6}{6.8}\selectfont\normalfont
-        \includegraphics[height=1.3ex]{logos/gmail.png}\ Emails\\
-        \faFile\ Documents\\
-        \faCode\ Code tasks\\[0.1em]
-        {\fontsize{5.0}{6.0}\selectfont\textit{Example: ``Fix bug\\in login.py''}}}
+    % Stage 1: User Request with multi-domain examples
+    \node [refcard, fill=cPlanner!25, text width=3.05cm, minimum height=2.40cm] (b_request) at (-6.65, 0) {
+        {\fontsize{7.2}{8.5}\selectfont\bfseries\color{lavenderDark}User Request}\par\vspace{0.08em}
+        {\color{prismTeal}\fontsize{14}{17}\selectfont\faUser}\par\vspace{0.12em}
+        {\fontsize{4.4}{5.5}\selectfont
+        \includegraphics[height=1.1ex]{logos/gmail.png}\;\textbf{Gmail:}\;\textit{`Draft email about PR''}\\
+        \faFile*\;\textbf{Documents:}\;\textit{`Summarize report doc''}\\
+        {\color{prismGold!90!black}\faFolderOpen}\;\textbf{Filesystem:}\;\textit{`Read workspace config''}\\
+        \faGithub\;\textbf{Code tasks:}\;\textit{`Issue \& pull request''}\par}
     };
 
     % Stage 2: Intent Classifier
-    \node [refcard, fill=cStage4!30, text width=3.2cm, minimum height=1.8cm] (b_intent) at (-3.5, 0) {
-        {\fontsize{7.6}{9.0}\selectfont\bfseries\color{lavenderDark}Intent Classifier}\\[0.18em]
-        {\color{prismTeal}\fontsize{18}{21}\selectfont\faBrain}\\[0.18em]
-        {\fontsize{5.6}{6.8}\selectfont\normalfont
-        Analyzes request\\
-        Extracts intent\\
-        Determines task type}
+    \node [refcard, fill=cStage4!30, text width=2.35cm, minimum height=2.40cm] (b_intent) at (-3.3, 0) {
+        {\fontsize{7.2}{8.5}\selectfont\bfseries\color{lavenderDark}Intent Classifier}\par\vspace{0.18em}
+        {\color{prismTeal}\fontsize{15}{18}\selectfont\faBrain}\par\vspace{0.22em}
+        {\fontsize{5.3}{6.5}\selectfont
+        Analyzes request\par\vspace{0.15em}
+        Extracts intent\par\vspace{0.15em}
+        Determines task type\par}
     };
 
-    % Stage 3: Agent Router
-    \node [refcard, fill=cPlanner!18, text width=3.2cm, minimum height=1.8cm] (b_router) at (0, 0) {
-        {\fontsize{7.6}{9.0}\selectfont\bfseries\color{lavenderDark}Agent Router}\\[0.18em]
-        {\color{prismTeal}\fontsize{18}{21}\selectfont\faRandom}\\[0.18em]
-        {\fontsize{5.6}{6.8}\selectfont\normalfont
-        Routes to agent\\
-        Selects model\\
-        Tool selection}
+    % Stage 3: Agent & Provider Router (Aligned on y = 0)
+    \node [refcard, fill=cPlanner!18, text width=2.50cm, minimum height=2.25cm] (b_router) at (-0.3, 0) {
+        {\fontsize{6.8}{8.0}\selectfont\bfseries\color{lavenderDark}Agent \& Provider Router}\par\vspace{0.14em}
+        {\color{prismTeal}\fontsize{15}{18}\selectfont\faRandom}\par\vspace{0.18em}
+        {\fontsize{5.2}{6.3}\selectfont
+        Evaluates task intensity\par\vspace{0.14em}
+        Selects optimal model\par\vspace{0.14em}
+        Routes to target agent\par}
     };
 
-    % Stage 4: Agents (3 parallel agents) - Adjusted spacing to prevent overlap
+    % 3 Model Provider Boxes (Groq API, NVIDIA, OpenAI) directly below Agent & Provider Router
+    \node [provcard, fill=orange!10, text width=1.00cm, minimum height=1.08cm] (p_groq) at (-1.45, -2.12) {
+        \includegraphics[height=1.5ex]{logos/groq.png}\par\vspace{0.03em}
+        {\fontsize{4.8}{5.8}\selectfont\bfseries\color{lavenderDark}Groq API}\par\vspace{0.04em}
+        {\fontsize{3.4}{4.2}\selectfont
+        \textbf{Very fast}\par
+        {\fontsize{3.0}{3.6}\selectfont\color{black!70}(low latency)}\par\vspace{0.05em}
+        \textbf{Complex task}\par
+        {\fontsize{3.2}{3.8}\selectfont\bfseries\color{orange!85!black}(low)}\par}
+    };
+
+    \node [provcard, fill=green!10, text width=1.00cm, minimum height=1.08cm] (p_nvidia) at (-0.30, -2.12) {
+        \includegraphics[height=1.5ex]{logos/nvidia.png}\par\vspace{0.03em}
+        {\fontsize{4.8}{5.8}\selectfont\bfseries\color{lavenderDark}NVIDIA}\par\vspace{0.04em}
+        {\fontsize{3.4}{4.2}\selectfont
+        \textbf{Fast}\par
+        {\fontsize{3.0}{3.6}\selectfont\color{black!70}(medium latency)}\par\vspace{0.05em}
+        \textbf{Complex task}\par
+        {\fontsize{3.2}{3.8}\selectfont\bfseries\color{green!60!black}(medium)}\par}
+    };
+
+    \node [provcard, fill=teal!10, text width=1.00cm, minimum height=1.08cm] (p_openai) at (0.85, -2.12) {
+        \includegraphics[height=2.0ex]{logos/openai.jpg}\par\vspace{0.03em}
+        {\fontsize{4.8}{5.8}\selectfont\bfseries\color{lavenderDark}OpenAI}\par\vspace{0.04em}
+        {\fontsize{3.4}{4.2}\selectfont
+        \textbf{Moderate}\par
+        {\fontsize{3.0}{3.6}\selectfont\color{black!70}(high latency)}\par\vspace{0.05em}
+        \textbf{Complex task}\par
+        {\fontsize{3.2}{3.8}\selectfont\bfseries\color{teal!70!black}(high)}\par}
+    };
+
+    % Stage 4: Agents (Clean: provider names and logos removed as requested)
     % 1. Top Agent: Assistant & Documents
-    \node [refcard, fill=cStage1!30, text width=3.0cm, minimum height=1.35cm] (b_agent1) at (3.5, 1.8) {
-        \textbf{\fontsize{6.8}{8.0}\selectfont\color{lavenderDark}{\color{prismBlue}\faFile}\; Assistant \&}\\
-        \textbf{\fontsize{6.8}{8.0}\selectfont\color{lavenderDark}Documents}\\[0.12em]
-        \fontsize{5.2}{6.2}\selectfont
-        \includegraphics[height=1.15ex]{logos/gmail.png}\ Gmail MCP\\
-        \includegraphics[height=1.15ex]{logos/drive.png}\ Drive MCP
+    \node [refcard, fill=cStage1!30, text width=2.65cm, minimum height=1.25cm] (b_agent1) at (3.4, 1.75) {
+        \textbf{\fontsize{6.8}{8.0}\selectfont\color{lavenderDark}{\color{prismBlue}\faFile}\; Assistant \& Documents}\par\vspace{0.12em}
+        {\fontsize{5.2}{6.3}\selectfont
+        \includegraphics[height=1.15ex]{logos/gmail.png}\ Gmail MCP\par\vspace{0.10em}
+        \includegraphics[height=1.15ex]{logos/drive.png}\ Drive MCP\par}
     };
 
     % 2. Middle Agent: Coder & Workspace
-    \node [refcard, fill=cStage4!30, text width=3.0cm, minimum height=1.35cm] (b_agent2) at (3.5, 0) {
-        \textbf{\fontsize{6.8}{8.0}\selectfont\color{lavenderDark}{\color{prismTeal}\faCode}\; Coder \&}\\
-        \textbf{\fontsize{6.8}{8.0}\selectfont\color{lavenderDark}Workspace}\\[0.12em]
-        \fontsize{5.2}{6.2}\selectfont
-        {\color{prismGold!90!black}\faFolderOpen}\ Filesystem\\
-        {\color{prismTeal}\faTerminal}\ Terminal
+    \node [refcard, fill=cStage4!30, text width=2.65cm, minimum height=1.35cm] (b_agent2) at (3.4, 0) {
+        \textbf{\fontsize{6.8}{8.0}\selectfont\color{lavenderDark}{\color{prismTeal}\faCode}\; Coder \& Workspace}\par\vspace{0.08em}
+        {\fontsize{4.9}{5.9}\selectfont
+        {\color{prismGold!90!black}\faFolderOpen}\ Filesystem\par\vspace{0.05em}
+        {\color{prismTeal}\faTerminal}\ Terminal\par\vspace{0.05em}
+        \faGithub\ GitHub\par}
     };
 
     % 3. Bottom Agent: MCP & Validation
-    \node [refcard, fill=cStage2!30, text width=3.0cm, minimum height=1.35cm] (b_agent3) at (3.5, -1.8) {
-        \textbf{\fontsize{6.8}{8.0}\selectfont\color{lavenderDark}{\color{purple!75!black}\faTasks}\; MCP \&}\\
-        \textbf{\fontsize{6.8}{8.0}\selectfont\color{lavenderDark}Validation}\\[0.12em]
-        \fontsize{5.2}{6.2}\selectfont
-        Web Search\\
-        Tool Execution
+    \node [refcard, fill=cStage2!30, text width=2.65cm, minimum height=1.25cm] (b_agent3) at (3.4, -1.75) {
+        \textbf{\fontsize{6.8}{8.0}\selectfont\color{lavenderDark}{\color{purple!75!black}\faTasks}\; MCP \& Validation}\par\vspace{0.12em}
+        {\fontsize{5.2}{6.3}\selectfont
+        Web Search\par\vspace{0.10em}
+        Tool Execution\par}
     };
 
     % Stage 5: ORPO (Reward Model & Quality Gate)
-    \node [refcard, fill=cSafety!30, text width=3.2cm, minimum height=2.0cm] (b_orpo) at (7.0, 0) {
-        {\fontsize{7.6}{9.0}\selectfont\bfseries\color{lavenderDark}ORPO}\\[0.18em]
-        {\color{lavenderDark}\fontsize{18}{21}\selectfont\faIcon{shield-alt}}\\[0.18em]
-        {\fontsize{5.6}{6.8}\selectfont\normalfont
-        Reward Model\\
-        Quality Gate\\[0.1em]
-        {\fontsize{5.0}{6.0}\selectfont Scores outputs\\
-        Validates quality}}
+    \node [refcard, fill=cSafety!30, text width=2.35cm, minimum height=2.40cm] (b_orpo) at (7.1, 0) {
+        {\fontsize{7.2}{8.5}\selectfont\bfseries\color{lavenderDark}ORPO}\par\vspace{0.18em}
+        {\color{lavenderDark}\fontsize{15}{18}\selectfont\faShieldAlt}\par\vspace{0.20em}
+        {\fontsize{5.3}{6.5}\selectfont
+        Reward Model\par\vspace{0.15em}
+        Quality Gate\par\vspace{0.15em}
+        {\fontsize{4.8}{5.8}\selectfont Scores outputs\\Validates quality\par}}
     };
 
     % Stage 6: Output Actions
-    \node [refcard, fill=cDeliverable!40, text width=3.2cm, minimum height=2.0cm] (b_output) at (10.5, 0) {
-        {\fontsize{7.6}{9.0}\selectfont\bfseries\color{lavenderDark}Output Actions}\\[0.18em]
-        {\color{prismTeal}\fontsize{18}{21}\selectfont\faUserCheck}\\[0.18em]
-        {\fontsize{5.6}{6.8}\selectfont\normalfont
-        Action sign-off\\
-        Verified artifacts\\
-        Output dispatch\\
-        User delivery}
+    \node [refcard, fill=cDeliverable!40, text width=2.35cm, minimum height=2.40cm] (b_output) at (10.1, 0) {
+        {\fontsize{7.2}{8.5}\selectfont\bfseries\color{lavenderDark}Output Actions}\par\vspace{0.25em}
+        {\color{prismTeal}\fontsize{15}{18}\selectfont\faUserCheck}\par\vspace{0.28em}
+        {\fontsize{5.4}{6.6}\selectfont
+        Output dispatch\par\vspace{0.22em}
+        User delivery\par}
     };
 
-    % Main Connecting Arrows
+    % Main Connecting Arrows (Left to Right forward flow)
     \draw [flowarr] (b_request.east) -- (b_intent.west);
     \draw [flowarr] (b_intent.east) -- (b_router.west);
     
-    % Router to Agents (fan-out)
-    \draw [flowarr, rounded corners=2.5pt] (b_router.east) -- (2.0, 0) -- (2.0, 1.8) -- (b_agent1.west);
+    % Router to Agents (fan-out at midpoint x = 1.5)
     \draw [flowarr] (b_router.east) -- (b_agent2.west);
-    \draw [flowarr, rounded corners=2.5pt] (b_router.east) -- (2.0, 0) -- (2.0, -1.8) -- (b_agent3.west);
+    \draw [flowarr, rounded corners=3pt] (1.6, 0) -- (1.6, 1.75) -- (b_agent1.west);
+    \draw [flowarr, rounded corners=3pt] (1.6, 0) -- (1.6, -1.75) -- (b_agent3.west);
 
-    % Agents to ORPO (fan-in)
-    \draw [flowarr, rounded corners=2.5pt] (b_agent1.east) -- (5.5, 1.8) -- (5.5, 0) -- (b_orpo.west);
+    % 3 Provider Boxes pointing directly UP to Agent & Provider Router
+    \draw [provarr] (p_groq.north) -- (p_groq.north |- b_router.south);
+    \draw [provarr] (p_nvidia.north) -- (p_nvidia.north |- b_router.south);
+    \draw [provarr] (p_openai.north) -- (p_openai.north |- b_router.south);
+
+    % Agents to ORPO (fan-in at midpoint x = 5.3)
+    \draw [line width=1.05pt, draw=lavenderDark!90, rounded corners=3pt] 
+        (b_agent1.east) -- (5.3, 1.75) -- (5.3, 0);
+    \draw [line width=1.05pt, draw=lavenderDark!90, rounded corners=3pt] 
+        (b_agent3.east) -- (5.3, -1.75) -- (5.3, 0);
     \draw [flowarr] (b_agent2.east) -- (b_orpo.west);
-    \draw [flowarr, rounded corners=2.5pt] (b_agent3.east) -- (5.5, -1.8) -- (5.5, 0) -- (b_orpo.west);
 
     % ORPO to Output
     \draw [flowarr] (b_orpo.east) -- (b_output.west);
 
-    % Feedback Loop from ORPO back to Intent Classifier
+    % Feedback Loop from ORPO back to Intent Classifier (clear of Agent 1)
     \draw [dashloop, rounded corners=4pt]
         (b_orpo.north) --
-        (7.0, 2.5) --
-        node[pos=0.5, above=3pt, font=\fontsize{6.0}{7.2}\selectfont\bfseries\color{prismGold!95!black}]{\faRedo\ Validation Feedback \& Retry Loop}
-        (-3.5, 2.5) --
+        (7.1, 2.85) --
+        node[pos=0.5, above=3pt, font=\fontsize{5.8}{7.0}\selectfont\bfseries\color{prismGold!95!black}]{\faRedo\ Validation Feedback \& Retry Loop}
+        (-3.3, 2.85) --
         (b_intent.north);
 
 \end{tikzpicture}%
@@ -2367,7 +2407,7 @@ Filters eligible providers and ranks the best model using capability, quality, l
 \section{Model Responsibilities}
 
 \iffalse
-\begin{frame}[t]{08. Model Responsibilities \& Inference Flow}
+\begin{frame}[t]{08. Model Responsibilities}
 \vspace{-0.30em}
 
 % Intent Definition Box - Ultra compact version
@@ -2480,7 +2520,7 @@ Filters eligible providers and ranks the best model using capability, quality, l
 \node[stage, fill=lavenderLight!85] (s1) at (-6.00, 2.15) {
   {\fontsize{7.2}{8.2}\selectfont\faBrain\ \textbf{1. Intent Classifier}}\\[2pt]
   {\fontsize{5.4}{6.4}\selectfont Intent \& Dependency Task DAG}\\[1pt]
-  {\fontsize{4.8}{5.8}\selectfont\color{lavenderDark!90}\textit{(Trained on Intent Dataset)}}
+  {\fontsize{4.8}{5.8}\selectfont\color{lavenderDark!90}\textit{(Trained on Intent [BEIR] dataset)}}
 };
 \node[process] (p1) at (0.00, 2.15) {
   \textbf{Input:} tokenized prompt + task context\quad $\rightarrow$\quad
@@ -3883,7 +3923,7 @@ Filters eligible providers and ranks the best model using capability, quality, l
     $$T=\langle G,C,\mathcal{M},\Phi\rangle$$
     \vspace{-0.3em}
     {\scriptsize\color{prismDark}\textbf{Terms:} $G$ = goal; $C$ = constraints; $\mathcal{M}$ = authorized tools; $\Phi$ = output format.}
-  \item[1.3] Tokenize the prompt with BPE (Byte Pair Encoding), convert it to IDs and embeddings, then analyze it to identify intents, entities, dependencies, and confidence.
+  \item[1.3] Tokenize the prompt, convert it to IDs and embeddings, then analyze it to identify intents, entities, dependencies, and confidence.
   \item[1.4] Split the identified intents into smaller tasks and create a JSON-RPC task packet for DAG planning; the Tool Executor validates dependencies, tools, and approvals before ordered execution.
 \end{algolist}
 
@@ -3928,10 +3968,11 @@ Filters eligible providers and ranks the best model using capability, quality, l
 {\large\bfseries\color{lavenderDark}Step 4: MCP Tools and Safety}
 \vspace{0.1em}
 \begin{algolist}
-  \item[4.1] Discover MCP tool schemas and call servers through JSON-RPC.
-  \item[4.2] Use Browser for research; Filesystem/Terminal for code; Gmail/Drive for productivity.
-  \item[4.3] Run read-only operations automatically and pause state-changing actions for user approval.
-  \item[4.4] Validate tool results; retry or re-plan only the failed DAG branch.
+  \item[4.1] For each ready DAG vertex $v_i$, read its required tool set $\mathcal{M}_i$.
+  \item[4.2] If $\mathcal{M}_i\neq\emptyset$, connect $v_i$ to the required MCP server/tool; otherwise execute the task without MCP.
+  \item[4.3] Use JSON-RPC as the two-way communicator: send the method, parameters, and task ID to MCP; return the result or error to the same vertex.
+  \item[4.4] Browser for research, Filesystem/Terminal for code, and Gmail/Drive for productivity.
+  \item[4.5] Pause state-changing calls for approval, validate the result, and retry only the failed DAG branch.
 \end{algolist}
 \end{columns}
 \end{frame}
@@ -3970,6 +4011,19 @@ Filters eligible providers and ranks the best model using capability, quality, l
     {\scriptsize\color{prismDark}\textbf{Working:} $0.87\geq0.80$, so the response passes; otherwise, it is rejected and sent for re-planning or fallback.}
 \end{algolist}
 \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Algorithm: Step 7 -- Project Output}
+\vspace{-0.2em}
+{\large\bfseries\color{lavenderDark}Step 7: Project Output}
+\vspace{0.15em}
+
+\begin{algolist}
+  \item[7.1] Collect agent results: research, files, tool outputs, and validation messages.
+  \item[7.2] Check completion: dependencies, correctness, format, and safety.
+  \item[7.3] Assemble the final response with verified artifacts and execution status.
+  \item[7.4] Deliver the result and report any missing or failed work.
+\end{algolist}
 \end{frame}
 \fi
 

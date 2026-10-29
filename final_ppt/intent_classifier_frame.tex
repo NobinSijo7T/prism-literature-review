@@ -43,7 +43,27 @@
     {\fontsize{5.2}{6.2}\selectfont\textbf{#1.\ \ #2}}\par\vspace{2pt}#3};
 }
 
-\begin{frame}[t]{Intent Classifier: Prompt Decomposition, NLP Algorithm \& Serialization}
+% Combined card for the planning/decomposition and DAG-execution stages.
+\newcommand{\intentwide}[6]{%
+  \pgfmathsetmacro{\intentx}{0.3+(#1-1)*3.14}
+  \draw[rounded corners=4pt, line width=0.85pt, draw=#2, fill=#2!6]
+    (\intentx,3.35) rectangle ++(5.98,5.70);
+  \node[circle,fill=#2,text=white,font=\bfseries\footnotesize,inner sep=2pt]
+    at (\intentx+0.32,8.75) {#3};
+  \node[anchor=west,text width=5.25cm,align=left,inner sep=0,
+    font=\bfseries\fontsize{6.2}{7}\selectfont,text=#2!80!black]
+    at (\intentx+0.58,8.75) {#4};
+  \draw[draw=#2!60,fill=white,rounded corners=3pt]
+    (\intentx+0.11,7.78) rectangle ++(5.76,0.62);
+  \node[anchor=west,text width=5.50cm,align=left,inner sep=0,
+    font=\fontsize{5.0}{6.0}\selectfont]
+    at (\intentx+0.22,8.09) {\textbf{#5}};
+  \node[anchor=north west,text width=2.55cm,align=left,inner sep=0,
+    font=\fontsize{4.6}{5.4}\selectfont]
+    at (\intentx+0.12,7.64) {#6};
+}
+
+\begin{frame}[t]{Intent Classifier - Prompt Decomposition}
 \vspace{-0.25em}
 \centering
 \begin{adjustbox}{max width=0.99\linewidth, max height=0.83\textheight, keepaspectratio}
@@ -70,37 +90,29 @@
 
 \intentcol{3}{cInt}{Intent Classifier}{Intent Classifier Agent}{(LLM / Classifier)}{%
   \intentbadge{cInt}{Function}
-  Analyze contextual embeddings and curated supervision to infer user intent, extract domain entities (target API, destination notes), resolve dependencies, and evaluate confidence thresholds for task routing.\par\vspace{1.5pt}
+  Infer intent from embeddings and prompt context; extract entities, constraints, and routing signals.\par\vspace{1.5pt}
   \intentbadge{cInt}{Input}
   Token embeddings + prompt context.\par\vspace{1.5pt}
   \intentbadge{cInt}{Output}
-  Derived intent label(s) with confidence + entity slots; labels are inferred from the prompt and curated training targets, not assumed to be literal fields in every source record.}
+  Derived label(s), confidence, and entities inferred from prompt/context and curated targets.}
 
-\intentcol{4}{cRpc}{Semantic Decomposer}{Decomposer Agent}{(Planning Agent)}{%
-  \intentbadge{cRpc}{Function}
-  Break the classified intent into modular sub-tasks, establish execution ordering, and detect dependencies.\par\vspace{1.2pt}
-  \intentbadge{cRpc}{Input}
-  Intent labels + context from Step 3.\par\vspace{1.2pt}
-  \intentbadge{cRpc}{Output}
-  JSON-RPC task packet:}
-
-\intentcol{5}{cDec}{Task DAG Output}{Tool Executor Agent}{(Tooling Agent)}{%
+\intentwide{4}{cDec}{4}{Semantic Decomposer \& Task DAG}{Decomposer + DAG planning}{%
   \intentbadge{cDec}{Function}
-  Construct, validate, and execute the Directed Acyclic Graph (DAG) for dependency-ordered tool execution.\par\vspace{1.5pt}
+  Convert the classified request into ordered sub-tasks, establish dependencies, then build and validate the execution DAG.\par\vspace{1.2pt}
   \intentbadge{cDec}{Input}
-  Serialized task packet + tool bindings.\par\vspace{1.5pt}
-  \intentbadge{cDec}{Output}}
+  Intent/context, serialized task packet, and tool bindings.\par\vspace{1.2pt}
+  \intentbadge{cDec}{Output}
+  Validated JSON-RPC packet and dependency DAG.}
 
-\foreach \x in {3.14,6.28,9.42,12.56}{%
+\foreach \x in {3.14,6.28,9.42}{%
   \draw[-{Stealth[length=2mm]},thick,cDet!80] (\x+0.01,8.09) -- ++(0.28,0);}
 
-\node[draw=cRpc!60,fill=white,rounded corners=2pt,anchor=north west,
-  text width=2.46cm,align=left,inner sep=2.5pt,
-  font=\fontsize{4.1}{4.9}\selectfont\ttfamily]
-  at (0.3+3*3.14+0.12,4.48)
-  {\{"tasks": ["research",\\ "extract", "summarize",\\ "write"],\\ "approval\_gate": true\\ \}};
-
-\begin{scope}[shift={(0.3+4*3.14+0.12,3.44)}]
+\begin{scope}[shift={(0.3+4*3.14+0.16,3.44)}]
+  \node[draw=cDec!60,fill=white,rounded corners=2pt,anchor=south west,
+    text width=2.60cm,align=left,inner sep=2.6pt,
+    font=\fontsize{4.0}{4.8}\selectfont\ttfamily]
+    at (-0.35,2.02)
+    {\{"tasks": ["research", "extract",\\ "summarize", "write"],\\ "approval\_gate": true\}};
   \draw[draw=cDec!40,fill=white,rounded corners=3pt] (0,0) rectangle (2.60,1.88);
   \node[font=\bfseries\fontsize{4.5}{5.2}\selectfont,text=cDec!90!black]
     at (1.30,1.72) {Dependency Task Graph};
@@ -138,28 +150,33 @@
 \draw[-{Stealth[length=0.85mm]},cTok!80,line width=0.45pt] (4.86,3.92) -- (4.86,3.82);
 \foreach \c [count=\k from 0] in {cyan,blue,teal,green,yellow,orange,red,magenta}{%
   \fill[\c!70] (4.02+\k*0.21,3.65) rectangle ++(0.21,0.11);}
-\node[font=\fontsize{3.3}{3.8}\selectfont,text=cTok!75!black] at (4.86,3.52) {(embeddings $\in \mathbb{R}^{768}$)};
 
 \draw[rounded corners=5pt,draw=cDet!70,fill=cDet!5,line width=0.7pt]
   (0.15,-0.25) rectangle (15.85,3.10);
 \node[anchor=west,font=\bfseries\fontsize{7.5}{8.5}\selectfont,text=cDet!85!black]
   at (0.35,2.84) {Tokenization Process\ \ {\normalfont\footnotesize\textcolor{cDet!75!black}{(Step 2 -- Detailed)}}};
 
+\draw[-{Stealth[length=1.4mm]},cTok!80,thick] (4.86,3.34) -- (4.86,3.08);
+
 \intentdetail{1}{Raw Prompt}{\intentbadge{cDet}{Input}
-  ``Find the latest API changes, summarize them, and update my notes.''\par\vspace{2pt}\textit{(string)}}{0.3}
+  ``Find the latest API changes, summarize them, and update my notes.''\par\vspace{2pt}\intentbadge{cDet}{Output}
+  The complete user request.}{0.3}
 \intentdetail{2}{Tokenization}{\intentbadge{cDet}{Function}
-  Split text into tokens (using BPE / WordPiece).\par\vspace{2pt}\intentbadge{cDet}{Output}
-  {\fontsize{4.1}{5}\selectfont\ttfamily ["Find", "the", "latest",\\ "API", "changes", \ldots]}\par\vspace{1pt}\textit{(tokens)}}{3.44}
+  Split the request into words and symbols.\par\vspace{2pt}\intentbadge{cDet}{Output}
+  \texttt{[Find, the, latest, API, changes, ...]}\par\vspace{1pt}
+  Each piece can be processed separately.}{3.44}
 \intentdetail{3}{Convert to IDs}{\intentbadge{cDet}{Function}
-  Map tokens to unique integers from vocabulary.\par\vspace{2pt}\intentbadge{cDet}{Output}
-  {\fontsize{4.1}{5}\selectfont\ttfamily [4821, 199, 3087, 421, \ldots]}\par\vspace{1pt}\textit{(token IDs)}}{6.58}
+  Replace each token with its vocabulary number.\par\vspace{2pt}\intentbadge{cDet}{Output}
+  \texttt{[4821, 199, 3087, 421, ...]}\par\vspace{1pt}
+  These IDs preserve token order.}{6.58}
 \intentdetail{4}{Create Embeddings}{\intentbadge{cDet}{Function}
-  Convert IDs to vector representations (e.g., 768-d).\par\vspace{2pt}\intentbadge{cDet}{Output}
-  \textcolor{cyan!60}{\rule{0.28cm}{2.8pt}}\,\textcolor{magenta!50}{\rule{0.28cm}{2.8pt}}\,\textcolor{violet!70}{\rule{0.28cm}{2.8pt}}\,\textcolor{teal!60}{\rule{0.28cm}{2.8pt}}\,\textcolor{yellow!80}{\rule{0.28cm}{2.8pt}}\,\textcolor{green!60}{\rule{0.28cm}{2.8pt}}\par\vspace{1.5pt}
-  {\fontsize{4.1}{5}\selectfont\ttfamily [0.12, 0.45, -0.03, \ldots]}\par\vspace{1pt}\textit{(embedding vectors)}}{9.72}
+  Convert the IDs into a vector that captures meaning and context.\par\vspace{2pt}\intentbadge{cDet}{Output}
+  \texttt{[0.12, 0.45, -0.03, ...]}\par\vspace{1pt}
+  Similar requests produce similar vectors.}{9.72}
 \intentdetail{5}{Pass to Intent Classifier}{\intentbadge{cDet}{Function}
-  Embeddings + context $\rightarrow$ intent classification.\par\vspace{2pt}\intentbadge{cDet}{Output}
-  Derived intent label(s) + entities (e.g., research, summarize, write) inferred from the prompt and supervision.}{12.86}
+  Combine the vector with context to infer what the user wants.\par\vspace{2pt}\intentbadge{cDet}{Output}
+  \texttt{intent = research + summarize + write}\par\vspace{1pt}
+  confidence $=0.92$; entities: API changes, notes.}{12.86}
 \foreach \x in {3.14,6.28,9.42,12.56}{%
   \draw[-{Stealth[length=2mm]},thick,cDet!80] (\x+0.01,1.33) -- ++(0.28,0);}
 

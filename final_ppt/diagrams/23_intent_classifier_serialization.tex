@@ -91,17 +91,18 @@
 \draw[-{Stealth[length=0.85mm]},cTok!80,line width=0.45pt] (4.86,3.92) -- (4.86,3.82);
 \foreach \c [count=\k from 0] in {cyan,blue,teal,green,yellow,orange,red,magenta}{%
   \fill[\c!70] (4.02+\k*0.21,3.65) rectangle ++(0.21,0.11);}
-\node[font=\fontsize{3.3}{3.8}\selectfont,text=cTok!75!black] at (4.86,3.52) {(embeddings $\in \mathbb{R}^{768}$)};
 
 \draw[rounded corners=5pt,draw=cDet!70,fill=cDet!5,line width=0.7pt]
   (0.15,-0.25) rectangle (15.85,3.10);
 \node[anchor=west,font=\bfseries\fontsize{7.5}{8.5}\selectfont,text=cDet!85!black]
   at (0.35,2.84) {Tokenization Process\ \ {\normalfont\footnotesize\textcolor{cDet!75!black}{(Step 2 -- Detailed)}}};
 
+\draw[-{Stealth[length=1.4mm]},cTok!80,thick] (4.86,3.34) -- (4.86,3.08);
+
 \intentdetail{1}{Raw Prompt}{\intentbadge{cDet}{Input}
   ``Find the latest API changes, summarize them, and update my notes.''\par\vspace{2pt}\textit{(string)}}{0.3}
 \intentdetail{2}{Tokenization}{\intentbadge{cDet}{Function}
-  Split text into tokens (using BPE / WordPiece).\par\vspace{2pt}\intentbadge{cDet}{Output}
+  Split the prompt into tokens.\par\vspace{2pt}\intentbadge{cDet}{Output}
   {\fontsize{4.1}{5}\selectfont\ttfamily ["Find", "the", "latest",\\ "API", "changes", \ldots]}\par\vspace{1pt}\textit{(tokens)}}{3.44}
 \intentdetail{3}{Convert to IDs}{\intentbadge{cDet}{Function}
   Map tokens to unique integers from vocabulary.\par\vspace{2pt}\intentbadge{cDet}{Output}
@@ -117,4 +118,3 @@
   \draw[-{Stealth[length=2mm]},thick,cDet!80] (\x+0.01,1.33) -- ++(0.28,0);}
 
 \end{tikzpicture}
-
